@@ -39,7 +39,7 @@
 %token T_BRACKET_OPEN           \[
 %token T_BRACKET_CLOSE          \]
 %token T_BRACE_OPEN             {
-%token T_BRACE_CLOSE            }   -> default
+%token T_BRACE_CLOSE            }
 %token T_OR                     \|
 %token T_AND                    \&
 %token T_ON                     on\b
@@ -51,20 +51,12 @@
 //
 // Multiline string
 //
-// PCRE: (?<quote>"{3})((\\(?P=quote)|(?!(?P=quote))).?)*(?P=quote
-//
-%token T_MULTILINE_STRING_OPEN                      """   -> multiline_string
-%token multiline_string:T_MULTILINE_STRING          (?:\\"""|(?!""").|\s)+
-%token multiline_string:T_MULTILINE_STRING_CLOSE    """   -> default
+%token T_MULTILINE_STRING      """(?:\\"""|(?!""").|\s)+"""
 
 //
-// Single line string
+// Inline string
 //
-// PCRE: "[^"\\]+(\\.[^"\\]*)*"
-//
-%token T_STRING_OPEN           "   -> string
-%token string:T_STRING         [^"\\]+(\\.[^"\\]*)*
-%token string:T_STRING_CLOSE   "   -> default
+%token T_STRING                 "[^"\\]+(\\.[^"\\]*)*"
 
 //
 // --------------------------------------------------------------------------
@@ -218,9 +210,9 @@ Boolean:
     <T_BOOL_FALSE>
 
 String:
-    (::T_MULTILINE_STRING_OPEN:: <T_MULTILINE_STRING> ::T_MULTILINE_STRING_CLOSE::)
+    <T_MULTILINE_STRING>
         |
-    (::T_STRING_OPEN:: <T_STRING> ::T_STRING_CLOSE::)
+    <T_STRING>
 
 Word:
     <T_NAME>
@@ -288,11 +280,7 @@ List:
     #List
 
 Documentation:
-    (
-        ::T_MULTILINE_STRING_OPEN::
-            <T_MULTILINE_STRING>
-        ::T_MULTILINE_STRING_CLOSE::
-    ) #Description
+    <T_MULTILINE_STRING> #Description
 
 // ==========================================================================
 //                             TYPE DEFINITIONS
