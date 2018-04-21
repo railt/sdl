@@ -37,7 +37,8 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~6.0",
+        "codedungeon/phpunit-result-printer": "~0.16"
     },
     "autoload-dev": {
         "psr-4": {
