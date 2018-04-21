@@ -21,7 +21,7 @@ use Railt\Io\Readable;
  */
 class Factory
 {
-    public const GRAMMAR_FILE = __DIR__ . '/../resources/grammar/sdl.pp';
+    public const GRAMMAR_FILE = __DIR__ . '/../../resources/grammar/sdl.pp';
 
     /**
      * @var ParserInterface|null
