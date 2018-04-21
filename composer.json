@@ -33,7 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Railt\\SDL\\": ""
+            "Railt\\SDL\\": "src"
         }
     },
     "require-dev": {
