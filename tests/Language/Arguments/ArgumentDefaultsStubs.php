@@ -158,6 +158,7 @@ trait ArgumentDefaultsStubs
             );
         }
     }
+
     /**
      * @param \Closure $execution
      * @param string $suffix
