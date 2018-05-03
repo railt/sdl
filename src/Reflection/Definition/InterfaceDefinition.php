@@ -9,32 +9,13 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Reflection\Definition;
 
-use Railt\SDL\Reflection\Defintions\Object\HasFields;
+use Railt\SDL\Reflection\Definition\Object\HasInterfaces;
+use Railt\SDL\Reflection\Definition\Object\HasFields;
 
 /**
  * Interface InterfaceDefinition
  */
-interface InterfaceDefinition extends TypeDefinition, HasFields
+interface InterfaceDefinition extends TypeDefinition, HasFields, HasInterfaces
 {
-    /**
-     * @return iterable|InterfaceDefinition[]
-     */
-    public function getInterfaces(): iterable;
 
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function hasInterface(string $name): bool;
-
-    /**
-     * @param string $name
-     * @return null|InterfaceDefinition
-     */
-    public function getInterface(string $name): ?self;
-
-    /**
-     * @return int
-     */
-    public function getNumberOfInterfaces(): int;
 }

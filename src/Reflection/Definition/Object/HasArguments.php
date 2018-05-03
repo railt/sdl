@@ -7,8 +7,7 @@
  */
 declare(strict_types=1);
 
-
-namespace Railt\SDL\Reflection\Defintions\Object;
+namespace Railt\SDL\Reflection\Definition\Object;
 
 /**
  * The interface indicates that the type is a container that

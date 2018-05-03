@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Reflection\Definition;
 
-use Railt\SDL\Reflection\Defintions\Directive\HasArguments;
+use Railt\SDL\Reflection\Definition\Directive\HasArguments;
 
 /**
  * Interface DirectiveDefinition

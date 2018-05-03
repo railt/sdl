@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Defintions\Directive;
+namespace Railt\SDL\Reflection\Definition\Directive;
 
 use Railt\SDL\Reflection\Definition\Common\Dependent;
 use Railt\SDL\Reflection\Definition\Common\HasDefaultValue;

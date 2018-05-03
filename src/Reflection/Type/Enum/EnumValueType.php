@@ -7,7 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Type;
+namespace Railt\SDL\Reflection\Type\Enum;
+
+use Railt\SDL\Reflection\Type\BaseType;
 
 /**
  * Class EnumValueType

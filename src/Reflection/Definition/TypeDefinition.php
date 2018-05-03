@@ -26,11 +26,18 @@ interface TypeDefinition extends HasDirectives, Definition
     public function getType(): Type;
 
     /**
-     * Returns the name of definition instance.
+     * Returns the FQN of definition instance.
      *
      * @return string
      */
     public function getName(): string;
+
+    /**
+     * Returns the short name of definition instance.
+     *
+     * @return string
+     */
+    public function getShortName(): string;
 
     /**
      * Returns a short description of definition.

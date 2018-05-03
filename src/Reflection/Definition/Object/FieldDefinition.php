@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Defintions\Object;
+namespace Railt\SDL\Reflection\Definition\Object;
 
 use Railt\SDL\Reflection\Definition\Common\Dependent;
 use Railt\SDL\Reflection\Definition\Common\HasTypeIndication;

@@ -7,18 +7,20 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Type;
+namespace Railt\SDL\Reflection\Type\Object;
+
+use Railt\SDL\Reflection\Type\BaseType;
 
 /**
- * Class InputFieldType
+ * Class FieldType
  */
-class InputFieldType extends BaseType
+class FieldType extends BaseType
 {
     /**
      * @return string
      */
     public function getName(): string
     {
-        return 'InputField';
+        return 'Field';
     }
 }

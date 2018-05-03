@@ -9,31 +9,32 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Reflection\Definition\Object;
 
+use Railt\SDL\Reflection\Definition\InterfaceDefinition;
+
 /**
- * The interface indicates that the type is a container that
- * contains a list of fields in the type.
+ * Interface HasInterfaces
  */
-interface HasFields
+interface HasInterfaces
 {
     /**
-     * @return iterable|FieldDefinition[]
+     * @return iterable|InterfaceDefinition[]
      */
-    public function getFields(): iterable;
+    public function getInterfaces(): iterable;
 
     /**
      * @param string $name
      * @return bool
      */
-    public function hasField(string $name): bool;
+    public function hasInterface(string $name): bool;
 
     /**
      * @param string $name
-     * @return null|FieldDefinition
+     * @return null|InterfaceDefinition
      */
-    public function getField(string $name): ?FieldDefinition;
+    public function getInterface(string $name): ?self;
 
     /**
      * @return int
      */
-    public function getNumberOfFields(): int;
+    public function getNumberOfInterfaces(): int;
 }

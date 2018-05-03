@@ -23,7 +23,7 @@ interface Document extends Definition, HasDirectives
     /**
      * @return iterable|TypeDefinition[]
      */
-    public function getTypeDefinition(): iterable;
+    public function getTypeDefinitions(): iterable;
 
     /**
      * @param string $name
