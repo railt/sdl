@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Railt\SDL\Base;
 
 use Railt\Io\Readable;
-use Railt\SDL\Dictionary;
 use Railt\SDL\Base\Invocation\Directive\DirectivesContainer;
+use Railt\SDL\Dictionary;
 use Railt\SDL\Reflection\Definition\TypeDefinition;
 use Railt\SDL\Reflection\Document;
 

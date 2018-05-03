@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Stack;
 
-use Railt\SDL\Reflection\Definition;
 use Railt\SDL\Exception\LossOfStackException;
+use Railt\SDL\Reflection\Definition;
 
 /**
  * Class CallStack

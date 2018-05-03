@@ -14,5 +14,4 @@ namespace Railt\SDL\Exception;
  */
 class LossOfStackException extends CompilerException
 {
-
 }

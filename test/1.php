@@ -1,9 +1,10 @@
-<?php use Railt\Io\File;
+<?php declare(strict_types=1);
+use Railt\Io\File;
 use Railt\SDL\Compiler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $compiler = new Compiler();
-$schema = File::fromPathname(__DIR__ . '/schema.graphqls');
+$schema   = File::fromPathname(__DIR__ . '/schema.graphqls');
 
 dd($compiler->parse($schema));

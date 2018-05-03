@@ -14,5 +14,4 @@ namespace Railt\SDL\Exception;
  */
 class TypeConflictException extends CompilerException
 {
-
 }

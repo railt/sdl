@@ -13,7 +13,6 @@ use Railt\Io\Position;
 use Railt\Io\Readable;
 use Railt\SDL\Dictionary;
 use Railt\SDL\Reflection\Definition;
-use Railt\SDL\Reflection\Definition\TypeDefinition;
 use Railt\SDL\Reflection\Document;
 
 /**

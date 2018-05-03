@@ -14,5 +14,4 @@ namespace Railt\SDL\Reflection\Extension;
  */
 interface ObjectExtension extends TypeExtension
 {
-
 }

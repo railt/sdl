@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Reflection\Definition;
 
-use Railt\SDL\Reflection\Definition\Object\HasInterfaces;
 use Railt\SDL\Reflection\Definition\Object\HasFields;
+use Railt\SDL\Reflection\Definition\Object\HasInterfaces;
 
 /**
  * Interface ObjectDefinition
