@@ -1,0 +1,7 @@
+
+//
+// Scalar extension
+//
+
+#ScalarExtension:
+    ::T_EXTEND:: ScalarDefinitionBody()

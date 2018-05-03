@@ -1,0 +1,20 @@
+
+//
+// Object definition
+//
+
+#ObjectDefinition:
+    Documentation()?
+    ObjectDefinitionHead()
+    ObjectDefinitionBody()
+
+ObjectDefinitionHead:
+    ::T_TYPE:: TypeName()
+        GenericArgumentsDefinition()?
+        TypeDefinitionImplements()?
+        Directive()*
+
+ObjectDefinitionBody:
+    ::T_BRACE_OPEN::
+        FieldDefinition()*
+    ::T_BRACE_CLOSE::

@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Parser;
 
-use Railt\Compiler\Grammar\Reader;
+use Railt\Compiler\Parser;
 use Railt\Compiler\Parser\Ast\NodeInterface;
-use Railt\Compiler\Parser\Debug\NodeDumper;
-use Railt\Compiler\ParserInterface;
+use Railt\Compiler\Parser\Runtime;
 use Railt\Io\File;
 use Railt\Io\Readable;
 
@@ -21,63 +20,55 @@ use Railt\Io\Readable;
  */
 class Factory
 {
-    public const GRAMMAR_FILE = __DIR__ . '/../../resources/grammar/sdl.pp';
+    /**
+     * @var string Grammar file path
+     */
+    public const GRAMMAR_FILE = __DIR__ . '/../../resources/grammar/sdl.pp2';
 
     /**
-     * @var ParserInterface|null
+     * @var Runtime
      */
-    private $parser;
+    private $runtime;
 
     /**
-     * @return ParserInterface
+     * Factory constructor.
+     * @param Runtime $runtime
      */
-    public function getParser(): ParserInterface
+    public function __construct(Runtime $runtime)
     {
-        if ($this->parser === null) {
-            $this->parser = $this->createParser();
-        }
-
-        return $this->parser;
+        $this->runtime = $runtime;
     }
 
     /**
-     * @param ParserInterface $parser
      * @return Factory
+     * @throws \Railt\Io\Exception\NotReadableException
      */
-    public function setParser(ParserInterface $parser): self
+    public static function create(): self
     {
-        $this->parser = $parser;
+        $parser = \class_exists(SchemaParser::class)
+            ? new SchemaParser()
+            : Parser::fromGrammar(static::grammar());
 
-        return $this;
+        return new static($parser);
     }
 
     /**
-     * @return ParserInterface
+     * @return Readable
+     * @throws \Railt\Io\Exception\NotReadableException
      */
-    private function createParser(): ParserInterface
+    public static function grammar(): Readable
     {
-        if (\class_exists(SchemaParser::class)) {
-            return new SchemaParser();
-        }
-
-        return (new Reader())->read(File::fromPathname(static::GRAMMAR_FILE))->getParser();
+        return File::fromPathname(self::GRAMMAR_FILE);
     }
 
     /**
-     * @param Readable $sources
+     * @param Readable $readable
      * @return NodeInterface
+     * @throws \Railt\Compiler\Exception\ParserException
+     * @throws \RuntimeException
      */
-    public function parse(Readable $sources): NodeInterface
+    public function parse(Readable $readable): NodeInterface
     {
-        return $this->getParser()->parse($sources);
-    }
-
-    /**
-     * @param NodeInterface $ast
-     * @return string
-     */
-    public function dump(NodeInterface $ast): string
-    {
-        return (new NodeDumper($ast))->toString();
+        return $this->runtime->parse($readable);
     }
 }

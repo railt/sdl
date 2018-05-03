@@ -1,0 +1,13 @@
+
+//
+// Interface extension
+//
+
+#InterfaceExtension:
+    ::T_EXTEND:: __interfaceExtensionVariants()
+
+__interfaceExtensionVariants:
+    InterfaceDefinitionHead() | (
+        InterfaceDefinitionHead()
+        InterfaceDefinitionBody()
+    )

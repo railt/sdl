@@ -1,0 +1,13 @@
+
+//
+// Input extension
+//
+
+#InputExtension:
+    ::T_EXTEND:: __inputExtensionVariants()
+
+__inputExtensionVariants:
+    InputDefinitionHead() | (
+        InputDefinitionHead()
+        InputDefinitionBody()
+    )
