@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL;
 
 use Railt\Io\Readable;
-use Railt\SDL\Reflection\Document;
+use Railt\SDL\Linker\HeadingsTable;
 
 /**
  * Class Compiler
@@ -18,17 +18,26 @@ use Railt\SDL\Reflection\Document;
 class Compiler
 {
     /**
+     * @var HeadingsTable
+     */
+    private $headers;
+
+    /**
      * Compiler constructor.
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function __construct()
     {
+        $this->headers = new HeadingsTable();
     }
 
     /**
      * @param Readable $file
-     * @return mixed
+     * @throws \Railt\Compiler\Exception\ParserException
+     * @throws \RuntimeException
      */
-    public function parse(Readable $file): Document
+    public function parse(Readable $file)
     {
+        $this->headers->extract($file);
     }
 }
