@@ -36,7 +36,7 @@ class Compiler
      * @throws \Railt\Compiler\Exception\ParserException
      * @throws \RuntimeException
      */
-    public function parse(Readable $file)
+    public function parse(Readable $file): void
     {
         $this->headers->extract($file);
     }

@@ -21,7 +21,7 @@ use Railt\SDL\Parser\Factory;
 class HeadingsTable
 {
     public const TYPE_INVOCATION = 0x01;
-    public const TYPE_EXTENSION = 0x02;
+    public const TYPE_EXTENSION  = 0x02;
     public const TYPE_DEFINITION = 0x03;
 
     /**
@@ -71,7 +71,7 @@ class HeadingsTable
      * @throws \Railt\Compiler\Exception\ParserException
      * @throws \RuntimeException
      */
-    public function extract(Readable $file)
+    public function extract(Readable $file): void
     {
         $ast = $this->parse($file);
 
