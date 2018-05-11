@@ -77,11 +77,11 @@ class CompilerException extends \RuntimeException
             yield \vsprintf('%s(%d): %s', [
                 $item->getFile()->getPathname(),
                 $position->getLine(),
-                $item->getValue()
+                $item->getValue(),
             ]);
         }
 
-        yield from \array_map(function(string $line): string {
+        yield from \array_map(function (string $line): string {
             return \preg_replace('/#\d+\h+/iu', '', $line);
         }, $stack);
     }
@@ -104,7 +104,7 @@ class CompilerException extends \RuntimeException
      */
     public function __toString(): string
     {
-        $output = [$this->getHeaderMessage()];
+        $output   = [$this->getHeaderMessage()];
         $output[] = 'Stack trace:';
 
         foreach ($this->getStackAsString() as $i => $line) {

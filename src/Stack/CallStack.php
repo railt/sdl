@@ -61,7 +61,7 @@ class CallStack implements CallStackInterface
      */
     private function astToMessage(RuleInterface $ast): string
     {
-        $valueToString = function() use ($ast): string {
+        $valueToString = function () use ($ast): string {
             $values = [];
 
             /** @var NodeInterface $node */

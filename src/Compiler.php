@@ -36,7 +36,7 @@ class Compiler
      */
     public function __construct()
     {
-        $this->stack = new CallStack();
+        $this->stack   = new CallStack();
         $this->headers = new HeadingsTable($this->stack);
     }
 
@@ -53,7 +53,7 @@ class Compiler
      * @throws \Railt\Compiler\Exception\ParserException
      * @throws \RuntimeException
      */
-    public function parse(Readable $file)
+    public function parse(Readable $file): void
     {
         foreach ($this->headers->extract($file) as $record) {
             if ($record instanceof ProvidesName) {

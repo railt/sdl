@@ -40,8 +40,8 @@ class Item
      */
     public function __construct(Readable $file, Position $position, string $value)
     {
-        $this->file = $file;
-        $this->value = $value;
+        $this->file     = $file;
+        $this->value    = $value;
         $this->position = $position;
     }
 

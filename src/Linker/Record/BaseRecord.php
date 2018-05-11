@@ -42,8 +42,8 @@ abstract class BaseRecord
      */
     public function __construct(Readable $file, RuleInterface $rule, CallStack $stack)
     {
-        $this->file = $file;
-        $this->ast = $rule;
+        $this->file  = $file;
+        $this->ast   = $rule;
         $this->stack = $stack;
     }
 

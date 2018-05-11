@@ -130,7 +130,7 @@ class HeadingsTable
     {
         $this->stack->pushAst($file, $rule);
 
-        $this->context($this->record($file, $rule), function(BaseRecord $record) {
+        $this->context($this->record($file, $rule), function (BaseRecord $record): void {
             $this->bootChildren($record);
             $this->bootRelations($record);
             $this->bootPriority($record);
@@ -211,9 +211,8 @@ class HeadingsTable
         }
     }
 
-    private function fetch(string $type)
+    private function fetch(string $type): void
     {
-        //
     }
 
     /**
