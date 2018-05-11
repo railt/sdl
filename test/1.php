@@ -8,7 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 
 $compiler = new Compiler();
-$schema   = File::fromPathname(__DIR__ . '/schema.graphqls');
+$schema   = File::fromPathname(__DIR__ . '/schema.gql');
 
 try {
     dd($compiler->parse($schema));

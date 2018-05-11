@@ -19,6 +19,7 @@
 %include definitions/enum
 %include definitions/input
 %include definitions/interface
+%include definitions/module
 %include definitions/object
 %include definitions/scalar
 %include definitions/schema
@@ -30,6 +31,7 @@ Definition:
     EnumDefinition()       |
     InputDefinition()      |
     InterfaceDefinition()  |
+    NamespaceDefinition()  |
     ObjectDefinition()     |
     ScalarDefinition()     |
     SchemaDefinition()     |

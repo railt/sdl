@@ -13,6 +13,19 @@ use Railt\Compiler\Parser\Ast\NodeInterface;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
 use Railt\SDL\Exception\BadAstMappingException;
+use Railt\SDL\Exception\TypeConflictException;
+use Railt\SDL\Linker\Record\BaseRecord;
+use Railt\SDL\Linker\Record\DefinitionRecord;
+use Railt\SDL\Linker\Record\ExtensionRecord;
+use Railt\SDL\Linker\Record\InvocationRecord;
+use Railt\SDL\Linker\Record\NamespaceDefinitionRecord;
+use Railt\SDL\Linker\Record\ProvidesContext;
+use Railt\SDL\Linker\Record\ProvidesDefinitions;
+use Railt\SDL\Linker\Record\ProvidesName;
+use Railt\SDL\Linker\Record\ProvidesPriority;
+use Railt\SDL\Linker\Record\ProvidesRelations;
+use Railt\SDL\Linker\Record\SchemaDefinitionRecord;
+use Railt\SDL\Linker\Record\TypeDefinitionRecord;
 use Railt\SDL\Parser\Factory;
 use Railt\SDL\Stack\CallStack;
 
@@ -21,31 +34,33 @@ use Railt\SDL\Stack\CallStack;
  */
 class HeadingsTable
 {
-    public const TYPE_INVOCATION = 0x01;
-    public const TYPE_EXTENSION  = 0x02;
-    public const TYPE_DEFINITION = 0x03;
-
     /**
      * @var int[]
      */
     private const DEFINITIONS = [
-        '#DirectiveDefinition' => self::TYPE_DEFINITION,
-        '#EnumDefinition'      => self::TYPE_DEFINITION,
-        '#InputDefinition'     => self::TYPE_DEFINITION,
-        '#InterfaceDefinition' => self::TYPE_DEFINITION,
-        '#ObjectDefinition'    => self::TYPE_DEFINITION,
-        '#ScalarDefinition'    => self::TYPE_DEFINITION,
-        '#SchemaDefinition'    => self::TYPE_DEFINITION,
-        '#UnionDefinition'     => self::TYPE_DEFINITION,
-        '#EnumExtension'       => self::TYPE_EXTENSION,
-        '#InputExtension'      => self::TYPE_EXTENSION,
-        '#InterfaceExtension'  => self::TYPE_EXTENSION,
-        '#ObjectExtension'     => self::TYPE_EXTENSION,
-        '#ScalarExtension'     => self::TYPE_EXTENSION,
-        '#SchemaExtension'     => self::TYPE_EXTENSION,
-        '#UnionExtension'      => self::TYPE_EXTENSION,
-        '#Directive'           => self::TYPE_INVOCATION,
+        '#DirectiveDefinition' => DefinitionRecord::class,
+        '#EnumDefinition'      => DefinitionRecord::class,
+        '#InputDefinition'     => DefinitionRecord::class,
+        '#InterfaceDefinition' => DefinitionRecord::class,
+        '#NamespaceDefinition' => NamespaceDefinitionRecord::class,
+        '#ObjectDefinition'    => TypeDefinitionRecord::class,
+        '#ScalarDefinition'    => DefinitionRecord::class,
+        '#SchemaDefinition'    => SchemaDefinitionRecord::class,
+        '#UnionDefinition'     => DefinitionRecord::class,
+        '#EnumExtension'       => ExtensionRecord::class,
+        '#InputExtension'      => ExtensionRecord::class,
+        '#InterfaceExtension'  => ExtensionRecord::class,
+        '#ObjectExtension'     => ExtensionRecord::class,
+        '#ScalarExtension'     => ExtensionRecord::class,
+        '#SchemaExtension'     => ExtensionRecord::class,
+        '#UnionExtension'      => ExtensionRecord::class,
+        '#Directive'           => InvocationRecord::class,
     ];
+
+    /**
+     * @var array
+     */
+    private $definitions = [];
 
     /**
      * @var \SplPriorityQueue
@@ -63,34 +78,37 @@ class HeadingsTable
     private $stack;
 
     /**
+     * @var Context
+     */
+    private $context;
+
+    /**
      * HeadingsTable constructor.
      * @param CallStack $stack
      */
     public function __construct(CallStack $stack)
     {
-        $this->stack = $stack;
+        $this->stack  = $stack;
+        $this->parser = Factory::create();
+
+        $this->context = new Context($stack);
         $this->records = new \SplPriorityQueue();
-        $this->parser  = Factory::create();
     }
 
     /**
      * @param Readable $file
-     * @throws \Railt\Compiler\Exception\ParserException
-     * @throws \RuntimeException
+     * @return \Traversable
      */
-    public function extract(Readable $file): void
+    public function extract(Readable $file): \Traversable
     {
         $ast = $this->parse($file);
 
-        /** @var RuleInterface $child */
-        foreach ($ast->getChildren() as $child) {
-            $this->stack->pushAst($file, $child);
-
-            $record = new Record($file, $child);
-            $this->records->insert($record, $this->priority($child));
+        /** @var RuleInterface $rule */
+        foreach ($ast->getChildren() as $rule) {
+            $this->analyze($file, $rule);
         }
 
-        echo((string)$ast);die;
+        yield from $this->records;
     }
 
     /**
@@ -105,20 +123,106 @@ class HeadingsTable
     }
 
     /**
+     * @param Readable $file
      * @param RuleInterface $rule
-     * @return int
-     * @throws BadAstMappingException
      */
-    private function priority(RuleInterface $rule): int
+    private function analyze(Readable $file, RuleInterface $rule): void
     {
-        /** @var int $priority */
-        $priority = static::DEFINITIONS[$rule->getName()] ?? null;
+        $this->stack->pushAst($file, $rule);
 
-        if ($priority === null) {
+        $this->context($this->record($file, $rule), function(BaseRecord $record) {
+            $this->bootChildren($record);
+            $this->bootRelations($record);
+            $this->bootPriority($record);
+        });
+
+        $this->stack->pop();
+    }
+
+    /**
+     * @param BaseRecord $record
+     * @param \Closure $then
+     */
+    private function context(BaseRecord $record, \Closure $then): void
+    {
+        if ($record instanceof ProvidesName) {
+            $name = $this->context->resolve($record);
+
+            if (\array_key_exists($name, $this->definitions)) {
+                $previous = $this->definitions[$name];
+                $this->stack->pushAst($previous->getFile(), $previous->getAst());
+
+                $error = 'Can not register type %s because the name is already registered before';
+                throw new TypeConflictException(\sprintf($error, $name), $this->stack);
+            }
+
+            $this->definitions[$name] = $record;
+        }
+
+        if ($record instanceof ProvidesContext) {
+            $this->context->push($record);
+        }
+
+        $then($record);
+
+        if ($record instanceof ProvidesContext) {
+            $this->context->complete($record);
+        }
+    }
+
+    /**
+     * @param Readable $file
+     * @param RuleInterface $rule
+     * @return BaseRecord
+     */
+    private function record(Readable $file, RuleInterface $rule): BaseRecord
+    {
+        if (! \array_key_exists($rule->getName(), static::DEFINITIONS)) {
             $error = \sprintf('Unprocessable AST Node %s', $rule->getName());
             throw new BadAstMappingException($error, $this->stack);
         }
 
-        return $priority;
+        $class = static::DEFINITIONS[$rule->getName()];
+
+        return new $class($file, $rule, $this->stack);
+    }
+
+    /**
+     * @param BaseRecord $record
+     */
+    private function bootChildren(BaseRecord $record): void
+    {
+        if ($record instanceof ProvidesDefinitions) {
+            foreach ($record->getDefinitions() as $ast) {
+                $this->analyze($record->getFile(), $ast);
+            }
+        }
+    }
+
+    /**
+     * @param BaseRecord $record
+     */
+    private function bootRelations(BaseRecord $record): void
+    {
+        if ($record instanceof ProvidesRelations) {
+            foreach ($record->getRelations() as $relation) {
+                $this->fetch($relation);
+            }
+        }
+    }
+
+    private function fetch(string $type)
+    {
+        //
+    }
+
+    /**
+     * @param BaseRecord $record
+     */
+    private function bootPriority(BaseRecord $record): void
+    {
+        $priority = $record instanceof ProvidesPriority ? $record->getPriority() : 0;
+
+        $this->records->insert($record, $priority);
     }
 }

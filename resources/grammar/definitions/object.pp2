@@ -17,4 +17,8 @@ ObjectDefinitionHead:
 ObjectDefinitionBody:
     ::T_BRACE_OPEN::
         FieldDefinition()*
+        __definitions()?
     ::T_BRACE_CLOSE::
+
+__definitions:
+    Definition()+ #ChildrenDefinitions

@@ -75,18 +75,18 @@ new \Railt\Compiler\Parser\Rule\Concatenation('Document', [0,1,], '#Document'),
 new \Railt\Compiler\Parser\Rule\Concatenation('DocumentImports', ['Directive',], null),
                             'DocumentDefinitions' =>
 new \Railt\Compiler\Parser\Rule\Alternation('DocumentDefinitions', ['Extension','Definition',], null),
-                            5 =>
-new \Railt\Compiler\Parser\Rule\Token(5, 'T_NAME', true),
                             'NameWithoutReserved' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('NameWithoutReserved', [5,], '#Name'),
+new \Railt\Compiler\Parser\Rule\Token('NameWithoutReserved', 'T_NAME', true),
+                            6 =>
+new \Railt\Compiler\Parser\Rule\Token(6, 'T_TRUE', true),
                             7 =>
-new \Railt\Compiler\Parser\Rule\Token(7, 'T_NAME', true),
+new \Railt\Compiler\Parser\Rule\Token(7, 'T_FALSE', true),
                             8 =>
-new \Railt\Compiler\Parser\Rule\Token(8, 'T_TRUE', true),
+new \Railt\Compiler\Parser\Rule\Token(8, 'T_NULL', true),
                             9 =>
-new \Railt\Compiler\Parser\Rule\Token(9, 'T_FALSE', true),
-                            10 =>
-new \Railt\Compiler\Parser\Rule\Token(10, 'T_NULL', true),
+new \Railt\Compiler\Parser\Rule\Alternation(9, ['NameExceptValues',6,7,8,], null),
+                            'NameWithReserved' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('NameWithReserved', [9,], '#Name'),
                             11 =>
 new \Railt\Compiler\Parser\Rule\Token(11, 'T_NAMESPACE', true),
                             12 =>
@@ -117,474 +117,470 @@ new \Railt\Compiler\Parser\Rule\Token(23, 'T_INPUT', true),
 new \Railt\Compiler\Parser\Rule\Token(24, 'T_EXTEND', true),
                             25 =>
 new \Railt\Compiler\Parser\Rule\Token(25, 'T_FRAGMENT', true),
-                            26 =>
-new \Railt\Compiler\Parser\Rule\Alternation(26, [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,], null),
-                            'NameWithReserved' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('NameWithReserved', [26,], '#Name'),
-                            28 =>
-new \Railt\Compiler\Parser\Rule\Token(28, 'T_NAME', true),
-                            29 =>
-new \Railt\Compiler\Parser\Rule\Token(29, 'T_NAMESPACE', true),
-                            30 =>
-new \Railt\Compiler\Parser\Rule\Token(30, 'T_EXTENDS', true),
-                            31 =>
-new \Railt\Compiler\Parser\Rule\Token(31, 'T_IMPLEMENTS', true),
-                            32 =>
-new \Railt\Compiler\Parser\Rule\Token(32, 'T_ON', true),
-                            33 =>
-new \Railt\Compiler\Parser\Rule\Token(33, 'T_TYPE', true),
-                            34 =>
-new \Railt\Compiler\Parser\Rule\Token(34, 'T_ENUM', true),
-                            35 =>
-new \Railt\Compiler\Parser\Rule\Token(35, 'T_UNION', true),
-                            36 =>
-new \Railt\Compiler\Parser\Rule\Token(36, 'T_INPUT_UNION', true),
-                            37 =>
-new \Railt\Compiler\Parser\Rule\Token(37, 'T_INTERFACE', true),
-                            38 =>
-new \Railt\Compiler\Parser\Rule\Token(38, 'T_SCHEMA', true),
-                            39 =>
-new \Railt\Compiler\Parser\Rule\Token(39, 'T_SCALAR', true),
-                            40 =>
-new \Railt\Compiler\Parser\Rule\Token(40, 'T_DIRECTIVE', true),
-                            41 =>
-new \Railt\Compiler\Parser\Rule\Token(41, 'T_INPUT', true),
-                            42 =>
-new \Railt\Compiler\Parser\Rule\Token(42, 'T_EXTEND', true),
-                            43 =>
-new \Railt\Compiler\Parser\Rule\Token(43, 'T_FRAGMENT', true),
                             'NameExceptValues' =>
-new \Railt\Compiler\Parser\Rule\Alternation('NameExceptValues', [28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,], null),
-                            45 =>
-new \Railt\Compiler\Parser\Rule\Token(45, 'T_VARIABLE', true),
+new \Railt\Compiler\Parser\Rule\Alternation('NameExceptValues', ['NameWithoutReserved',11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,], null),
+                            27 =>
+new \Railt\Compiler\Parser\Rule\Token(27, 'T_VARIABLE', true),
                             'Variable' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('Variable', [45,], '#Variable'),
-                            47 =>
-new \Railt\Compiler\Parser\Rule\Repetition(47, 0, 1, ['TypeNamespace',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('Variable', [27,], '#Variable'),
                             'TypeName' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('TypeName', [47,'NameWithReserved',], '#TypeName'),
-                            49 =>
-new \Railt\Compiler\Parser\Rule\Token(49, 'T_NAMESPACE_SEPARATOR', false),
-                            50 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(50, ['NameWithReserved',49,], '#TypeNamespace'),
-                            'TypeNamespace' =>
-new \Railt\Compiler\Parser\Rule\Repetition('TypeNamespace', 1, -1, [50,], null),
-                            52 =>
-new \Railt\Compiler\Parser\Rule\Token(52, 'T_FALSE', true),
-                            53 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(53, [52,], '#Boolean'),
-                            54 =>
-new \Railt\Compiler\Parser\Rule\Token(54, 'T_TRUE', true),
-                            55 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(55, [54,], '#Boolean'),
+new \Railt\Compiler\Parser\Rule\Concatenation('TypeName', ['TypeNamespace','NameWithReserved',], '#TypeName'),
+                            30 =>
+new \Railt\Compiler\Parser\Rule\Token(30, 'T_FALSE', true),
+                            31 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(31, [30,], '#Boolean'),
+                            32 =>
+new \Railt\Compiler\Parser\Rule\Token(32, 'T_TRUE', true),
+                            33 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(33, [32,], '#Boolean'),
                             'Boolean' =>
-new \Railt\Compiler\Parser\Rule\Alternation('Boolean', [53,55,], null),
-                            57 =>
-new \Railt\Compiler\Parser\Rule\Token(57, 'T_NUMBER', true),
+new \Railt\Compiler\Parser\Rule\Alternation('Boolean', [31,33,], null),
+                            35 =>
+new \Railt\Compiler\Parser\Rule\Token(35, 'T_NUMBER', true),
                             'Number' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('Number', [57,], '#Number'),
-                            59 =>
-new \Railt\Compiler\Parser\Rule\Token(59, 'T_BLOCK_STRING', true),
-                            60 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(60, [59,], '#String'),
-                            61 =>
-new \Railt\Compiler\Parser\Rule\Token(61, 'T_STRING', true),
-                            62 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(62, [61,], '#String'),
+new \Railt\Compiler\Parser\Rule\Concatenation('Number', [35,], '#Number'),
+                            37 =>
+new \Railt\Compiler\Parser\Rule\Token(37, 'T_BLOCK_STRING', true),
+                            38 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(38, [37,], '#String'),
+                            39 =>
+new \Railt\Compiler\Parser\Rule\Token(39, 'T_STRING', true),
+                            40 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(40, [39,], '#String'),
                             'String' =>
-new \Railt\Compiler\Parser\Rule\Alternation('String', [60,62,], null),
-                            64 =>
-new \Railt\Compiler\Parser\Rule\Token(64, 'T_NULL', true),
+new \Railt\Compiler\Parser\Rule\Alternation('String', [38,40,], null),
+                            42 =>
+new \Railt\Compiler\Parser\Rule\Token(42, 'T_NULL', true),
                             'Null' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('Null', [64,], '#Null'),
-                            66 =>
-new \Railt\Compiler\Parser\Rule\Token(66, 'T_BRACE_OPEN', false),
-                            67 =>
-new \Railt\Compiler\Parser\Rule\Repetition(67, 0, -1, ['__inputPair',], null),
-                            68 =>
-new \Railt\Compiler\Parser\Rule\Token(68, 'T_BRACE_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('Null', [42,], '#Null'),
+                            44 =>
+new \Railt\Compiler\Parser\Rule\Token(44, 'T_BRACE_OPEN', false),
+                            45 =>
+new \Railt\Compiler\Parser\Rule\Repetition(45, 0, -1, ['__inputPair',], null),
+                            46 =>
+new \Railt\Compiler\Parser\Rule\Token(46, 'T_BRACE_CLOSE', false),
                             'Input' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('Input', [66,67,68,], '#Input'),
-                            70 =>
-new \Railt\Compiler\Parser\Rule\Token(70, 'T_COLON', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('Input', [44,45,46,], '#Input'),
+                            48 =>
+new \Railt\Compiler\Parser\Rule\Token(48, 'T_COLON', false),
                             '__inputPair' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__inputPair', ['NameWithReserved',70,'Value',], '#Pair'),
-                            72 =>
-new \Railt\Compiler\Parser\Rule\Token(72, 'T_BRACKET_OPEN', false),
-                            73 =>
-new \Railt\Compiler\Parser\Rule\Repetition(73, 0, -1, ['Value',], null),
-                            74 =>
-new \Railt\Compiler\Parser\Rule\Token(74, 'T_BRACKET_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('__inputPair', ['NameWithReserved',48,'Value',], '#Pair'),
+                            50 =>
+new \Railt\Compiler\Parser\Rule\Token(50, 'T_BRACKET_OPEN', false),
+                            51 =>
+new \Railt\Compiler\Parser\Rule\Repetition(51, 0, -1, ['Value',], null),
+                            52 =>
+new \Railt\Compiler\Parser\Rule\Token(52, 'T_BRACKET_CLOSE', false),
                             'List' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('List', [72,73,74,], '#List'),
-                            76 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(76, ['NameWithReserved',], '#Value'),
-                            77 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(77, ['Boolean',], '#Value'),
-                            78 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(78, ['Number',], '#Value'),
-                            79 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(79, ['String',], '#Value'),
-                            80 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(80, ['Input',], '#Value'),
-                            81 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(81, ['Null',], '#Value'),
-                            82 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(82, ['List',], '#Value'),
+new \Railt\Compiler\Parser\Rule\Concatenation('List', [50,51,52,], '#List'),
+                            54 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(54, ['NameWithReserved',], '#Value'),
+                            55 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(55, ['Boolean',], '#Value'),
+                            56 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(56, ['Number',], '#Value'),
+                            57 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(57, ['String',], '#Value'),
+                            58 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(58, ['Input',], '#Value'),
+                            59 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(59, ['Null',], '#Value'),
+                            60 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(60, ['List',], '#Value'),
                             'Value' =>
-new \Railt\Compiler\Parser\Rule\Alternation('Value', [76,77,78,79,80,81,82,], null),
+new \Railt\Compiler\Parser\Rule\Alternation('Value', [54,55,56,57,58,59,60,], null),
                             'Documentation' =>
 new \Railt\Compiler\Parser\Rule\Concatenation('Documentation', ['String',], '#Description'),
-                            85 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(85, ['__returnListDefinition',], '#ReturnTypeDefinition'),
-                            86 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(86, ['__returnTypeDefinition',], '#ReturnTypeDefinition'),
+                            63 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(63, ['__returnListDefinition',], '#ReturnTypeDefinition'),
+                            64 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(64, ['__returnTypeDefinition',], '#ReturnTypeDefinition'),
                             'ReturnTypeDefinition' =>
-new \Railt\Compiler\Parser\Rule\Alternation('ReturnTypeDefinition', [85,86,], null),
-                            88 =>
-new \Railt\Compiler\Parser\Rule\Token(88, 'T_NON_NULL', true),
+new \Railt\Compiler\Parser\Rule\Alternation('ReturnTypeDefinition', [63,64,], null),
+                            66 =>
+new \Railt\Compiler\Parser\Rule\Token(66, 'T_NON_NULL', true),
                             '__returnTypeNonNullModifier' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__returnTypeNonNullModifier', [88,], '#NonNull'),
-                            90 =>
-new \Railt\Compiler\Parser\Rule\Token(90, 'T_BRACKET_OPEN', false),
-                            91 =>
-new \Railt\Compiler\Parser\Rule\Token(91, 'T_BRACKET_CLOSE', false),
-                            92 =>
-new \Railt\Compiler\Parser\Rule\Repetition(92, 0, 1, ['__returnTypeNonNullModifier',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__returnTypeNonNullModifier', [66,], '#NonNull'),
+                            68 =>
+new \Railt\Compiler\Parser\Rule\Token(68, 'T_BRACKET_OPEN', false),
+                            69 =>
+new \Railt\Compiler\Parser\Rule\Token(69, 'T_BRACKET_CLOSE', false),
+                            70 =>
+new \Railt\Compiler\Parser\Rule\Repetition(70, 0, 1, ['__returnTypeNonNullModifier',], null),
                             '__returnListDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__returnListDefinition', [90,'__returnTypeDefinition',91,92,], '#List'),
-                            94 =>
-new \Railt\Compiler\Parser\Rule\Repetition(94, 0, 1, ['__returnTypeDefinitionArguments',], null),
-                            95 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(95, ['TypeName',94,], null),
-                            96 =>
-new \Railt\Compiler\Parser\Rule\Alternation(96, [95,'Variable',], null),
-                            97 =>
-new \Railt\Compiler\Parser\Rule\Repetition(97, 0, 1, ['__returnTypeNonNullModifier',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__returnListDefinition', [68,'__returnTypeDefinition',69,70,], '#List'),
+                            72 =>
+new \Railt\Compiler\Parser\Rule\Repetition(72, 0, 1, ['__returnTypeDefinitionArguments',], null),
+                            73 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(73, ['TypeName',72,], null),
+                            74 =>
+new \Railt\Compiler\Parser\Rule\Alternation(74, [73,'Variable',], null),
+                            75 =>
+new \Railt\Compiler\Parser\Rule\Repetition(75, 0, 1, ['__returnTypeNonNullModifier',], null),
                             '__returnTypeDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__returnTypeDefinition', [96,97,], '#Type'),
-                            99 =>
-new \Railt\Compiler\Parser\Rule\Token(99, 'T_PARENTHESIS_OPEN', false),
-                            100 =>
-new \Railt\Compiler\Parser\Rule\Repetition(100, 0, -1, ['ArgumentDefinition',], null),
-                            101 =>
-new \Railt\Compiler\Parser\Rule\Token(101, 'T_PARENTHESIS_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('__returnTypeDefinition', [74,75,], '#Type'),
+                            77 =>
+new \Railt\Compiler\Parser\Rule\Token(77, 'T_PARENTHESIS_OPEN', false),
+                            78 =>
+new \Railt\Compiler\Parser\Rule\Repetition(78, 0, -1, ['ArgumentDefinition',], null),
+                            79 =>
+new \Railt\Compiler\Parser\Rule\Token(79, 'T_PARENTHESIS_CLOSE', false),
                             '__returnTypeDefinitionArguments' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__returnTypeDefinitionArguments', [99,100,101,], '#TypeArguments'),
-                            103 =>
-new \Railt\Compiler\Parser\Rule\Token(103, 'T_IMPLEMENTS', false),
-                            104 =>
-new \Railt\Compiler\Parser\Rule\Token(104, 'T_AND', false),
-                            105 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(105, [104,'TypeName',], null),
-                            106 =>
-new \Railt\Compiler\Parser\Rule\Repetition(106, 0, -1, [105,], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__returnTypeDefinitionArguments', [77,78,79,], '#TypeArguments'),
+                            81 =>
+new \Railt\Compiler\Parser\Rule\Token(81, 'T_IMPLEMENTS', false),
+                            82 =>
+new \Railt\Compiler\Parser\Rule\Token(82, 'T_AND', false),
+                            83 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(83, [82,'TypeName',], null),
+                            84 =>
+new \Railt\Compiler\Parser\Rule\Repetition(84, 0, -1, [83,], null),
                             'TypeDefinitionImplements' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('TypeDefinitionImplements', [103,'TypeName',106,], null),
-                            108 =>
-new \Railt\Compiler\Parser\Rule\Token(108, 'T_PARENTHESIS_OPEN', false),
-                            109 =>
-new \Railt\Compiler\Parser\Rule\Repetition(109, 0, -1, ['__genericArgumentDefinition',], null),
-                            110 =>
-new \Railt\Compiler\Parser\Rule\Token(110, 'T_PARENTHESIS_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('TypeDefinitionImplements', [81,'TypeName',84,], null),
+                            86 =>
+new \Railt\Compiler\Parser\Rule\Token(86, 'T_PARENTHESIS_OPEN', false),
+                            87 =>
+new \Railt\Compiler\Parser\Rule\Repetition(87, 0, -1, ['__genericArgumentDefinition',], null),
+                            88 =>
+new \Railt\Compiler\Parser\Rule\Token(88, 'T_PARENTHESIS_CLOSE', false),
                             'GenericArgumentsDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('GenericArgumentsDefinition', [108,109,110,], null),
-                            112 =>
-new \Railt\Compiler\Parser\Rule\Token(112, 'T_COLON', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('GenericArgumentsDefinition', [86,87,88,], null),
+                            90 =>
+new \Railt\Compiler\Parser\Rule\Token(90, 'T_COLON', false),
                             '__genericArgumentDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__genericArgumentDefinition', ['Variable',112,'TypeName',], '#GenericArgument'),
-                            114 =>
-new \Railt\Compiler\Parser\Rule\Repetition(114, 0, 1, ['Documentation',], null),
-                            115 =>
-new \Railt\Compiler\Parser\Rule\Token(115, 'T_COLON', false),
-                            116 =>
-new \Railt\Compiler\Parser\Rule\Repetition(116, 0, 1, ['__argumentDefinitionDefaultValue',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__genericArgumentDefinition', ['Variable',90,'TypeName',], '#GenericArgument'),
+                            92 =>
+new \Railt\Compiler\Parser\Rule\Repetition(92, 0, 1, ['Documentation',], null),
+                            93 =>
+new \Railt\Compiler\Parser\Rule\Token(93, 'T_COLON', false),
+                            94 =>
+new \Railt\Compiler\Parser\Rule\Repetition(94, 0, 1, ['__argumentDefinitionDefaultValue',], null),
                             'ArgumentDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ArgumentDefinition', [114,'NameWithReserved',115,'ReturnTypeDefinition',116,], '#ArgumentDefinition'),
-                            118 =>
-new \Railt\Compiler\Parser\Rule\Token(118, 'T_EQUAL', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('ArgumentDefinition', [92,'NameWithReserved',93,'ReturnTypeDefinition',94,], '#ArgumentDefinition'),
+                            96 =>
+new \Railt\Compiler\Parser\Rule\Token(96, 'T_EQUAL', false),
                             '__argumentDefinitionDefaultValue' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__argumentDefinitionDefaultValue', [118,'Value',], null),
-                            120 =>
-new \Railt\Compiler\Parser\Rule\Repetition(120, 0, 1, ['Documentation',], null),
-                            121 =>
-new \Railt\Compiler\Parser\Rule\Repetition(121, 0, 1, ['__fieldDefinitionArguments',], null),
-                            122 =>
-new \Railt\Compiler\Parser\Rule\Token(122, 'T_COLON', false),
-                            123 =>
-new \Railt\Compiler\Parser\Rule\Repetition(123, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__argumentDefinitionDefaultValue', [96,'Value',], null),
+                            98 =>
+new \Railt\Compiler\Parser\Rule\Repetition(98, 0, 1, ['Documentation',], null),
+                            99 =>
+new \Railt\Compiler\Parser\Rule\Repetition(99, 0, 1, ['__fieldDefinitionArguments',], null),
+                            100 =>
+new \Railt\Compiler\Parser\Rule\Token(100, 'T_COLON', false),
+                            101 =>
+new \Railt\Compiler\Parser\Rule\Repetition(101, 0, -1, ['Directive',], null),
                             'FieldDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('FieldDefinition', [120,'NameWithReserved',121,122,'ReturnTypeDefinition',123,], '#FieldDefinition'),
-                            125 =>
-new \Railt\Compiler\Parser\Rule\Token(125, 'T_PARENTHESIS_OPEN', false),
-                            126 =>
-new \Railt\Compiler\Parser\Rule\Repetition(126, 0, -1, ['__fieldDefinitionArgument',], null),
-                            127 =>
-new \Railt\Compiler\Parser\Rule\Token(127, 'T_PARENTHESIS_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('FieldDefinition', [98,'NameWithReserved',99,100,'ReturnTypeDefinition',101,], '#FieldDefinition'),
+                            103 =>
+new \Railt\Compiler\Parser\Rule\Token(103, 'T_PARENTHESIS_OPEN', false),
+                            104 =>
+new \Railt\Compiler\Parser\Rule\Repetition(104, 0, -1, ['__fieldDefinitionArgument',], null),
+                            105 =>
+new \Railt\Compiler\Parser\Rule\Token(105, 'T_PARENTHESIS_CLOSE', false),
                             '__fieldDefinitionArguments' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__fieldDefinitionArguments', [125,126,127,], null),
-                            129 =>
-new \Railt\Compiler\Parser\Rule\Repetition(129, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__fieldDefinitionArguments', [103,104,105,], null),
+                            107 =>
+new \Railt\Compiler\Parser\Rule\Repetition(107, 0, -1, ['Directive',], null),
                             '__fieldDefinitionArgument' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__fieldDefinitionArgument', ['ArgumentDefinition',129,], null),
-                            131 =>
-new \Railt\Compiler\Parser\Rule\Repetition(131, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__fieldDefinitionArgument', ['ArgumentDefinition',107,], null),
+                            109 =>
+new \Railt\Compiler\Parser\Rule\Repetition(109, 0, 1, ['Documentation',], null),
                             'DirectiveDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('DirectiveDefinition', [131,'DirectiveDefinitionBody',], '#DirectiveDefinition'),
-                            133 =>
-new \Railt\Compiler\Parser\Rule\Token(133, 'T_DIRECTIVE', false),
-                            134 =>
-new \Railt\Compiler\Parser\Rule\Token(134, 'T_DIRECTIVE_AT', false),
-                            135 =>
-new \Railt\Compiler\Parser\Rule\Repetition(135, 0, 1, ['__directiveDefinitionArguments',], null),
-                            136 =>
-new \Railt\Compiler\Parser\Rule\Token(136, 'T_ON', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('DirectiveDefinition', [109,'DirectiveDefinitionBody',], '#DirectiveDefinition'),
+                            111 =>
+new \Railt\Compiler\Parser\Rule\Token(111, 'T_DIRECTIVE', false),
+                            112 =>
+new \Railt\Compiler\Parser\Rule\Token(112, 'T_DIRECTIVE_AT', false),
+                            113 =>
+new \Railt\Compiler\Parser\Rule\Repetition(113, 0, 1, ['__directiveDefinitionArguments',], null),
+                            114 =>
+new \Railt\Compiler\Parser\Rule\Token(114, 'T_ON', false),
                             'DirectiveDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('DirectiveDefinitionBody', [133,134,'TypeName',135,136,'__directiveDefinitionLocations',], null),
-                            138 =>
-new \Railt\Compiler\Parser\Rule\Token(138, 'T_PARENTHESIS_OPEN', false),
-                            139 =>
-new \Railt\Compiler\Parser\Rule\Repetition(139, 0, -1, ['__directiveDefinitionArgument',], null),
-                            140 =>
-new \Railt\Compiler\Parser\Rule\Token(140, 'T_PARENTHESIS_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('DirectiveDefinitionBody', [111,112,'TypeName',113,114,'__directiveDefinitionLocations',], null),
+                            116 =>
+new \Railt\Compiler\Parser\Rule\Token(116, 'T_PARENTHESIS_OPEN', false),
+                            117 =>
+new \Railt\Compiler\Parser\Rule\Repetition(117, 0, -1, ['__directiveDefinitionArgument',], null),
+                            118 =>
+new \Railt\Compiler\Parser\Rule\Token(118, 'T_PARENTHESIS_CLOSE', false),
                             '__directiveDefinitionArguments' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__directiveDefinitionArguments', [138,139,140,], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__directiveDefinitionArguments', [116,117,118,], null),
                             '__directiveDefinitionArgument' =>
 new \Railt\Compiler\Parser\Rule\Concatenation('__directiveDefinitionArgument', ['ArgumentDefinition',], '#DirectiveArgument'),
-                            143 =>
-new \Railt\Compiler\Parser\Rule\Token(143, 'T_OR', false),
-                            144 =>
-new \Railt\Compiler\Parser\Rule\Repetition(144, 0, 1, [143,], null),
-                            145 =>
-new \Railt\Compiler\Parser\Rule\Repetition(145, 1, -1, ['__directiveDefinitionLocation',], null),
+                            121 =>
+new \Railt\Compiler\Parser\Rule\Token(121, 'T_OR', false),
+                            122 =>
+new \Railt\Compiler\Parser\Rule\Repetition(122, 0, 1, [121,], null),
+                            123 =>
+new \Railt\Compiler\Parser\Rule\Repetition(123, 1, -1, ['__directiveDefinitionLocation',], null),
                             '__directiveDefinitionLocations' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__directiveDefinitionLocations', [144,145,], '#DirectiveLocations'),
-                            147 =>
-new \Railt\Compiler\Parser\Rule\Token(147, 'T_OR', false),
-                            148 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(148, [147,'NameWithReserved',], null),
-                            149 =>
-new \Railt\Compiler\Parser\Rule\Repetition(149, 0, -1, [148,], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__directiveDefinitionLocations', [122,123,], '#DirectiveLocations'),
+                            125 =>
+new \Railt\Compiler\Parser\Rule\Token(125, 'T_OR', false),
+                            126 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(126, [125,'NameWithReserved',], null),
+                            127 =>
+new \Railt\Compiler\Parser\Rule\Repetition(127, 0, -1, [126,], null),
                             '__directiveDefinitionLocation' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__directiveDefinitionLocation', ['NameWithReserved',149,], null),
-                            151 =>
-new \Railt\Compiler\Parser\Rule\Repetition(151, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__directiveDefinitionLocation', ['NameWithReserved',127,], null),
+                            129 =>
+new \Railt\Compiler\Parser\Rule\Repetition(129, 0, 1, ['Documentation',], null),
                             'EnumDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('EnumDefinition', [151,'EnumDefinitionHead','EnumDefinitionBody',], '#EnumDefinition'),
-                            153 =>
-new \Railt\Compiler\Parser\Rule\Token(153, 'T_ENUM', false),
-                            154 =>
-new \Railt\Compiler\Parser\Rule\Repetition(154, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('EnumDefinition', [129,'EnumDefinitionHead','EnumDefinitionBody',], '#EnumDefinition'),
+                            131 =>
+new \Railt\Compiler\Parser\Rule\Token(131, 'T_ENUM', false),
+                            132 =>
+new \Railt\Compiler\Parser\Rule\Repetition(132, 0, -1, ['Directive',], null),
                             'EnumDefinitionHead' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('EnumDefinitionHead', [153,'TypeName',154,], null),
-                            156 =>
-new \Railt\Compiler\Parser\Rule\Token(156, 'T_BRACE_OPEN', false),
-                            157 =>
-new \Railt\Compiler\Parser\Rule\Repetition(157, 1, -1, ['__enumDefinitionValue',], null),
-                            158 =>
-new \Railt\Compiler\Parser\Rule\Token(158, 'T_BRACE_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('EnumDefinitionHead', [131,'TypeName',132,], null),
+                            134 =>
+new \Railt\Compiler\Parser\Rule\Token(134, 'T_BRACE_OPEN', false),
+                            135 =>
+new \Railt\Compiler\Parser\Rule\Repetition(135, 1, -1, ['__enumDefinitionValue',], null),
+                            136 =>
+new \Railt\Compiler\Parser\Rule\Token(136, 'T_BRACE_CLOSE', false),
                             'EnumDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('EnumDefinitionBody', [156,157,158,], null),
-                            160 =>
-new \Railt\Compiler\Parser\Rule\Repetition(160, 0, 1, ['Documentation',], null),
-                            161 =>
-new \Railt\Compiler\Parser\Rule\Repetition(161, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('EnumDefinitionBody', [134,135,136,], null),
+                            138 =>
+new \Railt\Compiler\Parser\Rule\Repetition(138, 0, 1, ['Documentation',], null),
+                            139 =>
+new \Railt\Compiler\Parser\Rule\Repetition(139, 0, -1, ['Directive',], null),
                             '__enumDefinitionValue' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__enumDefinitionValue', [160,'NameExceptValues',161,], '#EnumValue'),
-                            163 =>
-new \Railt\Compiler\Parser\Rule\Repetition(163, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__enumDefinitionValue', [138,'NameExceptValues',139,], '#EnumValue'),
+                            141 =>
+new \Railt\Compiler\Parser\Rule\Repetition(141, 0, 1, ['Documentation',], null),
                             'InputDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InputDefinition', [163,'InputDefinitionHead','InputDefinitionBody',], '#InputDefinition'),
-                            165 =>
-new \Railt\Compiler\Parser\Rule\Token(165, 'T_INPUT', false),
-                            166 =>
-new \Railt\Compiler\Parser\Rule\Repetition(166, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('InputDefinition', [141,'InputDefinitionHead','InputDefinitionBody',], '#InputDefinition'),
+                            143 =>
+new \Railt\Compiler\Parser\Rule\Token(143, 'T_INPUT', false),
+                            144 =>
+new \Railt\Compiler\Parser\Rule\Repetition(144, 0, -1, ['Directive',], null),
                             'InputDefinitionHead' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InputDefinitionHead', [165,'TypeName',166,], null),
-                            168 =>
-new \Railt\Compiler\Parser\Rule\Token(168, 'T_BRACE_OPEN', false),
-                            169 =>
-new \Railt\Compiler\Parser\Rule\Repetition(169, 0, -1, ['__inputDefinitionField',], null),
-                            170 =>
-new \Railt\Compiler\Parser\Rule\Token(170, 'T_BRACE_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('InputDefinitionHead', [143,'TypeName',144,], null),
+                            146 =>
+new \Railt\Compiler\Parser\Rule\Token(146, 'T_BRACE_OPEN', false),
+                            147 =>
+new \Railt\Compiler\Parser\Rule\Repetition(147, 0, -1, ['__inputDefinitionField',], null),
+                            148 =>
+new \Railt\Compiler\Parser\Rule\Token(148, 'T_BRACE_CLOSE', false),
                             'InputDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InputDefinitionBody', [168,169,170,], null),
-                            172 =>
-new \Railt\Compiler\Parser\Rule\Repetition(172, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('InputDefinitionBody', [146,147,148,], null),
+                            150 =>
+new \Railt\Compiler\Parser\Rule\Repetition(150, 0, -1, ['Directive',], null),
                             '__inputDefinitionField' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__inputDefinitionField', ['ArgumentDefinition',172,], '#InputField'),
-                            174 =>
-new \Railt\Compiler\Parser\Rule\Repetition(174, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__inputDefinitionField', ['ArgumentDefinition',150,], '#InputField'),
+                            152 =>
+new \Railt\Compiler\Parser\Rule\Repetition(152, 0, 1, ['Documentation',], null),
                             'InterfaceDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceDefinition', [174,'InterfaceDefinitionHead','InterfaceDefinitionBody',], '#InterfaceDefinition'),
-                            176 =>
-new \Railt\Compiler\Parser\Rule\Token(176, 'T_INTERFACE', false),
-                            177 =>
-new \Railt\Compiler\Parser\Rule\Repetition(177, 0, 1, ['GenericArgumentsDefinition',], null),
-                            178 =>
-new \Railt\Compiler\Parser\Rule\Repetition(178, 0, 1, ['TypeDefinitionImplements',], null),
-                            179 =>
-new \Railt\Compiler\Parser\Rule\Repetition(179, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceDefinition', [152,'InterfaceDefinitionHead','InterfaceDefinitionBody',], '#InterfaceDefinition'),
+                            154 =>
+new \Railt\Compiler\Parser\Rule\Token(154, 'T_INTERFACE', false),
+                            155 =>
+new \Railt\Compiler\Parser\Rule\Repetition(155, 0, 1, ['GenericArgumentsDefinition',], null),
+                            156 =>
+new \Railt\Compiler\Parser\Rule\Repetition(156, 0, 1, ['TypeDefinitionImplements',], null),
+                            157 =>
+new \Railt\Compiler\Parser\Rule\Repetition(157, 0, -1, ['Directive',], null),
                             'InterfaceDefinitionHead' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceDefinitionHead', [176,'TypeName',177,178,179,], null),
-                            181 =>
-new \Railt\Compiler\Parser\Rule\Token(181, 'T_BRACE_OPEN', false),
-                            182 =>
-new \Railt\Compiler\Parser\Rule\Repetition(182, 0, -1, ['FieldDefinition',], null),
-                            183 =>
-new \Railt\Compiler\Parser\Rule\Token(183, 'T_BRACE_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceDefinitionHead', [154,'TypeName',155,156,157,], null),
+                            159 =>
+new \Railt\Compiler\Parser\Rule\Token(159, 'T_BRACE_OPEN', false),
+                            160 =>
+new \Railt\Compiler\Parser\Rule\Repetition(160, 0, -1, ['FieldDefinition',], null),
+                            161 =>
+new \Railt\Compiler\Parser\Rule\Token(161, 'T_BRACE_CLOSE', false),
                             'InterfaceDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceDefinitionBody', [181,182,183,], null),
-                            185 =>
-new \Railt\Compiler\Parser\Rule\Repetition(185, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceDefinitionBody', [159,160,161,], null),
+                            163 =>
+new \Railt\Compiler\Parser\Rule\Repetition(163, 0, 1, ['NamespaceDefinitionBody',], null),
+                            'NamespaceDefinition' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('NamespaceDefinition', ['NamespaceDefinitionHead',163,], '#NamespaceDefinition'),
+                            165 =>
+new \Railt\Compiler\Parser\Rule\Token(165, 'T_NAMESPACE', false),
+                            166 =>
+new \Railt\Compiler\Parser\Rule\Alternation(166, ['TypeName','GlobalNamespace',], null),
+                            167 =>
+new \Railt\Compiler\Parser\Rule\Repetition(167, 0, 1, [166,], null),
+                            'NamespaceDefinitionHead' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('NamespaceDefinitionHead', [165,167,], null),
+                            169 =>
+new \Railt\Compiler\Parser\Rule\Token(169, 'T_BRACE_OPEN', false),
+                            170 =>
+new \Railt\Compiler\Parser\Rule\Repetition(170, 0, -1, ['Definition',], null),
+                            171 =>
+new \Railt\Compiler\Parser\Rule\Token(171, 'T_BRACE_CLOSE', false),
+                            'NamespaceDefinitionBody' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('NamespaceDefinitionBody', [169,170,171,], '#ChildrenDefinitions'),
+                            173 =>
+new \Railt\Compiler\Parser\Rule\Repetition(173, 0, 1, ['GlobalNamespace',], null),
+                            174 =>
+new \Railt\Compiler\Parser\Rule\Token(174, 'T_NAMESPACE_SEPARATOR', false),
+                            175 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(175, ['NameWithReserved',174,], null),
+                            176 =>
+new \Railt\Compiler\Parser\Rule\Repetition(176, 0, -1, [175,], null),
+                            'TypeNamespace' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('TypeNamespace', [173,176,], null),
+                            178 =>
+new \Railt\Compiler\Parser\Rule\Token(178, 'T_NAMESPACE_SEPARATOR', false),
+                            'GlobalNamespace' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('GlobalNamespace', [178,], '#GlobalNamespace'),
+                            180 =>
+new \Railt\Compiler\Parser\Rule\Repetition(180, 0, 1, ['Documentation',], null),
                             'ObjectDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ObjectDefinition', [185,'ObjectDefinitionHead','ObjectDefinitionBody',], '#ObjectDefinition'),
-                            187 =>
-new \Railt\Compiler\Parser\Rule\Token(187, 'T_TYPE', false),
-                            188 =>
-new \Railt\Compiler\Parser\Rule\Repetition(188, 0, 1, ['GenericArgumentsDefinition',], null),
-                            189 =>
-new \Railt\Compiler\Parser\Rule\Repetition(189, 0, 1, ['TypeDefinitionImplements',], null),
-                            190 =>
-new \Railt\Compiler\Parser\Rule\Repetition(190, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('ObjectDefinition', [180,'ObjectDefinitionHead','ObjectDefinitionBody',], '#ObjectDefinition'),
+                            182 =>
+new \Railt\Compiler\Parser\Rule\Token(182, 'T_TYPE', false),
+                            183 =>
+new \Railt\Compiler\Parser\Rule\Repetition(183, 0, 1, ['GenericArgumentsDefinition',], null),
+                            184 =>
+new \Railt\Compiler\Parser\Rule\Repetition(184, 0, 1, ['TypeDefinitionImplements',], null),
+                            185 =>
+new \Railt\Compiler\Parser\Rule\Repetition(185, 0, -1, ['Directive',], null),
                             'ObjectDefinitionHead' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ObjectDefinitionHead', [187,'TypeName',188,189,190,], null),
-                            192 =>
-new \Railt\Compiler\Parser\Rule\Token(192, 'T_BRACE_OPEN', false),
-                            193 =>
-new \Railt\Compiler\Parser\Rule\Repetition(193, 0, -1, ['FieldDefinition',], null),
-                            194 =>
-new \Railt\Compiler\Parser\Rule\Token(194, 'T_BRACE_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('ObjectDefinitionHead', [182,'TypeName',183,184,185,], null),
+                            187 =>
+new \Railt\Compiler\Parser\Rule\Token(187, 'T_BRACE_OPEN', false),
+                            188 =>
+new \Railt\Compiler\Parser\Rule\Repetition(188, 0, -1, ['FieldDefinition',], null),
+                            189 =>
+new \Railt\Compiler\Parser\Rule\Repetition(189, 0, 1, ['__definitions',], null),
+                            190 =>
+new \Railt\Compiler\Parser\Rule\Token(190, 'T_BRACE_CLOSE', false),
                             'ObjectDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ObjectDefinitionBody', [192,193,194,], null),
-                            196 =>
-new \Railt\Compiler\Parser\Rule\Repetition(196, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('ObjectDefinitionBody', [187,188,189,190,], null),
+                            192 =>
+new \Railt\Compiler\Parser\Rule\Repetition(192, 1, -1, ['Definition',], null),
+                            '__definitions' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('__definitions', [192,], '#ChildrenDefinitions'),
+                            194 =>
+new \Railt\Compiler\Parser\Rule\Repetition(194, 0, 1, ['Documentation',], null),
                             'ScalarDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ScalarDefinition', [196,'ScalarDefinitionBody',], '#ScalarDefinition'),
+new \Railt\Compiler\Parser\Rule\Concatenation('ScalarDefinition', [194,'ScalarDefinitionBody',], '#ScalarDefinition'),
+                            196 =>
+new \Railt\Compiler\Parser\Rule\Token(196, 'T_SCALAR', false),
+                            197 =>
+new \Railt\Compiler\Parser\Rule\Repetition(197, 0, 1, ['__scalarExtends',], null),
                             198 =>
-new \Railt\Compiler\Parser\Rule\Token(198, 'T_SCALAR', false),
-                            199 =>
-new \Railt\Compiler\Parser\Rule\Repetition(199, 0, 1, ['__scalarExtends',], null),
-                            200 =>
-new \Railt\Compiler\Parser\Rule\Repetition(200, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Repetition(198, 0, -1, ['Directive',], null),
                             'ScalarDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ScalarDefinitionBody', [198,'TypeName',199,200,], null),
-                            202 =>
-new \Railt\Compiler\Parser\Rule\Token(202, 'T_EXTENDS', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('ScalarDefinitionBody', [196,'TypeName',197,198,], null),
+                            200 =>
+new \Railt\Compiler\Parser\Rule\Token(200, 'T_EXTENDS', false),
                             '__scalarExtends' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__scalarExtends', [202,'TypeName',], '#Extends'),
-                            204 =>
-new \Railt\Compiler\Parser\Rule\Repetition(204, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__scalarExtends', [200,'TypeName',], '#Extends'),
+                            202 =>
+new \Railt\Compiler\Parser\Rule\Repetition(202, 0, 1, ['Documentation',], null),
                             'SchemaDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('SchemaDefinition', [204,'SchemaDefinitionBody',], '#SchemaDefinition'),
+new \Railt\Compiler\Parser\Rule\Concatenation('SchemaDefinition', [202,'SchemaDefinitionBody',], '#SchemaDefinition'),
+                            204 =>
+new \Railt\Compiler\Parser\Rule\Token(204, 'T_SCHEMA', false),
+                            205 =>
+new \Railt\Compiler\Parser\Rule\Repetition(205, 0, 1, ['TypeName',], null),
                             206 =>
-new \Railt\Compiler\Parser\Rule\Token(206, 'T_SCHEMA', false),
+new \Railt\Compiler\Parser\Rule\Token(206, 'T_BRACE_OPEN', false),
                             207 =>
-new \Railt\Compiler\Parser\Rule\Repetition(207, 0, 1, ['TypeName',], null),
+new \Railt\Compiler\Parser\Rule\Repetition(207, 0, -1, ['__schemaField',], null),
                             208 =>
-new \Railt\Compiler\Parser\Rule\Token(208, 'T_BRACE_OPEN', false),
-                            209 =>
-new \Railt\Compiler\Parser\Rule\Repetition(209, 0, -1, ['__schemaField',], null),
-                            210 =>
-new \Railt\Compiler\Parser\Rule\Token(210, 'T_BRACE_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Token(208, 'T_BRACE_CLOSE', false),
                             'SchemaDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('SchemaDefinitionBody', [206,207,208,209,210,], null),
-                            212 =>
-new \Railt\Compiler\Parser\Rule\Token(212, 'T_COLON', false),
+new \Railt\Compiler\Parser\Rule\Concatenation('SchemaDefinitionBody', [204,205,206,207,208,], null),
+                            210 =>
+new \Railt\Compiler\Parser\Rule\Token(210, 'T_COLON', false),
                             '__schemaField' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__schemaField', ['NameWithReserved',212,'TypeName',], '#SchemaField'),
-                            214 =>
-new \Railt\Compiler\Parser\Rule\Repetition(214, 0, 1, ['Documentation',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__schemaField', ['NameWithReserved',210,'TypeName',], '#SchemaField'),
+                            212 =>
+new \Railt\Compiler\Parser\Rule\Repetition(212, 0, 1, ['Documentation',], null),
                             'UnionDefinition' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('UnionDefinition', [214,'UnionDefinitionBody',], '#UnionDefinition'),
+new \Railt\Compiler\Parser\Rule\Concatenation('UnionDefinition', [212,'UnionDefinitionBody',], '#UnionDefinition'),
+                            214 =>
+new \Railt\Compiler\Parser\Rule\Token(214, 'T_UNION', false),
+                            215 =>
+new \Railt\Compiler\Parser\Rule\Repetition(215, 0, -1, ['Directive',], null),
                             216 =>
-new \Railt\Compiler\Parser\Rule\Token(216, 'T_UNION', false),
+new \Railt\Compiler\Parser\Rule\Token(216, 'T_EQUAL', false),
                             217 =>
-new \Railt\Compiler\Parser\Rule\Repetition(217, 0, -1, ['Directive',], null),
+new \Railt\Compiler\Parser\Rule\Token(217, 'T_OR', false),
                             218 =>
-new \Railt\Compiler\Parser\Rule\Token(218, 'T_EQUAL', false),
+new \Railt\Compiler\Parser\Rule\Repetition(218, 0, 1, [217,], null),
                             219 =>
-new \Railt\Compiler\Parser\Rule\Token(219, 'T_OR', false),
-                            220 =>
-new \Railt\Compiler\Parser\Rule\Repetition(220, 0, 1, [219,], null),
-                            221 =>
-new \Railt\Compiler\Parser\Rule\Repetition(221, 1, -1, ['__unionDefinitionTargets',], null),
+new \Railt\Compiler\Parser\Rule\Repetition(219, 1, -1, ['__unionDefinitionTargets',], null),
                             'UnionDefinitionBody' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('UnionDefinitionBody', [216,'TypeName',217,218,220,221,], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('UnionDefinitionBody', [214,'TypeName',215,216,218,219,], null),
+                            221 =>
+new \Railt\Compiler\Parser\Rule\Token(221, 'T_OR', false),
+                            222 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(222, [221,'TypeName',], null),
                             223 =>
-new \Railt\Compiler\Parser\Rule\Token(223, 'T_OR', false),
-                            224 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(224, [223,'TypeName',], null),
-                            225 =>
-new \Railt\Compiler\Parser\Rule\Repetition(225, 0, -1, [224,], null),
+new \Railt\Compiler\Parser\Rule\Repetition(223, 0, -1, [222,], null),
                             '__unionDefinitionTargets' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__unionDefinitionTargets', ['TypeName',225,], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__unionDefinitionTargets', ['TypeName',223,], null),
                             'Definition' =>
-new \Railt\Compiler\Parser\Rule\Alternation('Definition', ['DirectiveDefinition','EnumDefinition','InputDefinition','InterfaceDefinition','ObjectDefinition','ScalarDefinition','SchemaDefinition','UnionDefinition',], null),
-                            228 =>
-new \Railt\Compiler\Parser\Rule\Token(228, 'T_EXTEND', false),
+new \Railt\Compiler\Parser\Rule\Alternation('Definition', ['DirectiveDefinition','EnumDefinition','InputDefinition','InterfaceDefinition','NamespaceDefinition','ObjectDefinition','ScalarDefinition','SchemaDefinition','UnionDefinition',], null),
+                            226 =>
+new \Railt\Compiler\Parser\Rule\Token(226, 'T_EXTEND', false),
                             'EnumExtension' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('EnumExtension', [228,'__enumExtensionVariants',], '#EnumExtension'),
-                            230 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(230, ['EnumDefinitionHead','EnumDefinitionBody',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('EnumExtension', [226,'__enumExtensionVariants',], '#EnumExtension'),
+                            228 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(228, ['EnumDefinitionHead','EnumDefinitionBody',], null),
                             '__enumExtensionVariants' =>
-new \Railt\Compiler\Parser\Rule\Alternation('__enumExtensionVariants', ['EnumDefinitionHead',230,], null),
-                            232 =>
-new \Railt\Compiler\Parser\Rule\Token(232, 'T_EXTEND', false),
+new \Railt\Compiler\Parser\Rule\Alternation('__enumExtensionVariants', ['EnumDefinitionHead',228,], null),
+                            230 =>
+new \Railt\Compiler\Parser\Rule\Token(230, 'T_EXTEND', false),
                             'InputExtension' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InputExtension', [232,'__inputExtensionVariants',], '#InputExtension'),
-                            234 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(234, ['InputDefinitionHead','InputDefinitionBody',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('InputExtension', [230,'__inputExtensionVariants',], '#InputExtension'),
+                            232 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(232, ['InputDefinitionHead','InputDefinitionBody',], null),
                             '__inputExtensionVariants' =>
-new \Railt\Compiler\Parser\Rule\Alternation('__inputExtensionVariants', ['InputDefinitionHead',234,], null),
-                            236 =>
-new \Railt\Compiler\Parser\Rule\Token(236, 'T_EXTEND', false),
+new \Railt\Compiler\Parser\Rule\Alternation('__inputExtensionVariants', ['InputDefinitionHead',232,], null),
+                            234 =>
+new \Railt\Compiler\Parser\Rule\Token(234, 'T_EXTEND', false),
                             'InterfaceExtension' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceExtension', [236,'__interfaceExtensionVariants',], '#InterfaceExtension'),
-                            238 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(238, ['InterfaceDefinitionHead','InterfaceDefinitionBody',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('InterfaceExtension', [234,'__interfaceExtensionVariants',], '#InterfaceExtension'),
+                            236 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(236, ['InterfaceDefinitionHead','InterfaceDefinitionBody',], null),
                             '__interfaceExtensionVariants' =>
-new \Railt\Compiler\Parser\Rule\Alternation('__interfaceExtensionVariants', ['InterfaceDefinitionHead',238,], null),
-                            240 =>
-new \Railt\Compiler\Parser\Rule\Token(240, 'T_EXTEND', false),
+new \Railt\Compiler\Parser\Rule\Alternation('__interfaceExtensionVariants', ['InterfaceDefinitionHead',236,], null),
+                            238 =>
+new \Railt\Compiler\Parser\Rule\Token(238, 'T_EXTEND', false),
                             'ObjectExtension' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ObjectExtension', [240,'__objectExtensionVariants',], '#ObjectExtension'),
-                            242 =>
-new \Railt\Compiler\Parser\Rule\Concatenation(242, ['ObjectDefinitionHead','ObjectDefinitionBody',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('ObjectExtension', [238,'__objectExtensionVariants',], '#ObjectExtension'),
+                            240 =>
+new \Railt\Compiler\Parser\Rule\Concatenation(240, ['ObjectDefinitionHead','ObjectDefinitionBody',], null),
                             '__objectExtensionVariants' =>
-new \Railt\Compiler\Parser\Rule\Alternation('__objectExtensionVariants', ['ObjectDefinitionHead',242,], null),
+new \Railt\Compiler\Parser\Rule\Alternation('__objectExtensionVariants', ['ObjectDefinitionHead',240,], null),
+                            242 =>
+new \Railt\Compiler\Parser\Rule\Token(242, 'T_EXTEND', false),
+                            'ScalarExtension' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('ScalarExtension', [242,'ScalarDefinitionBody',], '#ScalarExtension'),
                             244 =>
 new \Railt\Compiler\Parser\Rule\Token(244, 'T_EXTEND', false),
-                            'ScalarExtension' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ScalarExtension', [244,'ScalarDefinitionBody',], '#ScalarExtension'),
+                            'SchemaExtension' =>
+new \Railt\Compiler\Parser\Rule\Concatenation('SchemaExtension', [244,'SchemaDefinitionBody',], '#SchemaExtension'),
                             246 =>
 new \Railt\Compiler\Parser\Rule\Token(246, 'T_EXTEND', false),
-                            'SchemaExtension' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('SchemaExtension', [246,'SchemaDefinitionBody',], '#SchemaExtension'),
-                            248 =>
-new \Railt\Compiler\Parser\Rule\Token(248, 'T_EXTEND', false),
                             'UnionExtension' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('UnionExtension', [248,'UnionDefinitionBody',], '#UnionExtension'),
+new \Railt\Compiler\Parser\Rule\Concatenation('UnionExtension', [246,'UnionDefinitionBody',], '#UnionExtension'),
                             'Extension' =>
 new \Railt\Compiler\Parser\Rule\Alternation('Extension', ['EnumExtension','InputExtension','InterfaceExtension','ObjectExtension','ScalarExtension','SchemaExtension','UnionExtension',], null),
-                            251 =>
-new \Railt\Compiler\Parser\Rule\Token(251, 'T_COLON', false),
+                            249 =>
+new \Railt\Compiler\Parser\Rule\Token(249, 'T_COLON', false),
                             'ArgumentInvocation' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('ArgumentInvocation', ['NameWithReserved',251,'Value',], null),
-                            253 =>
-new \Railt\Compiler\Parser\Rule\Token(253, 'T_DIRECTIVE_AT', false),
-                            254 =>
-new \Railt\Compiler\Parser\Rule\Repetition(254, 0, 1, ['__directiveInvocationArguments',], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('ArgumentInvocation', ['NameWithReserved',249,'Value',], null),
+                            251 =>
+new \Railt\Compiler\Parser\Rule\Token(251, 'T_DIRECTIVE_AT', false),
+                            252 =>
+new \Railt\Compiler\Parser\Rule\Repetition(252, 0, 1, ['__directiveInvocationArguments',], null),
                             'Directive' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('Directive', [253,'TypeName',254,], '#Directive'),
+new \Railt\Compiler\Parser\Rule\Concatenation('Directive', [251,'TypeName',252,], '#Directive'),
+                            254 =>
+new \Railt\Compiler\Parser\Rule\Token(254, 'T_PARENTHESIS_OPEN', false),
+                            255 =>
+new \Railt\Compiler\Parser\Rule\Repetition(255, 0, -1, ['__directiveInvocationArgument',], null),
                             256 =>
-new \Railt\Compiler\Parser\Rule\Token(256, 'T_PARENTHESIS_OPEN', false),
-                            257 =>
-new \Railt\Compiler\Parser\Rule\Repetition(257, 0, -1, ['__directiveInvocationArgument',], null),
-                            258 =>
-new \Railt\Compiler\Parser\Rule\Token(258, 'T_PARENTHESIS_CLOSE', false),
+new \Railt\Compiler\Parser\Rule\Token(256, 'T_PARENTHESIS_CLOSE', false),
                             '__directiveInvocationArguments' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('__directiveInvocationArguments', [256,257,258,], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('__directiveInvocationArguments', [254,255,256,], null),
                             '__directiveInvocationArgument' =>
 new \Railt\Compiler\Parser\Rule\Concatenation('__directiveInvocationArgument', ['ArgumentInvocation',], '#DirectiveArgument'),
                             'Invocation' =>
@@ -597,6 +593,6 @@ new \Railt\Compiler\Parser\Rule\Concatenation('Invocation', ['Directive',], null
      */
     public function getBuiltDate(): string
     {
-        return '2018-05-11MSK16:48:36.808+03:00';
+        return '2018-05-11MSK21:57:26.030+03:00';
     }
 }

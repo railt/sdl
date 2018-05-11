@@ -1,0 +1,26 @@
+#NamespaceDefinition:
+    NamespaceDefinitionHead()
+    NamespaceDefinitionBody()?
+
+NamespaceDefinitionHead:
+    ::T_NAMESPACE:: (TypeName() | GlobalNamespace())?
+
+NamespaceDefinitionBody:
+    ::T_BRACE_OPEN::
+        Definition()*
+    ::T_BRACE_CLOSE::
+    #ChildrenDefinitions
+
+
+//
+// Type namespace prefix
+//
+TypeNamespace:
+    GlobalNamespace()?
+    (
+        NameWithReserved()
+        ::T_NAMESPACE_SEPARATOR::
+    )*
+
+#GlobalNamespace:
+    ::T_NAMESPACE_SEPARATOR::

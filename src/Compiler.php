@@ -11,6 +11,7 @@ namespace Railt\SDL;
 
 use Railt\Io\Readable;
 use Railt\SDL\Linker\HeadingsTable;
+use Railt\SDL\Linker\Record\ProvidesName;
 use Railt\SDL\Stack\CallStack;
 use Railt\SDL\Stack\CallStackInterface;
 
@@ -52,8 +53,12 @@ class Compiler
      * @throws \Railt\Compiler\Exception\ParserException
      * @throws \RuntimeException
      */
-    public function parse(Readable $file): void
+    public function parse(Readable $file)
     {
-        $this->headers->extract($file);
+        foreach ($this->headers->extract($file) as $record) {
+            if ($record instanceof ProvidesName) {
+                echo $record->getName() . "\n";
+            }
+        }
     }
 }
