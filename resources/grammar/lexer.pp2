@@ -40,8 +40,6 @@
  */
 %token T_NAMESPACE              namespace\b
 %token T_NAMESPACE_SEPARATOR    /
-%token T_IMPORT                 import\b
-%token T_IMPORT_FROM            from\b
 
 /**
  * Common

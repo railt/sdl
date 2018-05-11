@@ -9,16 +9,20 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Stack;
 
+use Illuminate\Support\Str;
+use Railt\Compiler\Parser\Ast\NodeInterface;
+use Railt\Compiler\Parser\Ast\RuleInterface;
+use Railt\Io\Position;
+use Railt\Io\Readable;
 use Railt\SDL\Exception\LossOfStackException;
-use Railt\SDL\Reflection\Definition;
 
 /**
  * Class CallStack
  */
-class CallStack
+class CallStack implements CallStackInterface
 {
     /**
-     * @var \SplStack|Definition[]
+     * @var \SplStack
      */
     private $stack;
 
@@ -31,23 +35,77 @@ class CallStack
     }
 
     /**
-     * @param Definition $definition
+     * @param Readable $file
+     * @param Position $position
+     * @param string $message
      */
-    public function push(Definition $definition): void
+    public function push(Readable $file, Position $position, string $message): void
     {
-        $this->stack->push($definition);
+        $this->stack->push(new Item($file, $position, $message));
     }
 
     /**
-     * @return Definition
-     * @throws LossOfStackException
+     * @param Readable $file
+     * @param RuleInterface $ast
      */
-    public function pop(): Definition
+    public function pushAst(Readable $file, RuleInterface $ast): void
     {
-        if ($this->stack->count() > 0) {
+        $message = $this->astToMessage($ast);
+
+        $this->push($file, $file->getPosition($ast->getOffset()), $message);
+    }
+
+    /**
+     * @param RuleInterface $ast
+     * @return string
+     */
+    private function astToMessage(RuleInterface $ast): string
+    {
+        $valueToString = function() use ($ast): string {
+            $values = [];
+
+            /** @var NodeInterface $node */
+            foreach ($ast->getValue() as $node => $value) {
+                $line = \str_replace(["\n", "\r"], '', \trim($value));
+                $line = \preg_replace('/\s+/', ' ', $line);
+
+                $values[] = $node->getName() . '(' . $line . ')';
+            }
+
+            return \implode(', ', $values);
+        };
+
+        return \vsprintf('%s->ast(%s)', [
+            \trim($ast->getName(), '#'),
+            Str::limit($valueToString(), 60),
+        ]);
+    }
+
+    /**
+     * @return Item
+     */
+    public function pop(): Item
+    {
+        if ($this->stack->count() === 0) {
             throw new LossOfStackException('Stack data lost during transaction closing', $this);
         }
 
         return $this->stack->pop();
+    }
+
+    /**
+     * @return iterable|Item[]
+     */
+    public function getIterator(): iterable
+    {
+        yield from $this->stack;
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->stack->count();
     }
 }

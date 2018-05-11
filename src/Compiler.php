@@ -11,6 +11,8 @@ namespace Railt\SDL;
 
 use Railt\Io\Readable;
 use Railt\SDL\Linker\HeadingsTable;
+use Railt\SDL\Stack\CallStack;
+use Railt\SDL\Stack\CallStackInterface;
 
 /**
  * Class Compiler
@@ -23,12 +25,26 @@ class Compiler
     private $headers;
 
     /**
+     * @var CallStackInterface
+     */
+    private $stack;
+
+    /**
      * Compiler constructor.
      * @throws \Railt\Io\Exception\NotReadableException
      */
     public function __construct()
     {
-        $this->headers = new HeadingsTable();
+        $this->stack = new CallStack();
+        $this->headers = new HeadingsTable($this->stack);
+    }
+
+    /**
+     * @return CallStackInterface
+     */
+    public function getStack(): CallStackInterface
+    {
+        return $this->stack;
     }
 
     /**

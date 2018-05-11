@@ -14,6 +14,7 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
 use Railt\SDL\Exception\BadAstMappingException;
 use Railt\SDL\Parser\Factory;
+use Railt\SDL\Stack\CallStack;
 
 /**
  * Class HeadingsTable
@@ -57,11 +58,17 @@ class HeadingsTable
     private $parser;
 
     /**
-     * HeadingsTable constructor.
-     * @throws \Railt\Io\Exception\NotReadableException
+     * @var CallStack
      */
-    public function __construct()
+    private $stack;
+
+    /**
+     * HeadingsTable constructor.
+     * @param CallStack $stack
+     */
+    public function __construct(CallStack $stack)
     {
+        $this->stack = $stack;
         $this->records = new \SplPriorityQueue();
         $this->parser  = Factory::create();
     }
@@ -75,12 +82,15 @@ class HeadingsTable
     {
         $ast = $this->parse($file);
 
+        /** @var RuleInterface $child */
         foreach ($ast->getChildren() as $child) {
-            $this->records->insert(
-                new Record($file, $child),
-                $this->priority($child)
-            );
+            $this->stack->pushAst($file, $child);
+
+            $record = new Record($file, $child);
+            $this->records->insert($record, $this->priority($child));
         }
+
+        echo((string)$ast);die;
     }
 
     /**
@@ -105,7 +115,8 @@ class HeadingsTable
         $priority = static::DEFINITIONS[$rule->getName()] ?? null;
 
         if ($priority === null) {
-            throw new BadAstMappingException(\sprintf('Unprocessable AST Node %s', $rule->getName()));
+            $error = \sprintf('Unprocessable AST Node %s', $rule->getName());
+            throw new BadAstMappingException($error, $this->stack);
         }
 
         return $priority;
