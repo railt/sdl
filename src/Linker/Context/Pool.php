@@ -34,7 +34,7 @@ class Pool
      */
     public function __construct(CallStackInterface $stack)
     {
-        $this->pool = new \SplStack();
+        $this->pool  = new \SplStack();
         $this->stack = $stack;
     }
 

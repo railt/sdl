@@ -12,7 +12,6 @@ namespace Railt\SDL\Linker\Record;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
-use Railt\SDL\Linker\Context\StackInterface;
 use Railt\SDL\Stack\CallStack;
 
 /**
