@@ -1,8 +1,5 @@
 
 namespace Carbon {
-    """Scalar DateTime type"""
-    scalar /Carbon
-
     """
     An enumeration that contains a set of valid formats
     that are contained in the scalar type CarbonDateTime
@@ -113,4 +110,11 @@ namespace Carbon {
         """
         HUMAN_READABLE
     }
+
+    """Scalar DateTime type"""
+    scalar Carbon
+}
+
+type Carbon {
+    id: ID!
 }

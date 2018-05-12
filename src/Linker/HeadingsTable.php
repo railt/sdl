@@ -164,7 +164,7 @@ class HeadingsTable
             $previous = $this->definitions[$name];
             $this->stack->pushAst($previous->getFile(), $previous->getAst());
 
-            $error = 'Can not register type %s because the name is already registered before';
+            $error = 'Can not register type %s because the name is already in use';
             throw new TypeConflictException(\sprintf($error, $name), $this->stack);
         }
 

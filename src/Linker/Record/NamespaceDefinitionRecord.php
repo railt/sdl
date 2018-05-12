@@ -15,7 +15,7 @@ use Railt\SDL\Linker\Common\NameReaderTrait;
 /**
  * Class NamespaceDefinitionRecord
  */
-class NamespaceDefinitionRecord extends BaseRecord implements ProvidesDefinitions, ProvidesContext
+class NamespaceDefinitionRecord extends BaseRecord implements ProvidesDefinitions, ProvidesContext, ProvidesPriority
 {
     use NameReaderTrait;
 
@@ -35,15 +35,22 @@ class NamespaceDefinitionRecord extends BaseRecord implements ProvidesDefinition
     }
 
     /**
+     * @return int
+     */
+    public function getPriority(): int
+    {
+        return static::PRIORITY_DEFINITION;
+    }
+
+    /**
      * @return bool
      */
     public function atRoot(): bool
     {
         if ($this->global === null) {
-            /** @var RuleInterface|null $type */
-            $type = $this->getTypeName($this->ast);
+            $atRoot = (bool) $this->ast->find('#GlobalNamespace');
 
-            $this->global = $type ? $this->readIsGlobalScope($type) : false;
+            $this->global = $atRoot || $this->getName() === '';
         }
 
         return $this->global;

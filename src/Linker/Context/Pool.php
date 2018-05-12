@@ -87,6 +87,13 @@ class Pool
             ? $record->getName()
             : $this->concat($record->getName());
 
+        //
+        $shouldReplace = $record instanceof ProvidesContext && ! $record->shouldRollback();
+
+        if ($shouldReplace && $this->pool->count()) {
+            $this->pool->pop();
+        }
+
         $this->pool->push($context);
     }
 

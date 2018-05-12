@@ -56,7 +56,7 @@ class Compiler
     public function parse(Readable $file): void
     {
         foreach ($this->headers->extract($file) as $record) {
-            //echo $record->getName() . ' -> ' . $record->getAst()->getName() . "\n";
+            echo $record->getName() . ' -> ' . $record->getAst()->getName() . "\n";
         }
     }
 }
