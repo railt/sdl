@@ -29,6 +29,7 @@ class DefinitionRecord extends BaseRecord implements ProvidesPriority, ProvidesN
 
     /**
      * @return string
+     * @throws \RuntimeException
      */
     public function getName(): string
     {
@@ -49,7 +50,7 @@ class DefinitionRecord extends BaseRecord implements ProvidesPriority, ProvidesN
     /**
      * @return bool
      */
-    public function isGlobal(): bool
+    public function atRoot(): bool
     {
         if ($this->global === null) {
             /** @var RuleInterface|null $type */
@@ -62,25 +63,17 @@ class DefinitionRecord extends BaseRecord implements ProvidesPriority, ProvidesN
     }
 
     /**
-     * @return string
-     */
-    public function getContext(): string
-    {
-        return $this->getName();
-    }
-
-    /**
-     * @return bool
-     */
-    public function atRoot(): bool
-    {
-        return $this->isGlobal();
-    }
-
-    /**
      * @return bool
      */
     public function shouldRollback(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldRegister(): bool
     {
         return true;
     }

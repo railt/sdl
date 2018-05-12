@@ -22,7 +22,7 @@ class NamespaceDefinitionRecord extends BaseRecord implements ProvidesDefinition
     /**
      * @return string
      */
-    public function getContext(): string
+    public function getName(): string
     {
         if ($this->name === null) {
             /** @var RuleInterface|null $type */
@@ -55,6 +55,14 @@ class NamespaceDefinitionRecord extends BaseRecord implements ProvidesDefinition
     public function shouldRollback(): bool
     {
         return \count($this->getDefinitions()) > 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldRegister(): bool
+    {
+        return false;
     }
 
     /**

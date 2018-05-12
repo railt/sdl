@@ -30,7 +30,17 @@ interface ProvidesName
     public function getName(): string;
 
     /**
+     * @param string $name
+     */
+    public function rename(string $name): void;
+
+    /**
      * @return bool
      */
-    public function isGlobal(): bool;
+    public function atRoot(): bool;
+
+    /**
+     * @return bool
+     */
+    public function shouldRegister(): bool;
 }

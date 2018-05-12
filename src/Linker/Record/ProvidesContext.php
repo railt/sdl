@@ -12,18 +12,8 @@ namespace Railt\SDL\Linker\Record;
 /**
  * Interface ProvidesContext
  */
-interface ProvidesContext
+interface ProvidesContext extends ProvidesName
 {
-    /**
-     * @return string
-     */
-    public function getContext(): string;
-
-    /**
-     * @return bool
-     */
-    public function atRoot(): bool;
-
     /**
      * @return bool
      */

@@ -14,6 +14,7 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
 use Railt\SDL\Exception\BadAstMappingException;
 use Railt\SDL\Exception\TypeConflictException;
+use Railt\SDL\Linker\Context\Pool;
 use Railt\SDL\Linker\Record\BaseRecord;
 use Railt\SDL\Linker\Record\DefinitionRecord;
 use Railt\SDL\Linker\Record\ExtensionRecord;
@@ -24,6 +25,7 @@ use Railt\SDL\Linker\Record\ProvidesDefinitions;
 use Railt\SDL\Linker\Record\ProvidesName;
 use Railt\SDL\Linker\Record\ProvidesPriority;
 use Railt\SDL\Linker\Record\ProvidesRelations;
+use Railt\SDL\Linker\Record\RecordInterface;
 use Railt\SDL\Linker\Record\SchemaDefinitionRecord;
 use Railt\SDL\Linker\Record\TypeDefinitionRecord;
 use Railt\SDL\Parser\Factory;
@@ -78,26 +80,32 @@ class HeadingsTable
     private $stack;
 
     /**
-     * @var Context
+     * @var Pool
      */
     private $context;
 
     /**
      * HeadingsTable constructor.
      * @param CallStack $stack
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function __construct(CallStack $stack)
     {
         $this->stack  = $stack;
         $this->parser = Factory::create();
 
-        $this->context = new Context($stack);
+        $this->context = new Pool($stack);
         $this->records = new \SplPriorityQueue();
     }
 
     /**
      * @param Readable $file
-     * @return \Traversable
+     * @return \Traversable|RecordInterface[]
+     * @throws BadAstMappingException
+     * @throws TypeConflictException
+     * @throws \Railt\Compiler\Exception\ParserException
+     * @throws \Railt\SDL\Exception\LossOfStackException
+     * @throws \RuntimeException
      */
     public function extract(Readable $file): \Traversable
     {
@@ -125,6 +133,9 @@ class HeadingsTable
     /**
      * @param Readable $file
      * @param RuleInterface $rule
+     * @throws BadAstMappingException
+     * @throws TypeConflictException
+     * @throws \Railt\SDL\Exception\LossOfStackException
      */
     private function analyze(Readable $file, RuleInterface $rule): void
     {
@@ -140,23 +151,35 @@ class HeadingsTable
     }
 
     /**
+     * @param ProvidesName $record
+     * @throws TypeConflictException
+     */
+    private function bootNameRegistration(ProvidesName $record): void
+    {
+        $record->rename($this->context->name($record));
+
+        $name = $record->getName();
+
+        if (\array_key_exists($name, $this->definitions)) {
+            $previous = $this->definitions[$name];
+            $this->stack->pushAst($previous->getFile(), $previous->getAst());
+
+            $error = 'Can not register type %s because the name is already registered before';
+            throw new TypeConflictException(\sprintf($error, $name), $this->stack);
+        }
+
+        $this->definitions[$name] = $record;
+    }
+
+    /**
      * @param BaseRecord $record
      * @param \Closure $then
+     * @throws TypeConflictException
      */
     private function context(BaseRecord $record, \Closure $then): void
     {
-        if ($record instanceof ProvidesName) {
-            $name = $this->context->resolve($record);
-
-            if (\array_key_exists($name, $this->definitions)) {
-                $previous = $this->definitions[$name];
-                $this->stack->pushAst($previous->getFile(), $previous->getAst());
-
-                $error = 'Can not register type %s because the name is already registered before';
-                throw new TypeConflictException(\sprintf($error, $name), $this->stack);
-            }
-
-            $this->definitions[$name] = $record;
+        if ($record instanceof ProvidesName && $record->shouldRegister()) {
+            $this->bootNameRegistration($record);
         }
 
         if ($record instanceof ProvidesContext) {
@@ -174,6 +197,7 @@ class HeadingsTable
      * @param Readable $file
      * @param RuleInterface $rule
      * @return BaseRecord
+     * @throws BadAstMappingException
      */
     private function record(Readable $file, RuleInterface $rule): BaseRecord
     {
@@ -184,11 +208,14 @@ class HeadingsTable
 
         $class = static::DEFINITIONS[$rule->getName()];
 
-        return new $class($file, $rule, $this->stack);
+        return new $class($file, $rule, $this->stack, $this->context);
     }
 
     /**
      * @param BaseRecord $record
+     * @throws BadAstMappingException
+     * @throws TypeConflictException
+     * @throws \Railt\SDL\Exception\LossOfStackException
      */
     private function bootChildren(BaseRecord $record): void
     {
@@ -213,6 +240,7 @@ class HeadingsTable
 
     private function fetch(string $type): void
     {
+        // TODO
     }
 
     /**

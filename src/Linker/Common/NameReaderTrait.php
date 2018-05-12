@@ -52,11 +52,19 @@ trait NameReaderTrait
     }
 
     /**
+     * @param string $name
+     */
+    public function rename(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @param RuleInterface $type
      * @return bool
      */
     protected function readIsGlobalScope(RuleInterface $type): bool
     {
-        return $type->getChild(0)->getName() === '#GlobalNamespace';
+         return $type->getChild(0)->getName() === '#GlobalNamespace';
     }
 }

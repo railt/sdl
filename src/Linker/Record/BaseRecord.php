@@ -12,12 +12,13 @@ namespace Railt\SDL\Linker\Record;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
+use Railt\SDL\Linker\Context\StackInterface;
 use Railt\SDL\Stack\CallStack;
 
 /**
  * Class BaseRecord
  */
-abstract class BaseRecord
+abstract class BaseRecord implements RecordInterface
 {
     /**
      * @var Readable
@@ -35,7 +36,7 @@ abstract class BaseRecord
     protected $stack;
 
     /**
-     * Record constructor.
+     * BaseRecord constructor.
      * @param Readable $file
      * @param RuleInterface $rule
      * @param CallStack $stack
@@ -45,6 +46,14 @@ abstract class BaseRecord
         $this->file  = $file;
         $this->ast   = $rule;
         $this->stack = $stack;
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPosition(): Position
+    {
+        return $this->getFile()->getPosition($this->getAst()->getOffset());
     }
 
     /**
@@ -61,13 +70,5 @@ abstract class BaseRecord
     public function getAst(): RuleInterface
     {
         return $this->ast;
-    }
-
-    /**
-     * @return Position
-     */
-    public function getPosition(): Position
-    {
-        return $this->getFile()->getPosition($this->getAst()->getOffset());
     }
 }
