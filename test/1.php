@@ -7,12 +7,12 @@ use Railt\SDL\Exception\CompilerException;
 require __DIR__ . '/../vendor/autoload.php';
 
 
-$compiler = new Compiler();
-$schema   = File::fromPathname(__DIR__ . '/schema.gql');
-
 try {
+    $compiler = new Compiler();
+    $schema   = File::fromPathname(__DIR__ . '/schema.gql');
+
     dd($compiler->parse($schema));
-} catch (CompilerException $e) {
+} catch (Throwable $e) {
     echo $e;
     die;
 }

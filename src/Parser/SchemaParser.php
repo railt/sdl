@@ -64,7 +64,7 @@ final class SchemaParser extends SchemaParserRuntime
 
     public function __construct()
     {
-        parent::__construct(new SchemaParserLexer('/\\G(?P<T_AND>&)|(?P<T_OR>\\|)|(?P<T_PARENTHESIS_OPEN>\\()|(?P<T_PARENTHESIS_CLOSE>\\))|(?P<T_BRACKET_OPEN>\\[)|(?P<T_BRACKET_CLOSE>\\])|(?P<T_BRACE_OPEN>{)|(?P<T_BRACE_CLOSE>})|(?P<T_NON_NULL>!)|(?P<T_THREE_DOTS>\\.\\.\\.)|(?P<T_COLON>:)|(?P<T_EQUAL>=)|(?P<T_DIRECTIVE_AT>@)|(?P<T_NUMBER>\\-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][\\+\\-]?[0-9]+)?\\b)|(?P<T_TRUE>true\\b)|(?P<T_FALSE>false\\b)|(?P<T_NULL>null\\b)|(?P<T_BLOCK_STRING>"""(?:\\\\"""|(?!""").|\\s)+""")|(?P<T_STRING>"[^"\\\\]+(\\\\.[^"\\\\]*)*")|(?P<T_NAMESPACE>namespace\\b)|(?P<T_NAMESPACE_SEPARATOR>\\/)|(?P<T_EXTENDS>extends\\b)|(?P<T_IMPLEMENTS>implements\\b)|(?P<T_ON>on\\b)|(?P<T_TYPE>type\\b)|(?P<T_ENUM>enum\\b)|(?P<T_UNION>union\\b)|(?P<T_INPUT_UNION>inputUnion\\b)|(?P<T_INTERFACE>interface\\b)|(?P<T_SCHEMA>schema\\b)|(?P<T_SCALAR>scalar\\b)|(?P<T_DIRECTIVE>directive\\b)|(?P<T_INPUT>input\\b)|(?P<T_EXTEND>extend\\b)|(?P<T_FRAGMENT>fragment\\b)|(?P<T_VARIABLE>\\$[_A-Za-z][_0-9A-Za-z]*)|(?P<T_NAME>[_A-Za-z][_0-9A-Za-z]*)|(?P<T_WHITESPACE>(\\xfe\\xff|\\x20|\\x09|\\x0a|\\x0d)+)|(?P<T_COMMENT>#[^\\n]*)|(?P<T_COMMA>,)|.*?/usS', ['T_WHITESPACE','T_COMMENT','T_COMMA',]), [
+        parent::__construct(new SchemaParserLexer('/\\G(?P<T_AND>&)|(?P<T_OR>\\|)|(?P<T_PARENTHESIS_OPEN>\\()|(?P<T_PARENTHESIS_CLOSE>\\))|(?P<T_BRACKET_OPEN>\\[)|(?P<T_BRACKET_CLOSE>\\])|(?P<T_BRACE_OPEN>{)|(?P<T_BRACE_CLOSE>})|(?P<T_NON_NULL>!)|(?P<T_THREE_DOTS>\\.\\.\\.)|(?P<T_COLON>:)|(?P<T_EQUAL>=)|(?P<T_DIRECTIVE_AT>@)|(?P<T_NUMBER>\\-?(0|[1-9][0-9]*)(\\.[0-9]+)?([eE][\\+\\-]?[0-9]+)?\\b)|(?P<T_TRUE>true\\b)|(?P<T_FALSE>false\\b)|(?P<T_NULL>null\\b)|(?P<T_BLOCK_STRING>"""(?:\\\\"""|(?!""").|\\s)+""")|(?P<T_STRING>"[^"\\\\]+(\\\\.[^"\\\\]*)*")|(?P<T_NAMESPACE>namespace\\b)|(?P<T_NAMESPACE_SEPARATOR>\\/)|(?P<T_EXTENDS>extends\\b)|(?P<T_IMPLEMENTS>implements\\b)|(?P<T_ON>on\\b)|(?P<T_TYPE>type\\b)|(?P<T_ENUM>enum\\b)|(?P<T_UNION>union\\b)|(?P<T_INPUT_UNION>inputUnion\\b)|(?P<T_INTERFACE>interface\\b)|(?P<T_SCHEMA>schema\\b)|(?P<T_SCALAR>scalar\\b)|(?P<T_DIRECTIVE>directive\\b)|(?P<T_INPUT>input\\b)|(?P<T_EXTEND>extend\\b)|(?P<T_FRAGMENT>fragment\\b)|(?P<T_VARIABLE>\\$[_A-Za-z][_0-9A-Za-z]*)|(?P<T_NAME>[_A-Za-z][_0-9A-Za-z]*)|(?P<T_WHITESPACE>(\\xfe\\xff|\\x20|\\x09|\\x0a|\\x0d)+)|(?P<T_COMMENT>#[^\\n]*)|(?P<T_COMMA>,)|(?P<T_UNKNOWN>.*?)/usS', ['T_WHITESPACE','T_COMMENT','T_COMMA',]), [
                             0 =>
 new \Railt\Compiler\Parser\Rule\Repetition(0, 0, -1, ['DocumentImports',], null),
                             1 =>
@@ -593,6 +593,6 @@ new \Railt\Compiler\Parser\Rule\Concatenation('Invocation', ['Directive',], null
      */
     public function getBuiltDate(): string
     {
-        return '2018-05-12UTC12:37:38.337+00:00';
+        return '2018-05-12UTC13:07:55.553+00:00';
     }
 }
