@@ -65,6 +65,6 @@ trait NameReaderTrait
      */
     protected function readIsGlobalScope(RuleInterface $type): bool
     {
-         return $type->getChild(0)->getName() === '#GlobalNamespace';
+        return $type->getChild(0)->getName() === '#GlobalNamespace';
     }
 }
