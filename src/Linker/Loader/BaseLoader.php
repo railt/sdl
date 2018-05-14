@@ -42,5 +42,4 @@ abstract class BaseLoader implements LoaderInterface
 
         return Str::endsWith($directory, '/') ? $directory : $directory . '/';
     }
-
 }

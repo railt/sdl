@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 namespace Railt\SDL\Linker\Record;
+
 use Railt\Compiler\Parser\Ast\RuleInterface;
 
 /**

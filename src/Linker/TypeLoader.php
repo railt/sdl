@@ -49,7 +49,7 @@ class TypeLoader
      * @param LoaderInterface $loader
      * @return TypeLoader
      */
-    public function addLoader(LoaderInterface $loader): TypeLoader
+    public function addLoader(LoaderInterface $loader): self
     {
         $this->loaders->push($loader);
 

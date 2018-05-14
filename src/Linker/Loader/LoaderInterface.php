@@ -29,7 +29,7 @@ interface LoaderInterface
      * @param string $extension
      * @return LoaderInterface
      */
-    public function addExtension(string $extension): LoaderInterface;
+    public function addExtension(string $extension): self;
 
     /**
      * @param string $type

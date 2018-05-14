@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Linker;
 
-use Railt\Io\Readable;
 use Railt\SDL\Linker\Record\RecordInterface;
 
 /**
