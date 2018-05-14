@@ -84,7 +84,7 @@ class Entity
                 break;
 
             case \is_string($component):
-                $this->componentByClass($component, function(ComponentInterface $needle): void {
+                $this->componentByClass($component, function (ComponentInterface $needle): void {
                     $this->components->detach($needle);
                 });
                 break;
@@ -100,7 +100,7 @@ class Entity
                 return $this->components->contains($component);
 
             case \is_string($component):
-                return $this->componentByClass($component, function(): bool {
+                return $this->componentByClass($component, function (): bool {
                     return true;
                 });
         }
@@ -121,11 +121,10 @@ class Entity
         }
     }
 
-
     /**
      * @param Entity $entity
      */
-    public function merge(Entity $entity): void
+    public function merge(self $entity): void
     {
         $this->components->addAll($entity->components);
     }

@@ -12,7 +12,6 @@ namespace Railt\SDL\Compiler;
 use Railt\Compiler\Parser\Ast\NodeInterface;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
-use Railt\SDL\Exception\BadAstMappingException;
 use Railt\SDL\Compiler\Record\DefinitionRecord;
 use Railt\SDL\Compiler\Record\ExtensionRecord;
 use Railt\SDL\Compiler\Record\InvocationRecord;
@@ -20,6 +19,7 @@ use Railt\SDL\Compiler\Record\NamespaceDefinitionRecord;
 use Railt\SDL\Compiler\Record\ObjectDefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Compiler\Record\SchemaDefinitionRecord;
+use Railt\SDL\Exception\BadAstMappingException;
 use Railt\SDL\Parser\Factory;
 use Railt\SDL\Stack\CallStack;
 
