@@ -73,7 +73,7 @@ class Entity
      * @return Entity A reference to the entity. This enables the chaining of
      * calls to add, to make creating and configuring entities cleaner. e.g.
      */
-    public function add(ComponentInterface ...$components): Entity
+    public function add(ComponentInterface ...$components): self
     {
         foreach ($components as $component) {
             $key = $this->key($component);
@@ -130,7 +130,7 @@ class Entity
      * @param Entity $entity
      * @return Entity
      */
-    public function merge(Entity $entity): Entity
+    public function merge(self $entity): self
     {
         $this->components = \array_merge($this->components, $entity->components);
 
