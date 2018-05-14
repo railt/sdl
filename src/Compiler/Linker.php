@@ -14,9 +14,9 @@ use Railt\SDL\Compiler\Loader\LoaderInterface;
 use Railt\SDL\Compiler\Record\RecordInterface;
 
 /**
- * Class TypeLoader
+ * Class Linker
  */
-class TypeLoader
+class Linker
 {
     /**
      * @var LoaderInterface[]|\SplStack
@@ -47,7 +47,7 @@ class TypeLoader
 
     /**
      * @param LoaderInterface $loader
-     * @return TypeLoader
+     * @return Linker
      */
     public function addLoader(LoaderInterface $loader): self
     {

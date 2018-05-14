@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Context;
 
-use Railt\SDL\Compiler\Record\ProvidesContext;
-use Railt\SDL\Compiler\Record\ProvidesName;
+use Railt\Io\Readable;
+use Railt\SDL\Exception\LossOfStackException;
 use Railt\SDL\Stack\CallStackInterface;
 
 /**
@@ -19,7 +19,7 @@ use Railt\SDL\Stack\CallStackInterface;
 class Pool
 {
     /**
-     * @var \SplStack
+     * @var \SplStack|ContextInterface[]
      */
     private $pool;
 
@@ -29,81 +29,55 @@ class Pool
     private $stack;
 
     /**
-     * Stack constructor.
+     * Pool constructor.
+     * @param Readable $file
      * @param CallStackInterface $stack
      */
-    public function __construct(CallStackInterface $stack)
+    public function __construct(Readable $file, CallStackInterface $stack)
     {
-        $this->pool  = new \SplStack();
+        $this->pool = new \SplStack();
         $this->stack = $stack;
+
+        $this->push(new Context($file, $stack, $this));
     }
 
     /**
-     * @param string $name
-     * @return string
+     * @param ContextInterface $context
+     * @return ContextInterface
      */
-    public function concat(string $name): string
+    public function push(ContextInterface $context): ContextInterface
     {
-        if ($name === ProvidesName::NAMESPACE_SEPARATOR) {
-            return '';
-        }
-
-        $name = \trim($name, ProvidesName::NAMESPACE_SEPARATOR);
-
-        if (! $name) {
-            return $this->current();
-        }
-
-        if (! $this->current()) {
-            return $name;
-        }
-
-        return \implode(ProvidesName::NAMESPACE_SEPARATOR, [$this->current(), $name]);
-    }
-
-    /**
-     * @return string
-     */
-    public function current(): string
-    {
-        return $this->pool->count() ? $this->pool->top() : '';
-    }
-
-    /**
-     * @param ProvidesName $record
-     * @return string
-     */
-    public function name(ProvidesName $record): string
-    {
-        return $record->atRoot() ? $record->getName() : $this->concat($record->getName());
-    }
-
-    /**
-     * @param ProvidesName $record
-     */
-    public function push(ProvidesName $record): void
-    {
-        $context = $record->atRoot()
-            ? $record->getName()
-            : $this->concat($record->getName());
-
-
-        $shouldReplace = $record instanceof ProvidesContext && ! $record->shouldRollback();
-
-        if ($shouldReplace && $this->pool->count()) {
-            $this->pool->pop();
-        }
-
         $this->pool->push($context);
+
+        return $context;
     }
 
     /**
-     * @param ProvidesContext $record
+     * @return ContextInterface
+     * @throws LossOfStackException
      */
-    public function complete(ProvidesContext $record): void
+    public function pop(): ContextInterface
     {
-        if ($record->shouldRollback()) {
-            $this->pool->pop();
+        if ($this->isEmpty()) {
+            throw new LossOfStackException('Context stack overflow', $this->stack);
         }
+
+        return $this->pool->pop();
+    }
+
+    /**
+     * @return ContextInterface
+     */
+    public function current(): ContextInterface
+    {
+        return $this->pool->top();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return $this->pool->count() <= 1;
     }
 }

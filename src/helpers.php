@@ -7,6 +7,7 @@
  */
 declare(strict_types=1);
 
+
 if (! \function_exists('\\spl_object_id')) {
     /**
      * This function returns a unique identifier for the object.
@@ -17,6 +18,7 @@ if (! \function_exists('\\spl_object_id')) {
      * @param object $object Any object.
      * @return int An integer identifier that is unique for each currently existing
      *  object and is always the same for each object.
+     * @throws Exception
      */
     function spl_object_id($object): int
     {
@@ -33,5 +35,75 @@ if (! \function_exists('\\spl_object_id')) {
         }
 
         return (int)$pool[$id];
+    }
+}
+
+
+if (! \function_exists('\\iterator_values')) {
+    /**
+     * Returns the keys of an iterable.
+     *
+     * <code>
+     *   \iterator_values(['a' => 0, 'b' => 1, 'c' => 2])
+     *   // => [0, 1, 2]
+     * </code>
+     *
+     * @param iterable $iterable Iterable to get keys from
+     * @return \Traversable
+     */
+    function iterator_values(iterable $iterable): \Traversable
+    {
+        foreach ($iterable as $_ => $value) {
+            yield $value;
+        }
+    }
+}
+
+
+if (! \function_exists('\\iterator_keys')) {
+    /**
+     * Returns the keys of an iterable.
+     *
+     * <code>
+     *   \iterator_keys(['a' => 0, 'b' => 1, 'c' => 2])
+     *   // => ['a', 'b', 'c']
+     * </code>
+     *
+     * @param iterable $iterable Iterable to get keys from
+     * @return \Traversable
+     */
+    function iterator_keys(iterable $iterable): \Traversable
+    {
+        foreach ($iterable as $key => $_) {
+            yield $key;
+        }
+    }
+}
+
+
+if (! \function_exists('\\iterable_to_array')) {
+    /**
+     * Converts an iterable into an array, without preserving keys.
+     *
+     * Not preserving the keys is useful, because iterators do not necessarily have
+     * unique keys and/or the key type is not supported by arrays.
+     *
+     * <code>
+     *  \iterable_to_array(new ArrayIterator(['a' => 1, 'b' => 2, 'c' => 3]))
+     *  // => []
+     * </code>
+     *
+     * @param iterable $iterable
+     * @return array
+     */
+    function iterable_to_array(iterable $iterable): array
+    {
+        $result = [];
+
+        foreach ($iterable as $key => $value) {
+            $result[] = $value;
+        }
+
+        return $result;
     }
 }

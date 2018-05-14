@@ -12,13 +12,7 @@ namespace Railt\SDL\Compiler\Record;
 /**
  * Class InvocationRecord
  */
-class InvocationRecord extends BaseRecord implements ProvidesPriority
+class InvocationRecord extends Record
 {
-    /**
-     * @return int
-     */
-    public function getPriority(): int
-    {
-        return static::PRIORITY_INVOCATION;
-    }
+
 }

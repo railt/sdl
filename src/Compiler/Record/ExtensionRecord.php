@@ -10,15 +10,9 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Record;
 
 /**
- * Class ExtensionRecord
+ * Class DefinitionRecord
  */
-class ExtensionRecord extends BaseRecord implements ProvidesPriority
+class ExtensionRecord extends Record
 {
-    /**
-     * @return int
-     */
-    public function getPriority(): int
-    {
-        return static::PRIORITY_EXTENSION;
-    }
+
 }

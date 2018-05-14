@@ -12,13 +12,12 @@ namespace Railt\SDL\Compiler;
 use Railt\Compiler\Parser\Ast\NodeInterface;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\Context\ContextInterface;
+use Railt\SDL\Compiler\Context\Pool;
 use Railt\SDL\Compiler\Record\DefinitionRecord;
 use Railt\SDL\Compiler\Record\ExtensionRecord;
 use Railt\SDL\Compiler\Record\InvocationRecord;
-use Railt\SDL\Compiler\Record\NamespaceDefinitionRecord;
-use Railt\SDL\Compiler\Record\ObjectDefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
-use Railt\SDL\Compiler\Record\SchemaDefinitionRecord;
 use Railt\SDL\Exception\BadAstMappingException;
 use Railt\SDL\Parser\Factory;
 use Railt\SDL\Stack\CallStack;
@@ -36,10 +35,10 @@ class HeadingsTable implements PrebuiltTypes
         '#EnumDefinition'      => DefinitionRecord::class,
         '#InputDefinition'     => DefinitionRecord::class,
         '#InterfaceDefinition' => DefinitionRecord::class,
-        '#NamespaceDefinition' => NamespaceDefinitionRecord::class,
-        '#ObjectDefinition'    => ObjectDefinitionRecord::class,
+        '#NamespaceDefinition' => DefinitionRecord::class,
+        //'#ObjectDefinition'    => DefinitionRecord::class,
         '#ScalarDefinition'    => DefinitionRecord::class,
-        '#SchemaDefinition'    => SchemaDefinitionRecord::class,
+        '#SchemaDefinition'    => DefinitionRecord::class,
         '#UnionDefinition'     => DefinitionRecord::class,
         '#EnumExtension'       => ExtensionRecord::class,
         '#InputExtension'      => ExtensionRecord::class,
@@ -67,9 +66,9 @@ class HeadingsTable implements PrebuiltTypes
     private $types;
 
     /**
-     * @var TypeLoader
+     * @var Linker
      */
-    private $loader;
+    private $linker;
 
     /**
      * HeadingsTable constructor.
@@ -81,26 +80,23 @@ class HeadingsTable implements PrebuiltTypes
         $this->stack  = $stack;
         $this->parser = Factory::create();
         $this->types  = new Container($stack);
-        $this->loader = new TypeLoader($this->types, $this);
+        $this->linker = new Linker($this->types, $this);
     }
 
     /**
      * @param Readable $file
      * @return ProvidesTypes
-     * @throws BadAstMappingException
      * @throws \Railt\Compiler\Exception\ParserException
-     * @throws \Railt\SDL\Exception\LossOfStackException
      * @throws \RuntimeException
      */
     public function extract(Readable $file): ProvidesTypes
     {
+        $context = new Pool($file, $this->stack);
+
         $ast = $this->parse($file);
 
         foreach ($ast->getChildren() as $rule) {
-            // Convert AST NodeInterface to RecordInterface
-            $record = $this->astToRecord($file, $rule);
-
-            $this->registerRecord($record);
+            $record = $this->astToRecord($file, $rule, $context->current());
         }
 
         return $this->types;
@@ -124,46 +120,35 @@ class HeadingsTable implements PrebuiltTypes
     /**
      * @param Readable $file
      * @param RuleInterface $rule
+     * @param ContextInterface $context
      * @return RecordInterface
      * @throws BadAstMappingException
      * @throws \Railt\SDL\Exception\LossOfStackException
      */
-    private function astToRecord(Readable $file, RuleInterface $rule): RecordInterface
+    private function astToRecord(Readable $file, RuleInterface $rule, ContextInterface $context): RecordInterface
     {
         $this->stack->pushAst($file, $rule);
-        $record = $this->getRecord($file, $rule);
+        $record = $this->getRecord($rule, $context);
         $this->stack->pop();
 
         return $record;
     }
 
     /**
-     * @param Readable $file
      * @param RuleInterface $rule
+     * @param ContextInterface $context
      * @return RecordInterface
      * @throws BadAstMappingException
      */
-    private function getRecord(Readable $file, RuleInterface $rule): RecordInterface
+    private function getRecord(RuleInterface $rule, ContextInterface $context): RecordInterface
     {
         $class = self::DEFINITIONS[$rule->getName()] ?? null;
 
         if ($class) {
-            return new $class($file, $rule, $this->stack);
+            return new $class($context, $rule);
         }
 
-        $error = \sprintf('Undefined AST node name %s', $rule->getName());
+        $error = \sprintf('Undefined abstract syntax tree production <%s>', \trim($rule->getName(), '#'));
         throw new BadAstMappingException($error, $this->stack);
-    }
-
-    /**
-     * @param RecordInterface $record
-     */
-    private function registerRecord(RecordInterface $record): void
-    {
-        // TODO Record stack push
-
-        $this->types->push($record);
-
-        // TODO Record stack pop
     }
 }
