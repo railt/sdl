@@ -14,5 +14,4 @@ namespace Railt\SDL\Compiler\Component;
  */
 interface ComponentInterface
 {
-
 }

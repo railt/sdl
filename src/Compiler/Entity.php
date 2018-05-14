@@ -12,14 +12,37 @@ namespace Railt\SDL\Compiler;
 use Railt\SDL\Compiler\Component\ComponentInterface;
 
 /**
- * Class Entity
+ * An entity is composed from components. As such, it is essentially a
+ * collection object for components. Sometimes, the entities in a game will
+ * mirror the actual objects in the SDL, but this is not necessary.
+ *
+ * Components are simple value objects that contain data relevant to the
+ * entity. Entities with similar functionality will have instances of the
+ * same components. So we might have a position component.
+ *
+ * <code>
+ * class PositionComponent implements ComponentInterface
+ * {
+ *      private $file;
+ *      private $offset = 0;
+ *
+ *      public function getPosition(): Position
+ *      {
+ *          return $this->file->getPosition($this->offset);
+ *      }
+ * }
+ * </code>
+ *
+ * All entities that have a position in the file, will have an instance of the
+ * position component. Systems operate on entities based on the components
+ * they have.
  */
 class Entity
 {
     /**
-     * @var \SplObjectStorage|ComponentInterface[]
+     * @var ComponentInterface[]
      */
-    private $components;
+    private $components = [];
 
     /**
      * Entity constructor.
@@ -27,7 +50,7 @@ class Entity
      */
     public function __construct(ComponentInterface ...$components)
     {
-        $this->components = new \SplObjectStorage();
+        $this->add(...$components);
     }
 
     /**
@@ -47,87 +70,71 @@ class Entity
      * </code>
      *
      * @param ComponentInterface ...$components The component object to add.
+     * @return Entity A reference to the entity. This enables the chaining of
+     * calls to add, to make creating and configuring entities cleaner. e.g.
      */
-    public function add(ComponentInterface ...$components): void
+    public function add(ComponentInterface ...$components): Entity
     {
         foreach ($components as $component) {
-            $this->components->attach($component);
+            $key = $this->key($component);
+
+            \assert(! \array_key_exists($key, $this->components), "Component ${key} duplication");
+
+            $this->components[$key] = $component;
         }
+
+        return $this;
     }
 
     /**
-     * @param string $component
-     * @param \Closure $then
-     * @return bool
+     * @param string|ComponentInterface $component
+     * @return string
      */
-    private function componentByClass(string $component, \Closure $then): bool
-    {
-        foreach ($this->components as $needle) {
-            if ($needle instanceof $component && $then($needle)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param ComponentInterface|string $component
-     */
-    public function remove($component): void
+    private function key($component): string
     {
         \assert($component instanceof ComponentInterface || \is_string($component));
 
-        switch (true) {
-            case $component instanceof ComponentInterface:
-                $this->components->detach($component);
-                break;
-
-            case \is_string($component):
-                $this->componentByClass($component, function(ComponentInterface $needle): void {
-                    $this->components->detach($needle);
-                });
-                break;
-        }
+        return \is_string($component) ? $component : \get_class($component);
     }
 
+    /**
+     * Remove a component from the entity.
+     *
+     * @param string|ComponentInterface $component The class of the component to be removed.
+     * @return ComponentInterface|null The component, or null if the component doesn't exist in the entity.
+     */
+    public function remove($component): ?ComponentInterface
+    {
+        $key    = $this->key($component);
+        $result = $this->components[$key] ?? null;
+
+        if ($this->has($component)) {
+            unset($this->components[$key]);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Does the entity have a component of a particular type.
+     *
+     * @param string|ComponentInterface $component The class of the component sought or an instance of.
+     * @return bool Returns true if the entity has a component of the type, false if not.
+     */
     public function has($component): bool
     {
-        \assert($component instanceof ComponentInterface || \is_string($component));
-
-        switch (true) {
-            case $component instanceof ComponentInterface:
-                return $this->components->contains($component);
-
-            case \is_string($component):
-                return $this->componentByClass($component, function(): bool {
-                    return true;
-                });
-        }
-
-        return false;
+        return \array_key_exists($this->key($component), $this->components);
     }
-
-    /**
-     * @param string $component
-     * @return bool
-     */
-    private function hasComponentClass(string $component): bool
-    {
-        foreach ($this->components as $needle) {
-            if ($needle instanceof $component) {
-                $this->components->detach($needle);
-            }
-        }
-    }
-
 
     /**
      * @param Entity $entity
+     * @return Entity
      */
-    public function merge(Entity $entity): void
+    public function merge(Entity $entity): Entity
     {
-        $this->components->addAll($entity->components);
+        $this->components = \array_merge($this->components, $entity->components);
+
+        return $this;
     }
 
     /**
@@ -135,6 +142,8 @@ class Entity
      */
     public function __clone()
     {
-        $this->components = clone $this->components;
+        foreach ($this->components as $key => $component) {
+            $this->components[$key] = clone $this->components[$key];
+        }
     }
 }
