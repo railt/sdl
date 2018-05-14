@@ -2,7 +2,6 @@
 
 use Railt\Io\File;
 use Railt\SDL\Compiler;
-use Railt\SDL\Exception\CompilerException;
 
 require __DIR__ . '/../vendor/autoload.php';
 
