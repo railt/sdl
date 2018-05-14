@@ -87,5 +87,3 @@ class PositionComponent implements ComponentInterface
         return $this->getPosition()->getColumn();
     }
 }
-
-

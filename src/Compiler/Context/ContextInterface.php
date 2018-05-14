@@ -36,12 +36,12 @@ interface ContextInterface
      * @param string $name
      * @return ContextInterface
      */
-    public function resolve(string $name): ContextInterface;
+    public function resolve(string $name): self;
 
     /**
      * @return null|ContextInterface
      */
-    public function previous(): ?ContextInterface;
+    public function previous(): ?self;
 
     /**
      * @return bool

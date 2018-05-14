@@ -14,5 +14,4 @@ namespace Railt\SDL\Compiler\Record;
  */
 class InvocationRecord extends Record
 {
-
 }

@@ -63,7 +63,7 @@ interface RecordInterface
      * @return RecordInterface|$this A reference to the record. This enables the chaining of
      * calls to add, to make creating and configuring records cleaner. e.g.
      */
-    public function add(ComponentInterface ...$components): RecordInterface;
+    public function add(ComponentInterface ...$components): self;
 
     /**
      * Remove a component from the record.

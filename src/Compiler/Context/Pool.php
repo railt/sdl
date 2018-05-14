@@ -35,7 +35,7 @@ class Pool
      */
     public function __construct(Readable $file, CallStackInterface $stack)
     {
-        $this->pool = new \SplStack();
+        $this->pool  = new \SplStack();
         $this->stack = $stack;
 
         $this->push(new Context($file, $stack, $this));

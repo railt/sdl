@@ -96,7 +96,7 @@ class Context implements ContextInterface
      */
     public function resolve(string $name): ContextInterface
     {
-        $context = new Context($this->resolveName($name), $this->file, $this->stack, $this->pool);
+        $context = new self($this->resolveName($name), $this->file, $this->stack, $this->pool);
 
         $this->pool->push($context);
 
