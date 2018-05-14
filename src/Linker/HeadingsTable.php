@@ -13,28 +13,20 @@ use Railt\Compiler\Parser\Ast\NodeInterface;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
 use Railt\SDL\Exception\BadAstMappingException;
-use Railt\SDL\Exception\TypeConflictException;
-use Railt\SDL\Linker\Context\Pool;
-use Railt\SDL\Linker\Record\BaseRecord;
 use Railt\SDL\Linker\Record\DefinitionRecord;
 use Railt\SDL\Linker\Record\ExtensionRecord;
 use Railt\SDL\Linker\Record\InvocationRecord;
 use Railt\SDL\Linker\Record\NamespaceDefinitionRecord;
-use Railt\SDL\Linker\Record\ProvidesContext;
-use Railt\SDL\Linker\Record\ProvidesDefinitions;
-use Railt\SDL\Linker\Record\ProvidesName;
-use Railt\SDL\Linker\Record\ProvidesPriority;
-use Railt\SDL\Linker\Record\ProvidesRelations;
+use Railt\SDL\Linker\Record\ObjectDefinitionRecord;
 use Railt\SDL\Linker\Record\RecordInterface;
 use Railt\SDL\Linker\Record\SchemaDefinitionRecord;
-use Railt\SDL\Linker\Record\TypeDefinitionRecord;
 use Railt\SDL\Parser\Factory;
 use Railt\SDL\Stack\CallStack;
 
 /**
  * Class HeadingsTable
  */
-class HeadingsTable
+class HeadingsTable implements PrebuiltTypes
 {
     /**
      * @var int[]
@@ -45,7 +37,7 @@ class HeadingsTable
         '#InputDefinition'     => DefinitionRecord::class,
         '#InterfaceDefinition' => DefinitionRecord::class,
         '#NamespaceDefinition' => NamespaceDefinitionRecord::class,
-        '#ObjectDefinition'    => TypeDefinitionRecord::class,
+        '#ObjectDefinition'    => ObjectDefinitionRecord::class,
         '#ScalarDefinition'    => DefinitionRecord::class,
         '#SchemaDefinition'    => SchemaDefinitionRecord::class,
         '#UnionDefinition'     => DefinitionRecord::class,
@@ -60,16 +52,6 @@ class HeadingsTable
     ];
 
     /**
-     * @var array
-     */
-    private $definitions = [];
-
-    /**
-     * @var \SplPriorityQueue
-     */
-    private $records;
-
-    /**
      * @var Factory
      */
     private $parser;
@@ -80,9 +62,14 @@ class HeadingsTable
     private $stack;
 
     /**
-     * @var Pool
+     * @var ProvidesTypes
      */
-    private $context;
+    private $types;
+
+    /**
+     * @var TypeLoader
+     */
+    private $loader;
 
     /**
      * HeadingsTable constructor.
@@ -93,163 +80,90 @@ class HeadingsTable
     {
         $this->stack  = $stack;
         $this->parser = Factory::create();
-
-        $this->context = new Pool($stack);
-        $this->records = new \SplPriorityQueue();
+        $this->types  = new Container($stack);
+        $this->loader = new TypeLoader($this->types, $this);
     }
 
     /**
      * @param Readable $file
-     * @return \Traversable|RecordInterface[]
+     * @return ProvidesTypes
      * @throws BadAstMappingException
-     * @throws TypeConflictException
      * @throws \Railt\Compiler\Exception\ParserException
      * @throws \Railt\SDL\Exception\LossOfStackException
      * @throws \RuntimeException
      */
-    public function extract(Readable $file): \Traversable
+    public function extract(Readable $file): ProvidesTypes
     {
         $ast = $this->parse($file);
 
-        /** @var RuleInterface $rule */
         foreach ($ast->getChildren() as $rule) {
-            $this->analyze($file, $rule);
+            // Convert AST NodeInterface to RecordInterface
+            $record = $this->astToRecord($file, $rule);
+
+            $this->registerRecord($record);
         }
 
-        yield from $this->records;
+        return $this->types;
     }
 
     /**
      * @param Readable $file
-     * @return RuleInterface|NodeInterface
+     * @return RuleInterface|RuleInterface
      * @throws \Railt\Compiler\Exception\ParserException
      * @throws \RuntimeException
      */
-    private function parse(Readable $file): RuleInterface
+    private function parse(Readable $file): NodeInterface
     {
-        return $this->parser->parse($file);
+        $result = $this->parser->parse($file);
+
+        \assert($result instanceof RuleInterface);
+
+        return $result;
     }
 
     /**
      * @param Readable $file
      * @param RuleInterface $rule
+     * @return RecordInterface
      * @throws BadAstMappingException
-     * @throws TypeConflictException
      * @throws \Railt\SDL\Exception\LossOfStackException
      */
-    private function analyze(Readable $file, RuleInterface $rule): void
+    private function astToRecord(Readable $file, RuleInterface $rule): RecordInterface
     {
         $this->stack->pushAst($file, $rule);
-
-        $this->context($this->record($file, $rule), function (BaseRecord $record): void {
-            $this->bootChildren($record);
-            $this->bootRelations($record);
-            $this->bootPriority($record);
-        });
-
+        $record = $this->getRecord($file, $rule);
         $this->stack->pop();
-    }
 
-    /**
-     * @param ProvidesName $record
-     * @throws TypeConflictException
-     */
-    private function bootNameRegistration(ProvidesName $record): void
-    {
-        $record->rename($this->context->name($record));
-
-        $name = $record->getName();
-
-        if (\array_key_exists($name, $this->definitions)) {
-            $previous = $this->definitions[$name];
-            $this->stack->pushAst($previous->getFile(), $previous->getAst());
-
-            $error = 'Can not register type %s because the name is already in use';
-            throw new TypeConflictException(\sprintf($error, $name), $this->stack);
-        }
-
-        $this->definitions[$name] = $record;
-    }
-
-    /**
-     * @param BaseRecord $record
-     * @param \Closure $then
-     * @throws TypeConflictException
-     */
-    private function context(BaseRecord $record, \Closure $then): void
-    {
-        if ($record instanceof ProvidesName && $record->shouldRegister()) {
-            $this->bootNameRegistration($record);
-        }
-
-        if ($record instanceof ProvidesContext) {
-            $this->context->push($record);
-        }
-
-        $then($record);
-
-        if ($record instanceof ProvidesContext) {
-            $this->context->complete($record);
-        }
+        return $record;
     }
 
     /**
      * @param Readable $file
      * @param RuleInterface $rule
-     * @return BaseRecord
+     * @return RecordInterface
      * @throws BadAstMappingException
      */
-    private function record(Readable $file, RuleInterface $rule): BaseRecord
+    private function getRecord(Readable $file, RuleInterface $rule): RecordInterface
     {
-        if (! \array_key_exists($rule->getName(), static::DEFINITIONS)) {
-            $error = \sprintf('Unprocessable AST Node %s', $rule->getName());
-            throw new BadAstMappingException($error, $this->stack);
+        $class = self::DEFINITIONS[$rule->getName()] ?? null;
+
+        if ($class) {
+            return new $class($file, $rule, $this->stack);
         }
 
-        $class = static::DEFINITIONS[$rule->getName()];
-
-        return new $class($file, $rule, $this->stack, $this->context);
+        $error = \sprintf('Undefined AST node name %s', $rule->getName());
+        throw new BadAstMappingException($error, $this->stack);
     }
 
     /**
-     * @param BaseRecord $record
-     * @throws BadAstMappingException
-     * @throws TypeConflictException
-     * @throws \Railt\SDL\Exception\LossOfStackException
+     * @param RecordInterface $record
      */
-    private function bootChildren(BaseRecord $record): void
+    private function registerRecord(RecordInterface $record): void
     {
-        if ($record instanceof ProvidesDefinitions) {
-            foreach ($record->getDefinitions() as $ast) {
-                $this->analyze($record->getFile(), $ast);
-            }
-        }
-    }
+        // TODO Record stack push
 
-    /**
-     * @param BaseRecord $record
-     */
-    private function bootRelations(BaseRecord $record): void
-    {
-        if ($record instanceof ProvidesRelations) {
-            foreach ($record->getRelations() as $relation) {
-                $this->fetch($relation);
-            }
-        }
-    }
+        $this->types->push($record);
 
-    private function fetch(string $type): void
-    {
-        // TODO
-    }
-
-    /**
-     * @param BaseRecord $record
-     */
-    private function bootPriority(BaseRecord $record): void
-    {
-        $priority = $record instanceof ProvidesPriority ? $record->getPriority() : 0;
-
-        $this->records->insert($record, $priority);
+        // TODO Record stack pop
     }
 }

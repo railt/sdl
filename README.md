@@ -16,4 +16,5 @@
 > Note: All questions and issues please send 
 to [https://github.com/railt/railt/issues](https://github.com/railt/railt/issues)
 
-
+This package is an implementation of a resident incremental multi-pass 
+compiler for the GraphQL RL/SDL language.

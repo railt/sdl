@@ -116,3 +116,9 @@ enum Format {
     """
     HUMAN_READABLE
 }
+
+interface Some implements Ololo {
+}
+
+type Example implements Some & Ololo {
+}

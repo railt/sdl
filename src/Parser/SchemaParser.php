@@ -236,7 +236,7 @@ new \Railt\Compiler\Parser\Rule\Concatenation(83, [82,'TypeName',], null),
                             84 =>
 new \Railt\Compiler\Parser\Rule\Repetition(84, 0, -1, [83,], null),
                             'TypeDefinitionImplements' =>
-new \Railt\Compiler\Parser\Rule\Concatenation('TypeDefinitionImplements', [81,'TypeName',84,], null),
+new \Railt\Compiler\Parser\Rule\Concatenation('TypeDefinitionImplements', [81,'TypeName',84,], '#Implements'),
                             86 =>
 new \Railt\Compiler\Parser\Rule\Token(86, 'T_PARENTHESIS_OPEN', false),
                             87 =>
@@ -593,6 +593,6 @@ new \Railt\Compiler\Parser\Rule\Concatenation('Invocation', ['Directive',], null
      */
     public function getBuiltDate(): string
     {
-        return '2018-05-12UTC13:07:55.553+00:00';
+        return '2018-05-13UTC21:51:19.484+00:00';
     }
 }
