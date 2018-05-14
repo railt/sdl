@@ -7,18 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker;
-
-use Railt\Io\Readable;
+namespace Railt\SDL\Compiler\Record;
 
 /**
- * Interface PrebuiltTypes
+ * Interface ProvidesRelations
  */
-interface PrebuiltTypes
+interface ProvidesRelations
 {
     /**
-     * @param Readable $file
-     * @return ProvidesTypes
+     * @return iterable|string[]
      */
-    public function extract(Readable $file): ProvidesTypes;
+    public function getRelations(): iterable;
 }

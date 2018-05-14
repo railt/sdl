@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker\Loader;
+namespace Railt\SDL\Compiler\Loader;
 
 use Railt\Io\Readable;
 

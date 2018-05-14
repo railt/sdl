@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker;
+namespace Railt\SDL\Compiler;
 
 use Railt\Io\Readable;
-use Railt\SDL\Linker\Loader\LoaderInterface;
-use Railt\SDL\Linker\Record\RecordInterface;
+use Railt\SDL\Compiler\Loader\LoaderInterface;
+use Railt\SDL\Compiler\Record\RecordInterface;
 
 /**
  * Class TypeLoader

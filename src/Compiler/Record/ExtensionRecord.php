@@ -7,18 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker\Record;
+namespace Railt\SDL\Compiler\Record;
 
 /**
- * Class InvocationRecord
+ * Class ExtensionRecord
  */
-class InvocationRecord extends BaseRecord implements ProvidesPriority
+class ExtensionRecord extends BaseRecord implements ProvidesPriority
 {
     /**
      * @return int
      */
     public function getPriority(): int
     {
-        return static::PRIORITY_INVOCATION;
+        return static::PRIORITY_EXTENSION;
     }
 }

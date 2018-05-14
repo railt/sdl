@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker\Record;
+namespace Railt\SDL\Compiler\Record;
 
 /**
  * Interface ProvidesName

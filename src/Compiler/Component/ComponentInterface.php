@@ -7,15 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker\Record;
+namespace Railt\SDL\Compiler\Component;
 
 /**
- * Interface ProvidesContext
+ * Interface ComponentInterface
  */
-interface ProvidesContext extends ProvidesName
+interface ComponentInterface
 {
-    /**
-     * @return bool
-     */
-    public function shouldRollback(): bool;
+
 }

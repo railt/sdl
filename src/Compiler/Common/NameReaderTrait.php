@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker\Common;
+namespace Railt\SDL\Compiler\Common;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Linker\Record\ProvidesName;
+use Railt\SDL\Compiler\Record\ProvidesName;
 
 /**
  * Trait NameReaderTrait

@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker\Context;
+namespace Railt\SDL\Compiler\Context;
 
-use Railt\SDL\Linker\Record\ProvidesContext;
-use Railt\SDL\Linker\Record\ProvidesName;
+use Railt\SDL\Compiler\Record\ProvidesContext;
+use Railt\SDL\Compiler\Record\ProvidesName;
 use Railt\SDL\Stack\CallStackInterface;
 
 /**

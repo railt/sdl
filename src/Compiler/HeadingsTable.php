@@ -7,19 +7,19 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker;
+namespace Railt\SDL\Compiler;
 
 use Railt\Compiler\Parser\Ast\NodeInterface;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
 use Railt\SDL\Exception\BadAstMappingException;
-use Railt\SDL\Linker\Record\DefinitionRecord;
-use Railt\SDL\Linker\Record\ExtensionRecord;
-use Railt\SDL\Linker\Record\InvocationRecord;
-use Railt\SDL\Linker\Record\NamespaceDefinitionRecord;
-use Railt\SDL\Linker\Record\ObjectDefinitionRecord;
-use Railt\SDL\Linker\Record\RecordInterface;
-use Railt\SDL\Linker\Record\SchemaDefinitionRecord;
+use Railt\SDL\Compiler\Record\DefinitionRecord;
+use Railt\SDL\Compiler\Record\ExtensionRecord;
+use Railt\SDL\Compiler\Record\InvocationRecord;
+use Railt\SDL\Compiler\Record\NamespaceDefinitionRecord;
+use Railt\SDL\Compiler\Record\ObjectDefinitionRecord;
+use Railt\SDL\Compiler\Record\RecordInterface;
+use Railt\SDL\Compiler\Record\SchemaDefinitionRecord;
 use Railt\SDL\Parser\Factory;
 use Railt\SDL\Stack\CallStack;
 

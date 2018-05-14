@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker;
+namespace Railt\SDL\Compiler;
 
 use Railt\SDL\Exception\TypeNotFoundException;
-use Railt\SDL\Linker\Record\ProvidesName;
-use Railt\SDL\Linker\Record\ProvidesPriority;
-use Railt\SDL\Linker\Record\RecordInterface;
+use Railt\SDL\Compiler\Record\ProvidesName;
+use Railt\SDL\Compiler\Record\ProvidesPriority;
+use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Stack\CallStackInterface;
 
 /**

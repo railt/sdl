@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL;
 
 use Railt\Io\Readable;
-use Railt\SDL\Linker\HeadingsTable;
+use Railt\SDL\Compiler\HeadingsTable;
 use Railt\SDL\Stack\CallStack;
 use Railt\SDL\Stack\CallStackInterface;
 

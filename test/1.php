@@ -5,6 +5,10 @@ use Railt\SDL\Compiler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$e = new Compiler\Entity();
+$e->add(new class implements Compiler\Component\ComponentInterface {});
+echo $e->has(Compiler\Component\ComponentInterface::class);
+die;
 
 try {
     $compiler = new Compiler();

@@ -34,7 +34,10 @@
     "autoload": {
         "psr-4": {
             "Railt\\SDL\\": "src"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "require-dev": {
         "symfony/finder": "~4.0",

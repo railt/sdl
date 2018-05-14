@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Linker;
+namespace Railt\SDL\Compiler;
 
-use Railt\SDL\Linker\Record\RecordInterface;
+use Railt\SDL\Compiler\Record\RecordInterface;
 
 /**
  * Interface ProvidesTypes
