@@ -11,6 +11,7 @@ namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Component\ContextComponent;
+use Railt\SDL\Compiler\Component\InnerDefinitionsComponent;
 use Railt\SDL\Compiler\Component\NameComponent;
 use Railt\SDL\Compiler\Component\PriorityComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
@@ -45,6 +46,11 @@ class NamespaceDefinitionRecord extends Record
         $ctx = new ContextComponent($context, $this->getNewContext($context, $ast), $this->shouldRollback($ast));
 
         $this->add($ctx);
+
+        //
+        //
+        //
+        $this->add(InnerDefinitionsComponent::fromAst($ast));
     }
 
     /**

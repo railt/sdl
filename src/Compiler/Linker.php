@@ -30,16 +30,16 @@ class Linker
     private $container;
 
     /**
-     * @var PrebuiltTypes
+     * @var PipelineInterface
      */
     private $builder;
 
     /**
      * TypeLoader constructor.
      * @param ProvidesTypes $container
-     * @param PrebuiltTypes $builder
+     * @param PipelineInterface $builder
      */
-    public function __construct(ProvidesTypes $container, PrebuiltTypes $builder)
+    public function __construct(ProvidesTypes $container, PipelineInterface $builder)
     {
         $this->loaders   = new \SplStack();
         $this->container = $container;

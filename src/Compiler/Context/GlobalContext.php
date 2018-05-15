@@ -70,7 +70,7 @@ class GlobalContext extends Context implements GlobalContextInterface
     }
 
     /**
-     * @param Readable $file
+     * @param Readable|null $file
      * @param string|null $name
      * @return LocalContextInterface
      */

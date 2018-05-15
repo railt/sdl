@@ -15,6 +15,7 @@ use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\ContextInterface;
 use Railt\SDL\Compiler\Context\GlobalContext;
 use Railt\SDL\Compiler\Context\GlobalContextInterface;
+use Railt\SDL\Compiler\Context\LocalContextInterface;
 use Railt\SDL\Compiler\Context\ProvidesTypes;
 use Railt\SDL\Compiler\Record\DefinitionRecord;
 use Railt\SDL\Compiler\Record\ExtensionRecord;
@@ -23,6 +24,7 @@ use Railt\SDL\Compiler\Record\NamespaceDefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Compiler\System\CompleteContextSystem;
 use Railt\SDL\Compiler\System\CreateContextSystem;
+use Railt\SDL\Compiler\System\ExportInnerTypesSystem;
 use Railt\SDL\Compiler\System\SystemInterface;
 use Railt\SDL\Compiler\System\TypeRegisterSystem;
 use Railt\SDL\Exception\BadAstMappingException;
@@ -32,7 +34,7 @@ use Railt\SDL\Stack\CallStack;
 /**
  * Class Pipeline
  */
-class Pipeline implements PrebuiltTypes
+class Pipeline implements PipelineInterface
 {
     /**
      * @var int[]
@@ -90,6 +92,7 @@ class Pipeline implements PrebuiltTypes
 
         $this->addSystem(new CreateContextSystem());
         $this->addSystem(new TypeRegisterSystem());
+        $this->addSystem(new ExportInnerTypesSystem($this));
         $this->addSystem(new CompleteContextSystem());
     }
 
@@ -107,13 +110,15 @@ class Pipeline implements PrebuiltTypes
      * @throws \Railt\Compiler\Exception\ParserException
      * @throws \RuntimeException
      */
-    public function extract(Readable $file): ProvidesTypes
+    public function read(Readable $file): ProvidesTypes
     {
         $current = $this->context->create($file);
 
         $this->context->push($current);
 
-        $this->process($file, $this->parse($file));
+        foreach ($this->parse($file)->getChildren() as $rule) {
+            $this->insert($file, $rule);
+        }
 
         return $current->getTypes();
     }
@@ -121,23 +126,27 @@ class Pipeline implements PrebuiltTypes
     /**
      * @param Readable $file
      * @param RuleInterface $ast
+     * @return RecordInterface
+     * @throws BadAstMappingException
+     * @throws \Railt\SDL\Exception\LossOfStackException
      */
-    private function process(Readable $file, RuleInterface $ast): void
+    public function insert(Readable $file, RuleInterface $ast): RecordInterface
     {
-        foreach ($ast->getChildren() as $rule) {
-            $context = $this->context->current();
+        /** @var LocalContextInterface $context */
+        $context = $this->context->current();
 
-            // AST Production to Record
-            $this->stack->pushAst($file, $rule);
-            $record = $this->getRecord($rule, $context);
+        // AST Production to Record
+        $this->stack->pushAst($file, $ast);
+        $record = $this->getRecord($ast, $context);
 
-            // Analyze
-            foreach ($this->systems as $system) {
-                $system->provide($record);
-            }
-
-            $this->stack->pop();
+        // Analyze
+        foreach ($this->systems as $system) {
+            $system->provide($record);
         }
+
+        $this->stack->pop();
+
+        return $record;
     }
 
     /**

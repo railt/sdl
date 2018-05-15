@@ -1,5 +1,5 @@
 
-namespace Ololo
+namespace Test
 
 "Scalar DateTime type"
 scalar DateTime

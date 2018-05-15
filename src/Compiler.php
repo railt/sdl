@@ -23,7 +23,7 @@ class Compiler
     /**
      * @var Pipeline
      */
-    private $headers;
+    private $pipeline;
 
     /**
      * @var CallStackInterface
@@ -36,8 +36,8 @@ class Compiler
      */
     public function __construct()
     {
-        $this->stack   = new CallStack();
-        $this->headers = new Pipeline($this->stack);
+        $this->stack    = new CallStack();
+        $this->pipeline = new Pipeline($this->stack);
     }
 
     /**
@@ -55,7 +55,7 @@ class Compiler
      */
     public function parse(Readable $file): void
     {
-        $types = $this->headers->extract($file);
+        $types = $this->pipeline->read($file);
 
         //foreach ($types->getRecords() as $record) {
         //    echo 'Record: ' . $record->getAst()->getName() . "\n";
