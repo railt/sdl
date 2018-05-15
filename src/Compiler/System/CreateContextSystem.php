@@ -25,7 +25,7 @@ class CreateContextSystem extends System
     {
         $this->when($record)
             ->contains(ContextComponent::class)
-            ->then(function (ContextComponent $provider) use ($record) {
+            ->then(function (ContextComponent $provider) use ($record): void {
                 $context = $provider->getContext();
 
                 \assert($context instanceof LocalContextInterface);

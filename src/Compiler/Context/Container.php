@@ -83,9 +83,9 @@ class Container implements ProvidesTypes
             $name = $record->get(NameComponent::class)->getName();
 
             if (\array_key_exists($name, $this->definitions)) {
-                $error = 'Can not create a new type, because name "%s" already in use in %s scope';
+                $error   = 'Can not create a new type, because name "%s" already in use in %s scope';
                 $context = $this->context->atRoot() ? 'global' : 'current "' . $this->context->getName() . '"';
-                $error = \sprintf($error, $name, $context);
+                $error   = \sprintf($error, $name, $context);
 
                 throw new TypeRedefinitionException($error, $this->context->getStack());
             }
@@ -116,7 +116,7 @@ class Container implements ProvidesTypes
     {
         yield from $this->records;
 
-        yield from $this->previous(function(ProvidesTypes $types) {
+        yield from $this->previous(function (ProvidesTypes $types) {
             return $types->getRecords();
         });
     }
@@ -147,7 +147,7 @@ class Container implements ProvidesTypes
     {
         yield from \array_values($this->definitions);
 
-        yield from $this->previous(function(ProvidesTypes $types) {
+        yield from $this->previous(function (ProvidesTypes $types) {
             return $types->getDefinitions();
         });
     }

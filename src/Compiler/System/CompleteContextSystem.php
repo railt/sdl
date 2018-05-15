@@ -26,7 +26,7 @@ class CompleteContextSystem extends System
             ->contains(ContextComponent::class, function (ContextComponent $provider) {
                 return $provider->shouldRollback();
             })
-            ->then(function (ContextComponent $provider) {
+            ->then(function (ContextComponent $provider): void {
                 $provider->getContext()->global()->pop();
             });
     }

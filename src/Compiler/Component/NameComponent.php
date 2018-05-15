@@ -81,7 +81,7 @@ class NameComponent implements ComponentInterface
      * @param RuleInterface $rule
      * @return NameComponent
      */
-    public static function fromAst(LocalContextInterface $context, RuleInterface $rule): NameComponent
+    public static function fromAst(LocalContextInterface $context, RuleInterface $rule): self
     {
         $isGlobal = $rule->getChild(0)->getName() === '#GlobalNamespace';
 

@@ -39,8 +39,8 @@ class ContextComponent implements ComponentInterface
      */
     public function __construct(LocalContextInterface $parent, LocalContextInterface $current, bool $rollback)
     {
-        $this->parent = $parent;
-        $this->current = $current;
+        $this->parent   = $parent;
+        $this->current  = $current;
         $this->rollback = $rollback;
     }
 

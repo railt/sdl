@@ -32,7 +32,7 @@ abstract class Context implements ContextInterface
      */
     public function __construct(CallStackInterface $stack)
     {
-        $this->stack = $stack;
+        $this->stack     = $stack;
         $this->container = new Container($this);
     }
 

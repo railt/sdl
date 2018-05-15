@@ -46,7 +46,7 @@ class Comparator
      * @param \Closure|null $and
      * @return Comparator
      */
-    public function contains(string $component, \Closure $and = null): Comparator
+    public function contains(string $component, \Closure $and = null): self
     {
         if ($this->shouldInvoke) {
             if ($this->record->has($component)) {
@@ -69,7 +69,7 @@ class Comparator
      * @param \Closure $fn
      * @return Comparator
      */
-    public function then(\Closure $fn): Comparator
+    public function then(\Closure $fn): self
     {
         if ($this->shouldInvoke) {
             $fn(...$this->provides);
@@ -82,7 +82,7 @@ class Comparator
      * @param \Closure $fn
      * @return Comparator
      */
-    public function otherwise(\Closure $fn): Comparator
+    public function otherwise(\Closure $fn): self
     {
         if (! $this->shouldInvoke) {
             $fn(...$this->provides);

@@ -24,7 +24,7 @@ interface ContextInterface
     /**
      * @return ContextInterface
      */
-    public function current(): ContextInterface;
+    public function current(): self;
 
     /**
      * @return CallStackInterface
