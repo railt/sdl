@@ -42,7 +42,7 @@ class InnerDefinitionsComponent implements ComponentInterface
      * @param RuleInterface $ast
      * @return InnerDefinitionsComponent
      */
-    public static function fromAst(RuleInterface $ast): InnerDefinitionsComponent
+    public static function fromAst(RuleInterface $ast): self
     {
         $children = $ast->find('#ChildrenDefinitions', 0);
 

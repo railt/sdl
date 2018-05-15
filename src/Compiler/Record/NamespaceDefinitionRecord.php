@@ -47,9 +47,9 @@ class NamespaceDefinitionRecord extends Record
 
         $this->add($ctx);
 
-        //
-        //
-        //
+
+
+
         $this->add(InnerDefinitionsComponent::fromAst($ast));
     }
 
