@@ -38,21 +38,38 @@ class CallStack implements CallStackInterface
      * @param Readable $file
      * @param Position $position
      * @param string $message
+     * @return CallStackInterface
      */
-    public function push(Readable $file, Position $position, string $message): void
+    public function push(Readable $file, Position $position, string $message): CallStackInterface
     {
         $this->stack->push(new Item($file, $position, $message));
+
+        return $this;
     }
 
     /**
      * @param Readable $file
      * @param RuleInterface $ast
+     * @return CallStackInterface
      */
-    public function pushAst(Readable $file, RuleInterface $ast): void
+    public function pushAst(Readable $file, RuleInterface $ast): CallStackInterface
     {
         $message = $this->astToMessage($ast);
 
-        $this->push($file, $file->getPosition($ast->getOffset()), $message);
+        return $this->push($file, $file->getPosition($ast->getOffset()), $message);
+    }
+
+    /**
+     * @param \Closure $then
+     * @return CallStackInterface
+     */
+    public function then(\Closure $then): CallStackInterface
+    {
+        $then();
+
+        $this->pop();
+
+        return $this;
     }
 
     /**

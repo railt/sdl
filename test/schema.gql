@@ -1,10 +1,8 @@
 
-namespace Carbon
-
+namespace Ololo
 
 "Scalar DateTime type"
 scalar DateTime
-
 
 """
 An enumeration that contains a set of valid formats
@@ -14,7 +12,7 @@ enum Format {
     """
     ISO-8601 date format.
     Example: `2005-08-15T15:52:01+00:00`
-    #
+
     > Note: This format is an alias of the RFC 3339 specification:
     > ISO8601: https://www.iso.org/iso-8601-date-and-time-format.html
     > RFC3339: https://www.ietf.org/rfc/rfc3339.txt
@@ -117,8 +115,11 @@ enum Format {
     HUMAN_READABLE
 }
 
-interface Some implements Ololo {
+interface Some implements Ololo
+    @deprecated(reason: "asd")
+{
 }
 
 type Example implements Some & Ololo {
 }
+

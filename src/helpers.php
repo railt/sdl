@@ -107,3 +107,47 @@ if (! \function_exists('\\iterable_to_array')) {
         return $result;
     }
 }
+
+
+if (! \function_exists('\\iterable_map')) {
+    /**
+     * <code>
+     *  \iterable_map(new ArrayIterator(['a' => 1, 'b' => 2, 'c' => 3]), function(int $v, string $k) { ... });
+     * </code>
+     *
+     * @param iterable $iterable
+     * @param Closure $applicator
+     * @return array
+     */
+    function iterable_map(iterable $iterable, \Closure $applicator): iterable
+    {
+        foreach ($iterable as $key => $value) {
+            $result = $applicator($value, $key);
+
+            if (\is_iterable($result)) {
+                yield from $result;
+            } else {
+                yield $result;
+            }
+        }
+    }
+}
+
+
+if (! \function_exists('\\iterable_or_null')) {
+    /**
+     * @param iterable $iterable
+     * @return iterable|null
+     */
+    function iterable_or_null(iterable $iterable): ?iterable
+    {
+        switch (true) {
+            case $iterable instanceof \Iterator:
+                return $iterable->valid() ? $iterable : null;
+            case $iterable instanceof \Traversable:
+                return \iterator_count($iterable) ? $iterable : null;
+            default:
+                return \count($iterable) ? $iterable : null;
+        }
+    }
+}

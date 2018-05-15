@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Context;
 
-use Railt\Io\Readable;
 use Railt\SDL\Stack\CallStackInterface;
 
 /**
@@ -18,9 +17,14 @@ use Railt\SDL\Stack\CallStackInterface;
 interface ContextInterface
 {
     /**
-     * @return Readable
+     * Contains delimiter character for namespace.
      */
-    public function getFile(): Readable;
+    public const NAMESPACE_DELIMITER = '/';
+
+    /**
+     * @return ContextInterface
+     */
+    public function current(): ContextInterface;
 
     /**
      * @return CallStackInterface
@@ -28,23 +32,12 @@ interface ContextInterface
     public function getStack(): CallStackInterface;
 
     /**
-     * @return string
+     * @return ProvidesTypes
      */
-    public function getName(): string;
-
-    /**
-     * @param string $name
-     * @return ContextInterface
-     */
-    public function resolve(string $name): self;
-
-    /**
-     * @return null|ContextInterface
-     */
-    public function previous(): ?self;
+    public function getTypes(): ProvidesTypes;
 
     /**
      * @return bool
      */
-    public function isGlobal(): bool;
+    public function atRoot(): bool;
 }

@@ -10,7 +10,8 @@ declare(strict_types=1);
 namespace Railt\SDL;
 
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\HeadingsTable;
+use Railt\SDL\Compiler\Component\NameComponent;
+use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Stack\CallStack;
 use Railt\SDL\Stack\CallStackInterface;
 
@@ -20,7 +21,7 @@ use Railt\SDL\Stack\CallStackInterface;
 class Compiler
 {
     /**
-     * @var HeadingsTable
+     * @var Pipeline
      */
     private $headers;
 
@@ -36,7 +37,7 @@ class Compiler
     public function __construct()
     {
         $this->stack   = new CallStack();
-        $this->headers = new HeadingsTable($this->stack);
+        $this->headers = new Pipeline($this->stack);
     }
 
     /**
@@ -54,8 +55,14 @@ class Compiler
      */
     public function parse(Readable $file): void
     {
-        foreach ($this->headers->extract($file) as $record) {
-            echo $record->getName() . ' -> ' . $record->getAst()->getName() . "\n";
+        $types = $this->headers->extract($file);
+
+        //foreach ($types->getRecords() as $record) {
+        //    echo 'Record: ' . $record->getAst()->getName() . "\n";
+        //}
+
+        foreach ($types->getDefinitions() as $definition) {
+            echo 'Definition: ' . $definition->get(NameComponent::class)->getName() . "\n";
         }
     }
 }

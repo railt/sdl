@@ -13,7 +13,7 @@ use Railt\SDL\Compiler\Component\ComponentInterface;
 
 /**
  * Trait HasComponents
- * @mixin RecordInterface
+ * @mixin EntityInterface
  */
 trait HasComponents
 {
@@ -25,7 +25,7 @@ trait HasComponents
     /**
      * {@inheritdoc}
      */
-    public function add(ComponentInterface ...$components): RecordInterface
+    public function add(ComponentInterface ...$components): EntityInterface
     {
         foreach ($components as $component) {
             $key = $this->key($component);

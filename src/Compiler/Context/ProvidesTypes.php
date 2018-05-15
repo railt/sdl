@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler;
+namespace Railt\SDL\Compiler\Context;
 
 use Railt\SDL\Compiler\Record\RecordInterface;
 
 /**
  * Interface ProvidesTypes
  */
-interface ProvidesTypes extends \IteratorAggregate
+interface ProvidesTypes
 {
     /**
      * @param string $type
@@ -32,4 +32,14 @@ interface ProvidesTypes extends \IteratorAggregate
      * @param RecordInterface $record
      */
     public function push(RecordInterface $record): void;
+
+    /**
+     * @return \Traversable|RecordInterface[]
+     */
+    public function getRecords(): \Traversable;
+
+    /**
+     * @return \Traversable|RecordInterface[]
+     */
+    public function getDefinitions(): \Traversable;
 }

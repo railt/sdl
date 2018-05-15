@@ -4,9 +4,11 @@
 
 NamespaceDefinitionHead:
     ::T_NAMESPACE:: (TypeName() | GlobalNamespace())?
+    DocumentImports()*
 
 NamespaceDefinitionBody:
     ::T_BRACE_OPEN::
+        DocumentImports()*
         Definition()*
     ::T_BRACE_CLOSE::
     #ChildrenDefinitions

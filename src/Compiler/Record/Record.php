@@ -10,10 +10,10 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\Component\AstComponent;
-use Railt\SDL\Compiler\Component\ContextComponent;
-use Railt\SDL\Compiler\Component\PositionComponent;
-use Railt\SDL\Compiler\Context\ContextInterface;
+use Railt\Io\Position;
+use Railt\Io\Readable;
+use Railt\SDL\Compiler\Context\LocalContextInterface;
+use Railt\SDL\Stack\CallStackInterface;
 
 /**
  * Class Record
@@ -23,25 +23,72 @@ abstract class Record implements RecordInterface
     use HasComponents;
 
     /**
+     * @var LocalContextInterface
+     */
+    protected $context;
+
+    /**
+     * @var RuleInterface
+     */
+    protected $ast;
+
+    /**
+     * @var Position
+     */
+    private $position;
+
+    /**
      * Record constructor.
-     * @param ContextInterface $context
+     * @param LocalContextInterface $context
      * @param RuleInterface $ast
      */
-    public function __construct(ContextInterface $context, RuleInterface $ast)
+    public function __construct(LocalContextInterface $context, RuleInterface $ast)
     {
-        $this->boot($context, $ast);
+        $this->context = $context;
+        $this->ast     = $ast;
     }
 
     /**
-     * @param ContextInterface $context
-     * @param RuleInterface $ast
+     * @return LocalContextInterface
      */
-    private function boot(ContextInterface $context, RuleInterface $ast): void
+    public function getContext(): LocalContextInterface
     {
-        $this->add(
-            new AstComponent($ast),
-            new ContextComponent($context),
-            new PositionComponent($context->getFile(), $ast->getOffset())
-        );
+        return $this->context;
+    }
+
+    /**
+     * @return CallStackInterface
+     */
+    public function getStack(): CallStackInterface
+    {
+        return $this->context->getStack();
+    }
+
+    /**
+     * @return RuleInterface
+     */
+    public function getAst(): RuleInterface
+    {
+        return $this->ast;
+    }
+
+    /**
+     * @return Position
+     */
+    public function getPosition(): Position
+    {
+        if ($this->position === null) {
+            $this->position = $this->getFile()->getPosition($this->ast->getOffset());
+        }
+
+        return $this->position;
+    }
+
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable
+    {
+        return $this->context->getFile();
     }
 }

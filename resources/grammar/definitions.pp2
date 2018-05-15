@@ -19,7 +19,7 @@
 %include definitions/enum
 %include definitions/input
 %include definitions/interface
-%include definitions/module
+%include definitions/namespace
 %include definitions/object
 %include definitions/scalar
 %include definitions/schema

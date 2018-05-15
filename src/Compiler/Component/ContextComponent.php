@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Component;
 
-use Railt\SDL\Compiler\Context\ContextInterface;
+use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
  * Class ContextComponent
@@ -17,24 +17,54 @@ use Railt\SDL\Compiler\Context\ContextInterface;
 class ContextComponent implements ComponentInterface
 {
     /**
-     * @var ContextInterface
+     * @var LocalContextInterface
      */
-    private $context;
+    private $parent;
+
+    /**
+     * @var LocalContextInterface
+     */
+    private $current;
+
+    /**
+     * @var bool
+     */
+    private $rollback;
 
     /**
      * ContextComponent constructor.
-     * @param ContextInterface $context
+     * @param LocalContextInterface $parent
+     * @param LocalContextInterface $current
+     * @param bool $rollback
      */
-    public function __construct(ContextInterface $context)
+    public function __construct(LocalContextInterface $parent, LocalContextInterface $current, bool $rollback)
     {
-        $this->context = $context;
+        $this->parent = $parent;
+        $this->current = $current;
+        $this->rollback = $rollback;
     }
 
     /**
-     * @return ContextInterface
+     * @return LocalContextInterface
      */
-    public function getContext(): ContextInterface
+    public function getParentContext(): LocalContextInterface
     {
-        return $this->context;
+        return $this->parent;
+    }
+
+    /**
+     * @return LocalContextInterface
+     */
+    public function getContext(): LocalContextInterface
+    {
+        return $this->current;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldRollback(): bool
+    {
+        return $this->rollback;
     }
 }
