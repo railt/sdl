@@ -152,7 +152,7 @@ class Pipeline implements PipelineInterface
         $context = $this->context->current();
 
         $this->stack->pushAst($file, $ast);
-            $this->insert($this->getRecord($ast, $context));
+        $this->insert($this->getRecord($ast, $context));
         $this->stack->pop();
     }
 

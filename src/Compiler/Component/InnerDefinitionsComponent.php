@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Component;
 
-use Railt\Compiler\Parser\Ast\Rule;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 
 /**

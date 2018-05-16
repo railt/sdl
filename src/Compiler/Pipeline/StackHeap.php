@@ -81,6 +81,4 @@ class StackHeap implements HeapInterface
     {
         throw new \LogicException('The ' . __METHOD__ . ' not implemented yet');
     }
-
-
 }

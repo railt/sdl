@@ -40,7 +40,7 @@ class ContextComponent implements ComponentInterface
      */
     public function __construct(LocalContextInterface $current, string $name, Readable $file = null)
     {
-        $this->parent = $current;
+        $this->parent  = $current;
         $this->current = $current->create($name, $file);
     }
 

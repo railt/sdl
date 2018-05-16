@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\SDL\Compiler\Component\NameComponent;
-use Railt\SDL\Compiler\Component\PriorityComponent;
 use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Exception\TypeNotFoundException;
 use Railt\SDL\Exception\TypeRedefinitionException;

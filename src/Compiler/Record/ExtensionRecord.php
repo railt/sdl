@@ -9,9 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Record;
 
-use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\Context\LocalContextInterface;
-
 /**
  * Class DefinitionRecord
  */

@@ -34,7 +34,7 @@ class VisibilityComponent implements ComponentInterface
      * @param LocalContextInterface $context
      * @return VisibilityComponent
      */
-    public static function fromContext(LocalContextInterface $context): VisibilityComponent
+    public static function fromContext(LocalContextInterface $context): self
     {
         return new static(true);
     }
