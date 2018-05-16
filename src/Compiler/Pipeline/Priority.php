@@ -7,18 +7,23 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Record;
+namespace Railt\SDL\Compiler\Pipeline;
 
 /**
- * Class InvocationRecord
+ * @mixin PriorityInterface
  */
-class InvocationRecord extends Record
+trait Priority
 {
+    /**
+     * @var int
+     */
+    protected $priority = 0;
+
     /**
      * @return int
      */
     public function getPriority(): int
     {
-        return static::INVOCATION;
+        return $this->priority;
     }
 }

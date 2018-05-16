@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\Component\PriorityComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
@@ -19,14 +18,10 @@ use Railt\SDL\Compiler\Context\LocalContextInterface;
 class ExtensionRecord extends Record
 {
     /**
-     * DefinitionRecord constructor.
-     * @param LocalContextInterface $context
-     * @param RuleInterface $ast
+     * @return int
      */
-    public function __construct(LocalContextInterface $context, RuleInterface $ast)
+    public function getPriority(): int
     {
-        parent::__construct($context, $ast);
-
-        $this->add(new PriorityComponent(PriorityComponent::EXTENSION));
+        return static::EXTENSION;
     }
 }

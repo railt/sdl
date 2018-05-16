@@ -41,7 +41,7 @@ class ExportInnerTypesSystem extends System
             ->contains(InnerDefinitionsComponent::class)
             ->then(function(InnerDefinitionsComponent $provider) use ($record) {
                 foreach ($provider->getDefinitions() as $ast) {
-                    $this->pipeline->insert($record->getContext()->getFile(), $ast);
+                    $this->pipeline->insertAst($record->getContext()->getFile(), $ast);
                 }
             });
     }

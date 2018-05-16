@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Component;
 
+use Railt\Compiler\Parser\Ast\Rule;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 
 /**
@@ -31,21 +32,18 @@ class InnerDefinitionsComponent implements ComponentInterface
     }
 
     /**
+     * @param RuleInterface $rule
+     */
+    public function add(RuleInterface $rule): void
+    {
+        $this->definitions[] = $rule;
+    }
+
+    /**
      * @return iterable|RuleInterface[]
      */
     public function getDefinitions(): iterable
     {
         return $this->definitions;
-    }
-
-    /**
-     * @param RuleInterface $ast
-     * @return InnerDefinitionsComponent
-     */
-    public static function fromAst(RuleInterface $ast): InnerDefinitionsComponent
-    {
-        $children = $ast->find('#ChildrenDefinitions', 0);
-
-        return new static($children ? $children->getChildren() : []);
     }
 }

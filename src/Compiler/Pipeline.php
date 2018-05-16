@@ -17,10 +17,13 @@ use Railt\SDL\Compiler\Context\GlobalContext;
 use Railt\SDL\Compiler\Context\GlobalContextInterface;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 use Railt\SDL\Compiler\Context\ProvidesTypes;
+use Railt\SDL\Compiler\Pipeline\HeapInterface;
+use Railt\SDL\Compiler\Pipeline\StackHeap;
 use Railt\SDL\Compiler\Record\DefinitionRecord;
 use Railt\SDL\Compiler\Record\ExtensionRecord;
 use Railt\SDL\Compiler\Record\InvocationRecord;
 use Railt\SDL\Compiler\Record\NamespaceDefinitionRecord;
+use Railt\SDL\Compiler\Record\ObjectDefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Compiler\System\CompleteContextSystem;
 use Railt\SDL\Compiler\System\CreateContextSystem;
@@ -45,7 +48,7 @@ class Pipeline implements PipelineInterface
         '#InputDefinition'     => DefinitionRecord::class,
         '#InterfaceDefinition' => DefinitionRecord::class,
         '#NamespaceDefinition' => NamespaceDefinitionRecord::class,
-        '#ObjectDefinition'    => DefinitionRecord::class,
+        '#ObjectDefinition'    => ObjectDefinitionRecord::class,
         '#ScalarDefinition'    => DefinitionRecord::class,
         '#SchemaDefinition'    => DefinitionRecord::class,
         '#UnionDefinition'     => DefinitionRecord::class,
@@ -80,6 +83,11 @@ class Pipeline implements PipelineInterface
     private $context;
 
     /**
+     * @var HeapInterface
+     */
+    private $heap;
+
+    /**
      * HeadingsTable constructor.
      * @param CallStack $stack
      * @throws \Railt\Io\Exception\NotReadableException
@@ -89,6 +97,7 @@ class Pipeline implements PipelineInterface
         $this->stack   = $stack;
         $this->parser  = Factory::create();
         $this->context = new GlobalContext($stack);
+        $this->heap    = new StackHeap();
 
         $this->addSystem(new CreateContextSystem());
         $this->addSystem(new TypeRegisterSystem());
@@ -106,18 +115,26 @@ class Pipeline implements PipelineInterface
 
     /**
      * @param Readable $file
-     * @return ProvidesTypes|RecordInterface[]
+     * @return ProvidesTypes
+     * @throws BadAstMappingException
      * @throws \Railt\Compiler\Exception\ParserException
+     * @throws \Railt\SDL\Exception\LossOfStackException
      * @throws \RuntimeException
      */
     public function read(Readable $file): ProvidesTypes
     {
-        $current = $this->context->create($file);
+        $current = $this->context->create(null, $file);
 
         $this->context->push($current);
 
         foreach ($this->parse($file)->getChildren() as $rule) {
-            $this->insert($file, $rule);
+            $this->insertAst($file, $rule);
+
+            foreach ($this->heap as $record) {
+                foreach ($this->systems as $system) {
+                    $system->provide($record);
+                }
+            }
         }
 
         return $current->getTypes();
@@ -126,27 +143,25 @@ class Pipeline implements PipelineInterface
     /**
      * @param Readable $file
      * @param RuleInterface $ast
-     * @return RecordInterface
      * @throws BadAstMappingException
      * @throws \Railt\SDL\Exception\LossOfStackException
      */
-    public function insert(Readable $file, RuleInterface $ast): RecordInterface
+    public function insertAst(Readable $file, RuleInterface $ast): void
     {
         /** @var LocalContextInterface $context */
         $context = $this->context->current();
 
-        // AST Production to Record
         $this->stack->pushAst($file, $ast);
-        $record = $this->getRecord($ast, $context);
-
-        // Analyze
-        foreach ($this->systems as $system) {
-            $system->provide($record);
-        }
-
+            $this->insert($this->getRecord($ast, $context));
         $this->stack->pop();
+    }
 
-        return $record;
+    /**
+     * @param RecordInterface $record
+     */
+    public function insert(RecordInterface $record): void
+    {
+        $this->heap->push($record);
     }
 
     /**

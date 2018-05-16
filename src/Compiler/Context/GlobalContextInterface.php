@@ -28,13 +28,6 @@ interface GlobalContextInterface extends ContextInterface
     public function push(LocalContextInterface $context): LocalContextInterface;
 
     /**
-     * @param Readable|null $file
-     * @param string|null $name
-     * @return LocalContextInterface
-     */
-    public function create(Readable $file = null, string $name = null): LocalContextInterface;
-
-    /**
      * @return bool
      */
     public function isEmpty(): bool;

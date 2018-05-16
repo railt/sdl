@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Component;
 
+use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
@@ -29,19 +30,18 @@ class ContextComponent implements ComponentInterface
     /**
      * @var bool
      */
-    private $rollback;
+    private $rollback = true;
 
     /**
      * ContextComponent constructor.
-     * @param LocalContextInterface $parent
      * @param LocalContextInterface $current
-     * @param bool $rollback
+     * @param string $name
+     * @param Readable|null $file
      */
-    public function __construct(LocalContextInterface $parent, LocalContextInterface $current, bool $rollback)
+    public function __construct(LocalContextInterface $current, string $name, Readable $file = null)
     {
-        $this->parent   = $parent;
-        $this->current  = $current;
-        $this->rollback = $rollback;
+        $this->parent = $current;
+        $this->current = $current->create($name, $file);
     }
 
     /**
@@ -61,10 +61,20 @@ class ContextComponent implements ComponentInterface
     }
 
     /**
+     * @param bool|null $rollback
      * @return bool
      */
-    public function shouldRollback(): bool
+    public function shouldRollback(bool $rollback = null): bool
     {
-        return $this->rollback;
+        return $this->rollback = $rollback ?? $this->rollback;
+    }
+
+    /**
+     * @param bool|null $public
+     * @return bool
+     */
+    public function isPublic(bool $public = null): bool
+    {
+        return $this->current->isPublic($public);
     }
 }

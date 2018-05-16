@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Context;
 
+use Railt\Io\Readable;
 use Railt\SDL\Stack\CallStackInterface;
 
 /**
@@ -40,4 +41,11 @@ interface ContextInterface
      * @return bool
      */
     public function atRoot(): bool;
+
+    /**
+     * @param string|null $name
+     * @param Readable|null $file
+     * @return LocalContextInterface
+     */
+    public function create(string $name = null, Readable $file = null): LocalContextInterface;
 }

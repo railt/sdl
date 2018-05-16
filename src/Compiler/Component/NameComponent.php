@@ -24,36 +24,39 @@ class NameComponent implements ComponentInterface
     private $name;
 
     /**
+     * @var bool
+     */
+    private $unique = true;
+
+    /**
      * NameComponent constructor.
      * @param LocalContextInterface $context
-     * @param string $name
-     * @param bool $global
+     * @param RuleInterface $ast
      */
-    public function __construct(LocalContextInterface $context, string $name, bool $global = false)
+    public function __construct(LocalContextInterface $context, RuleInterface $ast)
     {
-        $this->name = $this->formatName($context, $name, $global);
+        $name = \implode(ContextInterface::NAMESPACE_DELIMITER, \iterable_to_array($ast->getValue()));
+
+        $this->name = $this->formatName($context, $name);
+    }
+
+    /**
+     * @param bool|null $unique
+     * @return bool
+     */
+    public function isUnique(bool $unique = null): bool
+    {
+        return $this->unique = ($unique ?? $this->unique);
     }
 
     /**
      * @param LocalContextInterface $context
      * @param string $name
-     * @param bool $global
      * @return string
      */
-    private function formatName(LocalContextInterface $context, string $name, bool $global): string
+    private function formatName(LocalContextInterface $context, string $name): string
     {
-        $name = $this->escape($name);
-
-        return $global ? $name : $this->resolve($context, $name);
-    }
-
-    /**
-     * @param string $name
-     * @return string
-     */
-    private function escape(string $name): string
-    {
-        return \trim($name, ContextInterface::NAMESPACE_DELIMITER);
+        return $this->resolve($context, $this->escape($name));
     }
 
     /**
@@ -69,24 +72,19 @@ class NameComponent implements ComponentInterface
     }
 
     /**
+     * @param string $name
+     * @return string
+     */
+    private function escape(string $name): string
+    {
+        return \trim($name, ContextInterface::NAMESPACE_DELIMITER);
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @param LocalContextInterface $context
-     * @param RuleInterface $rule
-     * @return NameComponent
-     */
-    public static function fromAst(LocalContextInterface $context, RuleInterface $rule): self
-    {
-        $isGlobal = $rule->getChild(0)->getName() === '#GlobalNamespace';
-
-        $name = \implode(ContextInterface::NAMESPACE_DELIMITER, \iterable_to_array($rule->getValue()));
-
-        return new static($context, $name, $isGlobal);
     }
 }

@@ -28,7 +28,11 @@ interface PipelineInterface
     /**
      * @param Readable $file
      * @param RuleInterface $ast
-     * @return RecordInterface
      */
-    public function insert(Readable $file, RuleInterface $ast): RecordInterface;
+    public function insertAst(Readable $file, RuleInterface $ast): void;
+
+    /**
+     * @param RecordInterface $record
+     */
+    public function insert(RecordInterface $record): void;
 }

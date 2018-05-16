@@ -13,13 +13,12 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Component\ContextComponent;
 use Railt\SDL\Compiler\Component\InnerDefinitionsComponent;
 use Railt\SDL\Compiler\Component\NameComponent;
-use Railt\SDL\Compiler\Component\PriorityComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
  * Class NamespaceRecordDefinition
  */
-class NamespaceDefinitionRecord extends Record
+class NamespaceDefinitionRecord extends DefinitionRecord
 {
     /**
      * NamespaceDefinitionRecord constructor.
@@ -31,10 +30,9 @@ class NamespaceDefinitionRecord extends Record
         parent::__construct($context, $ast);
 
         //
-        // All definitions should provide highest priority of the
-        // assembly for the arrangement at the top of the heap.
+        // Namespace should not be an unique
         //
-        $this->add(new PriorityComponent(PriorityComponent::DEFINITION));
+        $this->get(NameComponent::class)->isUnique(false);
 
         //
         // Namespace should provide a new context.
@@ -43,26 +41,18 @@ class NamespaceDefinitionRecord extends Record
         // the context should not rollback after analysis this record and
         // should extend to all subsequent records.
         //
-        $ctx = new ContextComponent($context, $this->getNewContext($context, $ast), $this->shouldRollback($ast));
+        $local = new ContextComponent($context, $this->get(NameComponent::class)->getName());
+        $local->shouldRollback($this->shouldRollback($ast));
+        $local->isPublic(true);
 
-        $this->add($ctx);
+        $this->add($local);
 
         //
+        // Namespace can provide an inner definitions
         //
-        //
-        $this->add(InnerDefinitionsComponent::fromAst($ast));
-    }
-
-    /**
-     * @param LocalContextInterface $context
-     * @param RuleInterface $ast
-     * @return LocalContextInterface
-     */
-    private function getNewContext(LocalContextInterface $context, RuleInterface $ast): LocalContextInterface
-    {
-        $name  = NameComponent::fromAst($context, $ast->find('#TypeName', 0));
-
-        return $context->global()->create($context->getFile(), $name->getName());
+        if ($children = $ast->find('#ChildrenDefinitions', 0)) {
+            $this->add(new InnerDefinitionsComponent($children->getChildren()));
+        }
     }
 
     /**

@@ -70,19 +70,19 @@ class GlobalContext extends Context implements GlobalContextInterface
     }
 
     /**
-     * @param Readable|null $file
      * @param string|null $name
+     * @param Readable|null $file
      * @return LocalContextInterface
      */
-    public function create(Readable $file = null, string $name = null): LocalContextInterface
+    public function create(string $name = null, Readable $file = null): LocalContextInterface
     {
-        // TODO Can throws an exception if current context is global
         if ($file === null) {
             /** @var LocalContextInterface $context */
             $context = $this->current();
 
             if ($context instanceof GlobalContextInterface) {
-                throw new \InvalidArgumentException('Bad context');
+                $error = 'Can not create a new context from global without file argument';
+                throw new \InvalidArgumentException($error);
             }
 
             $file = $context->getFile();

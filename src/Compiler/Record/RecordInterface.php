@@ -11,11 +11,12 @@ namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
+use Railt\SDL\Compiler\Pipeline\PriorityInterface;
 
 /**
  * Interface RecordInterface
  */
-interface RecordInterface extends EntityInterface
+interface RecordInterface extends EntityInterface, PriorityInterface
 {
     /**
      * @return LocalContextInterface

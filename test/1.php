@@ -5,13 +5,9 @@ use Railt\SDL\Compiler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-
 try {
-    $compiler = new Compiler();
-    $schema   = File::fromPathname(__DIR__ . '/schema.gql');
-
-    dd($compiler->parse($schema));
-} catch (Throwable $e) {
-    echo $e;
-    die;
+    $c = new Compiler();
+    $c->parse(File::fromPathname(__DIR__ . '/schema.gql'));
+} catch (\Throwable $e) {
+    echo $e;die;
 }

@@ -67,27 +67,29 @@ class Comparator
 
     /**
      * @param \Closure $fn
-     * @return Comparator
+     * @param mixed|null $default
+     * @return mixed|null
      */
-    public function then(\Closure $fn): self
+    public function then(\Closure $fn, $default = null)
     {
         if ($this->shouldInvoke) {
-            $fn(...$this->provides);
+            return $fn(...$this->provides);
         }
 
-        return $this;
+        return $default;
     }
 
     /**
      * @param \Closure $fn
-     * @return Comparator
+     * @param mixed|null $default
+     * @return mixed|null
      */
-    public function otherwise(\Closure $fn): self
+    public function otherwise(\Closure $fn, $default = null)
     {
         if (! $this->shouldInvoke) {
-            $fn(...$this->provides);
+            return $fn(...$this->provides);
         }
 
-        return $this;
+        return $default;
     }
 }

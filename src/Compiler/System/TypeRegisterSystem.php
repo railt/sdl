@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\System;
 
+use Railt\SDL\Compiler\Component\VisibilityComponent;
 use Railt\SDL\Compiler\Context\ContextInterface;
 use Railt\SDL\Compiler\Record\RecordInterface;
 
@@ -44,6 +45,10 @@ class TypeRegisterSystem extends System
      */
     private function isPublic(RecordInterface $record): bool
     {
-        return true;
+        return (bool)$this->when($record)
+            ->contains(VisibilityComponent::class)
+            ->then(function (VisibilityComponent $provider): bool {
+                return $provider->isPublic();
+            }, true);
     }
 }

@@ -35,4 +35,10 @@ interface LocalContextInterface extends ContextInterface
      * @return GlobalContextInterface
      */
     public function global(): GlobalContextInterface;
+
+    /**
+     * @param bool|null $public
+     * @return bool
+     */
+    public function isPublic(bool $public = null): bool;
 }

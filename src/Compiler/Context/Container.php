@@ -21,7 +21,7 @@ use Railt\SDL\Exception\TypeRedefinitionException;
 class Container implements ProvidesTypes
 {
     /**
-     * @var \SplPriorityQueue|RecordInterface[]
+     * @var RecordInterface[]
      */
     private $records;
 
@@ -41,13 +41,14 @@ class Container implements ProvidesTypes
      */
     public function __construct(ContextInterface $context)
     {
-        $this->records = new \SplPriorityQueue();
+        $this->records = new \SplStack();
         $this->context = $context;
     }
 
     /**
      * @param string $type
      * @return RecordInterface
+     * @throws TypeNotFoundException
      */
     public function get(string $type): RecordInterface
     {
@@ -70,6 +71,7 @@ class Container implements ProvidesTypes
 
     /**
      * @param RecordInterface $record
+     * @throws TypeRedefinitionException
      */
     public function push(RecordInterface $record): void
     {
@@ -80,33 +82,24 @@ class Container implements ProvidesTypes
         // an error should return.
         //
         if ($record->has(NameComponent::class)) {
-            $name = $record->get(NameComponent::class)->getName();
+            $provider = $record->get(NameComponent::class);
+            echo 'Name: ' . $provider->getName() . ' | Context: ' . $record->getContext()->getName() . "\n";
 
-            if (\array_key_exists($name, $this->definitions)) {
-                $error   = 'Can not create a new type, because name "%s" already in use in %s scope';
-                $context = $this->context->atRoot() ? 'global' : 'current "' . $this->context->getName() . '"';
-                $error   = \sprintf($error, $name, $context);
+            if ($provider->isUnique()) {
+                $name = $provider->getName();
 
-                throw new TypeRedefinitionException($error, $this->context->getStack());
+                if (\array_key_exists($name, $this->definitions)) {
+                    $error   = 'Can not create a new type, because name "%s" already in use';
+                    $error   = \sprintf($error, $name);
+
+                    throw new TypeRedefinitionException($error, $this->context->getStack());
+                }
+
+                $this->definitions[$name] = $record;
             }
-
-            $this->definitions[$name] = $record;
         }
 
-        $this->records->insert($record, $this->priority($record));
-    }
-
-    /**
-     * @param RecordInterface $record
-     * @return int
-     */
-    private function priority(RecordInterface $record): int
-    {
-        if ($record->has(PriorityComponent::class)) {
-            return $record->get(PriorityComponent::class)->getPriority();
-        }
-
-        return PriorityComponent::DEFAULT;
+        $this->records[] = $record;
     }
 
     /**

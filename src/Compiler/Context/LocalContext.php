@@ -39,6 +39,11 @@ class LocalContext extends Context implements LocalContextInterface
     private $previous;
 
     /**
+     * @var bool
+     */
+    private $public = true;
+
+    /**
      * LocalContext constructor.
      * @param CallStackInterface $stack
      * @param Readable $file
@@ -54,6 +59,15 @@ class LocalContext extends Context implements LocalContextInterface
         $this->previous = $pool->current();
 
         parent::__construct($stack);
+    }
+
+    /**
+     * @param bool|null $public
+     * @return bool
+     */
+    public function isPublic(bool $public = null): bool
+    {
+        return $this->public = $public ?? $this->public;
     }
 
     /**
@@ -103,5 +117,15 @@ class LocalContext extends Context implements LocalContextInterface
     public function atRoot(): bool
     {
         return (bool)$this->name;
+    }
+
+    /**
+     * @param string|null $name
+     * @param Readable|null $file
+     * @return LocalContextInterface
+     */
+    public function create(string $name = null, Readable $file = null): LocalContextInterface
+    {
+        return $this->global->create($name, $file);
     }
 }

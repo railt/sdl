@@ -50,8 +50,6 @@ class Compiler
 
     /**
      * @param Readable $file
-     * @throws \Railt\Compiler\Exception\ParserException
-     * @throws \RuntimeException
      */
     public function parse(Readable $file): void
     {

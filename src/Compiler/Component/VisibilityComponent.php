@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Component;
 
+use Railt\SDL\Compiler\Context\LocalContextInterface;
+
 /**
  * Class VisibilityComponent
  */
-class VisibilityComponent
+class VisibilityComponent implements ComponentInterface
 {
     /**
      * @var bool
@@ -26,6 +28,15 @@ class VisibilityComponent
     public function __construct(bool $public)
     {
         $this->public = $public;
+    }
+
+    /**
+     * @param LocalContextInterface $context
+     * @return VisibilityComponent
+     */
+    public static function fromContext(LocalContextInterface $context): VisibilityComponent
+    {
+        return new static(true);
     }
 
     /**
