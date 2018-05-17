@@ -49,7 +49,7 @@ class Pipeline implements PipelineInterface
         '#InterfaceDefinition' => DefinitionRecord::class,
         '#NamespaceDefinition' => NamespaceDefinitionRecord::class,
         '#ObjectDefinition'    => ObjectDefinitionRecord::class,
-        '#ScalarDefinition'    => DefinitionRecord::class,
+        //'#ScalarDefinition'    => DefinitionRecord::class,
         '#SchemaDefinition'    => DefinitionRecord::class,
         '#UnionDefinition'     => DefinitionRecord::class,
         '#EnumExtension'       => ExtensionRecord::class,
@@ -129,15 +129,31 @@ class Pipeline implements PipelineInterface
 
         foreach ($this->parse($file)->getChildren() as $rule) {
             $this->insertAst($file, $rule);
-
-            foreach ($this->heap as $record) {
-                foreach ($this->systems as $system) {
-                    $system->provide($record);
-                }
-            }
+            $this->chunk();
         }
 
         return $current->getTypes();
+    }
+
+    /**
+     * @return void
+     */
+    private function chunk(): void
+    {
+        $size = 0;
+
+        foreach ($this->heap as $record) {
+            $this->stack->pushRecord($record);
+            $size++;
+
+            foreach ($this->systems as $system) {
+                $system->provide($record);
+            }
+        }
+
+        while ($size-- > 0) {
+            $this->stack->pop();
+        }
     }
 
     /**

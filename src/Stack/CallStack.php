@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Stack;
 
-use Illuminate\Support\Str;
-use Railt\Compiler\Parser\Ast\NodeInterface;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\Component\NameComponent;
+use Railt\SDL\Compiler\Component\RenderComponent;
+use Railt\SDL\Compiler\Component\TypeComponent;
+use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Exception\LossOfStackException;
 
 /**
@@ -36,11 +38,23 @@ class CallStack implements CallStackInterface
 
     /**
      * @param Readable $file
-     * @param Position $position
-     * @param string $message
+     * @param RuleInterface $ast
      * @return CallStackInterface
      */
-    public function push(Readable $file, Position $position, string $message): CallStackInterface
+    public function pushAst(Readable $file, RuleInterface $ast): CallStackInterface
+    {
+        $message = \sprintf('<%s>', \trim($ast->getName(), '#'));
+
+        return $this->push($file, $file->getPosition($ast->getOffset()), $message);
+    }
+
+    /**
+     * @param Readable $file
+     * @param Position $position
+     * @param string|callable $message
+     * @return CallStackInterface
+     */
+    public function push(Readable $file, Position $position, $message): CallStackInterface
     {
         $this->stack->push(new Item($file, $position, $message));
 
@@ -48,15 +62,21 @@ class CallStack implements CallStackInterface
     }
 
     /**
-     * @param Readable $file
-     * @param RuleInterface $ast
+     * @param RecordInterface $record
      * @return CallStackInterface
      */
-    public function pushAst(Readable $file, RuleInterface $ast): CallStackInterface
+    public function pushRecord(RecordInterface $record): CallStackInterface
     {
-        $message = $this->astToMessage($ast);
+        $file = $record->getContext()->getFile();
+        $position = $file->getPosition($record->getAst()->getOffset());
 
-        return $this->push($file, $file->getPosition($ast->getOffset()), $message);
+        $this->push($file, $position, function() use ($record) {
+            return $record->has(RenderComponent::class)
+                ? $record->get(RenderComponent::class)->toString()
+                : \get_class($record);
+        });
+
+        return $this;
     }
 
     /**
@@ -70,32 +90,6 @@ class CallStack implements CallStackInterface
         $this->pop();
 
         return $this;
-    }
-
-    /**
-     * @param RuleInterface $ast
-     * @return string
-     */
-    private function astToMessage(RuleInterface $ast): string
-    {
-        $valueToString = function () use ($ast): string {
-            $values = [];
-
-            /** @var NodeInterface $node */
-            foreach ($ast->getValue() as $node => $value) {
-                $line = \str_replace(["\n", "\r"], '', \trim($value));
-                $line = \preg_replace('/\s+/', ' ', $line);
-
-                $values[] = $node->getName() . '(' . $line . ')';
-            }
-
-            return \implode(', ', $values);
-        };
-
-        return \vsprintf('%s->ast(%s)', [
-            \trim($ast->getName(), '#'),
-            Str::limit($valueToString(), 60),
-        ]);
     }
 
     /**

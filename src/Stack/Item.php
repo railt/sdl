@@ -28,7 +28,7 @@ class Item
     private $file;
 
     /**
-     * @var string
+     * @var string|callable
      */
     private $value;
 
@@ -36,9 +36,9 @@ class Item
      * Item constructor.
      * @param Readable $file
      * @param Position $position
-     * @param string $value
+     * @param string|callable $value
      */
-    public function __construct(Readable $file, Position $position, string $value)
+    public function __construct(Readable $file, Position $position, $value)
     {
         $this->file     = $file;
         $this->value    = $value;
@@ -50,6 +50,10 @@ class Item
      */
     public function getValue(): string
     {
+        if (\is_callable($this->value)) {
+            $this->value = (string)($this->value)();
+        }
+
         return $this->value;
     }
 

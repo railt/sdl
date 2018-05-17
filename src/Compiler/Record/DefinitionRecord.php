@@ -34,9 +34,9 @@ class DefinitionRecord extends Record
         //
         $this->add(new NameComponent($context, $ast->find('#TypeName', 0)));
 
-
-
-
+        //
+        // Provides visibility
+        //
         $this->add(new VisibilityComponent($context->isPublic()));
     }
 

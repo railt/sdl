@@ -13,12 +13,18 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\ProvidesTypes;
 use Railt\SDL\Compiler\Record\RecordInterface;
+use Railt\SDL\Compiler\System\SystemInterface;
 
 /**
  * Interface PipelineInterface
  */
 interface PipelineInterface
 {
+    /**
+     * @param SystemInterface $system
+     */
+    public function addSystem(SystemInterface $system): void;
+
     /**
      * @param Readable $file
      * @return ProvidesTypes

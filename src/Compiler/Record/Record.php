@@ -12,6 +12,7 @@ namespace Railt\SDL\Compiler\Record;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\Component\RenderComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 use Railt\SDL\Stack\CallStackInterface;
 
@@ -44,8 +45,10 @@ abstract class Record implements RecordInterface
      */
     public function __construct(LocalContextInterface $context, RuleInterface $ast)
     {
-        $this->context = $context;
         $this->ast     = $ast;
+        $this->context = $context;
+
+        $this->add(new RenderComponent($this));
     }
 
     /**
@@ -90,5 +93,27 @@ abstract class Record implements RecordInterface
     public function getFile(): Readable
     {
         return $this->context->getFile();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        try {
+            return $this->get(RenderComponent::class)->toString() . ' in ' .
+                $this->getFile()->getPathname() . ':' .
+                $this->getPosition()->getLine();
+        } catch (\Throwable $e) {
+            return \get_class($this);
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriority(): int
+    {
+        return static::DEFAULT;
     }
 }
