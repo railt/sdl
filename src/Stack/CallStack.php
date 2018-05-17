@@ -12,9 +12,7 @@ namespace Railt\SDL\Stack;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\Component\NameComponent;
 use Railt\SDL\Compiler\Component\RenderComponent;
-use Railt\SDL\Compiler\Component\TypeComponent;
 use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Exception\LossOfStackException;
 
@@ -67,10 +65,10 @@ class CallStack implements CallStackInterface
      */
     public function pushRecord(RecordInterface $record): CallStackInterface
     {
-        $file = $record->getContext()->getFile();
+        $file     = $record->getContext()->getFile();
         $position = $file->getPosition($record->getAst()->getOffset());
 
-        $this->push($file, $position, function() use ($record) {
+        $this->push($file, $position, function () use ($record) {
             return $record->has(RenderComponent::class)
                 ? $record->get(RenderComponent::class)->toString()
                 : \get_class($record);

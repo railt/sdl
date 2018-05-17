@@ -144,7 +144,7 @@ class Pipeline implements PipelineInterface
 
         foreach ($this->heap as $record) {
             $this->stack->pushRecord($record);
-            $size++;
+            ++$size;
 
             foreach ($this->systems as $system) {
                 $system->provide($record);
