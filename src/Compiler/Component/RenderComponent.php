@@ -53,7 +53,7 @@ class RenderComponent implements ComponentInterface
                 $this->getVisibility(),
                 $this->getType(),
                 $this->getName(),
-                $this->getNamespace()
+                $this->getNamespace(),
             ]);
         }
 

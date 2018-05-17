@@ -34,6 +34,6 @@ class Invocation
     public function __construct(LocalContextInterface $context, string $type)
     {
         $this->context = $context;
-        $this->type = $type;
+        $this->type    = $type;
     }
 }
