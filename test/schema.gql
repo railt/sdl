@@ -1,19 +1,19 @@
 namespace Test {
 
 
-type Outer {
-    id: ID!
-    value: String!
+    type Outer {
+        id: ID!
+        value: String!
 
-    type Ololo {
-        scalar Inner
+        type Ololo {
+            scalar Inner
+        }
     }
-}
 
-type Example {
-    type Another {
-        scalar Test
+    type Example {
+        type Another {
+            scalar Test
+        }
     }
-}
 
 }

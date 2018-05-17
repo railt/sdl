@@ -107,8 +107,9 @@ class CompilerException extends \RuntimeException
         $output   = [$this->getHeaderMessage()];
         $output[] = 'Stack trace:';
 
-        foreach ($this->getStackAsString() as $i => $line) {
-            $output[] = \sprintf('#%d %s', $i, $line);
+        foreach ($this->getStackAsString() as $line) {
+            static $i = 0;
+            $output[] = \sprintf('#%d %s', $i++, $line);
         }
 
         return \implode("\n", $output);
