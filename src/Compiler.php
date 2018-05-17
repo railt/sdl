@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL;
 
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\Component\NameComponent;
 use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Stack\CallStack;
 use Railt\SDL\Stack\CallStackInterface;
@@ -60,7 +59,6 @@ class Compiler
         $types = $this->pipeline->read($file);
 
         foreach ($types->getDefinitions() as $definition) {
-            //
         }
     }
 }
