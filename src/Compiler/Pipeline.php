@@ -49,7 +49,7 @@ class Pipeline implements PipelineInterface
         '#InterfaceDefinition' => DefinitionRecord::class,
         '#NamespaceDefinition' => NamespaceDefinitionRecord::class,
         '#ObjectDefinition'    => ObjectDefinitionRecord::class,
-        //'#ScalarDefinition'    => DefinitionRecord::class,
+        '#ScalarDefinition'    => DefinitionRecord::class,
         '#SchemaDefinition'    => DefinitionRecord::class,
         '#UnionDefinition'     => DefinitionRecord::class,
         '#EnumExtension'       => ExtensionRecord::class,

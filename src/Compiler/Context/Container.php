@@ -82,7 +82,6 @@ class Container implements ProvidesTypes
         //
         if ($record->has(NameComponent::class)) {
             $provider = $record->get(NameComponent::class);
-            echo 'Name: ' . $provider->getName() . ' | Context: ' . $record->getContext()->getName() . "\n";
 
             if ($provider->isUnique()) {
                 $name = $provider->getName();

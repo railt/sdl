@@ -50,17 +50,17 @@ class Compiler
 
     /**
      * @param Readable $file
+     * @throws Exception\BadAstMappingException
+     * @throws Exception\LossOfStackException
+     * @throws \Railt\Compiler\Exception\ParserException
+     * @throws \RuntimeException
      */
     public function parse(Readable $file): void
     {
         $types = $this->pipeline->read($file);
 
-        //foreach ($types->getRecords() as $record) {
-        //    echo 'Record: ' . $record->getAst()->getName() . "\n";
-        //}
-
         foreach ($types->getDefinitions() as $definition) {
-            echo 'Definition: ' . $definition->get(NameComponent::class)->getName() . "\n";
+            //
         }
     }
 }
