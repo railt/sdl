@@ -151,9 +151,13 @@ class Pipeline implements PipelineInterface
         $this->insertFile($file);
 
         foreach ($this->future as $record) {
+            $this->stack->pushRecord($record);
+
             foreach ($this->after as $system) {
                 $system->provide($record);
             }
+
+            $this->stack->pop();
         }
 
         return $this->context->getTypes();
