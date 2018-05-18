@@ -57,7 +57,7 @@ class RelationsComponent implements ComponentInterface
      * @param RuleInterface $fields
      * @return RelationsComponent
      */
-    public function addFields(?RuleInterface $fields): RelationsComponent
+    public function addFields(?RuleInterface $fields): self
     {
         if ($fields !== null) {
             foreach ($fields->getChildren() as $ast) {
@@ -74,7 +74,7 @@ class RelationsComponent implements ComponentInterface
      * @param null|RuleInterface $typeName
      * @return RelationsComponent
      */
-    public function addTypeName(?RuleInterface $typeName): RelationsComponent
+    public function addTypeName(?RuleInterface $typeName): self
     {
         if ($typeName !== null) {
             $name = new NameComponent($this->context->current(), $typeName);
@@ -89,7 +89,7 @@ class RelationsComponent implements ComponentInterface
      * @param null|RuleInterface $interfaces
      * @return RelationsComponent
      */
-    public function addInterfaces(?RuleInterface $interfaces): RelationsComponent
+    public function addInterfaces(?RuleInterface $interfaces): self
     {
         if ($interfaces !== null) {
             foreach ($interfaces->getChildren() as $typeName) {

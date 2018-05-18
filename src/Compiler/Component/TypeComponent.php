@@ -15,14 +15,14 @@ namespace Railt\SDL\Compiler\Component;
 class TypeComponent implements ComponentInterface
 {
     public const TYPE_NAMESPACE = 'Namespace';
-    public const TYPE_OBJECT = 'Object';
+    public const TYPE_OBJECT    = 'Object';
     public const TYPE_INTERFACE = 'Interface';
-    public const TYPE_INPUT = 'Input';
-    public const TYPE_SCALAR = 'Scalar';
-    public const TYPE_ENUM = 'Enum';
+    public const TYPE_INPUT     = 'Input';
+    public const TYPE_SCALAR    = 'Scalar';
+    public const TYPE_ENUM      = 'Enum';
     public const TYPE_DIRECTIVE = 'Directive';
-    public const TYPE_SCHEMA = 'Schema';
-    public const TYPE_UNION = 'Union';
+    public const TYPE_SCHEMA    = 'Schema';
+    public const TYPE_UNION     = 'Union';
 
     /**
      * @var string

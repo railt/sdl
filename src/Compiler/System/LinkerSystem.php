@@ -40,7 +40,7 @@ class LinkerSystem extends System
     {
         $this->when($record)
             ->contains(RelationsComponent::class)
-            ->then(function(RelationsComponent $relations) use ($record) {
+            ->then(function (RelationsComponent $relations) use ($record): void {
                 foreach ($relations->getRelations() as $relation) {
                     $message = '-> fetch ' . $relation->getName();
                     $this->stack->push($relations->getContext()->getFile(), $relation->getPosition(), $message);

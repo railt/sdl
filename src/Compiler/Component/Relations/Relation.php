@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Component\Relations;
 
 use Railt\Io\Position;
-use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
  * Class Relation
@@ -34,7 +33,7 @@ class Relation
      */
     public function __construct(string $name, Position $position)
     {
-        $this->name = $name;
+        $this->name     = $name;
         $this->position = $position;
     }
 
