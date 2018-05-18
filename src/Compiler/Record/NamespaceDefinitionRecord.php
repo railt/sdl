@@ -17,12 +17,11 @@ use Railt\SDL\Compiler\Component\TypeComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
- * Class NamespaceRecordDefinition
+ * Class NamespaceDefinitionRecord
  */
 class NamespaceDefinitionRecord extends DefinitionRecord
 {
     /**
-     * NamespaceDefinitionRecord constructor.
      * @param LocalContextInterface $context
      * @param RuleInterface $ast
      */
@@ -30,9 +29,6 @@ class NamespaceDefinitionRecord extends DefinitionRecord
     {
         parent::__construct($context, $ast);
 
-        //
-        // Namespace should not be an unique
-        //
         $this->get(NameComponent::class)->isUnique(false);
 
         //
@@ -45,20 +41,13 @@ class NamespaceDefinitionRecord extends DefinitionRecord
         $local = new ContextComponent($context, $this->get(NameComponent::class)->getName());
         $local->shouldRollback($this->shouldRollback($ast));
         $local->isPublic(true);
-
         $this->add($local);
 
-        //
-        // Namespace can provide an inner definitions
-        //
         if ($children = $ast->find('#ChildrenDefinitions', 0)) {
             $this->add(new InnerDefinitionsComponent($children->getChildren()));
         }
 
-        //
-        // Typename
-        //
-        $this->add(new TypeComponent('Namespace'));
+        $this->add(new TypeComponent(TypeComponent::TYPE_NAMESPACE));
     }
 
     /**

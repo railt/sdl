@@ -26,13 +26,21 @@
 %include definitions/union
 
 
-Definition:
-    DirectiveDefinition()  |
-    EnumDefinition()       |
-    InputDefinition()      |
-    InterfaceDefinition()  |
-    NamespaceDefinition()  |
-    ObjectDefinition()     |
-    ScalarDefinition()     |
-    SchemaDefinition()     |
-    UnionDefinition()
+Definition
+    : DirectiveDefinition()
+    | NamespaceDefinition()
+    | SchemaDefinition()
+    | __typeDefinitions()
+
+
+#ChildrenDefinitions
+    : __typeDefinitions()
+
+
+__typeDefinitions
+    : EnumDefinition()
+    | InputDefinition()
+    | InterfaceDefinition()
+    | ObjectDefinition()
+    | ScalarDefinition()
+    | UnionDefinition()

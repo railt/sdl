@@ -11,15 +11,14 @@ namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Component\ContextComponent;
-use Railt\SDL\Compiler\Component\InnerDefinitionsComponent;
 use Railt\SDL\Compiler\Component\NameComponent;
 use Railt\SDL\Compiler\Component\TypeComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
- * Class ObjectDefinitionRecord
+ * Class ScalarDefinitionRecord
  */
-class ObjectDefinitionRecord extends DefinitionRecord
+class ScalarDefinitionRecord extends DefinitionRecord
 {
     /**
      * @param LocalContextInterface $context
@@ -33,10 +32,6 @@ class ObjectDefinitionRecord extends DefinitionRecord
         $local->isPublic(false);
         $this->add($local);
 
-        if ($children = $ast->find('#ChildrenDefinitions', 0)) {
-            $this->add(new InnerDefinitionsComponent($children->getChildren()));
-        }
-
-        $this->add(new TypeComponent(TypeComponent::TYPE_OBJECT));
+        $this->add(new TypeComponent(TypeComponent::TYPE_SCALAR));
     }
 }

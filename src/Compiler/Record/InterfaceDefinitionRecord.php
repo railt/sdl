@@ -17,9 +17,9 @@ use Railt\SDL\Compiler\Component\TypeComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
- * Class ObjectDefinitionRecord
+ * Class InterfaceDefinitionRecord
  */
-class ObjectDefinitionRecord extends DefinitionRecord
+class InterfaceDefinitionRecord extends DefinitionRecord
 {
     /**
      * @param LocalContextInterface $context
@@ -37,6 +37,6 @@ class ObjectDefinitionRecord extends DefinitionRecord
             $this->add(new InnerDefinitionsComponent($children->getChildren()));
         }
 
-        $this->add(new TypeComponent(TypeComponent::TYPE_OBJECT));
+        $this->add(new TypeComponent(TypeComponent::TYPE_INTERFACE));
     }
 }

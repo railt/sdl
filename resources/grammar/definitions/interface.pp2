@@ -17,4 +17,5 @@ InterfaceDefinitionHead:
 InterfaceDefinitionBody:
     ::T_BRACE_OPEN::
         FieldDefinition()*
+        ChildrenDefinitions()?
     ::T_BRACE_CLOSE::

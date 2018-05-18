@@ -19,12 +19,18 @@ use Railt\SDL\Compiler\Context\LocalContextInterface;
 use Railt\SDL\Compiler\Context\ProvidesTypes;
 use Railt\SDL\Compiler\Pipeline\HeapInterface;
 use Railt\SDL\Compiler\Pipeline\StackHeap;
-use Railt\SDL\Compiler\Record\DefinitionRecord;
+use Railt\SDL\Compiler\Record\DirectiveDefinitionRecord;
+use Railt\SDL\Compiler\Record\EnumDefinitionRecord;
 use Railt\SDL\Compiler\Record\ExtensionRecord;
+use Railt\SDL\Compiler\Record\InputDefinitionRecord;
+use Railt\SDL\Compiler\Record\InterfaceDefinitionRecord;
 use Railt\SDL\Compiler\Record\InvocationRecord;
 use Railt\SDL\Compiler\Record\NamespaceDefinitionRecord;
 use Railt\SDL\Compiler\Record\ObjectDefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
+use Railt\SDL\Compiler\Record\ScalarDefinitionRecord;
+use Railt\SDL\Compiler\Record\SchemaDefinitionRecord;
+use Railt\SDL\Compiler\Record\UnionDefinitionRecord;
 use Railt\SDL\Compiler\System\CompleteContextSystem;
 use Railt\SDL\Compiler\System\CreateContextSystem;
 use Railt\SDL\Compiler\System\ExportInnerTypesSystem;
@@ -43,15 +49,15 @@ class Pipeline implements PipelineInterface
      * @var int[]
      */
     private const DEFINITIONS = [
-        '#DirectiveDefinition' => DefinitionRecord::class,
-        '#EnumDefinition'      => DefinitionRecord::class,
-        '#InputDefinition'     => DefinitionRecord::class,
-        '#InterfaceDefinition' => DefinitionRecord::class,
+        '#DirectiveDefinition' => DirectiveDefinitionRecord::class,
+        '#EnumDefinition'      => EnumDefinitionRecord::class,
+        '#InputDefinition'     => InputDefinitionRecord::class,
+        '#InterfaceDefinition' => InterfaceDefinitionRecord::class,
         '#NamespaceDefinition' => NamespaceDefinitionRecord::class,
         '#ObjectDefinition'    => ObjectDefinitionRecord::class,
-        '#ScalarDefinition'    => DefinitionRecord::class,
-        '#SchemaDefinition'    => DefinitionRecord::class,
-        '#UnionDefinition'     => DefinitionRecord::class,
+        '#ScalarDefinition'    => ScalarDefinitionRecord::class,
+        '#SchemaDefinition'    => SchemaDefinitionRecord::class,
+        '#UnionDefinition'     => UnionDefinitionRecord::class,
         '#EnumExtension'       => ExtensionRecord::class,
         '#InputExtension'      => ExtensionRecord::class,
         '#InterfaceExtension'  => ExtensionRecord::class,
@@ -75,7 +81,12 @@ class Pipeline implements PipelineInterface
     /**
      * @var SystemInterface[]|array
      */
-    private $systems = [];
+    private $before = [];
+
+    /**
+     * @var SystemInterface[]|array
+     */
+    private $after = [];
 
     /**
      * @var GlobalContextInterface
@@ -88,6 +99,11 @@ class Pipeline implements PipelineInterface
     private $heap;
 
     /**
+     * @var HeapInterface
+     */
+    private $future;
+
+    /**
      * HeadingsTable constructor.
      * @param CallStack $stack
      * @throws \Railt\Io\Exception\NotReadableException
@@ -98,19 +114,28 @@ class Pipeline implements PipelineInterface
         $this->parser  = Factory::create();
         $this->context = new GlobalContext($stack);
         $this->heap    = new StackHeap();
+        $this->future  = new StackHeap();
 
-        $this->addSystem(new CreateContextSystem());
-        $this->addSystem(new TypeRegisterSystem());
-        $this->addSystem(new ExportInnerTypesSystem($this));
-        $this->addSystem(new CompleteContextSystem());
+        $this->before(new CreateContextSystem());
+        $this->before(new TypeRegisterSystem());
+        $this->before(new ExportInnerTypesSystem($this));
+        $this->before(new CompleteContextSystem());
     }
 
     /**
      * @param SystemInterface $system
      */
-    public function addSystem(SystemInterface $system): void
+    public function before(SystemInterface $system): void
     {
-        $this->systems[] = $system;
+        $this->before[] = $system;
+    }
+
+    /**
+     * @param SystemInterface $system
+     */
+    public function after(SystemInterface $system): void
+    {
+        $this->after[] = $system;
     }
 
     /**
@@ -123,6 +148,26 @@ class Pipeline implements PipelineInterface
      */
     public function read(Readable $file): ProvidesTypes
     {
+        $this->insertFile($file);
+
+        foreach ($this->future as $record) {
+            foreach ($this->after as $system) {
+                $system->provide($record);
+            }
+        }
+
+        return $this->context->getTypes();
+    }
+
+    /**
+     * @param Readable $file
+     * @throws BadAstMappingException
+     * @throws \Railt\Compiler\Exception\ParserException
+     * @throws \Railt\SDL\Exception\LossOfStackException
+     * @throws \RuntimeException
+     */
+    public function insertFile(Readable $file): void
+    {
         $current = $this->context->create(null, $file);
 
         $this->context->push($current);
@@ -131,29 +176,21 @@ class Pipeline implements PipelineInterface
             $this->insertAst($file, $rule);
             $this->chunk();
         }
-
-        return $current->getTypes();
     }
 
     /**
-     * @return void
+     * @param Readable $file
+     * @return RuleInterface|RuleInterface
+     * @throws \Railt\Compiler\Exception\ParserException
+     * @throws \RuntimeException
      */
-    private function chunk(): void
+    private function parse(Readable $file): NodeInterface
     {
-        $size = 0;
+        $result = $this->parser->parse($file);
 
-        foreach ($this->heap as $record) {
-            $this->stack->pushRecord($record);
-            ++$size;
+        \assert($result instanceof RuleInterface);
 
-            foreach ($this->systems as $system) {
-                $system->provide($record);
-            }
-        }
-
-        while ($size-- > 0) {
-            $this->stack->pop();
-        }
+        return $result;
     }
 
     /**
@@ -199,17 +236,26 @@ class Pipeline implements PipelineInterface
     }
 
     /**
-     * @param Readable $file
-     * @return RuleInterface|RuleInterface
-     * @throws \Railt\Compiler\Exception\ParserException
-     * @throws \RuntimeException
+     * @return void
+     * @throws \Railt\SDL\Exception\LossOfStackException
      */
-    private function parse(Readable $file): NodeInterface
+    private function chunk(): void
     {
-        $result = $this->parser->parse($file);
+        $size = 0;
 
-        \assert($result instanceof RuleInterface);
+        foreach ($this->heap as $record) {
+            $this->stack->pushRecord($record);
+            ++$size;
 
-        return $result;
+            foreach ($this->before as $system) {
+                $system->provide($record);
+            }
+
+            $this->future->push($record);
+        }
+
+        while ($size-- > 0) {
+            $this->stack->pop();
+        }
     }
 }
