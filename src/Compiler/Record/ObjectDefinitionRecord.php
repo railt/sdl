@@ -13,6 +13,7 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Component\ContextComponent;
 use Railt\SDL\Compiler\Component\InnerDefinitionsComponent;
 use Railt\SDL\Compiler\Component\NameComponent;
+use Railt\SDL\Compiler\Component\RelationsComponent;
 use Railt\SDL\Compiler\Component\TypeComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
@@ -38,5 +39,12 @@ class ObjectDefinitionRecord extends DefinitionRecord
         }
 
         $this->add(new TypeComponent(TypeComponent::TYPE_OBJECT));
+
+        //
+        // Relations
+        //
+        $this->get(RelationsComponent::class)
+            ->addInterfaces($this->ast->find('#Implements', 0))
+            ->addFields($ast->find('#FieldDefinitions', 0));
     }
 }

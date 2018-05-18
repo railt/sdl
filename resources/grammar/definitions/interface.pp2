@@ -16,6 +16,10 @@ InterfaceDefinitionHead:
 
 InterfaceDefinitionBody:
     ::T_BRACE_OPEN::
-        FieldDefinition()*
+        __interfaceFieldDefinitions()?
         ChildrenDefinitions()?
     ::T_BRACE_CLOSE::
+
+__interfaceFieldDefinitions:
+    FieldDefinition()*
+    #FieldDefinitions

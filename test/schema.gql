@@ -1,3 +1,9 @@
+
+
 namespace Test {
-    scalar Example
+    type A {}
+
+    type Type {
+        type Example implements A {}
+    }
 }

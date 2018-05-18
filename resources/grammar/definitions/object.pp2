@@ -16,6 +16,10 @@ ObjectDefinitionHead:
 
 ObjectDefinitionBody:
     ::T_BRACE_OPEN::
-        FieldDefinition()*
+        __objectFieldDefinitions()?
         ChildrenDefinitions()?
     ::T_BRACE_CLOSE::
+
+__objectFieldDefinitions:
+    FieldDefinition()*
+    #FieldDefinitions

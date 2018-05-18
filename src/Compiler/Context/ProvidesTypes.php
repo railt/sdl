@@ -18,15 +18,9 @@ interface ProvidesTypes
 {
     /**
      * @param string $type
-     * @return bool
-     */
-    public function has(string $type): bool;
-
-    /**
-     * @param string $type
      * @return RecordInterface
      */
-    public function get(string $type): RecordInterface;
+    public function fetch(string $type): RecordInterface;
 
     /**
      * @param RecordInterface $record

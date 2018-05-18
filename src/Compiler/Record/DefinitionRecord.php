@@ -11,6 +11,7 @@ namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Component\NameComponent;
+use Railt\SDL\Compiler\Component\RelationsComponent;
 use Railt\SDL\Compiler\Component\VisibilityComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
@@ -38,6 +39,11 @@ class DefinitionRecord extends Record
         // Provides visibility
         //
         $this->add(new VisibilityComponent($context->isPublic()));
+
+        //
+        // Provides relations
+        //
+        $this->add(new RelationsComponent($context));
     }
 
     /**

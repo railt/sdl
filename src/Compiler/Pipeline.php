@@ -34,6 +34,7 @@ use Railt\SDL\Compiler\Record\UnionDefinitionRecord;
 use Railt\SDL\Compiler\System\CompleteContextSystem;
 use Railt\SDL\Compiler\System\CreateContextSystem;
 use Railt\SDL\Compiler\System\ExportInnerTypesSystem;
+use Railt\SDL\Compiler\System\LinkerSystem;
 use Railt\SDL\Compiler\System\SystemInterface;
 use Railt\SDL\Compiler\System\TypeRegisterSystem;
 use Railt\SDL\Exception\BadAstMappingException;
@@ -120,6 +121,7 @@ class Pipeline implements PipelineInterface
         $this->before(new TypeRegisterSystem());
         $this->before(new ExportInnerTypesSystem($this));
         $this->before(new CompleteContextSystem());
+        $this->after(new LinkerSystem($this->stack));
     }
 
     /**

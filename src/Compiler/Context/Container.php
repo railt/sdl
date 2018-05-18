@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\SDL\Compiler\Component\NameComponent;
+use Railt\SDL\Compiler\Record\DefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Exception\TypeNotFoundException;
 use Railt\SDL\Exception\TypeRedefinitionException;
@@ -49,23 +50,16 @@ class Container implements ProvidesTypes
      * @return RecordInterface
      * @throws TypeNotFoundException
      */
-    public function get(string $type): RecordInterface
+    public function fetch(string $type): RecordInterface
     {
-        if ($this->has($type)) {
-            return $this->definitions[$type];
+        foreach ($this->getDefinitions() as $definition) {
+            if ($definition->get(NameComponent::class)->getName() === $type) {
+                return $definition;
+            }
         }
 
         $error = \sprintf('Type "%s" not found', $type);
         throw new TypeNotFoundException($error, $this->context->getStack());
-    }
-
-    /**
-     * @param string $type
-     * @return bool
-     */
-    public function has(string $type): bool
-    {
-        return \array_key_exists($type, $this->definitions);
     }
 
     /**
@@ -86,14 +80,14 @@ class Container implements ProvidesTypes
             if ($provider->isUnique()) {
                 $name = $provider->getName();
 
-                if (\array_key_exists($name, $this->definitions)) {
-                    $error   = 'Can not create a new type, because name "%s" already in use';
-                    $error   = \sprintf($error, $name);
+                if (\in_array($name, $this->definitions, true)) {
+                    $error = 'Can not create a new type, because name "%s" already in use';
+                    $error = \sprintf($error, $name);
 
                     throw new TypeRedefinitionException($error, $this->context->getStack());
                 }
 
-                $this->definitions[$name] = $record;
+                $this->definitions[] = $name;
             }
         }
 
@@ -132,14 +126,14 @@ class Container implements ProvidesTypes
     }
 
     /**
-     * @return \Traversable|RecordInterface[]
+     * @return \Traversable|RecordInterface[]|DefinitionRecord[]
      */
     public function getDefinitions(): \Traversable
     {
-        yield from \array_values($this->definitions);
-
-        yield from $this->previous(function (ProvidesTypes $types) {
-            return $types->getDefinitions();
-        });
+        foreach ($this->getRecords() as $record) {
+            if ($record instanceof DefinitionRecord) {
+                yield $record;
+            }
+        }
     }
 }
