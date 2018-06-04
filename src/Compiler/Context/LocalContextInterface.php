@@ -10,15 +10,19 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\SDL\Compiler\Common\ProvidesFile;
-use Railt\SDL\Compiler\Common\ProvidesName;
 
 /**
  * Interface LocalContextInterface
  */
-interface LocalContextInterface extends ContextInterface, ProvidesFile, ProvidesName
+interface LocalContextInterface extends ContextInterface, ProvidesFile
 {
     /**
      * @return ContextInterface
      */
     public function previous(): ContextInterface;
+
+    /**
+     * @return GlobalContextInterface
+     */
+    public function global(): GlobalContextInterface;
 }

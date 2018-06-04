@@ -10,6 +10,8 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\Io\Readable;
+use Railt\SDL\Stack\CallStack;
+use Railt\SDL\Stack\CallStackInterface;
 
 /**
  * Class GlobalContext
@@ -17,27 +19,83 @@ use Railt\Io\Readable;
 class GlobalContext extends Context implements GlobalContextInterface
 {
     /**
-     * @var array|LocalContextInterface[]
+     * @var \SplStack|LocalContextInterface[]
      */
-    private $pool = [];
+    private $pool;
 
     /**
-     * @var \SplStack|LocalContextInterface[]
+     * @var CallStackInterface|CallStack
      */
     private $stack;
 
     /**
      * GlobalContext constructor.
+     * @param CallStackInterface $stack
      */
-    public function __construct()
+    public function __construct(CallStackInterface $stack)
     {
-        $this->stack = new \SplStack();
+        $this->pool  = new \SplStack();
+        $this->stack = $stack;
     }
 
-    public function create(string $name, Readable $file = null): LocalContextInterface
+    /**
+     * @return CallStackInterface
+     */
+    public function getCallStack(): CallStackInterface
     {
-        if ($file === null) {
-            throw new \InvalidArgumentException('Could not create a new context from global without file');
+        return $this->stack;
+    }
+
+    /**
+     * @param Readable $file
+     * @return LocalContextInterface
+     */
+    public function create(Readable $file = null): LocalContextInterface
+    {
+        \assert($file !== null, 'Could not create a new context from global without file');
+
+        $ctx = new LocalContext($this, $file);
+
+        $this->pool->push($ctx);
+
+        return $ctx;
+    }
+
+    /**
+     * @return LocalContextInterface
+     */
+    public function current(): LocalContextInterface
+    {
+        \assert($this->pool->count() > 0, 'Internal Error: Empty Context Stack');
+
+        return $this->pool->top();
+    }
+
+    /**
+     * @return LocalContextInterface
+     */
+    public function complete(): LocalContextInterface
+    {
+        \assert($this->pool->count() > 0, 'Internal Error: Empty Context Stack');
+
+        return $this->pool->pop();
+    }
+
+    /**
+     * @return \Traversable|LocalContextInterface[]
+     */
+    public function getIterator(): \Traversable
+    {
+        foreach ($this->pool as $ctx) {
+            yield $ctx;
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->pool->count();
     }
 }

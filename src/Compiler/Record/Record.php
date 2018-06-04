@@ -14,6 +14,7 @@ use Railt\Io\Position;
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 use Railt\SDL\Heap\PriorityInterface;
+use Railt\SDL\Stack\CallStackInterface;
 
 /**
  * Class Record
@@ -69,6 +70,14 @@ abstract class Record implements RecordInterface
     public function getContext(): LocalContextInterface
     {
         return $this->context;
+    }
+
+    /**
+     * @return CallStackInterface
+     */
+    protected function getCallStack(): CallStackInterface
+    {
+        return $this->getContext()->getCallStack();
     }
 
     /**

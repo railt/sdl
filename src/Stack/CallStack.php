@@ -65,16 +65,7 @@ class CallStack implements CallStackInterface
      */
     public function pushRecord(RecordInterface $record): CallStackInterface
     {
-        $file     = $record->getContext()->getFile();
-        $position = $file->getPosition($record->getAst()->getOffset());
-
-        $this->push($file, $position, function () use ($record) {
-            return $record->has(RenderComponent::class)
-                ? $record->get(RenderComponent::class)->toString()
-                : \get_class($record);
-        });
-
-        return $this;
+        throw new \LogicException(__METHOD__ . ' not implemented yet');
     }
 
     /**

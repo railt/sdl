@@ -7,8 +7,8 @@ NameWithoutReserved:
 //
 // Any name includes reserved keywords.
 //
-NameWithReserved
-    : (NameExceptValues() | <T_TRUE> | <T_FALSE> | <T_NULL>) #Name
+NameWithReserved:
+    (NameExceptValues() | <T_TRUE> | <T_FALSE> | <T_NULL>) #Name
 
 //
 // Any name includes reserved keywords but except values: NULL, TRUE and FALSE.
@@ -47,11 +47,14 @@ Variable:
 //
 #TypeName:
     GlobalTypeNamespace()?
+    __namespace()
+    NameWithReserved()
+
+__namespace:
     (
         NameWithReserved()
         ::T_NAMESPACE_SEPARATOR::
     )*
-    NameWithReserved()
 
 #GlobalTypeNamespace:
     ::T_NAMESPACE_SEPARATOR::

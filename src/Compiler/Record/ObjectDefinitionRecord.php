@@ -14,4 +14,5 @@ namespace Railt\SDL\Compiler\Record;
  */
 class ObjectDefinitionRecord extends TypeDefinitionRecord
 {
+
 }

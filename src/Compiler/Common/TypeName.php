@@ -43,12 +43,24 @@ class TypeName implements \IteratorAggregate
     }
 
     /**
+     * @param string $name
+     * @param bool $global
+     * @return TypeName
+     */
+    public static function fromString(string $name, bool $global = false): self
+    {
+        $chunks = \explode(self::NAMESPACE_DELIMITER, $name);
+
+        return new static($chunks, $global);
+    }
+
+    /**
      * @param RuleInterface $rule
      * @return TypeName
      */
     public static function fromAst(RuleInterface $rule): self
     {
-        \assert($rule->getName() === '#TypeName');
+        \assert($rule->getName() === '#TypeName', 'Internal Error: Bad name root node ' . $rule);
 
         $chunks   = \iterable_to_array($rule->getValue());
         $isGlobal = (bool)$rule->find('#GlobalTypeNamespace', 0);
@@ -76,7 +88,7 @@ class TypeName implements \IteratorAggregate
      * @param TypeName $prefix
      * @return TypeName
      */
-    public function prepend(self $prefix): self
+    public function prepend(TypeName $prefix): self
     {
         return $prefix->append($this);
     }
@@ -85,7 +97,7 @@ class TypeName implements \IteratorAggregate
      * @param TypeName $suffix
      * @return TypeName
      */
-    public function append(self $suffix): self
+    public function append(TypeName $suffix): self
     {
         if ($suffix->isGlobal()) {
             return clone $suffix;

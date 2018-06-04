@@ -13,6 +13,7 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Compiler\ParserInterface;
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\GlobalContext;
+use Railt\SDL\Compiler\Context\GlobalContextInterface;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 use Railt\SDL\Compiler\Record\ObjectDefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
@@ -44,6 +45,11 @@ class CompilationPipeline implements PipelineInterface
     private $stack;
 
     /**
+     * @var GlobalContextInterface
+     */
+    private $context;
+
+    /**
      * HeadingsTable constructor.
      * @param CallStack $stack
      * @throws \Railt\Io\Exception\NotReadableException
@@ -52,6 +58,7 @@ class CompilationPipeline implements PipelineInterface
     {
         $this->stack    = $stack;
         $this->parser   = Parser::new();
+        $this->context  = new GlobalContext($stack);
     }
 
     /**
@@ -60,17 +67,23 @@ class CompilationPipeline implements PipelineInterface
      */
     public function parse(Readable $file): HeapInterface
     {
-        $context = new GlobalContext();
-        $current = $context->create('', $file);
-
         $heap = new StackHeap();
 
-        /** @var RuleInterface $ast */
-        $ast = $this->parser->parse($file);
+        $this->context->transact($file, function(LocalContextInterface $context) use ($heap) {
 
-        foreach ($ast->getChildren() as $child) {
-            $heap->push($this->resolve($child));
-        }
+            /** @var RuleInterface $ast */
+            $ast = $this->parser->parse($context->getFile());
+
+            $this->stack->pushAst($context->getFile(), $ast);
+
+            foreach ($ast->getChildren() as $child) {
+                $this->stack->pushAst($context->getFile(), $child);
+                $heap->push($this->resolve($child, $context->current()));
+                $this->stack->pop();
+            }
+
+            $this->stack->pop();
+        });
 
         return $heap;
     }

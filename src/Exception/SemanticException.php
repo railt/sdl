@@ -7,11 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Context;
+namespace Railt\SDL\Exception;
 
 /**
- * Interface GlobalContextInterface
+ * Class SemanticException
  */
-interface GlobalContextInterface extends ContextInterface, \IteratorAggregate, \Countable
+class SemanticException extends CompilerException
 {
+
 }
