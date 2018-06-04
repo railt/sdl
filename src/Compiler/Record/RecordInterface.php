@@ -9,11 +9,11 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Record;
 
-use Railt\SDL\Heap\PriorityInterface;
-use Railt\SDL\Compiler\Common\ProvidesFile;
-use Railt\SDL\Compiler\Common\ProvidesContext;
-use Railt\SDL\Compiler\Common\ProvidesPosition;
 use Railt\SDL\Compiler\Common\ProvidesAbstractSyntaxTree;
+use Railt\SDL\Compiler\Common\ProvidesContext;
+use Railt\SDL\Compiler\Common\ProvidesFile;
+use Railt\SDL\Compiler\Common\ProvidesPosition;
+use Railt\SDL\Heap\PriorityInterface;
 
 /**
  * Interface RecordInterface
@@ -25,5 +25,4 @@ interface RecordInterface extends
     PriorityInterface,
     ProvidesAbstractSyntaxTree
 {
-
 }

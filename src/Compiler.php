@@ -53,6 +53,5 @@ class Compiler
     public function parse(Readable $file): void
     {
         $types = $this->pipeline->parse($file);
-
     }
 }

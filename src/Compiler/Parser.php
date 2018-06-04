@@ -12,7 +12,6 @@ namespace Railt\SDL\Compiler;
 use Railt\Compiler\LexerInterface;
 use Railt\Compiler\Parser as ParserCompiler;
 use Railt\Compiler\Parser\Ast\NodeInterface;
-use Railt\Compiler\Parser\Runtime;
 use Railt\Compiler\ParserInterface;
 use Railt\Io\File;
 use Railt\Io\Readable;
@@ -64,7 +63,7 @@ class Parser implements ParserInterface
      * @return Parser
      * @throws \Railt\Io\Exception\NotReadableException
      */
-    public static function new(): Parser
+    public static function new(): self
     {
         if (self::$instance === null) {
             self::$instance = new static();

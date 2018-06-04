@@ -11,7 +11,6 @@ namespace Railt\SDL\Compiler\Context;
 
 use Railt\SDL\Compiler\Common\ProvidesFile;
 use Railt\SDL\Compiler\Common\ProvidesName;
-use Railt\SDL\Compiler\Common\TypeName;
 
 /**
  * Interface LocalContextInterface

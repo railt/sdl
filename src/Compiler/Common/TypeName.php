@@ -46,7 +46,7 @@ class TypeName implements \IteratorAggregate
      * @param RuleInterface $rule
      * @return TypeName
      */
-    public static function fromAst(RuleInterface $rule): TypeName
+    public static function fromAst(RuleInterface $rule): self
     {
         \assert($rule->getName() === '#TypeName');
 
@@ -76,7 +76,7 @@ class TypeName implements \IteratorAggregate
      * @param TypeName $prefix
      * @return TypeName
      */
-    public function prepend(TypeName $prefix): TypeName
+    public function prepend(self $prefix): self
     {
         return $prefix->append($this);
     }
@@ -85,7 +85,7 @@ class TypeName implements \IteratorAggregate
      * @param TypeName $suffix
      * @return TypeName
      */
-    public function append(TypeName $suffix): TypeName
+    public function append(self $suffix): self
     {
         if ($suffix->isGlobal()) {
             return clone $suffix;

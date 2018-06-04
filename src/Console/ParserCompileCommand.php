@@ -13,7 +13,6 @@ use Railt\Compiler\Generator\ParserGenerator;
 use Railt\Compiler\Grammar\ParsingResult;
 use Railt\Compiler\Grammar\Reader;
 use Railt\Io\File;
-use Railt\SDL\Compiler\Factory;
 use Railt\SDL\Compiler\Parser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

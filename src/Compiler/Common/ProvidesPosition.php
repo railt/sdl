@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Common;
 
-use Railt\Io\Readable;
-
 /**
  * Interface ProvidesPositionInfo
  */

@@ -14,5 +14,4 @@ namespace Railt\SDL\Compiler\Context;
  */
 abstract class Context implements ContextInterface
 {
-
 }

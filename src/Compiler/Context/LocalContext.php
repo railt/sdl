@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Context;
+
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Common\TypeName;
 
@@ -16,8 +17,6 @@ use Railt\SDL\Compiler\Common\TypeName;
  */
 class LocalContext extends Context implements LocalContextInterface
 {
-
-
     public function create(string $name, Readable $file = null): LocalContextInterface
     {
         throw new \LogicException('The ' . __METHOD__ . ' not implemented yet');

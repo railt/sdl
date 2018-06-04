@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Record;
+
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Common\TypeName;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
@@ -29,8 +30,6 @@ abstract class TypeDefinitionRecord extends Record
      */
     public function __construct(LocalContextInterface $context, RuleInterface $ast)
     {
-
-
         parent::__construct($context, $ast);
     }
 }
