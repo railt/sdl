@@ -9,35 +9,17 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler;
 
-use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\Context\ProvidesTypes;
-use Railt\SDL\Compiler\Record\RecordInterface;
+use Railt\SDL\Heap\HeapInterface;
 
 /**
  * Interface PipelineInterface
  */
-interface PipelineInterface extends Processable
+interface PipelineInterface
 {
     /**
      * @param Readable $file
-     * @return ProvidesTypes
+     * @return HeapInterface
      */
-    public function read(Readable $file): ProvidesTypes;
-
-    /**
-     * @param Readable $file
-     */
-    public function insertFile(Readable $file): void;
-
-    /**
-     * @param Readable $file
-     * @param RuleInterface $ast
-     */
-    public function insertAst(Readable $file, RuleInterface $ast): void;
-
-    /**
-     * @param RecordInterface $record
-     */
-    public function insert(RecordInterface $record): void;
+    public function parse(Readable $file): HeapInterface;
 }

@@ -46,4 +46,12 @@ Variable:
 // regard to the context of the call.
 //
 #TypeName:
-    TypeNamespace() NameWithReserved()
+    GlobalTypeNamespace()?
+    (
+        NameWithReserved()
+        ::T_NAMESPACE_SEPARATOR::
+    )*
+    NameWithReserved()
+
+#GlobalTypeNamespace:
+    ::T_NAMESPACE_SEPARATOR::

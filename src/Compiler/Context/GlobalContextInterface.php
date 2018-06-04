@@ -12,21 +12,11 @@ namespace Railt\SDL\Compiler\Context;
 /**
  * Interface GlobalContextInterface
  */
-interface GlobalContextInterface extends ContextInterface
+interface GlobalContextInterface extends ContextInterface, \IteratorAggregate
 {
     /**
-     * @return LocalContextInterface
+     * @param string $name
+     * @return ContextInterface|null
      */
-    public function pop(): LocalContextInterface;
-
-    /**
-     * @param LocalContextInterface $context
-     * @return LocalContextInterface
-     */
-    public function push(LocalContextInterface $context): LocalContextInterface;
-
-    /**
-     * @return bool
-     */
-    public function isEmpty(): bool;
+    public function get(string $name): ?ContextInterface;
 }

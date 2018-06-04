@@ -8,24 +8,29 @@
 declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Record;
-
 use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\Component\TypeComponent;
+use Railt\SDL\Compiler\Common\TypeName;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 
 /**
- * Class UnionDefinitionRecord
+ * Class TypeDefinitionRecord
  */
-class UnionDefinitionRecord extends DefinitionRecord
+abstract class TypeDefinitionRecord extends Record
 {
     /**
+     * @var TypeName
+     */
+    private $name;
+
+    /**
+     * TypeDefinitionRecord constructor.
      * @param LocalContextInterface $context
      * @param RuleInterface $ast
      */
     public function __construct(LocalContextInterface $context, RuleInterface $ast)
     {
-        parent::__construct($context, $ast);
 
-        $this->add(new TypeComponent(TypeComponent::TYPE_UNION));
+
+        parent::__construct($context, $ast);
     }
 }

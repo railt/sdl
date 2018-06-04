@@ -13,7 +13,8 @@ use Railt\Compiler\Generator\ParserGenerator;
 use Railt\Compiler\Grammar\ParsingResult;
 use Railt\Compiler\Grammar\Reader;
 use Railt\Io\File;
-use Railt\SDL\Parser\Factory;
+use Railt\SDL\Compiler\Factory;
+use Railt\SDL\Compiler\Parser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,12 +28,12 @@ class ParserCompileCommand extends Command
     /**
      * @var string Default parser output path
      */
-    private const DEFAULT_PATH = __DIR__ . '/../Parser';
+    private const DEFAULT_PATH = __DIR__ . '/../Compiler/Parser';
 
     /**
      * @var string Default generated parser FQN
      */
-    private const DEFAULT_PARSER_CLASS_NAME = \Railt\SDL\Parser\SchemaParser::class;
+    private const DEFAULT_PARSER_CLASS_NAME = \Railt\SDL\Compiler\Parser\Compiled::class;
 
     /**
      * @param InputInterface $in
@@ -97,7 +98,7 @@ class ParserCompileCommand extends Command
             'grammar',
             InputArgument::OPTIONAL,
             'Input grammar file',
-            Factory::GRAMMAR_FILE
+            Parser::GRAMMAR_FILE
         );
 
         $this->addArgument(

@@ -7,17 +7,23 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\System;
-
-use Railt\SDL\Compiler\Record\RecordInterface;
+namespace Railt\SDL\Heap;
 
 /**
- * Interface SystemInterface
+ * @mixin PriorityInterface
  */
-interface SystemInterface
+trait Priority
 {
     /**
-     * @param RecordInterface $record
+     * @var int
      */
-    public function provide(RecordInterface $record): void;
+    protected $priority = 0;
+
+    /**
+     * @return int
+     */
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
 }

@@ -12,26 +12,23 @@ namespace Railt\SDL\Compiler\Record;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\Component\RenderComponent;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
-use Railt\SDL\Stack\CallStackInterface;
+use Railt\SDL\Heap\PriorityInterface;
 
 /**
  * Class Record
  */
 abstract class Record implements RecordInterface
 {
-    use HasComponents;
+    /**
+     * @var RuleInterface
+     */
+    private $ast;
 
     /**
      * @var LocalContextInterface
      */
-    protected $context;
-
-    /**
-     * @var RuleInterface
-     */
-    protected $ast;
+    private $context;
 
     /**
      * @var Position
@@ -45,26 +42,17 @@ abstract class Record implements RecordInterface
      */
     public function __construct(LocalContextInterface $context, RuleInterface $ast)
     {
-        $this->ast     = $ast;
-        $this->context = $context;
-
-        $this->add(new RenderComponent($this));
+        $this->ast      = $ast;
+        $this->context  = $context;
+        $this->position = $context->getFile()->getPosition($ast->getOffset());
     }
 
     /**
-     * @return LocalContextInterface
+     * @return int
      */
-    public function getContext(): LocalContextInterface
+    public function getPriority(): int
     {
-        return $this->context;
-    }
-
-    /**
-     * @return CallStackInterface
-     */
-    public function getStack(): CallStackInterface
-    {
-        return $this->context->getStack();
+        return PriorityInterface::DEFAULT;
     }
 
     /**
@@ -76,15 +64,11 @@ abstract class Record implements RecordInterface
     }
 
     /**
-     * @return Position
+     * @return LocalContextInterface
      */
-    public function getPosition(): Position
+    public function getContext(): LocalContextInterface
     {
-        if ($this->position === null) {
-            $this->position = $this->getFile()->getPosition($this->ast->getOffset());
-        }
-
-        return $this->position;
+        return $this->context;
     }
 
     /**
@@ -96,24 +80,18 @@ abstract class Record implements RecordInterface
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function __toString(): string
+    public function getLine(): int
     {
-        try {
-            return $this->get(RenderComponent::class)->toString() . ' in ' .
-                $this->getFile()->getPathname() . ':' .
-                $this->getPosition()->getLine();
-        } catch (\Throwable $e) {
-            return \get_class($this);
-        }
+        return $this->position->getLine();
     }
 
     /**
      * @return int
      */
-    public function getPriority(): int
+    public function getColumn(): int
     {
-        return static::DEFAULT;
+        return $this->position->getColumn();
     }
 }

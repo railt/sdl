@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL;
 
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\Pipeline;
+use Railt\SDL\Compiler\CompilationPipeline;
 use Railt\SDL\Stack\CallStack;
 use Railt\SDL\Stack\CallStackInterface;
 
@@ -20,7 +20,7 @@ use Railt\SDL\Stack\CallStackInterface;
 class Compiler
 {
     /**
-     * @var Pipeline
+     * @var CompilationPipeline
      */
     private $pipeline;
 
@@ -36,7 +36,7 @@ class Compiler
     public function __construct()
     {
         $this->stack    = new CallStack();
-        $this->pipeline = new Pipeline($this->stack);
+        $this->pipeline = new CompilationPipeline($this->stack);
     }
 
     /**
@@ -49,16 +49,10 @@ class Compiler
 
     /**
      * @param Readable $file
-     * @throws Exception\BadAstMappingException
-     * @throws Exception\LossOfStackException
-     * @throws \Railt\Compiler\Exception\ParserException
-     * @throws \RuntimeException
      */
     public function parse(Readable $file): void
     {
-        $types = $this->pipeline->read($file);
+        $types = $this->pipeline->parse($file);
 
-        foreach ($types->getDefinitions() as $definition) {
-        }
     }
 }

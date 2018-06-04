@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Pipeline;
+namespace Railt\SDL\Heap;
 
 use Railt\SDL\Compiler\Record\RecordInterface;
 

@@ -9,22 +9,21 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Record;
 
-use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\Context\LocalContextInterface;
-use Railt\SDL\Compiler\Pipeline\PriorityInterface;
+use Railt\SDL\Heap\PriorityInterface;
+use Railt\SDL\Compiler\Common\ProvidesFile;
+use Railt\SDL\Compiler\Common\ProvidesContext;
+use Railt\SDL\Compiler\Common\ProvidesPosition;
+use Railt\SDL\Compiler\Common\ProvidesAbstractSyntaxTree;
 
 /**
  * Interface RecordInterface
  */
-interface RecordInterface extends EntityInterface, PriorityInterface
+interface RecordInterface extends
+    ProvidesFile,
+    ProvidesContext,
+    ProvidesPosition,
+    PriorityInterface,
+    ProvidesAbstractSyntaxTree
 {
-    /**
-     * @return LocalContextInterface
-     */
-    public function getContext(): LocalContextInterface;
 
-    /**
-     * @return RuleInterface
-     */
-    public function getAst(): RuleInterface;
 }

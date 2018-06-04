@@ -7,12 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Context;
+namespace Railt\SDL\Compiler\Common;
 
 /**
- * Class Context
+ * Interface ProvidesName
  */
-abstract class Context implements ContextInterface
+interface ProvidesName
 {
-
+    /**
+     * @return TypeName
+     */
+    public function getName(): TypeName;
 }

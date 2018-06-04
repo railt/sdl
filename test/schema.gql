@@ -1,9 +1,7 @@
 
 
-namespace Test {
-    type A {}
+type /A/Some {}
 
-    type Type {
-        type Example implements A {}
-    }
+type Type {
+    type Example implements A {}
 }

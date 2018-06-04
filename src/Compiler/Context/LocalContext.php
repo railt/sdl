@@ -8,124 +8,33 @@
 declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Context;
-
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\Context\GlobalContextInterface as Pool;
-use Railt\SDL\Stack\CallStackInterface;
+use Railt\SDL\Compiler\Common\TypeName;
 
 /**
  * Class LocalContext
  */
 class LocalContext extends Context implements LocalContextInterface
 {
-    /**
-     * @var Readable
-     */
-    private $file;
 
-    /**
-     * @var Pool
-     */
-    private $global;
 
-    /**
-     * @var string|null
-     */
-    private $name;
-
-    /**
-     * @var ContextInterface|LocalContextInterface|GlobalContextInterface
-     */
-    private $previous;
-
-    /**
-     * @var bool
-     */
-    private $public = true;
-
-    /**
-     * LocalContext constructor.
-     * @param CallStackInterface $stack
-     * @param Readable $file
-     * @param Pool $pool
-     * @param string $name
-     */
-    public function __construct(CallStackInterface $stack, Readable $file, Pool $pool, string $name = null)
+    public function create(string $name, Readable $file = null): LocalContextInterface
     {
-        $this->file = $file;
-        $this->name = $name;
-
-        $this->global   = $pool;
-        $this->previous = $pool->current();
-
-        parent::__construct($stack);
+        throw new \LogicException('The ' . __METHOD__ . ' not implemented yet');
     }
 
-    /**
-     * @param bool|null $public
-     * @return bool
-     */
-    public function isPublic(bool $public = null): bool
-    {
-        return $this->public = $public ?? $this->public;
-    }
-
-    /**
-     * @return ContextInterface
-     */
-    public function current(): ContextInterface
-    {
-        return $this->global->current();
-    }
-
-    /**
-     * @return Readable
-     */
-    public function getFile(): Readable
-    {
-        return $this->file;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        // Name can be an empty
-        return (string)$this->name;
-    }
-
-    /**
-     * @return ContextInterface|LocalContextInterface|GlobalContextInterface
-     */
     public function previous(): ContextInterface
     {
-        return $this->previous;
+        throw new \LogicException('The ' . __METHOD__ . ' not implemented yet');
     }
 
-    /**
-     * @return GlobalContextInterface
-     */
-    public function global(): GlobalContextInterface
+    public function getFile(): Readable
     {
-        return $this->global;
+        throw new \LogicException('The ' . __METHOD__ . ' not implemented yet');
     }
 
-    /**
-     * @return bool
-     */
-    public function atRoot(): bool
+    public function getName(): TypeName
     {
-        return (bool)$this->name;
-    }
-
-    /**
-     * @param string|null $name
-     * @param Readable|null $file
-     * @return LocalContextInterface
-     */
-    public function create(string $name = null, Readable $file = null): LocalContextInterface
-    {
-        return $this->global->create($name, $file);
+        throw new \LogicException('The ' . __METHOD__ . ' not implemented yet');
     }
 }

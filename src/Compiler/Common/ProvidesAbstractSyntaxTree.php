@@ -7,18 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Record;
+namespace Railt\SDL\Compiler\Common;
+
+use Railt\Compiler\Parser\Ast\RuleInterface;
 
 /**
- * Class DefinitionRecord
+ * Interface ProvidesAbstractSyntaxTree
  */
-class ExtensionRecord extends Record
+interface ProvidesAbstractSyntaxTree
 {
     /**
-     * @return int
+     * @return RuleInterface
      */
-    public function getPriority(): int
-    {
-        return static::EXTENSION;
-    }
+    public function getAst(): RuleInterface;
 }

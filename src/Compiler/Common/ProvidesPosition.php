@@ -7,18 +7,22 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Record;
+namespace Railt\SDL\Compiler\Common;
+
+use Railt\Io\Readable;
 
 /**
- * Class InvocationRecord
+ * Interface ProvidesPositionInfo
  */
-class InvocationRecord extends Record
+interface ProvidesPosition
 {
     /**
      * @return int
      */
-    public function getPriority(): int
-    {
-        return static::INVOCATION;
-    }
+    public function getLine(): int;
+
+    /**
+     * @return int
+     */
+    public function getColumn(): int;
 }

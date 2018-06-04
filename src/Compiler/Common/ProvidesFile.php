@@ -7,11 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Component;
+namespace Railt\SDL\Compiler\Common;
+
+use Railt\Io\Readable;
 
 /**
- * Interface ComponentInterface
+ * Interface ProvidesFile
  */
-interface ComponentInterface
+interface ProvidesFile
 {
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable;
 }
