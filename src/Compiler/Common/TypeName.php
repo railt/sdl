@@ -88,7 +88,7 @@ class TypeName implements \IteratorAggregate
      * @param TypeName $prefix
      * @return TypeName
      */
-    public function prepend(TypeName $prefix): self
+    public function prepend(self $prefix): self
     {
         return $prefix->append($this);
     }
@@ -97,7 +97,7 @@ class TypeName implements \IteratorAggregate
      * @param TypeName $suffix
      * @return TypeName
      */
-    public function append(TypeName $suffix): self
+    public function append(self $suffix): self
     {
         if ($suffix->isGlobal()) {
             return clone $suffix;

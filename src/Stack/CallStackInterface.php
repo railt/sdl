@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 namespace Railt\SDL\Stack;
+
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
@@ -28,7 +29,7 @@ interface CallStackInterface extends \Countable, \IteratorAggregate
      * @param RuleInterface $ast
      * @return CallStackInterface
      */
-    public function pushAst(Readable $file, RuleInterface $ast): CallStackInterface;
+    public function pushAst(Readable $file, RuleInterface $ast): self;
 
     /**
      * @param Readable $file
@@ -36,11 +37,11 @@ interface CallStackInterface extends \Countable, \IteratorAggregate
      * @param string|\Closure $message
      * @return CallStackInterface
      */
-    public function push(Readable $file, Position $position, $message): CallStackInterface;
+    public function push(Readable $file, Position $position, $message): self;
 
     /**
      * @param RecordInterface $record
      * @return CallStackInterface
      */
-    public function pushRecord(RecordInterface $record): CallStackInterface;
+    public function pushRecord(RecordInterface $record): self;
 }

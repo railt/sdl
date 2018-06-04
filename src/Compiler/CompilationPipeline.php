@@ -69,7 +69,7 @@ class CompilationPipeline implements PipelineInterface
     {
         $heap = new StackHeap();
 
-        $this->context->transact($file, function(LocalContextInterface $context) use ($heap) {
+        $this->context->transact($file, function (LocalContextInterface $context) use ($heap): void {
 
             /** @var RuleInterface $ast */
             $ast = $this->parser->parse($context->getFile());

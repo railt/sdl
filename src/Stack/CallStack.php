@@ -12,7 +12,6 @@ namespace Railt\SDL\Stack;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\Component\RenderComponent;
 use Railt\SDL\Compiler\Record\RecordInterface;
 use Railt\SDL\Exception\LossOfStackException;
 

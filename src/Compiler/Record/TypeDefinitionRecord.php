@@ -33,7 +33,7 @@ abstract class TypeDefinitionRecord extends Record
     {
         parent::__construct($context, $ast);
 
-        $this->name = $this->typeName($ast, function(TypeName $name) {
+        $this->name = $this->typeName($ast, function (TypeName $name): void {
             if ($name->isGlobal()) {
                 $error = 'The type name can not be declared as global';
                 throw new SemanticException($error, $this->getCallStack());
