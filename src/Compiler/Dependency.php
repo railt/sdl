@@ -49,7 +49,7 @@ class Dependency
      * @param LocalContextInterface $context
      * @return Dependency
      */
-    public static function fromAst(RuleInterface $rule, LocalContextInterface $context): Dependency
+    public static function fromAst(RuleInterface $rule, LocalContextInterface $context): self
     {
         \assert($rule->getName() === '#TypeInvocation',
             'Internal Error: Bad dependency root node ' . (string)$rule);

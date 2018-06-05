@@ -35,7 +35,7 @@ class Argument
     public function __construct(LocalContextInterface $context, $value)
     {
         $this->context = $context;
-        $this->value = $value;
+        $this->value   = $value;
     }
 
     /**
@@ -58,7 +58,7 @@ class Argument
      * @param RuleInterface $rule
      * @param LocalContextInterface $context
      */
-    public static function fromAst(RuleInterface $rule, LocalContextInterface $context)
+    public static function fromAst(RuleInterface $rule, LocalContextInterface $context): void
     {
         dd($rule->getName());
 

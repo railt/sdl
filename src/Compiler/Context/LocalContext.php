@@ -49,7 +49,7 @@ class LocalContext extends Context implements LocalContextInterface
         $this->global   = $global;
         $this->previous = $global->count() ? $global->current() : null;
         $this->file     = $file;
-        $this->name = $name;
+        $this->name     = $name;
     }
 
     /**

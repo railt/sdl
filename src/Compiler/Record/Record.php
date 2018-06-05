@@ -13,7 +13,6 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
-use Railt\SDL\Compiler\Dependency;
 use Railt\SDL\Heap\PriorityInterface;
 use Railt\SDL\Stack\CallStackInterface;
 

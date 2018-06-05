@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\TypeName;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
+use Railt\SDL\Compiler\TypeName;
 use Railt\SDL\Exception\SemanticException;
 
 /**
@@ -33,7 +33,7 @@ abstract class TypeDefinitionRecord extends Record
     {
         parent::__construct($context, $ast);
 
-        $this->name = $this->withAst($ast->find('#TypeName', 0), function(RuleInterface $ast) {
+        $this->name = $this->withAst($ast->find('#TypeName', 0), function (RuleInterface $ast) {
             $name = TypeName::fromAst($ast);
 
             if ($name->isGlobal()) {
