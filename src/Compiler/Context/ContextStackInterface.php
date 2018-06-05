@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\TypeName;
 
 /**
  * Interface ContextStackInterface
@@ -17,17 +18,19 @@ use Railt\Io\Readable;
 interface ContextStackInterface
 {
     /**
+     * @param TypeName $name
      * @param Readable|null $file
      * @return LocalContextInterface
      */
-    public function create(Readable $file = null): LocalContextInterface;
+    public function create(TypeName $name, Readable $file = null): LocalContextInterface;
 
     /**
+     * @param TypeName $name
      * @param Readable $file
      * @param \Closure $then
      * @return LocalContextInterface
      */
-    public function transact(Readable $file, \Closure $then): LocalContextInterface;
+    public function transact(TypeName $name, Readable $file, \Closure $then): LocalContextInterface;
 
     /**
      * @return LocalContextInterface

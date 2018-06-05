@@ -7,20 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Common;
+namespace Railt\SDL\Compiler\Context;
 
 /**
- * Interface ProvidesPositionInfo
+ * Interface ProvidesParameters
  */
-interface ProvidesPosition
+interface ProvidesParameters
 {
     /**
-     * @return int
+     * @return iterable
      */
-    public function getLine(): int;
-
-    /**
-     * @return int
-     */
-    public function getColumn(): int;
+    public function getParameters(): iterable;
 }

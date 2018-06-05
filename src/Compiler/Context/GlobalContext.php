@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\TypeName;
 use Railt\SDL\Stack\CallStack;
 use Railt\SDL\Stack\CallStackInterface;
 
@@ -47,14 +48,15 @@ class GlobalContext extends Context implements GlobalContextInterface
     }
 
     /**
-     * @param Readable $file
+     * @param TypeName $name
+     * @param Readable|null $file
      * @return LocalContextInterface
      */
-    public function create(Readable $file = null): LocalContextInterface
+    public function create(TypeName $name, Readable $file = null): LocalContextInterface
     {
         \assert($file !== null, 'Could not create a new context from global without file');
 
-        $ctx = new LocalContext($this, $file);
+        $ctx = new LocalContext($this, $file, $name);
 
         $this->pool->push($ctx);
 

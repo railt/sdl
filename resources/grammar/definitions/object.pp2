@@ -10,7 +10,7 @@
 
 ObjectDefinitionHead:
     ::T_TYPE:: TypeName()
-        GenericArgumentsDefinition()?
+        TypeArguments()?
         TypeDefinitionImplements()?
         Directive()*
 

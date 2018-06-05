@@ -10,7 +10,7 @@
 
 InterfaceDefinitionHead:
     ::T_INTERFACE:: TypeName()
-        GenericArgumentsDefinition()?
+        TypeArguments()?
         TypeDefinitionImplements()?
         Directive()*
 

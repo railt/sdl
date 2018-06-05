@@ -7,9 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Common;
+namespace Railt\SDL\Compiler;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
+use Railt\SDL\Compiler\Context\GlobalContextInterface;
 
 /**
  * Class TypeName
@@ -60,12 +61,26 @@ class TypeName implements \IteratorAggregate
      */
     public static function fromAst(RuleInterface $rule): self
     {
-        \assert($rule->getName() === '#TypeName', 'Internal Error: Bad name root node ' . $rule);
+        \assert($rule->getName() === '#TypeName',
+            'Internal Error: Bad name root node ' . (string)$rule);
 
         $chunks   = \iterable_to_array($rule->getValue());
         $isGlobal = (bool)$rule->find('#GlobalTypeNamespace', 0);
 
         return new static($chunks, $isGlobal);
+    }
+
+    /**
+     * @param GlobalContextInterface $context
+     * @return TypeName
+     */
+    public static function anonymous(GlobalContextInterface $context): TypeName
+    {
+        if ($context->count()) {
+            return clone $context->current()->getName();
+        }
+
+        return new static([], true);
     }
 
     /**

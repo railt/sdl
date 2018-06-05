@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\TypeName;
 use Railt\SDL\Stack\CallStackInterface;
 
 /**
@@ -33,15 +34,30 @@ class LocalContext extends Context implements LocalContextInterface
     private $file;
 
     /**
+     * @var TypeName
+     */
+    private $name;
+
+    /**
      * LocalContext constructor.
      * @param GlobalContextInterface $global
      * @param Readable $file
+     * @param TypeName $name
      */
-    public function __construct(GlobalContextInterface $global, Readable $file)
+    public function __construct(GlobalContextInterface $global, Readable $file, TypeName $name)
     {
         $this->global   = $global;
         $this->previous = $global->count() ? $global->current() : null;
         $this->file     = $file;
+        $this->name = $name;
+    }
+
+    /**
+     * @return TypeName
+     */
+    public function getName(): TypeName
+    {
+        return $this->name;
     }
 
     /**
@@ -53,12 +69,13 @@ class LocalContext extends Context implements LocalContextInterface
     }
 
     /**
+     * @param TypeName $name
      * @param Readable|null $file
      * @return LocalContextInterface
      */
-    public function create(Readable $file = null): LocalContextInterface
+    public function create(TypeName $name, Readable $file = null): LocalContextInterface
     {
-        return $this->global->create($file ?? $this->file);
+        return $this->global->create($name, $file ?? $this->file);
     }
 
     /**

@@ -12,6 +12,7 @@ namespace Railt\SDL\Compiler;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Compiler\ParserInterface;
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\TypeName;
 use Railt\SDL\Compiler\Context\GlobalContext;
 use Railt\SDL\Compiler\Context\GlobalContextInterface;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
@@ -69,21 +70,18 @@ class CompilationPipeline implements PipelineInterface
     {
         $heap = new StackHeap();
 
-        $this->context->transact($file, function(LocalContextInterface $context) use ($heap) {
-
+        $resolver = function(LocalContextInterface $context) use ($heap) {
             /** @var RuleInterface $ast */
             $ast = $this->parser->parse($context->getFile());
-
-            $this->stack->pushAst($context->getFile(), $ast);
 
             foreach ($ast->getChildren() as $child) {
                 $this->stack->pushAst($context->getFile(), $child);
                 $heap->push($this->resolve($child, $context->current()));
                 $this->stack->pop();
             }
+        };
 
-            $this->stack->pop();
-        });
+        $this->context->transact(TypeName::anonymous($this->context), $file, $resolver);
 
         return $heap;
     }

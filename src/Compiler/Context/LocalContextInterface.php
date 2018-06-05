@@ -9,12 +9,15 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Context;
 
-use Railt\SDL\Compiler\Common\ProvidesFile;
+use Railt\Io\Readable;
+use Railt\SDL\Compiler\ProvidesFile;
+use Railt\SDL\Compiler\ProvidesName;
+use Railt\SDL\Compiler\TypeName;
 
 /**
  * Interface LocalContextInterface
  */
-interface LocalContextInterface extends ContextInterface, ProvidesFile
+interface LocalContextInterface extends ContextInterface
 {
     /**
      * @return ContextInterface
@@ -25,4 +28,14 @@ interface LocalContextInterface extends ContextInterface, ProvidesFile
      * @return GlobalContextInterface
      */
     public function global(): GlobalContextInterface;
+
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable;
+
+    /**
+     * @return TypeName
+     */
+    public function getName(): TypeName;
 }

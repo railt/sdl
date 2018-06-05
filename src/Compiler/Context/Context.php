@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\Io\Readable;
+use Railt\SDL\Compiler\TypeName;
 
 /**
  * Class Context
@@ -17,13 +18,14 @@ use Railt\Io\Readable;
 abstract class Context implements ContextInterface
 {
     /**
+     * @param TypeName $name
      * @param Readable $file
      * @param \Closure $then
      * @return LocalContextInterface
      */
-    public function transact(Readable $file, \Closure $then): LocalContextInterface
+    public function transact(TypeName $name, Readable $file, \Closure $then): LocalContextInterface
     {
-        $context = $this->create($file);
+        $context = $this->create($name, $file);
 
         $then($context, $file);
 

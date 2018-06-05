@@ -1,7 +1,20 @@
 
 
-type /A/Some {}
+interface Pagination($values: Object) {
+    values: [$values!]!
+}
 
-type Type {
-    type Example implements A {}
+type LengthAwarePaginator($values: Object) implements Pagination(values: $values) {
+    perPage: Int!
+    count: Int!
+    values: [$values!]!
+}
+
+type Repository($typeOf: Object, $paginator: Pagination) {
+    findAll: $paginator(values: $typeOf)!
+    find(id: ID!): $typeOf
+}
+
+type UsersQuery {
+    repository: Repository(typeOf: User, paginator: LengthAwarePaginator)
 }

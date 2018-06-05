@@ -9,20 +9,23 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Record;
 
-use Railt\SDL\Compiler\Common\ProvidesAbstractSyntaxTree;
-use Railt\SDL\Compiler\Common\ProvidesContext;
-use Railt\SDL\Compiler\Common\ProvidesFile;
-use Railt\SDL\Compiler\Common\ProvidesPosition;
+use Railt\Io\Readable;
+use Railt\SDL\Compiler\Context\ProvidesContext;
+use Railt\SDL\Compiler\Dependency;
 use Railt\SDL\Heap\PriorityInterface;
 
 /**
  * Interface RecordInterface
  */
-interface RecordInterface extends
-    ProvidesFile,
-    ProvidesContext,
-    ProvidesPosition,
-    PriorityInterface,
-    ProvidesAbstractSyntaxTree
+interface RecordInterface extends ProvidesContext, ProvidesPosition, PriorityInterface, ProvidesAbstractSyntaxTree
 {
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable;
+
+    /**
+     * @return iterable|Dependency[]
+     */
+    public function getDependencies(): iterable;
 }

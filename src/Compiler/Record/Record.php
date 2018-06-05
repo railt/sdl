@@ -13,6 +13,7 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
+use Railt\SDL\Compiler\Dependency;
 use Railt\SDL\Heap\PriorityInterface;
 use Railt\SDL\Stack\CallStackInterface;
 
@@ -102,5 +103,31 @@ abstract class Record implements RecordInterface
     public function getColumn(): int
     {
         return $this->position->getColumn();
+    }
+
+    /**
+     * @param null|RuleInterface $ast
+     * @param \Closure $then
+     * @return mixed
+     */
+    protected function withAst(?RuleInterface $ast, \Closure $then)
+    {
+        \assert($ast !== null, 'Internal Error: Bad AST extraction logic');
+
+        $this->getCallStack()->pushAst($this->getFile(), $ast);
+
+        $result = $then($ast);
+
+        $this->getCallStack()->pop();
+
+        return $result;
+    }
+
+    /**
+     * @return iterable
+     */
+    public function getDependencies(): iterable
+    {
+        return [];
     }
 }

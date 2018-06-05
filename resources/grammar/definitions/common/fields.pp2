@@ -1,8 +1,8 @@
 #FieldDefinition:
-        Documentation()?
+    Documentation()?
     NameWithReserved()
-        __fieldDefinitionArguments()?
-    ::T_COLON:: ReturnTypeDefinition()
+    __fieldDefinitionArguments()?
+    ::T_COLON:: TypeHint()
         Directive()*
 
 __fieldDefinitionArguments:
@@ -12,4 +12,4 @@ __fieldDefinitionArguments:
 
 __fieldDefinitionArgument:
     ArgumentDefinition()
-        Directive()*
+    Directive()*

@@ -7,17 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Common;
+namespace Railt\SDL\Compiler\Record;
 
-use Railt\Io\Readable;
+use Railt\Compiler\Parser\Ast\RuleInterface;
 
 /**
- * Interface ProvidesFile
+ * Interface ProvidesAbstractSyntaxTree
  */
-interface ProvidesFile
+interface ProvidesAbstractSyntaxTree
 {
     /**
-     * @return Readable
+     * @return RuleInterface
      */
-    public function getFile(): Readable;
+    public function getAst(): RuleInterface;
 }

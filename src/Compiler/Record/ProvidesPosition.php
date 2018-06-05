@@ -7,17 +7,20 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Common;
-
-use Railt\Compiler\Parser\Ast\RuleInterface;
+namespace Railt\SDL\Compiler\Record;
 
 /**
- * Interface ProvidesAbstractSyntaxTree
+ * Interface ProvidesPositionInfo
  */
-interface ProvidesAbstractSyntaxTree
+interface ProvidesPosition
 {
     /**
-     * @return RuleInterface
+     * @return int
      */
-    public function getAst(): RuleInterface;
+    public function getLine(): int;
+
+    /**
+     * @return int
+     */
+    public function getColumn(): int;
 }

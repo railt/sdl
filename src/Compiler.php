@@ -53,5 +53,11 @@ class Compiler
     public function parse(Readable $file): void
     {
         $types = $this->pipeline->parse($file);
+
+        foreach ($types as $type) {
+            foreach ($type->getDependencies() as $dep) {
+                dd($dep);
+            }
+        }
     }
 }

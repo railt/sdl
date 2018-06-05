@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\Common\TypeName;
+use Railt\SDL\Compiler\TypeName;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
 use Railt\SDL\Exception\SemanticException;
 
@@ -33,32 +33,15 @@ abstract class TypeDefinitionRecord extends Record
     {
         parent::__construct($context, $ast);
 
-        $this->name = $this->typeName($ast, function(TypeName $name) {
+        $this->name = $this->withAst($ast->find('#TypeName', 0), function(RuleInterface $ast) {
+            $name = TypeName::fromAst($ast);
+
             if ($name->isGlobal()) {
-                $error = 'The type name can not be declared as global';
+                $error = \sprintf('The type "%s" should not be registered as global', $name);
                 throw new SemanticException($error, $this->getCallStack());
             }
+
+            return $name;
         });
-    }
-
-    /**
-     * @param RuleInterface $ast
-     * @param \Closure $then
-     * @return TypeName
-     */
-    protected function typeName(RuleInterface $ast, \Closure $then): TypeName
-    {
-        /** @var RuleInterface $typeName */
-        $typeName = $ast->find('#TypeName', 0);
-
-        \assert($typeName !== null, 'Internal Error: Bad name extraction logic of ' . $ast);
-
-        $this->getCallStack()->pushAst($this->getFile(), $typeName);
-
-        $result = $then(TypeName::fromAst($typeName));
-
-        $this->getCallStack()->pop();
-
-        return $result;
     }
 }
