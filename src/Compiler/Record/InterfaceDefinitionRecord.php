@@ -38,7 +38,7 @@ class InterfaceDefinitionRecord extends TypeDefinitionRecord
                 $this->dep()->addImplementations($implements, $this->getContext());
             });
 
-            $this->ast($ast, '#FieldDefinitions', function(RuleInterface $fields): void {
+            $this->ast($ast, '#FieldDefinitions', function (RuleInterface $fields): void {
                 $this->dep()->addFields($fields, $this->getContext());
             });
 
