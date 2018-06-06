@@ -75,7 +75,7 @@ class TypeName implements \IteratorAggregate, ComponentInterface
      * @param GlobalContextInterface $context
      * @return TypeName
      */
-    public static function anonymous(GlobalContextInterface $context): TypeName
+    public static function anonymous(GlobalContextInterface $context): self
     {
         if ($context->count()) {
             return clone $context->current()->getName();
