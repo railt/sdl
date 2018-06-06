@@ -23,5 +23,5 @@ interface ContainerInterface
      * @param SystemInterface|string $system
      * @return ContainerInterface
      */
-    public function addSystem(string $system): ContainerInterface;
+    public function addSystem(string $system): self;
 }

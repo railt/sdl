@@ -27,7 +27,7 @@ class DependenciesResolver extends System
     {
         $this->entity($entity)
             ->provides(TypeName::class, Dependencies::class)
-            ->then(function(RecordInterface $record, TypeName $name, Dependencies $dependencies) {
+            ->then(function (RecordInterface $record, TypeName $name, Dependencies $dependencies): void {
                 echo 'Type ' . $name . "\n";
 
                 foreach ($dependencies->all() as $dependency) {

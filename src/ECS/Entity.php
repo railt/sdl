@@ -42,7 +42,7 @@ class Entity implements EntityInterface
     private function key($component): string
     {
         \assert($component instanceof ComponentInterface || \is_string($component));
-        
+
         return \is_string($component) ? $component : \get_class($component);
     }
 

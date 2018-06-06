@@ -81,10 +81,10 @@ class Pipeline implements PipelineInterface
      */
     public function parse(Readable $file): HeapInterface
     {
-        $heap = new StackHeap();
+        $heap    = new StackHeap();
         $systems = $this->getSystems($heap);
 
-        $resolver = function (LocalContextInterface $context) use ($heap, $systems) {
+        $resolver = function (LocalContextInterface $context) use ($heap, $systems): void {
             /** @var RuleInterface $ast */
             $ast = $this->parser->parse($context->getFile());
 
@@ -111,7 +111,7 @@ class Pipeline implements PipelineInterface
      */
     private function getSystems(HeapInterface $heap): Container
     {
-        $instance = new Container(function(string $system) use ($heap): SystemInterface {
+        $instance = new Container(function (string $system) use ($heap): SystemInterface {
             return new $system($this->stack, $heap);
         });
 

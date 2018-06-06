@@ -33,7 +33,7 @@ class Dependencies implements ComponentInterface
      */
     public function addTypeArgument(RuleInterface $ast, LocalContextInterface $context): void
     {
-        $this->ast($ast, '#TypeName', function (RuleInterface $argument) use ($context) {
+        $this->ast($ast, '#TypeName', function (RuleInterface $argument) use ($context): void {
             $this->add(TypeName::fromAst($argument), $context);
         });
     }
@@ -53,13 +53,13 @@ class Dependencies implements ComponentInterface
      */
     public function addTypeInvocation(RuleInterface $ast, LocalContextInterface $context): void
     {
-        $this->ast($ast, '#TypeName', function (RuleInterface $name) use ($context) {
+        $this->ast($ast, '#TypeName', function (RuleInterface $name) use ($context): void {
             $this->add(TypeName::fromAst($name), $context);
         });
 
-        $this->ast($ast, '#TypeInvocationArguments', function (RuleInterface $args) use ($context) {
+        $this->ast($ast, '#TypeInvocationArguments', function (RuleInterface $args) use ($context): void {
             foreach ($args->getChildren() as $arg) {
-                $this->ast($arg, '#TypeInvocation', function (RuleInterface $invocation) use ($context) {
+                $this->ast($arg, '#TypeInvocation', function (RuleInterface $invocation) use ($context): void {
                     $this->addTypeInvocation($invocation, $context);
                 });
             }
@@ -74,4 +74,3 @@ class Dependencies implements ComponentInterface
         return $this->dependencies;
     }
 }
-

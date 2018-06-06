@@ -30,7 +30,7 @@ abstract class TypeDefinitionRecord extends Record
 
         $this->add(new Dependencies());
 
-        $this->ast($ast, '#TypeName', function (RuleInterface $ast) {
+        $this->ast($ast, '#TypeName', function (RuleInterface $ast): void {
             $this->add(TypeName::fromAst($ast));
         });
     }

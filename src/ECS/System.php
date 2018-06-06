@@ -35,7 +35,7 @@ abstract class System implements SystemInterface
     public function __construct(CallStackInterface $stack, HeapInterface $heap)
     {
         $this->stack = $stack;
-        $this->heap = $heap;
+        $this->heap  = $heap;
     }
 
     /**

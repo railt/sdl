@@ -34,7 +34,7 @@ class Dependency
      */
     public function __construct(TypeName $name, LocalContextInterface $context)
     {
-        $this->name = $name;
+        $this->name    = $name;
         $this->context = $context;
     }
 

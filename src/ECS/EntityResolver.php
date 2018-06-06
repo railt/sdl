@@ -42,7 +42,7 @@ class EntityResolver
      * @param string ...$components
      * @return EntityResolver
      */
-    public function provides(string ...$components): EntityResolver
+    public function provides(string ...$components): self
     {
         $this->components = \array_merge($this->components, $components);
 
@@ -60,7 +60,7 @@ class EntityResolver
      * @param string $of
      * @return EntityResolver
      */
-    public function instanceOf(string $of): EntityResolver
+    public function instanceOf(string $of): self
     {
         if (! ($this->entity instanceof $of)) {
             $this->matched = false;
@@ -83,7 +83,7 @@ class EntityResolver
      * @param \Closure $then
      * @return EntityResolver
      */
-    public function then(\Closure $then): EntityResolver
+    public function then(\Closure $then): self
     {
         if ($this->matched) {
             $parameters = \array_merge([$this->entity], \iterable_to_array($this->getParameters()));
@@ -98,7 +98,7 @@ class EntityResolver
      * @param \Closure $then
      * @return EntityResolver
      */
-    public function otherwise(\Closure $then): EntityResolver
+    public function otherwise(\Closure $then): self
     {
         if (! $this->matched) {
             $then($this->entity);
