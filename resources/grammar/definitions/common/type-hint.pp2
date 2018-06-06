@@ -8,6 +8,7 @@ __typeHintList
 
 __typeHintValue
     : TypeInvocation() __typeHintNotNull()?
+    #Value
 
 __typeHintNotNull
     : ::T_NON_NULL:: #NonNull

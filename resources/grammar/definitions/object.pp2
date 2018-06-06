@@ -12,7 +12,7 @@ ObjectDefinitionHead:
     ::T_TYPE:: TypeName()
         TypeArguments()?
         TypeDefinitionImplements()?
-        Directive()*
+        Directives()
 
 ObjectDefinitionBody:
     ::T_BRACE_OPEN::

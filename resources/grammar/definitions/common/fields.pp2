@@ -3,13 +3,15 @@
     NameWithReserved()
     __fieldDefinitionArguments()?
     ::T_COLON:: TypeHint()
-        Directive()*
+        Directives()
 
 __fieldDefinitionArguments:
     ::T_PARENTHESIS_OPEN::
         __fieldDefinitionArgument()*
     ::T_PARENTHESIS_CLOSE::
+    #FieldArguments
 
 __fieldDefinitionArgument:
     ArgumentDefinition()
-    Directive()*
+    Directives()
+    #FieldArgument

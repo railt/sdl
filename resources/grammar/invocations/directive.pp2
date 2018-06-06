@@ -1,4 +1,7 @@
 
+#Directives:
+    Directive()*
+
 #Directive:
     ::T_DIRECTIVE_AT:: TypeName()
         __directiveInvocationArguments()?

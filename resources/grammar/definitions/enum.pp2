@@ -9,7 +9,7 @@
     EnumDefinitionBody()
 
 EnumDefinitionHead:
-    ::T_ENUM:: TypeName() Directive()*
+    ::T_ENUM:: TypeName() Directives()
 
 EnumDefinitionBody:
     ::T_BRACE_OPEN::
@@ -20,5 +20,5 @@ EnumDefinitionBody:
 __enumDefinitionValue:
     Documentation()?
     NameExceptValues()
-    Directive()*
+    Directives()
     #EnumValue

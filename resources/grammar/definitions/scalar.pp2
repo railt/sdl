@@ -8,7 +8,7 @@
     ScalarDefinitionBody()
 
 ScalarDefinitionBody:
-    ::T_SCALAR:: TypeName() __scalarExtends()? Directive()*
+    ::T_SCALAR:: TypeName() __scalarExtends()? Directives()
 
 __scalarExtends:
     ::T_EXTENDS:: TypeName() #Extends

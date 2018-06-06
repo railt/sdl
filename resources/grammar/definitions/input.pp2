@@ -9,7 +9,7 @@
     InputDefinitionBody()
 
 InputDefinitionHead:
-    ::T_INPUT:: TypeName() Directive()*
+    ::T_INPUT:: TypeName() Directives()
 
 InputDefinitionBody:
     ::T_BRACE_OPEN::
@@ -18,6 +18,6 @@ InputDefinitionBody:
 
 __inputDefinitionField:
     ArgumentDefinition()
-        Directive()*
+    Directives()
     #InputField
 

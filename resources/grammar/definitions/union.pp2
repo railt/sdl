@@ -9,7 +9,7 @@
 
 UnionDefinitionBody:
     ::T_UNION:: TypeName()
-        Directive()*
+        Directives()
     ::T_EQUAL:: ::T_OR::? __unionDefinitionTargets()+
 
 __unionDefinitionTargets:

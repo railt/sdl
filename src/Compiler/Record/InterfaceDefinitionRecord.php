@@ -28,18 +28,22 @@ class InterfaceDefinitionRecord extends TypeDefinitionRecord
         parent::__construct($context, $ast);
 
         // interface Type(arg: A)
-        $this->ast($ast, '#TypeArguments', function (RuleInterface $ast): void {
-            foreach ($ast->getChildren() as $implements) {
-                $this->dep()->addTypeArgument($implements, $this->getContext());
-            }
+        $this->ast($ast, '#TypeArguments', function (RuleInterface $arguments): void {
+            $this->dep()->addTypeArguments($arguments, $this->getContext());
         });
 
         $context->transact($this->get(TypeName::class), $this->getFile(), function () use ($ast): void {
             // implements A & B & C
-            $this->ast($ast, '#Implements', function (RuleInterface $ast): void {
-                foreach ($ast->getChildren() as $implements) {
-                    $this->dep()->addTypeInvocation($implements, $this->getContext());
-                }
+            $this->ast($ast, '#Implements', function (RuleInterface $implements): void {
+                $this->dep()->addImplementations($implements, $this->getContext());
+            });
+
+            $this->ast($ast, '#FieldDefinitions', function(RuleInterface $fields): void {
+                $this->dep()->addFields($fields, $this->getContext());
+            });
+
+            $this->ast($ast, '#Directives', function (RuleInterface $directives): void {
+                $this->dep()->addDirectives($directives, $this->getContext());
             });
         });
     }

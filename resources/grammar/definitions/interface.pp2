@@ -12,7 +12,7 @@ InterfaceDefinitionHead:
     ::T_INTERFACE:: TypeName()
         TypeArguments()?
         TypeDefinitionImplements()?
-        Directive()*
+        Directives()
 
 InterfaceDefinitionBody:
     ::T_BRACE_OPEN::
