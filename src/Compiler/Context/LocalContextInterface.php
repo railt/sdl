@@ -10,9 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Context;
 
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\ProvidesFile;
-use Railt\SDL\Compiler\ProvidesName;
-use Railt\SDL\Compiler\TypeName;
+use Railt\SDL\Compiler\Component\TypeName;
 
 /**
  * Interface LocalContextInterface

@@ -10,9 +10,15 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Record;
 
 /**
- * Class ObjectDefinitionRecord
+ * Class TypeInvocationRecord
  */
-class ObjectDefinitionRecord extends InterfaceDefinitionRecord
+class TypeInvocationRecord extends Record
 {
-
+    /**
+     * @return int
+     */
+    public function getPriority(): int
+    {
+        return static::INVOCATION;
+    }
 }

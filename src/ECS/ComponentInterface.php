@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Record;
+namespace Railt\SDL\ECS;
 
 /**
- * Class ObjectDefinitionRecord
+ * Interface ComponentInterface
  */
-class ObjectDefinitionRecord extends InterfaceDefinitionRecord
+interface ComponentInterface
 {
 
 }

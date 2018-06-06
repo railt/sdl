@@ -10,20 +10,15 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Record;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
-use Railt\SDL\Compiler\TypeName;
+use Railt\SDL\Compiler\Component\Dependencies;
+use Railt\SDL\Compiler\Component\TypeName;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
-use Railt\SDL\Exception\SemanticException;
 
 /**
  * Class TypeDefinitionRecord
  */
 abstract class TypeDefinitionRecord extends Record
 {
-    /**
-     * @var TypeName
-     */
-    private $name;
-
     /**
      * TypeDefinitionRecord constructor.
      * @param LocalContextInterface $context
@@ -33,15 +28,26 @@ abstract class TypeDefinitionRecord extends Record
     {
         parent::__construct($context, $ast);
 
-        $this->name = $this->withAst($ast->find('#TypeName', 0), function(RuleInterface $ast) {
-            $name = TypeName::fromAst($ast);
+        $this->add(new Dependencies());
 
-            if ($name->isGlobal()) {
-                $error = \sprintf('The type "%s" should not be registered as global', $name);
-                throw new SemanticException($error, $this->getCallStack());
-            }
-
-            return $name;
+        $this->ast($ast, '#TypeName', function (RuleInterface $ast) {
+            $this->add(TypeName::fromAst($ast));
         });
+    }
+
+    /**
+     * @return Dependencies
+     */
+    protected function dep(): Dependencies
+    {
+        return $this->get(Dependencies::class);
+    }
+
+    /**
+     * @return TypeName
+     */
+    public function getName(): TypeName
+    {
+        return $this->get(TypeName::class);
     }
 }

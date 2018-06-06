@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Context;
 
-use Railt\SDL\Compiler\Context\LocalContextInterface;
-
 /**
  * Interface ProvidesContext
  */

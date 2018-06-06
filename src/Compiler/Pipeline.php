@@ -12,12 +12,16 @@ namespace Railt\SDL\Compiler;
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Compiler\ParserInterface;
 use Railt\Io\Readable;
-use Railt\SDL\Compiler\TypeName;
+use Railt\SDL\Compiler\Component\TypeName;
 use Railt\SDL\Compiler\Context\GlobalContext;
 use Railt\SDL\Compiler\Context\GlobalContextInterface;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
+use Railt\SDL\Compiler\Record\InterfaceDefinitionRecord;
 use Railt\SDL\Compiler\Record\ObjectDefinitionRecord;
 use Railt\SDL\Compiler\Record\RecordInterface;
+use Railt\SDL\ECS\Container;
+use Railt\SDL\ECS\EntityInterface;
+use Railt\SDL\ECS\SystemInterface;
 use Railt\SDL\Exception\BadAstMappingException;
 use Railt\SDL\Heap\HeapInterface;
 use Railt\SDL\Heap\StackHeap;
@@ -26,13 +30,22 @@ use Railt\SDL\Stack\CallStack;
 /**
  * Class Pipeline
  */
-class CompilationPipeline implements PipelineInterface
+class Pipeline implements PipelineInterface
 {
     /**
-     * @var int[]
+     * @var SystemInterface[]|string[]
+     */
+    private const SYSTEMS = [
+        System\DeclarationSystem::class,
+        System\DependenciesResolver::class,
+    ];
+
+    /**
+     * @var RecordInterface[]|EntityInterface[]|string[]
      */
     private const DEFINITIONS = [
-        '#ObjectDefinition' => ObjectDefinitionRecord::class,
+        '#ObjectDefinition'    => ObjectDefinitionRecord::class,
+        '#InterfaceDefinition' => InterfaceDefinitionRecord::class,
     ];
 
     /**
@@ -57,9 +70,9 @@ class CompilationPipeline implements PipelineInterface
      */
     public function __construct(CallStack $stack)
     {
-        $this->stack    = $stack;
-        $this->parser   = Parser::new();
-        $this->context  = new GlobalContext($stack);
+        $this->stack   = $stack;
+        $this->parser  = Parser::new();
+        $this->context = new GlobalContext($stack);
     }
 
     /**
@@ -69,14 +82,20 @@ class CompilationPipeline implements PipelineInterface
     public function parse(Readable $file): HeapInterface
     {
         $heap = new StackHeap();
+        $systems = $this->getSystems($heap);
 
-        $resolver = function(LocalContextInterface $context) use ($heap) {
+        $resolver = function (LocalContextInterface $context) use ($heap, $systems) {
             /** @var RuleInterface $ast */
             $ast = $this->parser->parse($context->getFile());
 
             foreach ($ast->getChildren() as $child) {
                 $this->stack->pushAst($context->getFile(), $child);
-                $heap->push($this->resolve($child, $context->current()));
+
+                /** @var $record EntityInterface|RecordInterface */
+                $heap->push($record = $this->resolve($child, $context->current()));
+
+                $systems->resolve($record);
+
                 $this->stack->pop();
             }
         };
@@ -84,6 +103,23 @@ class CompilationPipeline implements PipelineInterface
         $this->context->transact(TypeName::anonymous($this->context), $file, $resolver);
 
         return $heap;
+    }
+
+    /**
+     * @param HeapInterface $heap
+     * @return Container
+     */
+    private function getSystems(HeapInterface $heap): Container
+    {
+        $instance = new Container(function(string $system) use ($heap): SystemInterface {
+            return new $system($this->stack, $heap);
+        });
+
+        foreach (self::SYSTEMS as $system) {
+            $instance->addSystem($system);
+        }
+
+        return $instance;
     }
 
     /**

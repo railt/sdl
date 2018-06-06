@@ -7,15 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler;
+namespace Railt\SDL\Compiler\Component;
 
 use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Context\GlobalContextInterface;
+use Railt\SDL\ECS\ComponentInterface;
 
 /**
  * Class TypeName
  */
-class TypeName implements \IteratorAggregate
+class TypeName implements \IteratorAggregate, ComponentInterface
 {
     /**
      * Namespace delimiter

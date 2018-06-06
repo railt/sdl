@@ -1,6 +1,6 @@
 
 
-interface Pagination($values: Object) {
+interface Pagination($values: A) implements B(a: C(s: D)) {
     values: [$values!]!
 }
 
@@ -15,6 +15,6 @@ type Repository($typeOf: Object, $paginator: Pagination) {
     find(id: ID!): $typeOf
 }
 
-type UsersQuery {
-    repository: Repository(typeOf: User, paginator: LengthAwarePaginator)
+type Query {
+    users: Repository(typeOf: User, paginator: LengthAwarePaginator)
 }

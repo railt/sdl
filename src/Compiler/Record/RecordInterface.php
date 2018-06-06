@@ -11,7 +11,6 @@ namespace Railt\SDL\Compiler\Record;
 
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\ProvidesContext;
-use Railt\SDL\Compiler\Dependency;
 use Railt\SDL\Heap\PriorityInterface;
 
 /**
@@ -23,9 +22,4 @@ interface RecordInterface extends ProvidesContext, ProvidesPosition, PriorityInt
      * @return Readable
      */
     public function getFile(): Readable;
-
-    /**
-     * @return iterable|Dependency[]
-     */
-    public function getDependencies(): iterable;
 }

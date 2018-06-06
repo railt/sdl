@@ -13,15 +13,23 @@ use Railt\Compiler\Parser\Ast\RuleInterface;
 use Railt\Io\Position;
 use Railt\Io\Readable;
 use Railt\SDL\Compiler\Context\LocalContextInterface;
-use Railt\SDL\Compiler\Dependency;
-use Railt\SDL\Heap\PriorityInterface;
+use Railt\SDL\Compiler\Support\AstFinder;
+use Railt\SDL\ECS\Entity;
 use Railt\SDL\Stack\CallStackInterface;
 
 /**
  * Class Record
  */
-abstract class Record implements RecordInterface
+abstract class Record extends Entity implements RecordInterface
 {
+    use AstFinder;
+
+    public const DEFAULT     = 0x01;
+    public const INVOCATION  = 0x02;
+    public const EXTENSION   = 0x03;
+    public const DEFINITION  = 0x04;
+    public const INSTRUCTION = 0x05;
+
     /**
      * @var RuleInterface
      */
@@ -54,7 +62,7 @@ abstract class Record implements RecordInterface
      */
     public function getPriority(): int
     {
-        return PriorityInterface::DEFAULT;
+        return static::DEFAULT;
     }
 
     /**
@@ -63,30 +71,6 @@ abstract class Record implements RecordInterface
     public function getAst(): RuleInterface
     {
         return $this->ast;
-    }
-
-    /**
-     * @return LocalContextInterface
-     */
-    public function getContext(): LocalContextInterface
-    {
-        return $this->context;
-    }
-
-    /**
-     * @return CallStackInterface
-     */
-    protected function getCallStack(): CallStackInterface
-    {
-        return $this->getContext()->getCallStack();
-    }
-
-    /**
-     * @return Readable
-     */
-    public function getFile(): Readable
-    {
-        return $this->context->getFile();
     }
 
     /**
@@ -106,28 +90,34 @@ abstract class Record implements RecordInterface
     }
 
     /**
-     * @param null|RuleInterface $ast
-     * @param \Closure $then
-     * @return mixed
-     */
-    protected function withAst(?RuleInterface $ast, \Closure $then)
-    {
-        \assert($ast !== null, 'Internal Error: Bad AST extraction logic');
-
-        $this->getCallStack()->pushAst($this->getFile(), $ast);
-
-        $result = $then($ast);
-
-        $this->getCallStack()->pop();
-
-        return $result;
-    }
-
-    /**
      * @return iterable
      */
     public function getDependencies(): iterable
     {
         return [];
+    }
+
+    /**
+     * @return CallStackInterface
+     */
+    protected function getCallStack(): CallStackInterface
+    {
+        return $this->getContext()->getCallStack();
+    }
+
+    /**
+     * @return LocalContextInterface
+     */
+    public function getContext(): LocalContextInterface
+    {
+        return $this->context->current();
+    }
+
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable
+    {
+        return $this->context->getFile();
     }
 }

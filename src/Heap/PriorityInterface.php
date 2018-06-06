@@ -14,12 +14,6 @@ namespace Railt\SDL\Heap;
  */
 interface PriorityInterface
 {
-    public const DEFAULT     = 0x01;
-    public const INVOCATION  = 0x02;
-    public const EXTENSION   = 0x03;
-    public const DEFINITION  = 0x04;
-    public const INSTRUCTION = 0x05;
-
     /**
      * @return int
      */
