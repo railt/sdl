@@ -28,7 +28,7 @@ class CompilerException extends ExternalFileException
      * @param Definition $def
      * @return CompilerException
      */
-    public function in(Definition $def): CompilerException
+    public function in(Definition $def): self
     {
         $this->throwsIn($def->getFile(), $def->getLine(), $def->getColumn());
 
@@ -39,7 +39,7 @@ class CompilerException extends ExternalFileException
      * @param CallStack $stack
      * @return CompilerException
      */
-    public function using(CallStack $stack): CompilerException
+    public function using(CallStack $stack): self
     {
         $this->stack = $stack;
 
@@ -69,7 +69,7 @@ class CompilerException extends ExternalFileException
             $result .= \sprintf('#%d %s(%d): %s', $i++, $def->getFile(), $def->getLine(), $def) . \PHP_EOL;
         }
 
-        $result .= \preg_replace_callback('/^#\d+\h/ium', function() use (&$i): string {
+        $result .= \preg_replace_callback('/^#\d+\h/ium', function () use (&$i): string {
             return \sprintf('#%d ', $i++);
         }, $this->getTraceAsString());
 
@@ -85,7 +85,7 @@ class CompilerException extends ExternalFileException
             \get_class($this),
             $this->getMessage(),
             $this->getFile(),
-            $this->getLine()
+            $this->getLine(),
         ]);
     }
 

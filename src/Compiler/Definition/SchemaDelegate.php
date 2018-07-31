@@ -10,9 +10,8 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Definition;
 
 use Railt\Reflection\Contracts\Definition;
-use Railt\Reflection\Contracts\Definition\SchemaDefinition;
-use Railt\Reflection\Definition\DirectiveDefinition;
 use Railt\Reflection\Contracts\Document;
+use Railt\Reflection\Definition\DirectiveDefinition;
 
 /**
  * Class SchemaDelegate

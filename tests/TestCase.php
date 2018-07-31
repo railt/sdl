@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Parser\Ast\NodeInterface;
-use Railt\Parser\Ast\RuleInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -48,8 +47,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function assertAst(string $expected, ?NodeInterface $actual): void
     {
-
-        $this->assertEquals(
+        $this->assertSame(
             $this->formatXml($expected),
             $this->formatXml((string)$actual)
         );
