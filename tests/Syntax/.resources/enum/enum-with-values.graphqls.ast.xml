@@ -1,0 +1,25 @@
+<Ast>
+  <Document offset="0">
+    <EnumDefinition offset="0">
+      <TypeName offset="5">
+        <T_NAME offset="5">Example</T_NAME>
+      </TypeName>
+      <EnumValue offset="19">
+        <T_NAME offset="19">A</T_NAME>
+        <Value offset="23">
+          <String offset="23">
+            <T_STRING offset="23"><![CDATA["Red"]]></T_STRING>
+          </String>
+        </Value>
+      </EnumValue>
+      <EnumValue offset="33">
+        <T_NAME offset="33">B</T_NAME>
+        <Value offset="37">
+          <Number offset="37">
+            <T_NUMBER offset="37" value:1="23">23</T_NUMBER>
+          </Number>
+        </Value>
+      </EnumValue>
+    </EnumDefinition>
+  </Document>
+</Ast>

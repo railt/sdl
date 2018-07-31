@@ -1,0 +1,25 @@
+
+//
+// Object definition
+//
+
+#ObjectDefinition -> Railt\SDL\Compiler\Definition\ObjectDelegate:
+    Documentation()?
+    ObjectDefinitionHead()
+    ObjectDefinitionBody()
+
+ObjectDefinitionHead:
+    ::T_TYPE:: TypeName()
+        TypeArguments()?
+        TypeDefinitionImplements()?
+        Directives()?
+
+ObjectDefinitionBody:
+    ::T_BRACE_OPEN::
+        __objectFieldDefinitions()?
+        ChildrenDefinitions()?
+    ::T_BRACE_CLOSE::
+
+__objectFieldDefinitions:
+    FieldDefinition()*
+    #FieldDefinitions

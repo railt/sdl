@@ -1,0 +1,9 @@
+
+#ArgumentDefinition:
+    Documentation()?
+    NameWithReserved() ::T_COLON:: TypeHint()
+        __argumentDefinitionDefaultValue()?
+        Directives()?
+
+__argumentDefinitionDefaultValue:
+    ::T_EQUAL:: Value()

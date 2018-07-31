@@ -1,0 +1,35 @@
+<Ast>
+  <Document offset="1">
+    <ScalarDefinition offset="1">
+      <Description offset="1">
+        <String offset="1">
+          <T_BLOCK_STRING offset="1"><![CDATA["""
+Description of "scalar Test" type
+"""]]></T_BLOCK_STRING>
+        </String>
+      </Description>
+      <TypeName offset="50">
+        <T_NAME offset="50">Test</T_NAME>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="56">
+      <Description offset="56">
+        <String offset="56">
+          <T_BLOCK_STRING offset="56"><![CDATA["""
+Description of "scalar Test2" type
+"""]]></T_BLOCK_STRING>
+        </String>
+      </Description>
+      <TypeName offset="106">
+        <T_NAME offset="106">Test2</T_NAME>
+      </TypeName>
+      <Directives offset="112">
+        <Directive offset="112">
+          <TypeName offset="113">
+            <T_NAME offset="113">Directive</T_NAME>
+          </TypeName>
+        </Directive>
+      </Directives>
+    </ScalarDefinition>
+  </Document>
+</Ast>

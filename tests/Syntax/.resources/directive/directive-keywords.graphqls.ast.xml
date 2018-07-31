@@ -1,0 +1,140 @@
+<Ast>
+  <Document offset="1">
+    <DirectiveDefinition offset="1">
+      <TypeName offset="12">
+        <T_TRUE offset="12">true</T_TRUE>
+      </TypeName>
+      <DirectiveLocations offset="20">
+        <T_NAME offset="20">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="26">
+      <TypeName offset="37">
+        <T_FALSE offset="37">false</T_FALSE>
+      </TypeName>
+      <DirectiveLocations offset="46">
+        <T_NAME offset="46">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="52">
+      <TypeName offset="63">
+        <T_NULL offset="63">null</T_NULL>
+      </TypeName>
+      <DirectiveLocations offset="71">
+        <T_NAME offset="71">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="77">
+      <TypeName offset="88">
+        <T_EXTENDS offset="88">extends</T_EXTENDS>
+      </TypeName>
+      <DirectiveLocations offset="99">
+        <T_NAME offset="99">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="105">
+      <TypeName offset="116">
+        <T_IMPLEMENTS offset="116">implements</T_IMPLEMENTS>
+      </TypeName>
+      <DirectiveLocations offset="130">
+        <T_NAME offset="130">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="136">
+      <TypeName offset="147">
+        <T_ON offset="147">on</T_ON>
+      </TypeName>
+      <DirectiveLocations offset="153">
+        <T_NAME offset="153">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="159">
+      <TypeName offset="170">
+        <T_TYPE offset="170">type</T_TYPE>
+      </TypeName>
+      <DirectiveLocations offset="178">
+        <T_NAME offset="178">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="184">
+      <TypeName offset="195">
+        <T_ENUM offset="195">enum</T_ENUM>
+      </TypeName>
+      <DirectiveLocations offset="203">
+        <T_NAME offset="203">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="209">
+      <TypeName offset="220">
+        <T_UNION offset="220">union</T_UNION>
+      </TypeName>
+      <DirectiveLocations offset="229">
+        <T_NAME offset="229">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="235">
+      <TypeName offset="246">
+        <T_INPUT_UNION offset="246">inputUnion</T_INPUT_UNION>
+      </TypeName>
+      <DirectiveLocations offset="260">
+        <T_NAME offset="260">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="266">
+      <TypeName offset="277">
+        <T_INTERFACE offset="277">interface</T_INTERFACE>
+      </TypeName>
+      <DirectiveLocations offset="290">
+        <T_NAME offset="290">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="296">
+      <TypeName offset="307">
+        <T_SCHEMA offset="307">schema</T_SCHEMA>
+      </TypeName>
+      <DirectiveLocations offset="317">
+        <T_NAME offset="317">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="323">
+      <TypeName offset="334">
+        <T_SCALAR offset="334">scalar</T_SCALAR>
+      </TypeName>
+      <DirectiveLocations offset="344">
+        <T_NAME offset="344">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="350">
+      <TypeName offset="361">
+        <T_DIRECTIVE offset="361">directive</T_DIRECTIVE>
+      </TypeName>
+      <DirectiveLocations offset="374">
+        <T_NAME offset="374">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="380">
+      <TypeName offset="391">
+        <T_INPUT offset="391">input</T_INPUT>
+      </TypeName>
+      <DirectiveLocations offset="400">
+        <T_NAME offset="400">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="406">
+      <TypeName offset="417">
+        <T_EXTEND offset="417">extend</T_EXTEND>
+      </TypeName>
+      <DirectiveLocations offset="427">
+        <T_NAME offset="427">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+    <DirectiveDefinition offset="433">
+      <TypeName offset="444">
+        <T_FRAGMENT offset="444">fragment</T_FRAGMENT>
+      </TypeName>
+      <DirectiveLocations offset="456">
+        <T_NAME offset="456">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+  </Document>
+</Ast>

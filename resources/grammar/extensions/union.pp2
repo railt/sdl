@@ -1,7 +1,0 @@
-
-//
-// Union extension
-//
-
-#UnionExtension:
-    ::T_EXTEND:: UnionDefinitionBody()

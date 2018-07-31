@@ -1,0 +1,31 @@
+
+//
+// Input definition
+//
+
+#InputDefinition:
+    Documentation()?
+    InputDefinitionHead()
+    InputDefinitionBody()
+
+InputDefinitionHead:
+    ::T_INPUT:: TypeName() Directives()?
+
+InputDefinitionBody:
+    ::T_BRACE_OPEN::
+        __inputDefinitionField()*
+    ::T_BRACE_CLOSE::
+
+__inputDefinitionField:
+    InputFieldDefinition()
+
+
+#InputFieldDefinition:
+    Documentation()?
+    NameWithReserved() ::T_COLON:: TypeHint()
+        __inputFieldDefinitionDefaultValue()?
+        Directives()?
+
+__inputFieldDefinitionDefaultValue:
+    ::T_EQUAL:: Value()
+

@@ -1,0 +1,15 @@
+
+//
+// Scalar definition
+//
+
+#ScalarDefinition -> Railt\SDL\Compiler\Definition\ScalarDelegate:
+    Documentation()?
+    ScalarDefinitionBody()
+
+ScalarDefinitionBody:
+    ::T_SCALAR:: TypeName() __scalarExtends()? Directives()?
+
+__scalarExtends:
+    ::T_EXTENDS:: TypeName() #Extends
+

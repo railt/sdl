@@ -1,0 +1,57 @@
+<Ast>
+  <Document offset="2">
+    <DirectiveDefinition offset="2">
+      <Description offset="2">
+        <String offset="2">
+          <T_STRING offset="2"><![CDATA["Directive @single2 desciption"]]></T_STRING>
+        </String>
+      </Description>
+      <TypeName offset="45">
+        <T_NAME offset="45">single2</T_NAME>
+      </TypeName>
+      <DirectiveArgument offset="58">
+        <ArgumentDefinition offset="58">
+          <Description offset="58">
+            <String offset="58">
+              <T_STRING offset="58" value:1="\&amp;quot; description"><![CDATA["Attribute \"a\" description"]]></T_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="92">a</T_NAME>
+          <TypeHint offset="95">
+            <Value offset="95">
+              <TypeInvocation offset="95">
+                <TypeName offset="95">
+                  <T_NAME offset="95">Boolean</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="102"/>
+            </Value>
+          </TypeHint>
+        </ArgumentDefinition>
+      </DirectiveArgument>
+      <DirectiveArgument offset="108">
+        <ArgumentDefinition offset="108">
+          <Description offset="108">
+            <String offset="108">
+              <T_STRING offset="108" value:1="\&amp;quot; description"><![CDATA["Attribute \"b\" description"]]></T_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="142">b</T_NAME>
+          <TypeHint offset="145">
+            <Value offset="145">
+              <TypeInvocation offset="145">
+                <TypeName offset="145">
+                  <T_NAME offset="145">Boolean</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="152"/>
+            </Value>
+          </TypeHint>
+        </ArgumentDefinition>
+      </DirectiveArgument>
+      <DirectiveLocations offset="159">
+        <T_NAME offset="159">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+  </Document>
+</Ast>

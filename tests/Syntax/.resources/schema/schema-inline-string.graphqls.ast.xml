@@ -1,0 +1,22 @@
+<Ast>
+  <Document offset="1">
+    <SchemaDefinition offset="1">
+      <Description offset="1">
+        <String offset="1">
+          <T_STRING offset="1"><![CDATA["Dockblock"]]></T_STRING>
+        </String>
+      </Description>
+      <SchemaField offset="26">
+        <Description offset="26">
+          <String offset="26">
+            <T_STRING offset="26"><![CDATA["Dockblock"]]></T_STRING>
+          </String>
+        </Description>
+        <T_NAME offset="42">query</T_NAME>
+        <TypeName offset="49">
+          <T_NAME offset="49">Example</T_NAME>
+        </TypeName>
+      </SchemaField>
+    </SchemaDefinition>
+  </Document>
+</Ast>

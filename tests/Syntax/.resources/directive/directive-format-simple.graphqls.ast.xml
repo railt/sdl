@@ -1,0 +1,12 @@
+<Ast>
+  <Document offset="1">
+    <DirectiveDefinition offset="1">
+      <TypeName offset="12">
+        <T_NAME offset="12">example</T_NAME>
+      </TypeName>
+      <DirectiveLocations offset="23">
+        <T_NAME offset="23">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+  </Document>
+</Ast>

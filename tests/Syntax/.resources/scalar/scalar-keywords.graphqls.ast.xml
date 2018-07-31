@@ -1,0 +1,89 @@
+<Ast>
+  <Document offset="1">
+    <ScalarDefinition offset="1">
+      <TypeName offset="8">
+        <T_TRUE offset="8">true</T_TRUE>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="13">
+      <TypeName offset="20">
+        <T_FALSE offset="20">false</T_FALSE>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="26">
+      <TypeName offset="33">
+        <T_NULL offset="33">null</T_NULL>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="38">
+      <TypeName offset="45">
+        <T_EXTENDS offset="45">extends</T_EXTENDS>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="53">
+      <TypeName offset="60">
+        <T_IMPLEMENTS offset="60">implements</T_IMPLEMENTS>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="71">
+      <TypeName offset="78">
+        <T_ON offset="78">on</T_ON>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="81">
+      <TypeName offset="88">
+        <T_TYPE offset="88">type</T_TYPE>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="93">
+      <TypeName offset="100">
+        <T_ENUM offset="100">enum</T_ENUM>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="105">
+      <TypeName offset="112">
+        <T_UNION offset="112">union</T_UNION>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="118">
+      <TypeName offset="125">
+        <T_INPUT_UNION offset="125">inputUnion</T_INPUT_UNION>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="136">
+      <TypeName offset="143">
+        <T_INTERFACE offset="143">interface</T_INTERFACE>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="153">
+      <TypeName offset="160">
+        <T_SCHEMA offset="160">schema</T_SCHEMA>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="167">
+      <TypeName offset="174">
+        <T_SCALAR offset="174">scalar</T_SCALAR>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="181">
+      <TypeName offset="188">
+        <T_DIRECTIVE offset="188">directive</T_DIRECTIVE>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="198">
+      <TypeName offset="205">
+        <T_INPUT offset="205">input</T_INPUT>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="211">
+      <TypeName offset="218">
+        <T_EXTEND offset="218">extend</T_EXTEND>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="225">
+      <TypeName offset="232">
+        <T_FRAGMENT offset="232">fragment</T_FRAGMENT>
+      </TypeName>
+    </ScalarDefinition>
+  </Document>
+</Ast>

@@ -1,0 +1,9 @@
+<Ast>
+  <Document offset="0">
+    <EnumDefinition offset="0">
+      <TypeName offset="5">
+        <T_NAME offset="5">Example</T_NAME>
+      </TypeName>
+    </EnumDefinition>
+  </Document>
+</Ast>

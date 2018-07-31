@@ -1,0 +1,63 @@
+<Ast>
+  <Document offset="2">
+    <DirectiveDefinition offset="2">
+      <Description offset="2">
+        <String offset="2">
+          <T_BLOCK_STRING offset="2"><![CDATA["""
+Directive @multiline2 desciption
+"""]]></T_BLOCK_STRING>
+        </String>
+      </Description>
+      <TypeName offset="54">
+        <T_NAME offset="54">multiline2</T_NAME>
+      </TypeName>
+      <DirectiveArgument offset="70">
+        <ArgumentDefinition offset="70">
+          <Description offset="70">
+            <String offset="70">
+              <T_BLOCK_STRING offset="70"><![CDATA["""
+    Attribute "a" description
+    """]]></T_BLOCK_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="116">a</T_NAME>
+          <TypeHint offset="119">
+            <Value offset="119">
+              <TypeInvocation offset="119">
+                <TypeName offset="119">
+                  <T_NAME offset="119">Boolean</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="126"/>
+            </Value>
+          </TypeHint>
+        </ArgumentDefinition>
+      </DirectiveArgument>
+      <DirectiveArgument offset="133">
+        <ArgumentDefinition offset="133">
+          <Description offset="133">
+            <String offset="133">
+              <T_BLOCK_STRING offset="133"><![CDATA["""
+    Attribute "b" description
+    """]]></T_BLOCK_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="179">b</T_NAME>
+          <TypeHint offset="182">
+            <Value offset="182">
+              <TypeInvocation offset="182">
+                <TypeName offset="182">
+                  <T_NAME offset="182">Boolean</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="189"/>
+            </Value>
+          </TypeHint>
+        </ArgumentDefinition>
+      </DirectiveArgument>
+      <DirectiveLocations offset="196">
+        <T_NAME offset="196">FIELD</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+  </Document>
+</Ast>

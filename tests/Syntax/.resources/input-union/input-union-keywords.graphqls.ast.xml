@@ -1,0 +1,191 @@
+<Ast>
+  <Document offset="1">
+    <InputUnionDefinition offset="1">
+      <TypeName offset="12">
+        <T_TRUE offset="12">true</T_TRUE>
+      </TypeName>
+      <TypeName offset="19">
+        <T_NAME offset="19">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="29">
+        <T_TRUE offset="29">true</T_TRUE>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="34">
+      <TypeName offset="45">
+        <T_FALSE offset="45">false</T_FALSE>
+      </TypeName>
+      <TypeName offset="53">
+        <T_NAME offset="53">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="63">
+        <T_FALSE offset="63">false</T_FALSE>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="69">
+      <TypeName offset="80">
+        <T_NULL offset="80">null</T_NULL>
+      </TypeName>
+      <TypeName offset="87">
+        <T_NAME offset="87">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="97">
+        <T_NULL offset="97">null</T_NULL>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="102">
+      <TypeName offset="113">
+        <T_EXTENDS offset="113">extends</T_EXTENDS>
+      </TypeName>
+      <TypeName offset="123">
+        <T_NAME offset="123">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="133">
+        <T_EXTENDS offset="133">extends</T_EXTENDS>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="141">
+      <TypeName offset="152">
+        <T_IMPLEMENTS offset="152">implements</T_IMPLEMENTS>
+      </TypeName>
+      <TypeName offset="165">
+        <T_NAME offset="165">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="175">
+        <T_IMPLEMENTS offset="175">implements</T_IMPLEMENTS>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="186">
+      <TypeName offset="197">
+        <T_ON offset="197">on</T_ON>
+      </TypeName>
+      <TypeName offset="202">
+        <T_NAME offset="202">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="212">
+        <T_ON offset="212">on</T_ON>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="215">
+      <TypeName offset="226">
+        <T_TYPE offset="226">type</T_TYPE>
+      </TypeName>
+      <TypeName offset="233">
+        <T_NAME offset="233">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="243">
+        <T_TYPE offset="243">type</T_TYPE>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="248">
+      <TypeName offset="259">
+        <T_ENUM offset="259">enum</T_ENUM>
+      </TypeName>
+      <TypeName offset="266">
+        <T_NAME offset="266">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="276">
+        <T_ENUM offset="276">enum</T_ENUM>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="281">
+      <TypeName offset="292">
+        <T_UNION offset="292">union</T_UNION>
+      </TypeName>
+      <TypeName offset="300">
+        <T_NAME offset="300">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="310">
+        <T_UNION offset="310">union</T_UNION>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="316">
+      <TypeName offset="327">
+        <T_INPUT_UNION offset="327">inputUnion</T_INPUT_UNION>
+      </TypeName>
+      <TypeName offset="340">
+        <T_NAME offset="340">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="350">
+        <T_INPUT_UNION offset="350">inputUnion</T_INPUT_UNION>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="361">
+      <TypeName offset="372">
+        <T_INTERFACE offset="372">interface</T_INTERFACE>
+      </TypeName>
+      <TypeName offset="384">
+        <T_NAME offset="384">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="394">
+        <T_INTERFACE offset="394">interface</T_INTERFACE>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="404">
+      <TypeName offset="415">
+        <T_SCHEMA offset="415">schema</T_SCHEMA>
+      </TypeName>
+      <TypeName offset="424">
+        <T_NAME offset="424">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="434">
+        <T_SCHEMA offset="434">schema</T_SCHEMA>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="441">
+      <TypeName offset="452">
+        <T_SCALAR offset="452">scalar</T_SCALAR>
+      </TypeName>
+      <TypeName offset="461">
+        <T_NAME offset="461">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="471">
+        <T_SCALAR offset="471">scalar</T_SCALAR>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="478">
+      <TypeName offset="489">
+        <T_DIRECTIVE offset="489">directive</T_DIRECTIVE>
+      </TypeName>
+      <TypeName offset="501">
+        <T_NAME offset="501">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="511">
+        <T_DIRECTIVE offset="511">directive</T_DIRECTIVE>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="521">
+      <TypeName offset="532">
+        <T_INPUT offset="532">input</T_INPUT>
+      </TypeName>
+      <TypeName offset="540">
+        <T_NAME offset="540">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="550">
+        <T_INPUT offset="550">input</T_INPUT>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="556">
+      <TypeName offset="567">
+        <T_EXTEND offset="567">extend</T_EXTEND>
+      </TypeName>
+      <TypeName offset="576">
+        <T_NAME offset="576">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="586">
+        <T_EXTEND offset="586">extend</T_EXTEND>
+      </TypeName>
+    </InputUnionDefinition>
+    <InputUnionDefinition offset="593">
+      <TypeName offset="604">
+        <T_FRAGMENT offset="604">fragment</T_FRAGMENT>
+      </TypeName>
+      <TypeName offset="615">
+        <T_NAME offset="615">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="625">
+        <T_FRAGMENT offset="625">fragment</T_FRAGMENT>
+      </TypeName>
+    </InputUnionDefinition>
+  </Document>
+</Ast>

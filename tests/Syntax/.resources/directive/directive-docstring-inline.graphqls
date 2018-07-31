@@ -1,0 +1,10 @@
+
+
+"Directive @single2 desciption"
+directive @single2(
+    "Attribute \"a\" description"
+    a: Boolean!
+    "Attribute \"b\" description"
+    b: Boolean!
+) on FIELD
+

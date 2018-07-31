@@ -1,0 +1,15 @@
+
+//
+// Enum extension
+//
+
+#EnumExtension:
+    Documentation()?
+    ::T_EXTEND::
+        __enumExtensionVariants()
+
+__enumExtensionVariants:
+    EnumDefinitionHead() | (
+        EnumDefinitionHead()
+        EnumDefinitionBody()
+    )

@@ -1,0 +1,50 @@
+<Ast>
+  <Document offset="1">
+    <ObjectDefinition offset="1">
+      <Description offset="1">
+        <String offset="1">
+          <T_STRING offset="1" value:1="\&amp;quot; type"><![CDATA["Description of \"interface Example\" type"]]></T_STRING>
+        </String>
+      </Description>
+      <TypeName offset="50">
+        <T_NAME offset="50">Example</T_NAME>
+      </TypeName>
+      <FieldDefinitions offset="64">
+        <FieldDefinition offset="64">
+          <Description offset="64">
+            <String offset="64">
+              <T_STRING offset="64" value:1="\&amp;quot; field"><![CDATA["Description of \"a\" field"]]></T_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="97">a</T_NAME>
+          <TypeHint offset="100">
+            <Value offset="100">
+              <TypeInvocation offset="100">
+                <TypeName offset="100">
+                  <T_NAME offset="100">TestQuery</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+            </Value>
+          </TypeHint>
+        </FieldDefinition>
+        <FieldDefinition offset="115">
+          <Description offset="115">
+            <String offset="115">
+              <T_STRING offset="115" value:1="\&amp;quot; field"><![CDATA["Description of \"b\" field"]]></T_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="148">b</T_NAME>
+          <TypeHint offset="151">
+            <Value offset="151">
+              <TypeInvocation offset="151">
+                <TypeName offset="151">
+                  <T_NAME offset="151">TestMutation</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+            </Value>
+          </TypeHint>
+        </FieldDefinition>
+      </FieldDefinitions>
+    </ObjectDefinition>
+  </Document>
+</Ast>

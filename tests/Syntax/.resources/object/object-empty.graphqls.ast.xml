@@ -1,0 +1,9 @@
+<Ast>
+  <Document offset="1">
+    <ObjectDefinition offset="1">
+      <TypeName offset="6">
+        <T_NAME offset="6">Example</T_NAME>
+      </TypeName>
+    </ObjectDefinition>
+  </Document>
+</Ast>

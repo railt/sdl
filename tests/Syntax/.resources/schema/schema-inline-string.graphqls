@@ -1,0 +1,6 @@
+
+"Dockblock"
+schema {
+    "Dockblock"
+    query: Example
+}

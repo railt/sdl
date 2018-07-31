@@ -1,0 +1,9 @@
+
+//
+// Schema extension
+//
+
+#SchemaExtension:
+    Documentation()?
+    ::T_EXTEND::
+        SchemaDefinitionBody()

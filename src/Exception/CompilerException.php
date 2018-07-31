@@ -9,94 +9,41 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Exception;
 
-use Railt\SDL\Stack\CallStackInterface;
-use Railt\SDL\Stack\Item;
+use Railt\Io\Exception\ExternalFileException;
+use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\SDL\CallStack;
 
 /**
  * Class CompilerException
  */
-class CompilerException extends \RuntimeException
+class CompilerException extends ExternalFileException
 {
     /**
-     * @var CallStackInterface
+     * @var CallStack
      */
-    protected $stack;
+    private $stack;
 
     /**
-     * @var int
+     * @param Definition $def
+     * @return CompilerException
      */
-    private $column = 0;
+    public function in(Definition $def): CompilerException
+    {
+        $this->throwsIn($def->getFile(), $def->getLine(), $def->getColumn());
+
+        return $this;
+    }
 
     /**
-     * CompilerException constructor.
-     * @param string $message
-     * @param CallStackInterface $stack
-     * @param \Throwable|null $previous
+     * @param CallStack $stack
+     * @return CompilerException
      */
-    public function __construct(string $message = '', CallStackInterface $stack, \Throwable $previous = null)
+    public function using(CallStack $stack): CompilerException
     {
         $this->stack = $stack;
-        parent::__construct($message, 0, $previous);
 
-        if ($this->stack->count()) {
-            $this->extract($this->stack->pop());
-        }
-    }
-
-    /**
-     * @return int
-     */
-    public function getColumn(): int
-    {
-        return $this->column;
-    }
-
-    /**
-     * @param Item $item
-     */
-    private function extract(Item $item): void
-    {
-        $position = $item->getPosition();
-
-        $this->file   = $item->getFile()->getPathname();
-        $this->line   = $position->getLine();
-        $this->column = $position->getColumn();
-    }
-
-    /**
-     * @return iterable|string[]
-     */
-    private function getStackAsString(): iterable
-    {
-        $stack = \explode("\n", $this->getTraceAsString());
-
-        /** @var Item $item */
-        foreach ($this->stack as $item) {
-            $position = $item->getPosition();
-
-            yield \vsprintf('%s(%d): %s', [
-                $item->getFile()->getPathname(),
-                $position->getLine(),
-                $item->getValue(),
-            ]);
-        }
-
-        yield from \array_map(function (string $line): string {
-            return \preg_replace('/#\d+\h+/iu', '', $line);
-        }, $stack);
-    }
-
-    /**
-     * @return string
-     */
-    private function getHeaderMessage(): string
-    {
-        return \vsprintf('%s: %s in %s:%d', [
-            \get_class($this),
-            $this->message,
-            $this->file,
-            $this->line,
-        ]);
+        return $this;
     }
 
     /**
@@ -104,14 +51,63 @@ class CompilerException extends \RuntimeException
      */
     public function __toString(): string
     {
-        $output   = [$this->getHeaderMessage()];
-        $output[] = 'Stack trace:';
+        $result  = $this->getHeader() . \PHP_EOL;
+        $result .= 'Stack trace:' . \PHP_EOL;
+        $result .= $this->getFullTraceAsString();
 
-        foreach ($this->getStackAsString() as $line) {
-            static $i = 0;
-            $output[] = \sprintf('#%d %s', $i++, $line);
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullTraceAsString(): string
+    {
+        [$result, $i] = ['', 0];
+
+        foreach ($this->stack as $def) {
+            $result .= \sprintf('#%d %s(%d): %s', $i++, $def->getFile(), $def->getLine(), $def) . \PHP_EOL;
         }
 
-        return \implode("\n", $output);
+        $result .= \preg_replace_callback('/^#\d+\h/ium', function() use (&$i): string {
+            return \sprintf('#%d ', $i++);
+        }, $this->getTraceAsString());
+
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    private function getHeader(): string
+    {
+        return \vsprintf('%s: %s in %s:%d', [
+            \get_class($this),
+            $this->getMessage(),
+            $this->getFile(),
+            $this->getLine()
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getSDLTrace(): array
+    {
+        $result = [];
+
+        if ($this->stack) {
+            foreach ($this->stack as $definition) {
+                $result[] = \array_filter([
+                    'file'   => $definition->getFile(),
+                    'line'   => $definition->getLine(),
+                    'column' => $definition->getColumn(),
+                    'type'   => $definition::getType()->getName(),
+                    'name'   => $definition instanceof TypeDefinition ? $definition->getName() : null,
+                ]);
+            }
+        }
+
+        return $result;
     }
 }

@@ -1,0 +1,14 @@
+
+//
+// Input extension
+//
+
+#InputExtension:
+    Documentation()?
+    ::T_EXTEND:: __inputExtensionVariants()
+
+__inputExtensionVariants:
+    InputDefinitionHead() | (
+        InputDefinitionHead()
+        InputDefinitionBody()
+    )

@@ -1,0 +1,29 @@
+<Ast>
+  <Document offset="1">
+    <DirectiveDefinition offset="1">
+      <TypeName offset="12">
+        <T_NAME offset="12">example1</T_NAME>
+      </TypeName>
+      <DirectiveArgument offset="21">
+        <ArgumentDefinition offset="21">
+          <T_NAME offset="21">a</T_NAME>
+          <TypeHint offset="24">
+            <Value offset="24">
+              <TypeInvocation offset="24">
+                <TypeName offset="24">
+                  <T_NAME offset="24">Boolean</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="31"/>
+            </Value>
+          </TypeHint>
+        </ArgumentDefinition>
+      </DirectiveArgument>
+      <DirectiveLocations offset="37">
+        <T_NAME offset="37">FIELD</T_NAME>
+        <T_NAME offset="45">FRAGMENT_SPREAD</T_NAME>
+        <T_NAME offset="63">INLINE_FRAGMENT</T_NAME>
+      </DirectiveLocations>
+    </DirectiveDefinition>
+  </Document>
+</Ast>

@@ -1,0 +1,4 @@
+enum Example {
+    A = "Red"
+    B = 23
+}

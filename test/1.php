@@ -7,7 +7,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 try {
     $c = new Compiler();
-    $c->parse(File::fromPathname(__DIR__ . '/schema.gql'));
+    $c->compile(File::fromPathname(__DIR__ . '/schema.gql'));
 } catch (\Throwable $e) {
     echo $e;
     die;

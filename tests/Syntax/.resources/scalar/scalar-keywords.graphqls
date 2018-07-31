@@ -1,0 +1,18 @@
+
+scalar true
+scalar false
+scalar null
+scalar extends
+scalar implements
+scalar on
+scalar type
+scalar enum
+scalar union
+scalar inputUnion
+scalar interface
+scalar schema
+scalar scalar
+scalar directive
+scalar input
+scalar extend
+scalar fragment

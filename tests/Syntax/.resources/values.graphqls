@@ -1,0 +1,28 @@
+input Example {
+    a: Any = 2.0
+    b: Any = -2.0
+    c: Any = 42
+    d: Any = -42
+    e: Any = 1e2
+    f: Any = -1e2
+    f: Any = 6.0221413e23
+    f: Any = -6.0221413e23
+    f: Any = -6.0221413e23
+    f: Any = 1e-23
+    g: Any = 0xf0
+    h: Any = -0xf0
+    i: Any = 0b10
+    j: Any = -0b10
+    k: Any = "String"
+    l: Any = """String"""
+    m: Any = """Mutiline text"""
+    n: Any = """""Double "" quote"""
+    o: Any = """""\" Double "\"\" quote \""""""
+    p: Any = """\" Single " quote"""
+    q: Any = ""
+    r: Any = """"""
+    s: Any = EnumValue
+    t: Any = [Any, Float, String, Int, ID, Object, List, type, interface, directive]
+    u: Any = {int: 42, float: 3.0, string: "str", dockstring: """str""", obj: {k: v}, lobj: {k: [v, 23]}}
+    v: [Any] = [2.0, -2.0, 42, -42, 1e2, -1e2, 0xf0, -0xf0, 0b10, -0b10]
+}

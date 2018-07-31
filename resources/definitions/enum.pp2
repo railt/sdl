@@ -1,0 +1,24 @@
+
+//
+// Enum definition
+//
+
+#EnumDefinition -> Railt\SDL\Compiler\Definition\EnumDelegate:
+    Documentation()?
+    EnumDefinitionHead()
+    EnumDefinitionBody()
+
+EnumDefinitionHead:
+    ::T_ENUM:: TypeName() Directives()?
+
+EnumDefinitionBody:
+    ::T_BRACE_OPEN::
+        __enumDefinitionValue()*
+    ::T_BRACE_CLOSE::
+
+
+__enumDefinitionValue:
+    Documentation()?
+    NameExceptValues() (::T_EQUAL:: Value())?
+        Directives()?
+    #EnumValue

@@ -1,0 +1,16 @@
+
+//
+// Object extension
+//
+
+#ObjectExtension:
+    Documentation()?
+    ::T_EXTEND::
+        __objectExtensionVariants()
+
+__objectExtensionVariants:
+    ObjectDefinitionHead() | (
+        ObjectDefinitionHead()
+        ObjectDefinitionBody()
+    )
+

@@ -1,0 +1,83 @@
+<Ast>
+  <Document offset="1">
+    <ObjectDefinition offset="1">
+      <TypeName offset="6">
+        <T_NAME offset="6">A</T_NAME>
+      </TypeName>
+      <FieldDefinitions offset="14">
+        <FieldDefinition offset="14">
+          <T_NAME offset="14">field</T_NAME>
+          <TypeHint offset="21">
+            <Value offset="21">
+              <TypeInvocation offset="21">
+                <TypeName offset="21">
+                  <T_NAME offset="21">String</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="27"/>
+            </Value>
+          </TypeHint>
+        </FieldDefinition>
+      </FieldDefinitions>
+    </ObjectDefinition>
+    <InterfaceDefinition offset="32">
+      <TypeName offset="42">
+        <T_NAME offset="42">B</T_NAME>
+      </TypeName>
+      <Implements offset="44">
+        <TypeInvocation offset="55">
+          <TypeName offset="55">
+            <T_NAME offset="55">A</T_NAME>
+          </TypeName>
+        </TypeInvocation>
+      </Implements>
+      <FieldDefinitions offset="63">
+        <FieldDefinition offset="63">
+          <T_NAME offset="63">field2</T_NAME>
+          <TypeHint offset="71">
+            <Value offset="71">
+              <TypeInvocation offset="71">
+                <TypeName offset="71">
+                  <T_NAME offset="71">String</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="77"/>
+            </Value>
+          </TypeHint>
+        </FieldDefinition>
+      </FieldDefinitions>
+    </InterfaceDefinition>
+    <ObjectDefinition offset="82">
+      <TypeName offset="87">
+        <T_NAME offset="87">C</T_NAME>
+      </TypeName>
+      <Implements offset="89">
+        <TypeInvocation offset="100">
+          <TypeName offset="100">
+            <T_NAME offset="100">A</T_NAME>
+          </TypeName>
+        </TypeInvocation>
+        <TypeInvocation offset="104">
+          <TypeName offset="104">
+            <T_NAME offset="104">B</T_NAME>
+          </TypeName>
+        </TypeInvocation>
+      </Implements>
+      <FieldDefinitions offset="112">
+        <FieldDefinition offset="112">
+          <T_NAME offset="112">field3</T_NAME>
+          <TypeHint offset="120">
+            <Value offset="120">
+              <TypeInvocation offset="120">
+                <TypeName offset="120">
+                  <T_NAME offset="120">String</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+              <NonNull offset="126"/>
+            </Value>
+          </TypeHint>
+        </FieldDefinition>
+      </FieldDefinitions>
+    </ObjectDefinition>
+  </Document>
+</Ast>

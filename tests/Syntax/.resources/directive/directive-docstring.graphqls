@@ -1,0 +1,16 @@
+
+
+"""
+Directive @multiline2 desciption
+"""
+directive @multiline2(
+    """
+    Attribute "a" description
+    """
+    a: Boolean!
+
+    """
+    Attribute "b" description
+    """
+    b: Boolean!
+) on FIELD

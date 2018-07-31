@@ -1,0 +1,9 @@
+<Ast>
+  <Document offset="0">
+    <InputDefinition offset="0">
+      <TypeName offset="6">
+        <T_NAME offset="6">InputType</T_NAME>
+      </TypeName>
+    </InputDefinition>
+  </Document>
+</Ast>

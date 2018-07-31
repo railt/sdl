@@ -1,0 +1,46 @@
+
+//
+// Common definitions and partials
+//
+
+%include definitions/common/documentation
+%include definitions/common/implements
+%include definitions/common/type-arguments
+%include definitions/common/type-hint
+%include definitions/common/arguments
+%include definitions/common/fields
+
+
+//
+// TypeDefinitions
+//
+
+%include definitions/directive
+%include definitions/enum
+%include definitions/input
+%include definitions/input-union
+%include definitions/interface
+%include definitions/object
+%include definitions/scalar
+%include definitions/schema
+%include definitions/union
+
+
+Definition
+    : DirectiveDefinition()
+    | SchemaDefinition()
+    | __typeDefinitions()
+
+
+#ChildrenDefinitions
+    : __typeDefinitions()
+
+
+__typeDefinitions
+    : EnumDefinition()
+    | InputDefinition()
+    | InputUnionDefinition()
+    | InterfaceDefinition()
+    | ObjectDefinition()
+    | ScalarDefinition()
+    | UnionDefinition()

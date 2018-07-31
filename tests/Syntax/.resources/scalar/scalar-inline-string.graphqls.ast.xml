@@ -1,0 +1,31 @@
+<Ast>
+  <Document offset="1">
+    <ScalarDefinition offset="1">
+      <Description offset="1">
+        <String offset="1">
+          <T_STRING offset="1" value:1="\&amp;quot; type"><![CDATA["Description of \"scalar Test\" type"]]></T_STRING>
+        </String>
+      </Description>
+      <TypeName offset="46">
+        <T_NAME offset="46">Test</T_NAME>
+      </TypeName>
+    </ScalarDefinition>
+    <ScalarDefinition offset="52">
+      <Description offset="52">
+        <String offset="52">
+          <T_STRING offset="52" value:1="\&amp;quot; type"><![CDATA["Description of \"scalar Test2\" type"]]></T_STRING>
+        </String>
+      </Description>
+      <TypeName offset="98">
+        <T_NAME offset="98">Test2</T_NAME>
+      </TypeName>
+      <Directives offset="104">
+        <Directive offset="104">
+          <TypeName offset="105">
+            <T_NAME offset="105">Directive</T_NAME>
+          </TypeName>
+        </Directive>
+      </Directives>
+    </ScalarDefinition>
+  </Document>
+</Ast>

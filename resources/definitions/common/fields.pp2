@@ -1,0 +1,17 @@
+#FieldDefinition:
+    Documentation()?
+    NameWithReserved()
+    __fieldDefinitionArguments()?
+    ::T_COLON:: TypeHint()
+        Directives()?
+
+__fieldDefinitionArguments:
+    ::T_PARENTHESIS_OPEN::
+        __fieldDefinitionArgument()*
+    ::T_PARENTHESIS_CLOSE::
+    #FieldArguments
+
+__fieldDefinitionArgument:
+    ArgumentDefinition()
+    Directives()?
+    #FieldArgument

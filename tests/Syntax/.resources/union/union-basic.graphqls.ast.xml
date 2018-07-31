@@ -1,0 +1,15 @@
+<Ast>
+  <Document offset="0">
+    <UnionDefinition offset="0">
+      <TypeName offset="6">
+        <T_NAME offset="6">Example</T_NAME>
+      </TypeName>
+      <TypeName offset="16">
+        <T_NAME offset="16">Some</T_NAME>
+      </TypeName>
+      <TypeName offset="23">
+        <T_NAME offset="23">Any</T_NAME>
+      </TypeName>
+    </UnionDefinition>
+  </Document>
+</Ast>

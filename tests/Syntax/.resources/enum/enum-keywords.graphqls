@@ -1,0 +1,18 @@
+
+enum true { }
+enum false { }
+enum null { }
+enum extends { extends }
+enum implements { implements }
+enum on { on }
+enum type { type }
+enum enum { enum }
+enum union { union }
+enum inputUnion { inputUnion }
+enum interface { interface }
+enum schema { schema }
+enum scalar { scalar }
+enum enum { enum }
+enum input { input }
+enum extend { extend }
+enum fragment { fragment }

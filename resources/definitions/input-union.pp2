@@ -1,0 +1,19 @@
+
+//
+// InputInputUnion definition
+//
+
+#InputUnionDefinition -> Railt\SDL\Compiler\Definition\InputUnionDelegate:
+    Documentation()?
+    InputUnionDefinitionHead()
+    InputUnionDefinitionBody()?
+
+InputUnionDefinitionHead:
+    ::T_INPUT_UNION:: TypeName() Directives()?
+
+InputUnionDefinitionBody:
+    ::T_EQUAL:: ::T_OR::? __inputUnionDefinitionTargets()+
+
+
+__inputUnionDefinitionTargets:
+    TypeName() (::T_OR:: TypeName())*

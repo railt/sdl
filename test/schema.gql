@@ -1,32 +1,9 @@
 
-
-interface Pagination($values: A) implements B(a: C(s: D))
-    @interfaceDirective
-{
-    values: [$values!]!
-        @interfaceFieldDirective
+schema {
+   query: Some
 }
 
-type LengthAwarePaginator($values: Object) implements Pagination(values: $values)
-    @typeDirective
-    @typeDirective2
-{
-    perPage(
-        a: Argument,
-            @typeArgumentDirective
-        b: Argument2(c: Argument3)
-            @typeArgumentDirective2
-    ): Field!
-        @typeFieldDirective
-    count: Field2!
-    values: [$values!]!
+schema {
+   query: Some
 }
 
-type Repository($typeOf: Object, $paginator: Pagination) {
-    findAll: $paginator(values: $typeOf)!
-    find(id: ID!): $typeOf
-}
-
-type Query {
-    users: Repository(typeOf: User, paginator: LengthAwarePaginator)
-}

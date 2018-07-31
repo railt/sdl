@@ -1,0 +1,9 @@
+
+//
+// Scalar extension
+//
+
+#ScalarExtension:
+    Documentation()?
+    ::T_EXTEND::
+        ScalarDefinitionBody()

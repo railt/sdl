@@ -8,8 +8,8 @@
  */
 declare(strict_types=1);
 
-use Railt\SDL\Console\ParserCompileCommand;
-use Symfony\Component\Console\Application;
+use Railt\Console\Application;
+
 
 \define('RAILT_START', \microtime(true));
 
@@ -24,21 +24,17 @@ use Symfony\Component\Console\Application;
 | loading of any our classes "manually". Feels great to relax.
 |
 */
+
 $loaders = [
     __DIR__ . '/../vendor/autoload.php',
-    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../../../../vendor/autoload.php',
 ];
 
-foreach ($loaders as $loader) {
-    if (\is_file($loader) && \is_readable($loader)) {
-        require_once $loader;
+foreach ($loaders as $root => $directory) {
+    if (\is_file($directory) && \is_readable($directory)) {
+        $loader = require_once $directory;
         break;
     }
-}
-
-// Check dependencies
-if (! \class_exists(Application::class)) {
-    throw new \LogicException('Please install "symfony/console" first.');
 }
 
 /*
@@ -51,14 +47,14 @@ if (! \class_exists(Application::class)) {
 | or another output device for the developers. Here goes nothing!
 |
 */
-$cli = new Application();
-$cli->add(new ParserCompileCommand());
 
-try {
-    $code = $cli->run();
-} catch (Throwable $e) {
-    echo $e;
-    $code = $e->getCode() ?: 1;
-} finally {
-    exit($code);
-}
+$cli = new Application();
+
+$cli->tryReadManifest(
+    __DIR__ . '/railt.json',
+    __DIR__ . '/vendor/bin/railt.json',
+    __DIR__ . '/../vendor/bin/railt.json',
+    __DIR__ . '/../../../../vendor/bin/railt.json'
+);
+
+$cli->gracefulRun();

@@ -1,0 +1,10 @@
+"""
+Description of "union Feed"
+"""
+union Feed = Story | Article | Advert
+
+"""
+Description of "union AnnotatedUnion"
+"""
+union AnnotatedUnion @onUnion = A | B
+

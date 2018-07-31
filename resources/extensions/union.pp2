@@ -1,0 +1,10 @@
+
+//
+// Union extension
+//
+
+#UnionExtension:
+    Documentation()?
+    ::T_EXTEND::
+        UnionDefinitionHead()
+        UnionDefinitionBody()

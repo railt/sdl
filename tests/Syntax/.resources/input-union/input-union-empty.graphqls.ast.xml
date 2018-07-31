@@ -1,0 +1,9 @@
+<Ast>
+  <Document offset="0">
+    <InputUnionDefinition offset="0">
+      <TypeName offset="11">
+        <T_NAME offset="11">Example</T_NAME>
+      </TypeName>
+    </InputUnionDefinition>
+  </Document>
+</Ast>

@@ -1,0 +1,49 @@
+<Ast>
+  <Document offset="1">
+    <InputDefinition offset="1">
+      <Description offset="1">
+        <String offset="1">
+          <T_BLOCK_STRING offset="1"><![CDATA["""
+Description of "input AnnotatedInput" type
+"""]]></T_BLOCK_STRING>
+        </String>
+      </Description>
+      <TypeName offset="58">
+        <T_NAME offset="58">AnnotatedInput</T_NAME>
+      </TypeName>
+      <Directives offset="73">
+        <Directive offset="73">
+          <TypeName offset="74">
+            <T_NAME offset="74">onInputObjectType</T_NAME>
+          </TypeName>
+        </Directive>
+      </Directives>
+      <InputFieldDefinition offset="98">
+        <Description offset="98">
+          <String offset="98">
+            <T_BLOCK_STRING offset="98"><![CDATA["""
+    Description of "annotatedField" field
+    """]]></T_BLOCK_STRING>
+          </String>
+        </Description>
+        <T_NAME offset="156">annotatedField</T_NAME>
+        <TypeHint offset="172">
+          <Value offset="172">
+            <TypeInvocation offset="172">
+              <TypeName offset="172">
+                <T_NAME offset="172">Type</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+        <Directives offset="177">
+          <Directive offset="177">
+            <TypeName offset="178">
+              <T_NAME offset="178">onField</T_NAME>
+            </TypeName>
+          </Directive>
+        </Directives>
+      </InputFieldDefinition>
+    </InputDefinition>
+  </Document>
+</Ast>

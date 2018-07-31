@@ -1,0 +1,36 @@
+<Ast>
+  <Document offset="0">
+    <EnumDefinition offset="0">
+      <Description offset="0">
+        <String offset="0">
+          <T_BLOCK_STRING offset="0"><![CDATA["""
+Colour enum description
+"""]]></T_BLOCK_STRING>
+        </String>
+      </Description>
+      <TypeName offset="37">
+        <T_NAME offset="37">Colour</T_NAME>
+      </TypeName>
+      <EnumValue offset="50">
+        <Description offset="50">
+          <String offset="50">
+            <T_BLOCK_STRING offset="50"><![CDATA["""
+    Value "Red" description
+    """]]></T_BLOCK_STRING>
+          </String>
+        </Description>
+        <T_NAME offset="94">Red</T_NAME>
+      </EnumValue>
+      <EnumValue offset="102">
+        <Description offset="102">
+          <String offset="102">
+            <T_BLOCK_STRING offset="102"><![CDATA["""
+    Value 'Green' description
+    """]]></T_BLOCK_STRING>
+          </String>
+        </Description>
+        <T_NAME offset="148">Green</T_NAME>
+      </EnumValue>
+    </EnumDefinition>
+  </Document>
+</Ast>

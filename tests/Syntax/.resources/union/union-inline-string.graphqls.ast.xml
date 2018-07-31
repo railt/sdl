@@ -1,0 +1,46 @@
+<Ast>
+  <Document offset="0">
+    <UnionDefinition offset="0">
+      <Description offset="0">
+        <String offset="0">
+          <T_STRING offset="0" value:1="\&amp;quot;"><![CDATA["Description of \"union Feed\""]]></T_STRING>
+        </String>
+      </Description>
+      <TypeName offset="38">
+        <T_NAME offset="38">Feed</T_NAME>
+      </TypeName>
+      <TypeName offset="45">
+        <T_NAME offset="45">Story</T_NAME>
+      </TypeName>
+      <TypeName offset="53">
+        <T_NAME offset="53">Article</T_NAME>
+      </TypeName>
+      <TypeName offset="63">
+        <T_NAME offset="63">Advert</T_NAME>
+      </TypeName>
+    </UnionDefinition>
+    <UnionDefinition offset="71">
+      <Description offset="71">
+        <String offset="71">
+          <T_STRING offset="71" value:1="\&amp;quot;"><![CDATA["Description of \"union AnnotatedUnion\""]]></T_STRING>
+        </String>
+      </Description>
+      <TypeName offset="119">
+        <T_NAME offset="119">AnnotatedUnion</T_NAME>
+      </TypeName>
+      <Directives offset="134">
+        <Directive offset="134">
+          <TypeName offset="135">
+            <T_NAME offset="135">onUnion</T_NAME>
+          </TypeName>
+        </Directive>
+      </Directives>
+      <TypeName offset="145">
+        <T_NAME offset="145">A</T_NAME>
+      </TypeName>
+      <TypeName offset="149">
+        <T_NAME offset="149">B</T_NAME>
+      </TypeName>
+    </UnionDefinition>
+  </Document>
+</Ast>

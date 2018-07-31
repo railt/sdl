@@ -1,0 +1,10 @@
+
+//
+// InputUnion extension
+//
+
+#InputUnionExtension:
+    Documentation()?
+    ::T_EXTEND::
+        InputUnionDefinitionHead()
+        InputUnionDefinitionBody()

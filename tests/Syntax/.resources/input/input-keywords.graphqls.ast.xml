@@ -1,0 +1,293 @@
+<Ast>
+  <Document offset="1">
+    <InputDefinition offset="1">
+      <TypeName offset="7">
+        <T_TRUE offset="7">true</T_TRUE>
+      </TypeName>
+      <InputFieldDefinition offset="14">
+        <T_TRUE offset="14">true</T_TRUE>
+        <TypeHint offset="20">
+          <Value offset="20">
+            <TypeInvocation offset="20">
+              <TypeName offset="20">
+                <T_NAME offset="20">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="29">
+      <TypeName offset="35">
+        <T_FALSE offset="35">false</T_FALSE>
+      </TypeName>
+      <InputFieldDefinition offset="43">
+        <T_FALSE offset="43">false</T_FALSE>
+        <TypeHint offset="50">
+          <Value offset="50">
+            <TypeInvocation offset="50">
+              <TypeName offset="50">
+                <T_NAME offset="50">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="59">
+      <TypeName offset="65">
+        <T_NULL offset="65">null</T_NULL>
+      </TypeName>
+      <InputFieldDefinition offset="72">
+        <T_NULL offset="72">null</T_NULL>
+        <TypeHint offset="78">
+          <Value offset="78">
+            <TypeInvocation offset="78">
+              <TypeName offset="78">
+                <T_NAME offset="78">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="87">
+      <TypeName offset="93">
+        <T_EXTENDS offset="93">extends</T_EXTENDS>
+      </TypeName>
+      <InputFieldDefinition offset="103">
+        <T_EXTENDS offset="103">extends</T_EXTENDS>
+        <TypeHint offset="112">
+          <Value offset="112">
+            <TypeInvocation offset="112">
+              <TypeName offset="112">
+                <T_NAME offset="112">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="121">
+      <TypeName offset="127">
+        <T_IMPLEMENTS offset="127">implements</T_IMPLEMENTS>
+      </TypeName>
+      <InputFieldDefinition offset="140">
+        <T_IMPLEMENTS offset="140">implements</T_IMPLEMENTS>
+        <TypeHint offset="152">
+          <Value offset="152">
+            <TypeInvocation offset="152">
+              <TypeName offset="152">
+                <T_NAME offset="152">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="161">
+      <TypeName offset="167">
+        <T_ON offset="167">on</T_ON>
+      </TypeName>
+      <InputFieldDefinition offset="172">
+        <T_ON offset="172">on</T_ON>
+        <TypeHint offset="176">
+          <Value offset="176">
+            <TypeInvocation offset="176">
+              <TypeName offset="176">
+                <T_NAME offset="176">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="185">
+      <TypeName offset="191">
+        <T_TYPE offset="191">type</T_TYPE>
+      </TypeName>
+      <InputFieldDefinition offset="198">
+        <T_TYPE offset="198">type</T_TYPE>
+        <TypeHint offset="204">
+          <Value offset="204">
+            <TypeInvocation offset="204">
+              <TypeName offset="204">
+                <T_NAME offset="204">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="213">
+      <TypeName offset="219">
+        <T_ENUM offset="219">enum</T_ENUM>
+      </TypeName>
+      <InputFieldDefinition offset="226">
+        <T_ENUM offset="226">enum</T_ENUM>
+        <TypeHint offset="232">
+          <Value offset="232">
+            <TypeInvocation offset="232">
+              <TypeName offset="232">
+                <T_NAME offset="232">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="241">
+      <TypeName offset="247">
+        <T_UNION offset="247">union</T_UNION>
+      </TypeName>
+      <InputFieldDefinition offset="255">
+        <T_UNION offset="255">union</T_UNION>
+        <TypeHint offset="262">
+          <Value offset="262">
+            <TypeInvocation offset="262">
+              <TypeName offset="262">
+                <T_NAME offset="262">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="271">
+      <TypeName offset="277">
+        <T_INPUT_UNION offset="277">inputUnion</T_INPUT_UNION>
+      </TypeName>
+      <InputFieldDefinition offset="290">
+        <T_INPUT_UNION offset="290">inputUnion</T_INPUT_UNION>
+        <TypeHint offset="302">
+          <Value offset="302">
+            <TypeInvocation offset="302">
+              <TypeName offset="302">
+                <T_NAME offset="302">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="311">
+      <TypeName offset="317">
+        <T_INTERFACE offset="317">interface</T_INTERFACE>
+      </TypeName>
+      <InputFieldDefinition offset="329">
+        <T_INTERFACE offset="329">interface</T_INTERFACE>
+        <TypeHint offset="340">
+          <Value offset="340">
+            <TypeInvocation offset="340">
+              <TypeName offset="340">
+                <T_NAME offset="340">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="349">
+      <TypeName offset="355">
+        <T_SCHEMA offset="355">schema</T_SCHEMA>
+      </TypeName>
+      <InputFieldDefinition offset="364">
+        <T_SCHEMA offset="364">schema</T_SCHEMA>
+        <TypeHint offset="372">
+          <Value offset="372">
+            <TypeInvocation offset="372">
+              <TypeName offset="372">
+                <T_NAME offset="372">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="381">
+      <TypeName offset="387">
+        <T_SCALAR offset="387">scalar</T_SCALAR>
+      </TypeName>
+      <InputFieldDefinition offset="396">
+        <T_SCALAR offset="396">scalar</T_SCALAR>
+        <TypeHint offset="404">
+          <Value offset="404">
+            <TypeInvocation offset="404">
+              <TypeName offset="404">
+                <T_NAME offset="404">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="413">
+      <TypeName offset="419">
+        <T_DIRECTIVE offset="419">directive</T_DIRECTIVE>
+      </TypeName>
+      <InputFieldDefinition offset="431">
+        <T_DIRECTIVE offset="431">directive</T_DIRECTIVE>
+        <TypeHint offset="442">
+          <Value offset="442">
+            <TypeInvocation offset="442">
+              <TypeName offset="442">
+                <T_NAME offset="442">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="451">
+      <TypeName offset="457">
+        <T_INPUT offset="457">input</T_INPUT>
+      </TypeName>
+      <InputFieldDefinition offset="465">
+        <T_INPUT offset="465">input</T_INPUT>
+        <TypeHint offset="472">
+          <Value offset="472">
+            <TypeInvocation offset="472">
+              <TypeName offset="472">
+                <T_NAME offset="472">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="481">
+      <TypeName offset="487">
+        <T_EXTEND offset="487">extend</T_EXTEND>
+      </TypeName>
+      <InputFieldDefinition offset="496">
+        <T_EXTEND offset="496">extend</T_EXTEND>
+        <TypeHint offset="504">
+          <Value offset="504">
+            <TypeInvocation offset="504">
+              <TypeName offset="504">
+                <T_NAME offset="504">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+    <InputDefinition offset="513">
+      <TypeName offset="519">
+        <T_FRAGMENT offset="519">fragment</T_FRAGMENT>
+      </TypeName>
+      <InputFieldDefinition offset="530">
+        <T_FRAGMENT offset="530">fragment</T_FRAGMENT>
+        <TypeHint offset="540">
+          <Value offset="540">
+            <TypeInvocation offset="540">
+              <TypeName offset="540">
+                <T_NAME offset="540">String</T_NAME>
+              </TypeName>
+            </TypeInvocation>
+          </Value>
+        </TypeHint>
+      </InputFieldDefinition>
+    </InputDefinition>
+  </Document>
+</Ast>

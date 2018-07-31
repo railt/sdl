@@ -1,0 +1,131 @@
+<Ast>
+  <Document offset="1">
+    <EnumDefinition offset="1">
+      <TypeName offset="6">
+        <T_TRUE offset="6">true</T_TRUE>
+      </TypeName>
+    </EnumDefinition>
+    <EnumDefinition offset="15">
+      <TypeName offset="20">
+        <T_FALSE offset="20">false</T_FALSE>
+      </TypeName>
+    </EnumDefinition>
+    <EnumDefinition offset="30">
+      <TypeName offset="35">
+        <T_NULL offset="35">null</T_NULL>
+      </TypeName>
+    </EnumDefinition>
+    <EnumDefinition offset="44">
+      <TypeName offset="49">
+        <T_EXTENDS offset="49">extends</T_EXTENDS>
+      </TypeName>
+      <EnumValue offset="59">
+        <T_EXTENDS offset="59">extends</T_EXTENDS>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="69">
+      <TypeName offset="74">
+        <T_IMPLEMENTS offset="74">implements</T_IMPLEMENTS>
+      </TypeName>
+      <EnumValue offset="87">
+        <T_IMPLEMENTS offset="87">implements</T_IMPLEMENTS>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="100">
+      <TypeName offset="105">
+        <T_ON offset="105">on</T_ON>
+      </TypeName>
+      <EnumValue offset="110">
+        <T_ON offset="110">on</T_ON>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="115">
+      <TypeName offset="120">
+        <T_TYPE offset="120">type</T_TYPE>
+      </TypeName>
+      <EnumValue offset="127">
+        <T_TYPE offset="127">type</T_TYPE>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="134">
+      <TypeName offset="139">
+        <T_ENUM offset="139">enum</T_ENUM>
+      </TypeName>
+      <EnumValue offset="146">
+        <T_ENUM offset="146">enum</T_ENUM>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="153">
+      <TypeName offset="158">
+        <T_UNION offset="158">union</T_UNION>
+      </TypeName>
+      <EnumValue offset="166">
+        <T_UNION offset="166">union</T_UNION>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="174">
+      <TypeName offset="179">
+        <T_INPUT_UNION offset="179">inputUnion</T_INPUT_UNION>
+      </TypeName>
+      <EnumValue offset="192">
+        <T_INPUT_UNION offset="192">inputUnion</T_INPUT_UNION>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="205">
+      <TypeName offset="210">
+        <T_INTERFACE offset="210">interface</T_INTERFACE>
+      </TypeName>
+      <EnumValue offset="222">
+        <T_INTERFACE offset="222">interface</T_INTERFACE>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="234">
+      <TypeName offset="239">
+        <T_SCHEMA offset="239">schema</T_SCHEMA>
+      </TypeName>
+      <EnumValue offset="248">
+        <T_SCHEMA offset="248">schema</T_SCHEMA>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="257">
+      <TypeName offset="262">
+        <T_SCALAR offset="262">scalar</T_SCALAR>
+      </TypeName>
+      <EnumValue offset="271">
+        <T_SCALAR offset="271">scalar</T_SCALAR>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="280">
+      <TypeName offset="285">
+        <T_ENUM offset="285">enum</T_ENUM>
+      </TypeName>
+      <EnumValue offset="292">
+        <T_ENUM offset="292">enum</T_ENUM>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="299">
+      <TypeName offset="304">
+        <T_INPUT offset="304">input</T_INPUT>
+      </TypeName>
+      <EnumValue offset="312">
+        <T_INPUT offset="312">input</T_INPUT>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="320">
+      <TypeName offset="325">
+        <T_EXTEND offset="325">extend</T_EXTEND>
+      </TypeName>
+      <EnumValue offset="334">
+        <T_EXTEND offset="334">extend</T_EXTEND>
+      </EnumValue>
+    </EnumDefinition>
+    <EnumDefinition offset="343">
+      <TypeName offset="348">
+        <T_FRAGMENT offset="348">fragment</T_FRAGMENT>
+      </TypeName>
+      <EnumValue offset="359">
+        <T_FRAGMENT offset="359">fragment</T_FRAGMENT>
+      </EnumValue>
+    </EnumDefinition>
+  </Document>
+</Ast>

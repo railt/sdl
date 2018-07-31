@@ -1,0 +1,25 @@
+
+//
+// Interface definition
+//
+
+#InterfaceDefinition -> Railt\SDL\Compiler\Definition\InterfaceDelegate:
+    Documentation()?
+    InterfaceDefinitionHead()
+    InterfaceDefinitionBody()
+
+InterfaceDefinitionHead:
+    ::T_INTERFACE:: TypeName()
+        TypeArguments()?
+        TypeDefinitionImplements()?
+        Directives()?
+
+InterfaceDefinitionBody:
+    ::T_BRACE_OPEN::
+        __interfaceFieldDefinitions()?
+        ChildrenDefinitions()?
+    ::T_BRACE_CLOSE::
+
+__interfaceFieldDefinitions:
+    FieldDefinition()*
+    #FieldDefinitions
