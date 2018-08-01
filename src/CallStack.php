@@ -41,7 +41,7 @@ class CallStack implements \IteratorAggregate, \Countable
      * @param Definition $definition
      * @return CallStack
      */
-    public function push(Definition $definition): CallStack
+    public function push(Definition $definition): self
     {
         $this->stack->push($definition);
 
@@ -51,7 +51,7 @@ class CallStack implements \IteratorAggregate, \Countable
     /**
      * @return CallStack
      */
-    public function pop(): CallStack
+    public function pop(): self
     {
         $this->stack->pop();
 

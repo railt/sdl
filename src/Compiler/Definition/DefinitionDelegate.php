@@ -86,7 +86,7 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
      * @throws CompilerException
      * @throws \Railt\Reflection\Exception\TypeNotFoundException
      */
-    private function verifyDuplication(TypeDefinition $type, Dictionary $dict)
+    private function verifyDuplication(TypeDefinition $type, Dictionary $dict): void
     {
         if ($dict->has($type->getName())) {
             $prev  = $dict->get($type->getName(), $type);
@@ -111,7 +111,6 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
      */
     protected function before(Definition $definition): void
     {
-
     }
 
     /**
@@ -127,7 +126,6 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
      */
     protected function after(Definition $definition): void
     {
-
     }
 
     /**

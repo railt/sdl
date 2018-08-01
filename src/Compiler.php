@@ -67,8 +67,8 @@ class Compiler
      */
     public function __construct()
     {
-        $this->parser = new Parser();
-        $this->stack = new CallStack();
+        $this->parser     = new Parser();
+        $this->stack      = new CallStack();
         $this->dictionary = new CallbackDictionary();
         $this->reflection = new Reflection($this->dictionary);
 
@@ -84,7 +84,7 @@ class Compiler
      */
     public function autoload(\Closure $then): void
     {
-        $this->dictionary->onTypeNotFound(function (string $type, ?Definition $from) use ($then) {
+        $this->dictionary->onTypeNotFound(function (string $type, ?Definition $from) use ($then): void {
             if (($file = $then($type, $from)) instanceof Readable) {
                 $this->compile($file);
             }
@@ -96,7 +96,7 @@ class Compiler
      * @param Readable $file
      * @return Compiler
      */
-    private function load(Document $document, Readable $file): Compiler
+    private function load(Document $document, Readable $file): self
     {
         $this->env->share(Dictionary::class, $this->dictionary);
         $this->env->share(ReflectionInterface::class, $this->reflection);
@@ -129,7 +129,7 @@ class Compiler
      */
     public function compile(Readable $file): DocumentInterface
     {
-        return $this->memomize(new Document($this->reflection, $file), function(Document $document) use ($file) {
+        return $this->memomize(new Document($this->reflection, $file), function (Document $document) use ($file): void {
             $ast = $this->parse($document, $file);
 
             foreach ($ast as $type) {

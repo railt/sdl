@@ -24,4 +24,3 @@ class UnionDelegate extends DefinitionDelegate
         return UnionDefinition::class;
     }
 }
-

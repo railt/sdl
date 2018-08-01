@@ -30,7 +30,7 @@ class GrammarTestCase extends TestCase
         $result = [];
 
         foreach ($this->read(__DIR__ . '/.resources', 'graphqls') as $isPositive => $file) {
-            $name = \basename($file->getPathname(), '.graphqls');
+            $name                        = \basename($file->getPathname(), '.graphqls');
             $result[\ltrim($name, '+-')] = [$file, $isPositive];
         }
 
@@ -42,7 +42,7 @@ class GrammarTestCase extends TestCase
      */
     protected function parser(): Parser
     {
-        return new class extends Parser {
+        return new class() extends Parser {
             protected const PARSER_DELEGATES = [];
         };
     }
