@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Definition;
 
-use Railt\Parser\Ast\NodeInterface;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Definition\SchemaDefinition;

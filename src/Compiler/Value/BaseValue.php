@@ -11,7 +11,6 @@ namespace Railt\SDL\Compiler\Value;
 
 use Railt\Parser\Ast\NodeInterface;
 
-
 /**
  * Class BaseValue
  */

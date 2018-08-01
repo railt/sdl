@@ -29,6 +29,5 @@ class NullValue extends BaseValue
      */
     protected function parse(NodeInterface $rule): void
     {
-
     }
 }

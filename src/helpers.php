@@ -11,7 +11,6 @@ use Railt\Io\File;
 use Railt\Reflection\Contracts\Document;
 use Railt\SDL\Compiler;
 
-
 if (! \function_exists('\\sdl')) {
     /**
      * @param string $fileOrSources
