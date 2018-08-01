@@ -11,7 +11,6 @@ namespace Railt\SDL\Compiler\Definition;
 
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Document;
-use Railt\Reflection\Definition\ObjectDefinition;
 use Railt\Reflection\Definition\ScalarDefinition;
 
 /**
