@@ -33,7 +33,7 @@ class CompilerException extends ExternalFileException
      * @param Definition $def
      * @return CompilerException
      */
-    public function in(Definition $def): CompilerException
+    public function in(Definition $def): self
     {
         $this->throwsIn($def->getFile(), $def->getLine(), $def->getColumn());
 
@@ -44,7 +44,7 @@ class CompilerException extends ExternalFileException
      * @param bool $skip
      * @return CompilerException
      */
-    public function skipInnerTrace(bool $skip = true): CompilerException
+    public function skipInnerTrace(bool $skip = true): self
     {
         $this->skipInnerTrace = $skip;
 
@@ -55,7 +55,7 @@ class CompilerException extends ExternalFileException
      * @param CallStack $stack
      * @return CompilerException
      */
-    public function using(CallStack $stack): CompilerException
+    public function using(CallStack $stack): self
     {
         $this->stack = $stack;
 
@@ -118,7 +118,7 @@ class CompilerException extends ExternalFileException
             \get_class($this),
             $this->getMessage(),
             $this->getFile(),
-            $this->getLine()
+            $this->getLine(),
         ]);
     }
 

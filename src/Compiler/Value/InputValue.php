@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Value;
 
 use Railt\Io\Readable;
-use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Value;
@@ -89,7 +88,7 @@ class InputValue implements ValueInterface
 
         /** @var RuleInterface $child */
         foreach ($this->rule as $child) {
-            $key = $this->getKey($child);
+            $key    = $this->getKey($child);
             $scalar = $key->toScalar();
 
             if (\in_array($scalar, $keys, true)) {

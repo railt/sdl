@@ -47,7 +47,7 @@ class EnumDelegate extends DefinitionDelegate
     private function bootValues(EnumDefinition $enum): void
     {
         foreach ($this->getEnumValues($enum) as $value) {
-            $this->transaction($value, function (EnumValueDefinition $value) use ($enum) {
+            $this->transaction($value, function (EnumValueDefinition $value) use ($enum): void {
                 $this->verifyDuplication($enum, $value);
                 $enum->withValue($value);
             });
@@ -64,7 +64,7 @@ class EnumDelegate extends DefinitionDelegate
         foreach ($this->first('EnumValues', 1) as $ast) {
             $enumValue = $this->createEnumValue($enum, $ast->first('T_NAME', 1));
 
-            $this->transaction($enumValue, function (EnumValueDefinition $def) use ($ast) {
+            $this->transaction($enumValue, function (EnumValueDefinition $def) use ($ast): void {
                 $this->withDescription($def, $ast);
 
                 /** @var RuleInterface $defValue */

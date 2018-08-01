@@ -45,7 +45,7 @@ class DirectiveDelegate extends DefinitionDelegate
     private function bootLocations(DirectiveDefinition $directive): void
     {
         foreach ($this->getLocations($directive) as $offset => $location) {
-            $this->transaction($location, function (DirectiveLocation $location) use ($directive) {
+            $this->transaction($location, function (DirectiveLocation $location) use ($directive): void {
                 // TODO Add duplication verification
                 $directive->withLocation($location);
                 $this->verifyLocation($location);
