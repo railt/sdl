@@ -46,10 +46,26 @@ class DirectiveDelegate extends DefinitionDelegate
     {
         foreach ($this->getLocations($directive) as $offset => $location) {
             $this->transaction($location, function (DirectiveLocation $location) use ($directive): void {
-                // TODO Add duplication verification
-                $directive->withLocation($location);
                 $this->verifyLocation($location);
+                $this->verifyDuplication($directive, $location);
+
+                $directive->withLocation($location);
             });
+        }
+    }
+
+    /**
+     * @param DirectiveDefinition $directive
+     * @param DirectiveLocation $location
+     * @throws \Railt\SDL\Exception\CompilerException
+     */
+    private function verifyDuplication(DirectiveDefinition $directive, DirectiveLocation $location): void
+    {
+        if ($directive->hasLocation($location->getName())) {
+            $error = 'Could not determine the location %s, because %s already exists';
+            $error = \sprintf($error, $location, $directive->getLocation($location->getName()));
+
+            throw (new TypeConflictException($error))->using($this->getCallStack())->in($location);
         }
     }
 

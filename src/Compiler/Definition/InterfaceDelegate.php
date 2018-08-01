@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Definition;
 
+use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Definition\InterfaceDefinition;
 
 /**
@@ -17,10 +19,11 @@ use Railt\Reflection\Definition\InterfaceDefinition;
 class InterfaceDelegate extends DefinitionDelegate
 {
     /**
-     * @return string
+     * @param Document $document
+     * @return Definition
      */
-    protected function getTypeDefinition(): string
+    protected function bootDefinition(Document $document): Definition
     {
-        return InterfaceDefinition::class;
+        return new InterfaceDefinition($document, $this->getTypeName());
     }
 }

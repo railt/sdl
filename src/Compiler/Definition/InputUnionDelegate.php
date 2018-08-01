@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Definition;
 
-use Railt\Reflection\Definition\UnionDefinition;
+use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Document;
+use Railt\Reflection\Definition\InputUnionDefinition;
 
 /**
  * Class InputUnionDelegate
@@ -17,10 +19,11 @@ use Railt\Reflection\Definition\UnionDefinition;
 class InputUnionDelegate extends DefinitionDelegate
 {
     /**
-     * @return string
+     * @param Document $document
+     * @return Definition
      */
-    protected function getTypeDefinition(): string
+    protected function bootDefinition(Document $document): Definition
     {
-        return UnionDefinition::class;
+        return new InputUnionDefinition($document, $this->getTypeName());
     }
 }

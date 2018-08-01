@@ -118,7 +118,9 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
      */
     public function compile(): void
     {
-        $this->after($this->definition);
+        $this->transaction($this->definition, function() {
+            $this->after($this->definition);
+        });
     }
 
     /**

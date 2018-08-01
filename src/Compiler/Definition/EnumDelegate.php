@@ -49,6 +49,7 @@ class EnumDelegate extends DefinitionDelegate
         foreach ($this->getEnumValues($enum) as $value) {
             $this->transaction($value, function (EnumValueDefinition $value) use ($enum): void {
                 $this->verifyDuplication($enum, $value);
+
                 $enum->withValue($value);
             });
         }

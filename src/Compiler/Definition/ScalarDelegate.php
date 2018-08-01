@@ -9,7 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Definition;
 
+use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Definition\ObjectDefinition;
+use Railt\Reflection\Definition\ScalarDefinition;
 
 /**
  * Class ScalarDelegate
@@ -17,10 +20,11 @@ use Railt\Reflection\Definition\ObjectDefinition;
 class ScalarDelegate extends DefinitionDelegate
 {
     /**
-     * @return string
+     * @param Document $document
+     * @return Definition
      */
-    protected function getTypeDefinition(): string
+    protected function bootDefinition(Document $document): Definition
     {
-        return ObjectDefinition::class;
+        return new ScalarDefinition($document, $this->getTypeName());
     }
 }
