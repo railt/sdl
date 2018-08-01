@@ -12,37 +12,44 @@ namespace Railt\SDL\Compiler\Definition;
 use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\RuleInterface;
+use Railt\Parser\Environment;
 use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Definition\Dependent\EnumValueDefinition;
 use Railt\Reflection\Definition\EnumDefinition;
 use Railt\Reflection\Document;
+use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Exception\TypeConflictException;
 
 /**
  * Class EnumDelegate
  */
-class EnumDelegate extends DefinitionDelegate
+class EnumDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param DocumentInterface|Document $document
      * @return Definition
      */
-    protected function bootDefinition(DocumentInterface $document): Definition
+    protected function create(DocumentInterface $document): Definition
     {
         return new EnumDefinition($document, $this->getTypeName());
     }
 
     /**
-     * @param Definition|EnumDefinition $definition
+     * @param Environment $env
      */
-    protected function before(Definition $definition): void
+    public function boot(Environment $env): void
     {
-        $this->bootValues($definition);
+        parent::boot($env);
+
+        $this->future(Pipeline::PRIORITY_DEFINITION, function() {
+            $this->bootValues($this->definition);
+        });
     }
 
     /**
-     * @param EnumDefinition $enum
+     * @param EnumDefinition|TypeDefinition $enum
      */
     private function bootValues(EnumDefinition $enum): void
     {
@@ -66,7 +73,7 @@ class EnumDelegate extends DefinitionDelegate
             $enumValue = $this->createEnumValue($enum, $ast->first('T_NAME', 1));
 
             $this->transaction($enumValue, function (EnumValueDefinition $def) use ($ast): void {
-                $this->withDescription($def, $ast);
+                //$this->withDescription($def, $ast);
 
                 /** @var RuleInterface $defValue */
                 if ($defValue = $ast->first('Value', 1)) {

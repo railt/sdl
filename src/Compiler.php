@@ -22,6 +22,7 @@ use Railt\Reflection\Dictionary\CallbackDictionary;
 use Railt\Reflection\Document;
 use Railt\Reflection\Reflection;
 use Railt\SDL\Compiler\Compilable;
+use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\SyntaxException;
 
@@ -56,9 +57,9 @@ class Compiler
     private $stack;
 
     /**
-     * @var array|Document[]
+     * @var Pipeline
      */
-    private $documents = [];
+    private $pipeline;
 
     /**
      * Compiler constructor.
@@ -69,14 +70,11 @@ class Compiler
     {
         $this->parser     = new Parser();
         $this->stack      = new CallStack();
+        $this->pipeline   = new Pipeline();
         $this->dictionary = new CallbackDictionary();
         $this->reflection = new Reflection($this->dictionary);
 
         $this->env = $this->parser->env();
-
-        foreach ($this->reflection->getDocuments() as $document) {
-            $this->memomize($document);
-        }
     }
 
     /**
@@ -103,41 +101,27 @@ class Compiler
         $this->env->share(CallStack::class, $this->stack);
         $this->env->share(DocumentInterface::class, $document);
         $this->env->share(Readable::class, $file);
+        $this->env->share(Pipeline::class, $this->pipeline);
 
         return $this;
     }
 
     /**
-     * @param Document $document
-     * @param \Closure|null $otherwise
-     * @return Document
-     */
-    private function memomize(Document $document, \Closure $otherwise = null): Document
-    {
-        $key = $document->getFile()->getHash();
-
-        if (! isset($this->documents[$key])) {
-            $otherwise && $otherwise($document);
-        }
-
-        return $this->documents[$key] = $document;
-    }
-
-    /**
      * @param Readable $file
      * @return DocumentInterface
+     * @throws CompilerException
      */
     public function compile(Readable $file): DocumentInterface
     {
-        return $this->memomize(new Document($this->reflection, $file), function (Document $document) use ($file): void {
-            $ast = $this->parse($document, $file);
+        $document = new Document($this->reflection, $file);
 
-            foreach ($ast as $type) {
-                if ($type instanceof Compilable) {
-                    $type->compile();
-                }
-            }
-        });
+        $this->parse($document, $file);
+
+        foreach ($this->pipeline as $invocation) {
+            $invocation();
+        }
+
+        return $document;
     }
 
     /**

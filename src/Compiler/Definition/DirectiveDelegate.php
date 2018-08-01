@@ -11,36 +11,40 @@ namespace Railt\SDL\Compiler\Definition;
 
 use Railt\Parser\Ast\LeafInterface;
 use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Definition\Dependent\DirectiveLocation;
 use Railt\Reflection\Definition\DirectiveDefinition;
 use Railt\Reflection\Document;
+use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Exception\TypeConflictException;
 
 /**
  * Class DirectiveDelegate
  */
-class DirectiveDelegate extends DefinitionDelegate
+class DirectiveDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param DocumentInterface|Document $document
      * @return Definition
      */
-    protected function bootDefinition(DocumentInterface $document): Definition
+    protected function create(DocumentInterface $document): Definition
     {
         return new DirectiveDefinition($document, $this->getTypeName());
     }
 
     /**
-     * @param Definition|DirectiveDefinition $definition
+     * @return void
      */
-    protected function before(Definition $definition): void
+    protected function register(): void
     {
-        $this->bootLocations($definition);
+        $this->future(Pipeline::PRIORITY_DEFINITION, function() {
+            $this->bootLocations($this->definition);
+        });
     }
 
     /**
-     * @param DirectiveDefinition $directive
+     * @param DirectiveDefinition|TypeDefinition $directive
      */
     private function bootLocations(DirectiveDefinition $directive): void
     {

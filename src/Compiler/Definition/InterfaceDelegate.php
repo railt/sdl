@@ -16,13 +16,13 @@ use Railt\Reflection\Definition\InterfaceDefinition;
 /**
  * Class InterfaceDelegate
  */
-class InterfaceDelegate extends DefinitionDelegate
+class InterfaceDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param Document $document
      * @return Definition
      */
-    protected function bootDefinition(Document $document): Definition
+    protected function create(Document $document): Definition
     {
         return new InterfaceDefinition($document, $this->getTypeName());
     }

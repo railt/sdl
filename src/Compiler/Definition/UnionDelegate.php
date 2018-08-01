@@ -16,13 +16,13 @@ use Railt\Reflection\Definition\UnionDefinition;
 /**
  * Class UnionDelegate
  */
-class UnionDelegate extends DefinitionDelegate
+class UnionDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param Document $document
      * @return Definition
      */
-    protected function bootDefinition(Document $document): Definition
+    protected function create(Document $document): Definition
     {
         return new UnionDefinition($document, $this->getTypeName());
     }

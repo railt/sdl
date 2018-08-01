@@ -14,30 +14,25 @@ use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\Rule;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Parser\Environment;
-use Railt\Reflection\AbstractDefinition;
+use Railt\Reflection\AbstractTypeDefinition;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Contracts\Document;
 use Railt\SDL\CallStack;
-use Railt\SDL\Compiler\Compilable;
-use Railt\SDL\Compiler\Definition\Common\DescriptionTrait;
+use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Compiler\Value;
 use Railt\SDL\Compiler\Value\ValueInterface;
 use Railt\SDL\Exception\CompilerException;
-use Railt\SDL\Exception\TypeConflictException;
 
 /**
  * Class DefinitionDelegate
  */
-abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
+abstract class DefinitionDelegate extends Rule implements Delegate
 {
-    use DescriptionTrait;
-
     /**
-     * @var TypeDefinition
+     * @var TypeDefinition|AbstractTypeDefinition
      */
-    private $definition;
+    protected $definition;
 
     /**
      * @var CallStack
@@ -50,6 +45,11 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
     private $document;
 
     /**
+     * @var Pipeline
+     */
+    private $pipeline;
+
+    /**
      * @param Environment $env
      */
     public function boot(Environment $env): void
@@ -57,77 +57,39 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
         /** @var \Railt\Reflection\Document $document */
         $this->document = $env->get(Document::class);
         $this->stack    = $env->get(CallStack::class);
+        $this->pipeline = $env->get(Pipeline::class);
 
-        $this->definition = $this->bootDefinition($this->document);
-
-        $this->stack->transaction($this->definition, function (AbstractDefinition $record): void {
-            $record->withOffset($this->getOffset());
-
-            if ($record instanceof TypeDefinition) {
-                $this->verifyDuplication($record, $this->document->getDictionary());
-                $this->withDescription($record, $this);
-
-                $this->document->withDefinition($record);
-            }
-
-            $this->before($record);
-        });
+        $this->definition = $this->create($this->document);
+        $this->definition->withOffset($this->getOffset());
     }
 
     /**
      * @param Document $document
      * @return Definition
      */
-    abstract protected function bootDefinition(Document $document): Definition;
+    abstract protected function create(Document $document): Definition;
 
     /**
-     * @param TypeDefinition $type
-     * @param Dictionary $dict
-     * @throws CompilerException
-     * @throws \Railt\Reflection\Exception\TypeNotFoundException
+     * @param int $priority
+     * @param callable $then
      */
-    private function verifyDuplication(TypeDefinition $type, Dictionary $dict): void
+    protected function future(int $priority, callable $then): void
     {
-        if ($dict->has($type->getName())) {
-            $prev  = $dict->get($type->getName(), $type);
-            $error = 'Could not redeclare type %s by %s';
-            $error = \sprintf($error, $prev, $type);
-
-            throw $this->error(new TypeConflictException($error));
-        }
-    }
-
-    /**
-     * @param CompilerException $exception
-     * @return CompilerException
-     */
-    protected function error(CompilerException $exception): CompilerException
-    {
-        return $exception->in($this->definition)->using($this->stack);
-    }
-
-    /**
-     * @param Definition $definition
-     */
-    protected function before(Definition $definition): void
-    {
-    }
-
-    /**
-     * @return void
-     */
-    public function compile(): void
-    {
-        $this->transaction($this->definition, function() {
-            $this->after($this->definition);
+        $this->pipeline->push($priority, function () use ($then) {
+            $this->transaction($this->definition, function () use ($then) {
+                $then();
+            });
         });
     }
 
     /**
      * @param Definition $definition
+     * @param \Closure $then
+     * @return mixed
      */
-    protected function after(Definition $definition): void
+    protected function transaction(Definition $definition, \Closure $then)
     {
+        return $this->stack->transaction($definition, $then);
     }
 
     /**
@@ -165,20 +127,20 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
     }
 
     /**
+     * @param CompilerException $exception
+     * @return CompilerException
+     */
+    protected function error(CompilerException $exception): CompilerException
+    {
+        return $exception->in($this->definition)->using($this->stack);
+    }
+
+    /**
      * @param Definition $def
      */
     protected function push(Definition $def): void
     {
         $this->stack->push($def);
-    }
-
-    /**
-     * @param Definition $definition
-     * @param \Closure $then
-     */
-    protected function transaction(Definition $definition, \Closure $then): void
-    {
-        $this->stack->transaction($definition, $then);
     }
 
     /**

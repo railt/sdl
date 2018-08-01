@@ -11,19 +11,18 @@ namespace Railt\SDL\Compiler\Definition;
 
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Document;
-use Railt\Reflection\Definition\ObjectDefinition;
 use Railt\Reflection\Definition\ScalarDefinition;
 
 /**
  * Class ScalarDelegate
  */
-class ScalarDelegate extends DefinitionDelegate
+class ScalarDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param Document $document
      * @return Definition
      */
-    protected function bootDefinition(Document $document): Definition
+    protected function create(Document $document): Definition
     {
         return new ScalarDefinition($document, $this->getTypeName());
     }

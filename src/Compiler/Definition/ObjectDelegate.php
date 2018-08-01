@@ -16,13 +16,13 @@ use Railt\Reflection\Definition\ObjectDefinition;
 /**
  * Class ObjectDelegate
  */
-class ObjectDelegate extends DefinitionDelegate
+class ObjectDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param Document $document
      * @return Definition
      */
-    protected function bootDefinition(Document $document): Definition
+    protected function create(Document $document): Definition
     {
         return new ObjectDefinition($document, $this->getTypeName());
     }

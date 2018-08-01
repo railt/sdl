@@ -17,13 +17,13 @@ use Railt\Reflection\Document;
 /**
  * Class SchemaDelegate
  */
-class SchemaDelegate extends DefinitionDelegate
+class SchemaDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param DocumentInterface|Document $document
      * @return Definition
      */
-    protected function bootDefinition(DocumentInterface $document): Definition
+    protected function create(DocumentInterface $document): Definition
     {
         return new SchemaDefinition($document, $this->getTypeName());
     }

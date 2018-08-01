@@ -16,13 +16,13 @@ use Railt\Reflection\Definition\InputUnionDefinition;
 /**
  * Class InputUnionDelegate
  */
-class InputUnionDelegate extends DefinitionDelegate
+class InputUnionDelegate extends TypeDefinitionDelegate
 {
     /**
      * @param Document $document
      * @return Definition
      */
-    protected function bootDefinition(Document $document): Definition
+    protected function create(Document $document): Definition
     {
         return new InputUnionDefinition($document, $this->getTypeName());
     }
