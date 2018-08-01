@@ -30,8 +30,8 @@ class GrammarTestCase extends TestCase
         $result = [];
 
         foreach ($this->read(__DIR__ . '/.resources', 'graphqls') as $isPositive => $file) {
-            $name                        = \basename($file->getPathname(), '.graphqls');
-            $result[\ltrim($name, '+-')] = [$file, $isPositive];
+            $name          = \ltrim(\basename($file->getPathname(), '.graphqls'), '+-');
+            $result[$name] = [$file, $isPositive];
         }
 
         return $result;

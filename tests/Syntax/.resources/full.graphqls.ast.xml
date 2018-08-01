@@ -140,7 +140,7 @@
                 </TypeHint>
                 <Value offset="835">
                   <String offset="835">
-                    <T_STRING offset="835"><![CDATA["string"]]></T_STRING>
+                    <T_STRING offset="835" value:1="string"><![CDATA["string"]]></T_STRING>
                   </String>
                 </Value>
               </ArgumentDefinition>
@@ -177,12 +177,12 @@
                   <List offset="923">
                     <Value offset="924">
                       <String offset="924">
-                        <T_STRING offset="924"><![CDATA["string"]]></T_STRING>
+                        <T_STRING offset="924" value:1="string"><![CDATA["string"]]></T_STRING>
                       </String>
                     </Value>
                     <Value offset="934">
                       <String offset="934">
-                        <T_STRING offset="934"><![CDATA["string"]]></T_STRING>
+                        <T_STRING offset="934" value:1="string"><![CDATA["string"]]></T_STRING>
                       </String>
                     </Value>
                   </List>
@@ -218,25 +218,29 @@
                 <Value offset="1022">
                   <Input offset="1022">
                     <Pair offset="1032">
-                      <T_NAME offset="1032">key</T_NAME>
+                      <Key offset="1032">
+                        <T_NAME offset="1032">key</T_NAME>
+                      </Key>
                       <Value offset="1037">
                         <String offset="1037">
-                          <T_STRING offset="1037"><![CDATA["value"]]></T_STRING>
+                          <T_STRING offset="1037" value:1="value"><![CDATA["value"]]></T_STRING>
                         </String>
                       </Value>
                     </Pair>
                     <Pair offset="1054">
-                      <T_NAME offset="1054">key2</T_NAME>
+                      <Key offset="1054">
+                        <T_NAME offset="1054">key2</T_NAME>
+                      </Key>
                       <Value offset="1060">
                         <List offset="1060">
                           <Value offset="1061">
                             <String offset="1061">
-                              <T_STRING offset="1061"><![CDATA["value1"]]></T_STRING>
+                              <T_STRING offset="1061" value:1="value1"><![CDATA["value1"]]></T_STRING>
                             </String>
                           </Value>
                           <Value offset="1071">
                             <String offset="1071">
-                              <T_STRING offset="1071"><![CDATA["value2"]]></T_STRING>
+                              <T_STRING offset="1071" value:1="value2"><![CDATA["value2"]]></T_STRING>
                             </String>
                           </Value>
                         </List>
@@ -273,7 +277,9 @@
                   </Value>
                 </TypeHint>
                 <Value offset="1161">
-                  <T_NULL offset="1161">null</T_NULL>
+                  <Null offset="1161">
+                    <T_NULL offset="1161">null</T_NULL>
+                  </Null>
                 </Value>
               </ArgumentDefinition>
             </FieldArgument>
@@ -303,7 +309,7 @@
             <T_NAME offset="1269">arg</T_NAME>
             <Value offset="1274">
               <String offset="1274">
-                <T_STRING offset="1274"><![CDATA["value"]]></T_STRING>
+                <T_STRING offset="1274" value:1="value"><![CDATA["value"]]></T_STRING>
               </String>
             </Value>
           </DirectiveArgument>
@@ -337,7 +343,7 @@
                 </TypeHint>
                 <Value offset="1396">
                   <String offset="1396">
-                    <T_STRING offset="1396"><![CDATA["default"]]></T_STRING>
+                    <T_STRING offset="1396" value:1="default"><![CDATA["default"]]></T_STRING>
                   </String>
                 </Value>
               </ArgumentDefinition>
@@ -403,7 +409,7 @@
                 </TypeHint>
                 <Value offset="1663">
                   <String offset="1663">
-                    <T_STRING offset="1663"><![CDATA["string"]]></T_STRING>
+                    <T_STRING offset="1663" value:1="string"><![CDATA["string"]]></T_STRING>
                   </String>
                 </Value>
               </ArgumentDefinition>
@@ -548,12 +554,14 @@
       <TypeName offset="2360">
         <T_NAME offset="2360">Site</T_NAME>
       </TypeName>
-      <EnumValue offset="2415">
-        <T_NAME offset="2415">DESKTOP</T_NAME>
-      </EnumValue>
-      <EnumValue offset="2470">
-        <T_NAME offset="2470">MOBILE</T_NAME>
-      </EnumValue>
+      <EnumValues offset="2415">
+        <EnumValue offset="2415">
+          <T_NAME offset="2415">DESKTOP</T_NAME>
+        </EnumValue>
+        <EnumValue offset="2470">
+          <T_NAME offset="2470">MOBILE</T_NAME>
+        </EnumValue>
+      </EnumValues>
     </EnumDefinition>
     <EnumDefinition offset="2530">
       <TypeName offset="2535">
@@ -566,19 +574,21 @@
           </TypeName>
         </Directive>
       </Directives>
-      <EnumValue offset="2624">
-        <T_NAME offset="2624">ANNOTATED_VALUE</T_NAME>
-        <Directives offset="2640">
-          <Directive offset="2640">
-            <TypeName offset="2641">
-              <T_NAME offset="2641">onEnumValue</T_NAME>
-            </TypeName>
-          </Directive>
-        </Directives>
-      </EnumValue>
-      <EnumValue offset="2714">
-        <T_NAME offset="2714">OTHER_VALUE</T_NAME>
-      </EnumValue>
+      <EnumValues offset="2624">
+        <EnumValue offset="2624">
+          <T_NAME offset="2624">ANNOTATED_VALUE</T_NAME>
+          <Directives offset="2640">
+            <Directive offset="2640">
+              <TypeName offset="2641">
+                <T_NAME offset="2641">onEnumValue</T_NAME>
+              </TypeName>
+            </Directive>
+          </Directives>
+        </EnumValue>
+        <EnumValue offset="2714">
+          <T_NAME offset="2714">OTHER_VALUE</T_NAME>
+        </EnumValue>
+      </EnumValues>
     </EnumDefinition>
     <InputDefinition offset="2786">
       <TypeName offset="2792">
@@ -610,7 +620,7 @@
         </TypeHint>
         <Value offset="2934">
           <Number offset="2934">
-            <T_NUMBER offset="2934" value:1="42">42</T_NUMBER>
+            <T_NUMBER offset="2934">42</T_NUMBER>
           </Number>
         </Value>
       </InputFieldDefinition>

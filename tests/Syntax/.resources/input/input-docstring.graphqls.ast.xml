@@ -3,7 +3,7 @@
     <InputDefinition offset="1">
       <Description offset="1">
         <String offset="1">
-          <T_STRING offset="1" value:1="\&amp;quot; type"><![CDATA["Description of \"input AnnotatedInput\" type"]]></T_STRING>
+          <T_STRING offset="1" value:1="Description of \&amp;quot;input AnnotatedInput\&amp;quot; type"><![CDATA["Description of \"input AnnotatedInput\" type"]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="54">
@@ -19,7 +19,7 @@
       <InputFieldDefinition offset="94">
         <Description offset="94">
           <String offset="94">
-            <T_STRING offset="94" value:1="\&amp;quot; field"><![CDATA["Description of \"annotatedField\" field"]]></T_STRING>
+            <T_STRING offset="94" value:1="Description of \&amp;quot;annotatedField\&amp;quot; field"><![CDATA["Description of \"annotatedField\" field"]]></T_STRING>
           </String>
         </Description>
         <T_NAME offset="140">annotatedField</T_NAME>

@@ -3,13 +3,13 @@
     <SchemaDefinition offset="1">
       <Description offset="1">
         <String offset="1">
-          <T_STRING offset="1"><![CDATA["Dockblock"]]></T_STRING>
+          <T_STRING offset="1" value:1="Dockblock"><![CDATA["Dockblock"]]></T_STRING>
         </String>
       </Description>
       <SchemaField offset="26">
         <Description offset="26">
           <String offset="26">
-            <T_STRING offset="26"><![CDATA["Dockblock"]]></T_STRING>
+            <T_STRING offset="26" value:1="Dockblock"><![CDATA["Dockblock"]]></T_STRING>
           </String>
         </Description>
         <T_NAME offset="42">query</T_NAME>

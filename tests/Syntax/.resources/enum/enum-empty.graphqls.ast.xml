@@ -4,6 +4,7 @@
       <TypeName offset="5">
         <T_NAME offset="5">Example</T_NAME>
       </TypeName>
+      <EnumValues offset="14"/>
     </EnumDefinition>
   </Document>
 </Ast>

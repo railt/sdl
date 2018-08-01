@@ -3,7 +3,7 @@
     <InputUnionDefinition offset="0">
       <Description offset="0">
         <String offset="0">
-          <T_STRING offset="0" value:1="\&amp;quot;"><![CDATA["Description of \"union Feed\""]]></T_STRING>
+          <T_STRING offset="0" value:1="Description of \&amp;quot;union Feed\&amp;quot;"><![CDATA["Description of \"union Feed\""]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="43">
@@ -22,7 +22,7 @@
     <InputUnionDefinition offset="76">
       <Description offset="76">
         <String offset="76">
-          <T_STRING offset="76" value:1="\&amp;quot;"><![CDATA["Description of \"union AnnotatedUnion\""]]></T_STRING>
+          <T_STRING offset="76" value:1="Description of \&amp;quot;union AnnotatedUnion\&amp;quot;"><![CDATA["Description of \"union AnnotatedUnion\""]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="129">

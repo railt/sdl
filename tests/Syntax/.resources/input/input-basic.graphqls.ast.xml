@@ -18,7 +18,7 @@
         </TypeHint>
         <Value offset="37">
           <Number offset="37">
-            <T_NUMBER offset="37" value:1="0" value:2=".2">0.2</T_NUMBER>
+            <T_NUMBER offset="37">0.2</T_NUMBER>
           </Number>
         </Value>
       </InputFieldDefinition>
@@ -35,7 +35,7 @@
         </TypeHint>
         <Value offset="59">
           <Number offset="59">
-            <T_NUMBER offset="59" value:1="42">42</T_NUMBER>
+            <T_NUMBER offset="59">42</T_NUMBER>
           </Number>
         </Value>
       </InputFieldDefinition>
@@ -52,7 +52,7 @@
         </TypeHint>
         <Value offset="82">
           <String offset="82">
-            <T_STRING offset="82"><![CDATA["Default"]]></T_STRING>
+            <T_STRING offset="82" value:1="Default"><![CDATA["Default"]]></T_STRING>
           </String>
         </Value>
       </InputFieldDefinition>
@@ -69,7 +69,7 @@
         </TypeHint>
         <Value offset="113">
           <String offset="113">
-            <T_STRING offset="113"><![CDATA[""]]></T_STRING>
+            <T_STRING offset="113" value:1=""><![CDATA[""]]></T_STRING>
           </String>
         </Value>
       </InputFieldDefinition>

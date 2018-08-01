@@ -18,7 +18,9 @@
             </Value>
           </TypeHint>
           <Value offset="35">
-            <T_TRUE offset="35">true</T_TRUE>
+            <Boolean offset="35">
+              <T_TRUE offset="35">true</T_TRUE>
+            </Boolean>
           </Value>
         </ArgumentDefinition>
       </DirectiveArgument>
@@ -46,7 +48,9 @@
             </Value>
           </TypeHint>
           <Value offset="135">
-            <T_TRUE offset="135">true</T_TRUE>
+            <Boolean offset="135">
+              <T_TRUE offset="135">true</T_TRUE>
+            </Boolean>
           </Value>
         </ArgumentDefinition>
       </DirectiveArgument>

@@ -3,36 +3,38 @@
     <EnumDefinition offset="0">
       <Description offset="0">
         <String offset="0">
-          <T_STRING offset="0"><![CDATA["Colour enum description"]]></T_STRING>
+          <T_STRING offset="0" value:1="Colour enum description"><![CDATA["Colour enum description"]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="31">
         <T_NAME offset="31">Colour</T_NAME>
       </TypeName>
-      <EnumValue offset="44">
-        <Description offset="44">
-          <String offset="44">
-            <T_STRING offset="44" value:1="\&amp;quot; description"><![CDATA["Value \"Red\" description"]]></T_STRING>
-          </String>
-        </Description>
-        <T_NAME offset="72">Red</T_NAME>
-      </EnumValue>
-      <EnumValue offset="80">
-        <Description offset="80">
-          <String offset="80">
-            <T_STRING offset="80"><![CDATA["Value 'Green' description"]]></T_STRING>
-          </String>
-        </Description>
-        <T_NAME offset="108">Green</T_NAME>
-      </EnumValue>
-      <EnumValue offset="119">
-        <Description offset="119">
-          <String offset="119">
-            <T_STRING offset="119"><![CDATA["Value 'Green' description"]]></T_STRING>
-          </String>
-        </Description>
-        <T_NAME offset="147">Blue</T_NAME>
-      </EnumValue>
+      <EnumValues offset="44">
+        <EnumValue offset="44">
+          <Description offset="44">
+            <String offset="44">
+              <T_STRING offset="44" value:1="Value \&amp;quot;Red\&amp;quot; description"><![CDATA["Value \"Red\" description"]]></T_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="72">Red</T_NAME>
+        </EnumValue>
+        <EnumValue offset="80">
+          <Description offset="80">
+            <String offset="80">
+              <T_STRING offset="80" value:1="Value 'Green' description"><![CDATA["Value 'Green' description"]]></T_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="108">Green</T_NAME>
+        </EnumValue>
+        <EnumValue offset="119">
+          <Description offset="119">
+            <String offset="119">
+              <T_STRING offset="119" value:1="Value 'Green' description"><![CDATA["Value 'Green' description"]]></T_STRING>
+            </String>
+          </Description>
+          <T_NAME offset="147">Blue</T_NAME>
+        </EnumValue>
+      </EnumValues>
     </EnumDefinition>
   </Document>
 </Ast>

@@ -3,7 +3,7 @@
     <UnionDefinition offset="0">
       <Description offset="0">
         <String offset="0">
-          <T_BLOCK_STRING offset="0"><![CDATA["""
+          <T_BLOCK_STRING offset="0" value:1="&#10;Description of &amp;quot;union Feed&amp;quot;&#10;"><![CDATA["""
 Description of "union Feed"
 """]]></T_BLOCK_STRING>
         </String>
@@ -24,7 +24,7 @@ Description of "union Feed"
     <UnionDefinition offset="75">
       <Description offset="75">
         <String offset="75">
-          <T_BLOCK_STRING offset="75"><![CDATA["""
+          <T_BLOCK_STRING offset="75" value:1="&#10;Description of &amp;quot;union AnnotatedUnion&amp;quot;&#10;"><![CDATA["""
 Description of "union AnnotatedUnion"
 """]]></T_BLOCK_STRING>
         </String>

@@ -3,7 +3,7 @@
     <ScalarDefinition offset="1">
       <Description offset="1">
         <String offset="1">
-          <T_BLOCK_STRING offset="1"><![CDATA["""
+          <T_BLOCK_STRING offset="1" value:1="&#10;Description of &amp;quot;scalar Test&amp;quot; type&#10;"><![CDATA["""
 Description of "scalar Test" type
 """]]></T_BLOCK_STRING>
         </String>
@@ -15,7 +15,7 @@ Description of "scalar Test" type
     <ScalarDefinition offset="56">
       <Description offset="56">
         <String offset="56">
-          <T_BLOCK_STRING offset="56"><![CDATA["""
+          <T_BLOCK_STRING offset="56" value:1="&#10;Description of &amp;quot;scalar Test2&amp;quot; type&#10;"><![CDATA["""
 Description of "scalar Test2" type
 """]]></T_BLOCK_STRING>
         </String>

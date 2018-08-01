@@ -3,7 +3,7 @@
     <SchemaDefinition offset="1">
       <Description offset="1">
         <String offset="1">
-          <T_BLOCK_STRING offset="1"><![CDATA["""
+          <T_BLOCK_STRING offset="1" value:1="&#10;Dockblock&#10;"><![CDATA["""
 Dockblock
 """]]></T_BLOCK_STRING>
         </String>
@@ -11,7 +11,7 @@ Dockblock
       <SchemaField offset="32">
         <Description offset="32">
           <String offset="32">
-            <T_BLOCK_STRING offset="32"><![CDATA["""
+            <T_BLOCK_STRING offset="32" value:1="&#10;    Dockblock&#10;    "><![CDATA["""
     Dockblock
     """]]></T_BLOCK_STRING>
           </String>

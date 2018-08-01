@@ -3,7 +3,7 @@
     <DirectiveDefinition offset="2">
       <Description offset="2">
         <String offset="2">
-          <T_STRING offset="2"><![CDATA["Directive @single2 desciption"]]></T_STRING>
+          <T_STRING offset="2" value:1="Directive @single2 desciption"><![CDATA["Directive @single2 desciption"]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="45">
@@ -13,7 +13,7 @@
         <ArgumentDefinition offset="58">
           <Description offset="58">
             <String offset="58">
-              <T_STRING offset="58" value:1="\&amp;quot; description"><![CDATA["Attribute \"a\" description"]]></T_STRING>
+              <T_STRING offset="58" value:1="Attribute \&amp;quot;a\&amp;quot; description"><![CDATA["Attribute \"a\" description"]]></T_STRING>
             </String>
           </Description>
           <T_NAME offset="92">a</T_NAME>
@@ -33,7 +33,7 @@
         <ArgumentDefinition offset="108">
           <Description offset="108">
             <String offset="108">
-              <T_STRING offset="108" value:1="\&amp;quot; description"><![CDATA["Attribute \"b\" description"]]></T_STRING>
+              <T_STRING offset="108" value:1="Attribute \&amp;quot;b\&amp;quot; description"><![CDATA["Attribute \"b\" description"]]></T_STRING>
             </String>
           </Description>
           <T_NAME offset="142">b</T_NAME>

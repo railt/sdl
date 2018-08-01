@@ -3,7 +3,7 @@
     <DirectiveDefinition offset="2">
       <Description offset="2">
         <String offset="2">
-          <T_BLOCK_STRING offset="2"><![CDATA["""
+          <T_BLOCK_STRING offset="2" value:1="&#10;Directive @multiline2 desciption&#10;"><![CDATA["""
 Directive @multiline2 desciption
 """]]></T_BLOCK_STRING>
         </String>
@@ -15,7 +15,7 @@ Directive @multiline2 desciption
         <ArgumentDefinition offset="70">
           <Description offset="70">
             <String offset="70">
-              <T_BLOCK_STRING offset="70"><![CDATA["""
+              <T_BLOCK_STRING offset="70" value:1="&#10;    Attribute &amp;quot;a&amp;quot; description&#10;    "><![CDATA["""
     Attribute "a" description
     """]]></T_BLOCK_STRING>
             </String>
@@ -37,7 +37,7 @@ Directive @multiline2 desciption
         <ArgumentDefinition offset="133">
           <Description offset="133">
             <String offset="133">
-              <T_BLOCK_STRING offset="133"><![CDATA["""
+              <T_BLOCK_STRING offset="133" value:1="&#10;    Attribute &amp;quot;b&amp;quot; description&#10;    "><![CDATA["""
     Attribute "b" description
     """]]></T_BLOCK_STRING>
             </String>

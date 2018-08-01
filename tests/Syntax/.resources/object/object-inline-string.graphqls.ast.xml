@@ -3,7 +3,7 @@
     <ObjectDefinition offset="1">
       <Description offset="1">
         <String offset="1">
-          <T_STRING offset="1" value:1="\&amp;quot; type"><![CDATA["Description of \"interface Example\" type"]]></T_STRING>
+          <T_STRING offset="1" value:1="Description of \&amp;quot;interface Example\&amp;quot; type"><![CDATA["Description of \"interface Example\" type"]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="50">
@@ -13,7 +13,7 @@
         <FieldDefinition offset="64">
           <Description offset="64">
             <String offset="64">
-              <T_STRING offset="64" value:1="\&amp;quot; field"><![CDATA["Description of \"a\" field"]]></T_STRING>
+              <T_STRING offset="64" value:1="Description of \&amp;quot;a\&amp;quot; field"><![CDATA["Description of \"a\" field"]]></T_STRING>
             </String>
           </Description>
           <T_NAME offset="97">a</T_NAME>
@@ -30,7 +30,7 @@
         <FieldDefinition offset="115">
           <Description offset="115">
             <String offset="115">
-              <T_STRING offset="115" value:1="\&amp;quot; field"><![CDATA["Description of \"b\" field"]]></T_STRING>
+              <T_STRING offset="115" value:1="Description of \&amp;quot;b\&amp;quot; field"><![CDATA["Description of \"b\" field"]]></T_STRING>
             </String>
           </Description>
           <T_NAME offset="148">b</T_NAME>

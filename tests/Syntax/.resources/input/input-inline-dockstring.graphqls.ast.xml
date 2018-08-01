@@ -3,7 +3,7 @@
     <InputDefinition offset="1">
       <Description offset="1">
         <String offset="1">
-          <T_BLOCK_STRING offset="1"><![CDATA["""
+          <T_BLOCK_STRING offset="1" value:1="&#10;Description of &amp;quot;input AnnotatedInput&amp;quot; type&#10;"><![CDATA["""
 Description of "input AnnotatedInput" type
 """]]></T_BLOCK_STRING>
         </String>
@@ -21,7 +21,7 @@ Description of "input AnnotatedInput" type
       <InputFieldDefinition offset="98">
         <Description offset="98">
           <String offset="98">
-            <T_BLOCK_STRING offset="98"><![CDATA["""
+            <T_BLOCK_STRING offset="98" value:1="&#10;    Description of &amp;quot;annotatedField&amp;quot; field&#10;    "><![CDATA["""
     Description of "annotatedField" field
     """]]></T_BLOCK_STRING>
           </String>

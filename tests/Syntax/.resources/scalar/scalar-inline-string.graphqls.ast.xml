@@ -3,7 +3,7 @@
     <ScalarDefinition offset="1">
       <Description offset="1">
         <String offset="1">
-          <T_STRING offset="1" value:1="\&amp;quot; type"><![CDATA["Description of \"scalar Test\" type"]]></T_STRING>
+          <T_STRING offset="1" value:1="Description of \&amp;quot;scalar Test\&amp;quot; type"><![CDATA["Description of \"scalar Test\" type"]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="46">
@@ -13,7 +13,7 @@
     <ScalarDefinition offset="52">
       <Description offset="52">
         <String offset="52">
-          <T_STRING offset="52" value:1="\&amp;quot; type"><![CDATA["Description of \"scalar Test2\" type"]]></T_STRING>
+          <T_STRING offset="52" value:1="Description of \&amp;quot;scalar Test2\&amp;quot; type"><![CDATA["Description of \"scalar Test2\" type"]]></T_STRING>
         </String>
       </Description>
       <TypeName offset="98">
