@@ -30,12 +30,12 @@
  */
 %token T_HEX_NUMBER             \-?0x([0-9a-fA-F]+)\b
 %token T_BIN_NUMBER             \-?0b([0-1]+)\b
-%token T_NUMBER                 \-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][\+\-]?[0-9]+)?
+%token T_NUMBER                 \-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][\+\-]?[0-9]+)?
 %token T_TRUE                   true\b
 %token T_FALSE                  false\b
 %token T_NULL                   null\b
-%token T_BLOCK_STRING           """(?:\\"""|(?!""").|\s)*"""
-%token T_STRING                 "[^"\\]*(\\.[^"\\]*)*"
+%token T_BLOCK_STRING           """((?:\\"""|(?!""").|\s)*)"""
+%token T_STRING                 "([^"\\]*(?:\\.[^"\\]*)*)"
 
 /**
  * Common

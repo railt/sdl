@@ -9,10 +9,11 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Definition;
 
+use Railt\Parser\Ast\NodeInterface;
 use Railt\Reflection\Contracts\Definition;
-use Railt\Reflection\Contracts\Definition\SchemaDefinition;
-use Railt\Reflection\Definition\DirectiveDefinition;
-use Railt\Reflection\Contracts\Document;
+use Railt\Reflection\Contracts\Document as DocumentInterface;
+use Railt\Reflection\Definition\SchemaDefinition;
+use Railt\Reflection\Document;
 
 /**
  * Class SchemaDelegate
@@ -20,11 +21,11 @@ use Railt\Reflection\Contracts\Document;
 class SchemaDelegate extends DefinitionDelegate
 {
     /**
-     * @param Document $document
+     * @param DocumentInterface|Document $document
      * @return Definition
      */
-    protected function bootDefinition(Document $document): Definition
+    protected function bootDefinition(DocumentInterface $document): Definition
     {
-        return new DirectiveDefinition($document, 'Schema');
+        return new SchemaDefinition($document, $this->getTypeName());
     }
 }

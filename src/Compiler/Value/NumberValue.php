@@ -10,38 +10,139 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Value;
 
 use Railt\Parser\Ast\LeafInterface;
-use Railt\Parser\Ast\RuleInterface;
+use Railt\Parser\Ast\NodeInterface;
+use Railt\SDL\Parser;
 
 /**
- * Class StringValue
+ * Class NumberValue
  */
-class StringValue extends Value
+class NumberValue extends BaseValue
 {
     /**
      * @return string
      */
     protected static function getAstName(): string
     {
-        return 'String';
+        return 'Number';
     }
 
     /**
-     * @param RuleInterface $rule
-     * @return mixed|string
+     * @param NodeInterface $rule
+     * @return int|float
      */
-    protected function parse(RuleInterface $rule): string
+    protected function parse(NodeInterface $rule)
     {
-        $value = $this->unpackStringData($rule->getChild(0));
+        /** @var LeafInterface $value */
+        $value = $rule->getChild(0);
 
-        return $value;
+        switch (true) {
+            case $this->isHex($value):
+                return $this->parseHex($value->getValue(1));
+
+            case $this->isBinary($value):
+                return $this->parseBin($value->getValue(1));
+
+            case $this->isExponential($value):
+                return $this->parseExponential($value->getValue());
+
+            case $this->isFloat($value):
+                return $this->parseFloat($value->getValue());
+
+            case $this->isInt($value):
+                return $this->parseInt($value->getValue());
+        }
+
+        return (float)$value->getValue();
     }
 
     /**
-     * @param LeafInterface $ast
-     * @return string
+     * @param string $value
+     * @return int
      */
-    private function unpackStringData(LeafInterface $ast): string
+    private function parseHex(string $value): int
     {
-        return $ast->getValue(1);
+        return \hexdec($value);
+    }
+
+    /**
+     * @param string $value
+     * @return int
+     */
+    private function parseBin(string $value): int
+    {
+        return \bindec($value);
+    }
+
+    /**
+     * @param string $value
+     * @return float
+     */
+    private function parseExponential(string $value): float
+    {
+        return (float)$value;
+    }
+
+    /**
+     * @param string $value
+     * @return float
+     */
+    private function parseFloat(string $value): float
+    {
+        return (float)$value;
+    }
+
+    /**
+     * @param string $value
+     * @return int
+     */
+    private function parseInt(string $value): int
+    {
+        return $value >> 0;
+    }
+
+    /**
+     * @param LeafInterface $leaf
+     * @return bool
+     */
+    private function isHex(LeafInterface $leaf): bool
+    {
+        return $leaf->getName() === Parser::T_HEX_NUMBER;
+    }
+
+    /**
+     * @param LeafInterface $leaf
+     * @return bool
+     */
+    private function isBinary(LeafInterface $leaf): bool
+    {
+        return $leaf->getName() === Parser::T_BIN_NUMBER;
+    }
+
+    /**
+     * @param LeafInterface $leaf
+     * @return bool
+     */
+    private function isExponential(LeafInterface $leaf): bool
+    {
+        return \substr_count(\mb_strtolower($leaf->getValue()), 'e') !== 0;
+    }
+
+    /**
+     * @param LeafInterface $leaf
+     * @return bool
+     */
+    private function isFloat(LeafInterface $leaf): bool
+    {
+        return \substr_count($leaf->getValue(), '.') !== 0;
+    }
+
+    /**
+     * @param LeafInterface $leaf
+     * @return bool
+     */
+    private function isInt(LeafInterface $leaf): bool
+    {
+        return $leaf->getName() === Parser::T_NUMBER &&
+            \substr_count($leaf->getValue(), '.') === 0;
     }
 }

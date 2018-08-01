@@ -13,9 +13,9 @@ use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\NodeInterface;
 
 /**
- * Class EnumValue
+ * Class ConstantValue
  */
-class EnumValue extends BaseValue
+class ConstantValue extends BaseValue
 {
     /**
      * @param NodeInterface $rule

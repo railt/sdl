@@ -10,12 +10,12 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Value;
 
 use Railt\Parser\Ast\NodeInterface;
-use Railt\Parser\Ast\RuleInterface;
+
 
 /**
- * Class Value
+ * Class BaseValue
  */
-abstract class Value implements ValueInterface
+abstract class BaseValue implements ValueInterface
 {
     /**
      * @var NodeInterface

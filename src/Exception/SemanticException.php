@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Railt\SDL\Exception;
 
 /**
- * Class SyntaxException
+ * Class SemanticException
  */
-class SyntaxException extends CompilerException
+class SemanticException extends CompilerException
 {
 
 }

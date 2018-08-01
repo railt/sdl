@@ -7,26 +7,37 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Value;
+namespace Railt\SDL\Compiler;
 
+use Railt\Io\Readable;
 use Railt\Parser\Ast\NodeInterface;
+use Railt\Parser\Ast\RuleInterface;
+use Railt\SDL\Compiler\Value\BooleanValue;
+use Railt\SDL\Compiler\Value\ConstantValue;
+use Railt\SDL\Compiler\Value\InputValue;
+use Railt\SDL\Compiler\Value\ListValue;
+use Railt\SDL\Compiler\Value\NullValue;
+use Railt\SDL\Compiler\Value\NumberValue;
+use Railt\SDL\Compiler\Value\StringValue;
+use Railt\SDL\Compiler\Value\ValueInterface;
 use Railt\SDL\Exception\SemanticException;
 
 /**
  * Class Factory
  */
-final class Factory
+final class Value
 {
     /**
      * @var string[]|ValueInterface[]|array
      */
     private const DEFAULT_VALUES = [
-        EnumValue::class,
         NullValue::class,
         ListValue::class,
+        InputValue::class,
         NumberValue::class,
         StringValue::class,
         BooleanValue::class,
+        ConstantValue::class,
     ];
 
     /**
@@ -43,18 +54,25 @@ final class Factory
     }
 
     /**
-     * @param NodeInterface $rule
+     * @param NodeInterface|RuleInterface $rule
+     * @param Readable $file
      * @return ValueInterface
-     * @throws SemanticException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public static function parse(NodeInterface $rule): ValueInterface
+    public static function parse(NodeInterface $rule, Readable $file): ValueInterface
     {
+        \assert(\in_array($rule->getName(), ['Key', 'Value'], true), $rule->getName());
+
+        /** @var NodeInterface $child */
+        $child = $rule->getChild(0);
+
         foreach (self::$values as $value) {
-            if ($value::match($rule)) {
-                return new $value($rule);
+            if ($value::match($child)) {
+                return new $value($child, $file);
             }
         }
 
-        throw new SemanticException(\sprintf('Unprocessable value of %s', $rule->getName()));
+        throw (new SemanticException(\sprintf('Unprocessable value of %s', $child->getName())))
+            ->throwsIn($file, $child->getOffset());
     }
 }

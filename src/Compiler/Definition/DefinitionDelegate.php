@@ -10,7 +10,9 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Definition;
 
 use Railt\Parser\Ast\Delegate;
+use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\Rule;
+use Railt\Parser\Ast\RuleInterface;
 use Railt\Parser\Environment;
 use Railt\Reflection\AbstractDefinition;
 use Railt\Reflection\Contracts\Definition;
@@ -19,6 +21,9 @@ use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Contracts\Document;
 use Railt\SDL\CallStack;
 use Railt\SDL\Compiler\Compilable;
+use Railt\SDL\Compiler\Definition\Common\DescriptionTrait;
+use Railt\SDL\Compiler\Value;
+use Railt\SDL\Compiler\Value\ValueInterface;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\TypeConflictException;
 
@@ -27,6 +32,8 @@ use Railt\SDL\Exception\TypeConflictException;
  */
 abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
 {
+    use DescriptionTrait;
+
     /**
      * @var TypeDefinition
      */
@@ -58,6 +65,8 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
 
             if ($record instanceof TypeDefinition) {
                 $this->verifyDuplication($record, $this->document->getDictionary());
+                $this->withDescription($record, $this);
+
                 $this->document->withDefinition($record);
             }
 
@@ -81,7 +90,7 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
     {
         if ($dict->has($type->getName())) {
             $prev  = $dict->get($type->getName(), $type);
-            $error = 'Could not redeclare type %s as %s';
+            $error = 'Could not redeclare type %s by %s';
             $error = \sprintf($error, $prev, $type);
 
             throw $this->error(new TypeConflictException($error));
@@ -119,5 +128,69 @@ abstract class DefinitionDelegate extends Rule implements Delegate, Compilable
     protected function after(Definition $definition): void
     {
 
+    }
+
+    /**
+     * @return CallStack
+     */
+    protected function getCallStack(): CallStack
+    {
+        return $this->stack;
+    }
+
+    /**
+     * @param NodeInterface|null $node
+     * @return null|string
+     */
+    protected function getTypeName(NodeInterface $node = null): ?string
+    {
+        /** @var RuleInterface|null $name */
+        $name = ($node ?? $this)->first('TypeName', 1);
+
+        return $name ? $name->getChild(0)->getValue() : null;
+    }
+
+    /**
+     * @param NodeInterface $rule
+     * @return ValueInterface
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    protected function value(NodeInterface $rule): ValueInterface
+    {
+        try {
+            return Value::parse($rule, $this->definition->getFile());
+        } catch (CompilerException $e) {
+            throw $this->error($e)->throwsIn($this->definition->getFile(), $rule->getOffset());
+        }
+    }
+
+    /**
+     * @param Definition $def
+     */
+    protected function push(Definition $def): void
+    {
+        $this->stack->push($def);
+    }
+
+    /**
+     * @param Definition $definition
+     * @param \Closure $then
+     */
+    protected function transaction(Definition $definition, \Closure $then): void
+    {
+        $this->stack->transaction($definition, $then);
+    }
+
+    /**
+     * @param int $count
+     * @return void
+     */
+    protected function pop(int $count = 1): void
+    {
+        $count = \max(1, $count);
+
+        for ($i = 0; $i <= $count; ++$i) {
+            $this->stack->pop();
+        }
     }
 }

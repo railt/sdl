@@ -13,9 +13,12 @@ EnumDefinitionHead:
 
 EnumDefinitionBody:
     ::T_BRACE_OPEN::
-        __enumDefinitionValue()*
+        __enumDefinitionValues()
     ::T_BRACE_CLOSE::
 
+__enumDefinitionValues:
+    __enumDefinitionValue()*
+    #EnumValues
 
 __enumDefinitionValue:
     Documentation()?

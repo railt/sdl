@@ -25,12 +25,28 @@ class CompilerException extends ExternalFileException
     private $stack;
 
     /**
+     * @var bool
+     */
+    private $skipInnerTrace = true;
+
+    /**
      * @param Definition $def
      * @return CompilerException
      */
     public function in(Definition $def): CompilerException
     {
         $this->throwsIn($def->getFile(), $def->getLine(), $def->getColumn());
+
+        return $this;
+    }
+
+    /**
+     * @param bool $skip
+     * @return CompilerException
+     */
+    public function skipInnerTrace(bool $skip = true): CompilerException
+    {
+        $this->skipInnerTrace = $skip;
 
         return $this;
     }
@@ -65,15 +81,32 @@ class CompilerException extends ExternalFileException
     {
         [$result, $i] = ['', 0];
 
-        foreach ($this->stack as $def) {
-            $result .= \sprintf('#%d %s(%d): %s', $i++, $def->getFile(), $def->getLine(), $def) . \PHP_EOL;
+        if ($this->stack) {
+            foreach ($this->stack as $def) {
+                $result .= \sprintf('#%d %s(%d): %s', $i++, $def->getFile(), $def->getLine(), $def) . \PHP_EOL;
+            }
         }
 
-        $result .= \preg_replace_callback('/^#\d+\h/ium', function() use (&$i): string {
-            return \sprintf('#%d ', $i++);
-        }, $this->getTraceAsString());
+        foreach (\explode("\n", $this->getTraceAsString()) as $line) {
+            if ($this->skipInnerTrace && $this->shouldSkip($line)) {
+                continue;
+            }
+
+            $result .= \preg_replace('/#\d+\h/iu', \sprintf('#%d ', $i++), $line) . "\n";
+        }
 
         return $result;
+    }
+
+    /**
+     * @param string $line
+     * @return bool
+     */
+    private function shouldSkip(string $line): bool
+    {
+        $match = \preg_match('/:\h+Railt\\\\(Parser|SDL|Lexer)/ium', $line);
+
+        return $match === 1;
     }
 
     /**

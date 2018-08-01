@@ -9,28 +9,30 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Value;
 
-use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\NodeInterface;
+use Railt\Parser\Ast\RuleInterface;
 
 /**
- * Class EnumValue
+ * Class BooleanValue
  */
-class EnumValue extends Value
+class BooleanValue extends BaseValue
 {
     /**
      * @return string
      */
     protected static function getAstName(): string
     {
-        return 'T_NAME';
+        return 'Boolean';
     }
 
     /**
-     * @param NodeInterface|LeafInterface $rule
-     * @return string
+     * @param NodeInterface|RuleInterface $rule
+     * @return bool
      */
-    protected function parse(NodeInterface $rule): string
+    protected function parse(NodeInterface $rule): bool
     {
-        return (string)$rule->getValue();
+        $value = $rule->getChild(0)->getValue();
+
+        return $value === 'true';
     }
 }

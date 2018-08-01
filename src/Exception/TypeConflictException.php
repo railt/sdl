@@ -12,7 +12,7 @@ namespace Railt\SDL\Exception;
 /**
  * Class TypeConflictException
  */
-class TypeConflictException extends CompilerException
+class TypeConflictException extends SemanticException
 {
 
 }
