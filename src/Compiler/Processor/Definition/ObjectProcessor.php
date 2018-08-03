@@ -16,7 +16,6 @@ use Railt\SDL\Compiler\Ast\Definition\ObjectDefinitionNode;
 use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
- *
  * Class DirectiveDefinition
  */
 class ObjectProcessor extends BaseProcessor
@@ -30,7 +29,7 @@ class ObjectProcessor extends BaseProcessor
         /** @var ObjectDefinition $object */
         $object = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $object) {
+        $this->immediately(function () use ($ast, $object): void {
             $object->withOffset($ast->getOffset());
             $object->withDescription($ast->getDescription());
         });

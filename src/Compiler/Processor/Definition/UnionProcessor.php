@@ -29,7 +29,7 @@ class UnionProcessor extends BaseProcessor
         /** @var UnionDefinition $union */
         $union = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $union) {
+        $this->immediately(function () use ($ast, $union): void {
             $union->withOffset($ast->getOffset());
             $union->withDescription($ast->getDescription());
         });

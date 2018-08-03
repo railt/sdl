@@ -16,7 +16,6 @@ use Railt\Parser\Environment;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document;
 use Railt\SDL\Compiler\Ast\TypeNameNode;
-use Railt\SDL\Compiler\Ast\Value\ValueInterface;
 
 /**
  * Class TypeDefinitionNode

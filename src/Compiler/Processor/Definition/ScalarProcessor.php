@@ -29,7 +29,7 @@ class ScalarProcessor extends BaseProcessor
         /** @var ScalarDefinition $scalar */
         $scalar = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $scalar) {
+        $this->immediately(function () use ($ast, $scalar): void {
             $scalar->withOffset($ast->getOffset());
             $scalar->withDescription($ast->getDescription());
         });

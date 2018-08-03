@@ -29,7 +29,7 @@ class InputProcessor extends BaseProcessor
         /** @var InputDefinition $input */
         $input = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $input) {
+        $this->immediately(function () use ($ast, $input): void {
             $input->withOffset($ast->getOffset());
             $input->withDescription($ast->getDescription());
         });

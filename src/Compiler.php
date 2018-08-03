@@ -11,7 +11,6 @@ namespace Railt\SDL;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\Parser\Environment;
 use Railt\Parser\Exception\UnexpectedTokenException;
 use Railt\Parser\Exception\UnrecognizedTokenException;
 use Railt\Reflection\Contracts\Definition;
@@ -21,9 +20,8 @@ use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
 use Railt\Reflection\Dictionary\CallbackDictionary;
 use Railt\Reflection\Document;
 use Railt\Reflection\Reflection;
-use Railt\SDL\Compiler\Parser;
-use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Compiler\Factory;
+use Railt\SDL\Compiler\Parser;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\SyntaxException;
 
