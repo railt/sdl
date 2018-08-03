@@ -31,7 +31,7 @@ abstract class TypeDefinitionProcessor extends BaseProcessor
     protected function processDefinition(RuleInterface $ast, TypeDefinition $definition): void
     {
         $this->immediately(function () use ($ast, $definition): void {
-            $this->transaction($definition, function () use ($ast, $definition) {
+            $this->transaction($definition, function () use ($ast, $definition): void {
                 $definition->withOffset($ast->getOffset());
                 $definition->withDescription($ast->getDescription());
             });
@@ -45,7 +45,7 @@ abstract class TypeDefinitionProcessor extends BaseProcessor
     protected function processDirectives(RuleInterface $ast, TypeDefinition $definition): void
     {
         $this->future(function () use ($ast, $definition): void {
-            $this->transaction($definition, function () use ($ast, $definition) {
+            $this->transaction($definition, function () use ($ast, $definition): void {
                 foreach ($ast->getDirectives() as $child) {
                     $directive = $child->getTypeInvocation($this->document);
 
@@ -64,7 +64,7 @@ abstract class TypeDefinitionProcessor extends BaseProcessor
      */
     private function processDirective(DirectiveNode $ast, DirectiveInvocation $directive): void
     {
-        $this->transaction($directive, function () use ($ast, $directive) {
+        $this->transaction($directive, function () use ($ast, $directive): void {
             foreach ($ast->getDirectiveArguments() as $child) {
                 $argument = $child->getTypeInvocation($directive);
 
@@ -81,7 +81,7 @@ abstract class TypeDefinitionProcessor extends BaseProcessor
      */
     private function processDirectiveArguments(ArgumentInvocation $argument): void
     {
-        $this->transaction($argument, function () use ($argument) {
+        $this->transaction($argument, function () use ($argument): void {
             // TODO
         });
     }

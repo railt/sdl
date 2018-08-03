@@ -13,7 +13,6 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\ObjectDefinition;
 use Railt\SDL\Compiler\Ast\Definition\ObjectDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class DirectiveDefinition

@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler;
 
 use Railt\Parser\Ast\RuleInterface;
-use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Document;
 use Railt\SDL\Compiler\Processor\Definition;
 use Railt\SDL\Compiler\Processor\Extension;
@@ -86,7 +85,7 @@ class Factory
      */
     public function process(): Document
     {
-        $this->build()->pipeline->reduce(function(\Closure $callback) {
+        $this->build()->pipeline->reduce(function (\Closure $callback): void {
             $callback();
         });
 
@@ -97,7 +96,7 @@ class Factory
      * @return Factory|$this
      * @throws \Railt\Io\Exception\ExternalFileException
      */
-    protected function build(): Factory
+    protected function build(): self
     {
         /** @var RuleInterface $child */
         foreach ($this->ast as $child) {

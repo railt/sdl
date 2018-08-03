@@ -13,7 +13,6 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\InputUnionDefinition;
 use Railt\SDL\Compiler\Ast\Definition\InputUnionDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class InputUnionProcessor
