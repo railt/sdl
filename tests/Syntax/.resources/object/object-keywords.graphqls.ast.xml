@@ -8,13 +8,13 @@
         <FieldDefinition offset="13">
           <T_TRUE offset="13">true</T_TRUE>
           <TypeHint offset="19">
-            <Value offset="19">
+            <SingularTypeHint offset="19">
               <TypeInvocation offset="19">
                 <TypeName offset="19">
                   <T_NAME offset="19">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -27,13 +27,13 @@
         <FieldDefinition offset="41">
           <T_FALSE offset="41">false</T_FALSE>
           <TypeHint offset="48">
-            <Value offset="48">
+            <SingularTypeHint offset="48">
               <TypeInvocation offset="48">
                 <TypeName offset="48">
                   <T_NAME offset="48">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -46,13 +46,13 @@
         <FieldDefinition offset="69">
           <T_NULL offset="69">null</T_NULL>
           <TypeHint offset="75">
-            <Value offset="75">
+            <SingularTypeHint offset="75">
               <TypeInvocation offset="75">
                 <TypeName offset="75">
                   <T_NAME offset="75">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -65,13 +65,13 @@
         <FieldDefinition offset="99">
           <T_EXTENDS offset="99">extends</T_EXTENDS>
           <TypeHint offset="108">
-            <Value offset="108">
+            <SingularTypeHint offset="108">
               <TypeInvocation offset="108">
                 <TypeName offset="108">
                   <T_NAME offset="108">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -84,13 +84,13 @@
         <FieldDefinition offset="135">
           <T_IMPLEMENTS offset="135">implements</T_IMPLEMENTS>
           <TypeHint offset="147">
-            <Value offset="147">
+            <SingularTypeHint offset="147">
               <TypeInvocation offset="147">
                 <TypeName offset="147">
                   <T_NAME offset="147">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -103,13 +103,13 @@
         <FieldDefinition offset="166">
           <T_ON offset="166">on</T_ON>
           <TypeHint offset="170">
-            <Value offset="170">
+            <SingularTypeHint offset="170">
               <TypeInvocation offset="170">
                 <TypeName offset="170">
                   <T_NAME offset="170">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -122,13 +122,13 @@
         <FieldDefinition offset="191">
           <T_TYPE offset="191">type</T_TYPE>
           <TypeHint offset="197">
-            <Value offset="197">
+            <SingularTypeHint offset="197">
               <TypeInvocation offset="197">
                 <TypeName offset="197">
                   <T_NAME offset="197">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -141,13 +141,13 @@
         <FieldDefinition offset="218">
           <T_ENUM offset="218">enum</T_ENUM>
           <TypeHint offset="224">
-            <Value offset="224">
+            <SingularTypeHint offset="224">
               <TypeInvocation offset="224">
                 <TypeName offset="224">
                   <T_NAME offset="224">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -160,13 +160,13 @@
         <FieldDefinition offset="246">
           <T_UNION offset="246">union</T_UNION>
           <TypeHint offset="253">
-            <Value offset="253">
+            <SingularTypeHint offset="253">
               <TypeInvocation offset="253">
                 <TypeName offset="253">
                   <T_NAME offset="253">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -179,13 +179,13 @@
         <FieldDefinition offset="280">
           <T_INPUT_UNION offset="280">inputUnion</T_INPUT_UNION>
           <TypeHint offset="292">
-            <Value offset="292">
+            <SingularTypeHint offset="292">
               <TypeInvocation offset="292">
                 <TypeName offset="292">
                   <T_NAME offset="292">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -198,13 +198,13 @@
         <FieldDefinition offset="318">
           <T_INTERFACE offset="318">interface</T_INTERFACE>
           <TypeHint offset="329">
-            <Value offset="329">
+            <SingularTypeHint offset="329">
               <TypeInvocation offset="329">
                 <TypeName offset="329">
                   <T_NAME offset="329">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -217,13 +217,13 @@
         <FieldDefinition offset="352">
           <T_SCHEMA offset="352">schema</T_SCHEMA>
           <TypeHint offset="360">
-            <Value offset="360">
+            <SingularTypeHint offset="360">
               <TypeInvocation offset="360">
                 <TypeName offset="360">
                   <T_NAME offset="360">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -236,13 +236,13 @@
         <FieldDefinition offset="383">
           <T_SCALAR offset="383">scalar</T_SCALAR>
           <TypeHint offset="391">
-            <Value offset="391">
+            <SingularTypeHint offset="391">
               <TypeInvocation offset="391">
                 <TypeName offset="391">
                   <T_NAME offset="391">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -255,13 +255,13 @@
         <FieldDefinition offset="417">
           <T_DIRECTIVE offset="417">directive</T_DIRECTIVE>
           <TypeHint offset="428">
-            <Value offset="428">
+            <SingularTypeHint offset="428">
               <TypeInvocation offset="428">
                 <TypeName offset="428">
                   <T_NAME offset="428">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -274,13 +274,13 @@
         <FieldDefinition offset="450">
           <T_INPUT offset="450">input</T_INPUT>
           <TypeHint offset="457">
-            <Value offset="457">
+            <SingularTypeHint offset="457">
               <TypeInvocation offset="457">
                 <TypeName offset="457">
                   <T_NAME offset="457">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -293,13 +293,13 @@
         <FieldDefinition offset="480">
           <T_EXTEND offset="480">extend</T_EXTEND>
           <TypeHint offset="488">
-            <Value offset="488">
+            <SingularTypeHint offset="488">
               <TypeInvocation offset="488">
                 <TypeName offset="488">
                   <T_NAME offset="488">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -312,13 +312,13 @@
         <FieldDefinition offset="513">
           <T_FRAGMENT offset="513">fragment</T_FRAGMENT>
           <TypeHint offset="523">
-            <Value offset="523">
+            <SingularTypeHint offset="523">
               <TypeInvocation offset="523">
                 <TypeName offset="523">
                   <T_NAME offset="523">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>

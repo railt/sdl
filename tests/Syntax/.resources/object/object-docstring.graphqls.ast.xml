@@ -22,13 +22,13 @@ Description of "interface Example" type
           </Description>
           <T_NAME offset="113">a</T_NAME>
           <TypeHint offset="116">
-            <Value offset="116">
+            <SingularTypeHint offset="116">
               <TypeInvocation offset="116">
                 <TypeName offset="116">
                   <T_NAME offset="116">TestQuery</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="131">
@@ -39,13 +39,13 @@ Description of "interface Example" type
           </Description>
           <T_NAME offset="166">b</T_NAME>
           <TypeHint offset="169">
-            <Value offset="169">
+            <SingularTypeHint offset="169">
               <TypeInvocation offset="169">
                 <TypeName offset="169">
                   <T_NAME offset="169">TestMutation</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>

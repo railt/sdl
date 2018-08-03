@@ -13,7 +13,7 @@ use Railt\Io\Exception\NotReadableException;
 use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Parser\Exception\UnexpectedTokenException;
-use Railt\SDL\Parser;
+use Railt\SDL\Compiler\Parser;
 use Railt\Tests\SDL\TestCase;
 
 /**

@@ -28,13 +28,13 @@ Description of "input AnnotatedInput" type
         </Description>
         <T_NAME offset="156">annotatedField</T_NAME>
         <TypeHint offset="172">
-          <Value offset="172">
+          <SingularTypeHint offset="172">
             <TypeInvocation offset="172">
               <TypeName offset="172">
                 <T_NAME offset="172">Type</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Directives offset="177">
           <Directive offset="177">

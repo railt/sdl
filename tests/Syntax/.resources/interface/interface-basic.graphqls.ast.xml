@@ -8,14 +8,14 @@
         <FieldDefinition offset="19">
           <T_NAME offset="19">field</T_NAME>
           <TypeHint offset="26">
-            <Value offset="26">
+            <SingularTypeHint offset="26">
               <TypeInvocation offset="26">
                 <TypeName offset="26">
                   <T_NAME offset="26">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="32"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -35,14 +35,14 @@
         <FieldDefinition offset="68">
           <T_NAME offset="68">field2</T_NAME>
           <TypeHint offset="76">
-            <Value offset="76">
+            <SingularTypeHint offset="76">
               <TypeInvocation offset="76">
                 <TypeName offset="76">
                   <T_NAME offset="76">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="82"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -67,14 +67,14 @@
         <FieldDefinition offset="122">
           <T_NAME offset="122">field3</T_NAME>
           <TypeHint offset="130">
-            <Value offset="130">
+            <SingularTypeHint offset="130">
               <TypeInvocation offset="130">
                 <TypeName offset="130">
                   <T_NAME offset="130">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="136"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>

@@ -7,13 +7,13 @@
       <InputFieldDefinition offset="20">
         <T_NAME offset="20">a</T_NAME>
         <TypeHint offset="23">
-          <Value offset="23">
+          <SingularTypeHint offset="23">
             <TypeInvocation offset="23">
               <TypeName offset="23">
                 <T_NAME offset="23">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="29">
           <Number offset="29">
@@ -24,13 +24,13 @@
       <InputFieldDefinition offset="37">
         <T_NAME offset="37">b</T_NAME>
         <TypeHint offset="40">
-          <Value offset="40">
+          <SingularTypeHint offset="40">
             <TypeInvocation offset="40">
               <TypeName offset="40">
                 <T_NAME offset="40">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="46">
           <Number offset="46">
@@ -41,13 +41,13 @@
       <InputFieldDefinition offset="55">
         <T_NAME offset="55">c</T_NAME>
         <TypeHint offset="58">
-          <Value offset="58">
+          <SingularTypeHint offset="58">
             <TypeInvocation offset="58">
               <TypeName offset="58">
                 <T_NAME offset="58">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="64">
           <Number offset="64">
@@ -58,13 +58,13 @@
       <InputFieldDefinition offset="71">
         <T_NAME offset="71">d</T_NAME>
         <TypeHint offset="74">
-          <Value offset="74">
+          <SingularTypeHint offset="74">
             <TypeInvocation offset="74">
               <TypeName offset="74">
                 <T_NAME offset="74">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="80">
           <Number offset="80">
@@ -75,13 +75,13 @@
       <InputFieldDefinition offset="88">
         <T_NAME offset="88">e</T_NAME>
         <TypeHint offset="91">
-          <Value offset="91">
+          <SingularTypeHint offset="91">
             <TypeInvocation offset="91">
               <TypeName offset="91">
                 <T_NAME offset="91">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="97">
           <Number offset="97">
@@ -92,13 +92,13 @@
       <InputFieldDefinition offset="105">
         <T_NAME offset="105">f</T_NAME>
         <TypeHint offset="108">
-          <Value offset="108">
+          <SingularTypeHint offset="108">
             <TypeInvocation offset="108">
               <TypeName offset="108">
                 <T_NAME offset="108">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="114">
           <Number offset="114">
@@ -109,13 +109,13 @@
       <InputFieldDefinition offset="123">
         <T_NAME offset="123">f</T_NAME>
         <TypeHint offset="126">
-          <Value offset="126">
+          <SingularTypeHint offset="126">
             <TypeInvocation offset="126">
               <TypeName offset="126">
                 <T_NAME offset="126">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="132">
           <Number offset="132">
@@ -126,13 +126,13 @@
       <InputFieldDefinition offset="149">
         <T_NAME offset="149">f</T_NAME>
         <TypeHint offset="152">
-          <Value offset="152">
+          <SingularTypeHint offset="152">
             <TypeInvocation offset="152">
               <TypeName offset="152">
                 <T_NAME offset="152">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="158">
           <Number offset="158">
@@ -143,13 +143,13 @@
       <InputFieldDefinition offset="176">
         <T_NAME offset="176">f</T_NAME>
         <TypeHint offset="179">
-          <Value offset="179">
+          <SingularTypeHint offset="179">
             <TypeInvocation offset="179">
               <TypeName offset="179">
                 <T_NAME offset="179">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="185">
           <Number offset="185">
@@ -160,13 +160,13 @@
       <InputFieldDefinition offset="203">
         <T_NAME offset="203">f</T_NAME>
         <TypeHint offset="206">
-          <Value offset="206">
+          <SingularTypeHint offset="206">
             <TypeInvocation offset="206">
               <TypeName offset="206">
                 <T_NAME offset="206">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="212">
           <Number offset="212">
@@ -177,13 +177,13 @@
       <InputFieldDefinition offset="222">
         <T_NAME offset="222">g</T_NAME>
         <TypeHint offset="225">
-          <Value offset="225">
+          <SingularTypeHint offset="225">
             <TypeInvocation offset="225">
               <TypeName offset="225">
                 <T_NAME offset="225">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="231">
           <Number offset="231">
@@ -194,13 +194,13 @@
       <InputFieldDefinition offset="240">
         <T_NAME offset="240">h</T_NAME>
         <TypeHint offset="243">
-          <Value offset="243">
+          <SingularTypeHint offset="243">
             <TypeInvocation offset="243">
               <TypeName offset="243">
                 <T_NAME offset="243">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="249">
           <Number offset="249">
@@ -211,13 +211,13 @@
       <InputFieldDefinition offset="259">
         <T_NAME offset="259">i</T_NAME>
         <TypeHint offset="262">
-          <Value offset="262">
+          <SingularTypeHint offset="262">
             <TypeInvocation offset="262">
               <TypeName offset="262">
                 <T_NAME offset="262">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="268">
           <Number offset="268">
@@ -228,13 +228,13 @@
       <InputFieldDefinition offset="277">
         <T_NAME offset="277">j</T_NAME>
         <TypeHint offset="280">
-          <Value offset="280">
+          <SingularTypeHint offset="280">
             <TypeInvocation offset="280">
               <TypeName offset="280">
                 <T_NAME offset="280">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="286">
           <Number offset="286">
@@ -245,13 +245,13 @@
       <InputFieldDefinition offset="296">
         <T_NAME offset="296">k</T_NAME>
         <TypeHint offset="299">
-          <Value offset="299">
+          <SingularTypeHint offset="299">
             <TypeInvocation offset="299">
               <TypeName offset="299">
                 <T_NAME offset="299">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="305">
           <String offset="305">
@@ -262,13 +262,13 @@
       <InputFieldDefinition offset="318">
         <T_NAME offset="318">l</T_NAME>
         <TypeHint offset="321">
-          <Value offset="321">
+          <SingularTypeHint offset="321">
             <TypeInvocation offset="321">
               <TypeName offset="321">
                 <T_NAME offset="321">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="327">
           <String offset="327">
@@ -279,13 +279,13 @@
       <InputFieldDefinition offset="344">
         <T_NAME offset="344">m</T_NAME>
         <TypeHint offset="347">
-          <Value offset="347">
+          <SingularTypeHint offset="347">
             <TypeInvocation offset="347">
               <TypeName offset="347">
                 <T_NAME offset="347">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="353">
           <String offset="353">
@@ -296,13 +296,13 @@
       <InputFieldDefinition offset="377">
         <T_NAME offset="377">n</T_NAME>
         <TypeHint offset="380">
-          <Value offset="380">
+          <SingularTypeHint offset="380">
             <TypeInvocation offset="380">
               <TypeName offset="380">
                 <T_NAME offset="380">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="386">
           <String offset="386">
@@ -313,13 +313,13 @@
       <InputFieldDefinition offset="414">
         <T_NAME offset="414">o</T_NAME>
         <TypeHint offset="417">
-          <Value offset="417">
+          <SingularTypeHint offset="417">
             <TypeInvocation offset="417">
               <TypeName offset="417">
                 <T_NAME offset="417">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="423">
           <String offset="423">
@@ -330,13 +330,13 @@
       <InputFieldDefinition offset="462">
         <T_NAME offset="462">p</T_NAME>
         <TypeHint offset="465">
-          <Value offset="465">
+          <SingularTypeHint offset="465">
             <TypeInvocation offset="465">
               <TypeName offset="465">
                 <T_NAME offset="465">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="471">
           <String offset="471">
@@ -347,13 +347,13 @@
       <InputFieldDefinition offset="499">
         <T_NAME offset="499">q</T_NAME>
         <TypeHint offset="502">
-          <Value offset="502">
+          <SingularTypeHint offset="502">
             <TypeInvocation offset="502">
               <TypeName offset="502">
                 <T_NAME offset="502">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="508">
           <String offset="508">
@@ -364,13 +364,13 @@
       <InputFieldDefinition offset="515">
         <T_NAME offset="515">r</T_NAME>
         <TypeHint offset="518">
-          <Value offset="518">
+          <SingularTypeHint offset="518">
             <TypeInvocation offset="518">
               <TypeName offset="518">
                 <T_NAME offset="518">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="524">
           <String offset="524">
@@ -381,60 +381,82 @@
       <InputFieldDefinition offset="535">
         <T_NAME offset="535">s</T_NAME>
         <TypeHint offset="538">
-          <Value offset="538">
+          <SingularTypeHint offset="538">
             <TypeInvocation offset="538">
               <TypeName offset="538">
                 <T_NAME offset="538">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="544">
-          <T_NAME offset="544">EnumValue</T_NAME>
+          <Constant offset="544">
+            <T_NAME offset="544">EnumValue</T_NAME>
+          </Constant>
         </Value>
       </InputFieldDefinition>
       <InputFieldDefinition offset="558">
         <T_NAME offset="558">t</T_NAME>
         <TypeHint offset="561">
-          <Value offset="561">
+          <SingularTypeHint offset="561">
             <TypeInvocation offset="561">
               <TypeName offset="561">
                 <T_NAME offset="561">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="567">
           <List offset="567">
             <Value offset="568">
-              <T_NAME offset="568">Any</T_NAME>
+              <Constant offset="568">
+                <T_NAME offset="568">Any</T_NAME>
+              </Constant>
             </Value>
             <Value offset="573">
-              <T_NAME offset="573">Float</T_NAME>
+              <Constant offset="573">
+                <T_NAME offset="573">Float</T_NAME>
+              </Constant>
             </Value>
             <Value offset="580">
-              <T_NAME offset="580">String</T_NAME>
+              <Constant offset="580">
+                <T_NAME offset="580">String</T_NAME>
+              </Constant>
             </Value>
             <Value offset="588">
-              <T_NAME offset="588">Int</T_NAME>
+              <Constant offset="588">
+                <T_NAME offset="588">Int</T_NAME>
+              </Constant>
             </Value>
             <Value offset="593">
-              <T_NAME offset="593">ID</T_NAME>
+              <Constant offset="593">
+                <T_NAME offset="593">ID</T_NAME>
+              </Constant>
             </Value>
             <Value offset="597">
-              <T_NAME offset="597">Object</T_NAME>
+              <Constant offset="597">
+                <T_NAME offset="597">Object</T_NAME>
+              </Constant>
             </Value>
             <Value offset="605">
-              <T_NAME offset="605">List</T_NAME>
+              <Constant offset="605">
+                <T_NAME offset="605">List</T_NAME>
+              </Constant>
             </Value>
             <Value offset="611">
-              <T_TYPE offset="611">type</T_TYPE>
+              <Constant offset="611">
+                <T_TYPE offset="611">type</T_TYPE>
+              </Constant>
             </Value>
             <Value offset="617">
-              <T_INTERFACE offset="617">interface</T_INTERFACE>
+              <Constant offset="617">
+                <T_INTERFACE offset="617">interface</T_INTERFACE>
+              </Constant>
             </Value>
             <Value offset="628">
-              <T_DIRECTIVE offset="628">directive</T_DIRECTIVE>
+              <Constant offset="628">
+                <T_DIRECTIVE offset="628">directive</T_DIRECTIVE>
+              </Constant>
             </Value>
           </List>
         </Value>
@@ -442,13 +464,13 @@
       <InputFieldDefinition offset="643">
         <T_NAME offset="643">u</T_NAME>
         <TypeHint offset="646">
-          <Value offset="646">
+          <SingularTypeHint offset="646">
             <TypeInvocation offset="646">
               <TypeName offset="646">
                 <T_NAME offset="646">Any</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="652">
           <Input offset="652">
@@ -503,7 +525,9 @@
                       <T_NAME offset="718">k</T_NAME>
                     </Key>
                     <Value offset="721">
-                      <T_NAME offset="721">v</T_NAME>
+                      <Constant offset="721">
+                        <T_NAME offset="721">v</T_NAME>
+                      </Constant>
                     </Value>
                   </Pair>
                 </Input>
@@ -522,7 +546,9 @@
                     <Value offset="735">
                       <List offset="735">
                         <Value offset="736">
-                          <T_NAME offset="736">v</T_NAME>
+                          <Constant offset="736">
+                            <T_NAME offset="736">v</T_NAME>
+                          </Constant>
                         </Value>
                         <Value offset="739">
                           <Number offset="739">
@@ -541,15 +567,15 @@
       <InputFieldDefinition offset="749">
         <T_NAME offset="749">v</T_NAME>
         <TypeHint offset="752">
-          <List offset="752">
-            <Value offset="753">
+          <ListTypeHint offset="752">
+            <SingularTypeHint offset="753">
               <TypeInvocation offset="753">
                 <TypeName offset="753">
                   <T_NAME offset="753">Any</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
-          </List>
+            </SingularTypeHint>
+          </ListTypeHint>
         </TypeHint>
         <Value offset="760">
           <List offset="760">

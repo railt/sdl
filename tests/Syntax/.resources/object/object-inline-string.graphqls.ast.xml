@@ -18,13 +18,13 @@
           </Description>
           <T_NAME offset="97">a</T_NAME>
           <TypeHint offset="100">
-            <Value offset="100">
+            <SingularTypeHint offset="100">
               <TypeInvocation offset="100">
                 <TypeName offset="100">
                   <T_NAME offset="100">TestQuery</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="115">
@@ -35,13 +35,13 @@
           </Description>
           <T_NAME offset="148">b</T_NAME>
           <TypeHint offset="151">
-            <Value offset="151">
+            <SingularTypeHint offset="151">
               <TypeInvocation offset="151">
                 <TypeName offset="151">
                   <T_NAME offset="151">TestMutation</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>

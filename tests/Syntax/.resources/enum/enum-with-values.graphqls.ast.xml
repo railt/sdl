@@ -7,17 +7,35 @@
       <EnumValues offset="19">
         <EnumValue offset="19">
           <T_NAME offset="19">A</T_NAME>
-          <Value offset="23">
-            <String offset="23">
-              <T_STRING offset="23" value:1="Red"><![CDATA["Red"]]></T_STRING>
+          <TypeHint offset="22">
+            <SingularTypeHint offset="22">
+              <TypeInvocation offset="22">
+                <TypeName offset="22">
+                  <T_NAME offset="22">String</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+            </SingularTypeHint>
+          </TypeHint>
+          <Value offset="31">
+            <String offset="31">
+              <T_STRING offset="31" value:1="Red"><![CDATA["Red"]]></T_STRING>
             </String>
           </Value>
         </EnumValue>
-        <EnumValue offset="33">
-          <T_NAME offset="33">B</T_NAME>
-          <Value offset="37">
-            <Number offset="37">
-              <T_NUMBER offset="37">23</T_NUMBER>
+        <EnumValue offset="41">
+          <T_NAME offset="41">B</T_NAME>
+          <TypeHint offset="44">
+            <SingularTypeHint offset="44">
+              <TypeInvocation offset="44">
+                <TypeName offset="44">
+                  <T_NAME offset="44">Int</T_NAME>
+                </TypeName>
+              </TypeInvocation>
+            </SingularTypeHint>
+          </TypeHint>
+          <Value offset="50">
+            <Number offset="50">
+              <T_NUMBER offset="50">23</T_NUMBER>
             </Number>
           </Value>
         </EnumValue>

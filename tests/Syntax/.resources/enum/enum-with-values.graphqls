@@ -1,4 +1,4 @@
 enum Example {
-    A = "Red"
-    B = 23
+    A: String = "Red"
+    B: Int = 23
 }

@@ -43,13 +43,13 @@
         <FieldDefinition offset="590">
           <T_NAME offset="590">one</T_NAME>
           <TypeHint offset="595">
-            <Value offset="595">
+            <SingularTypeHint offset="595">
               <TypeInvocation offset="595">
                 <TypeName offset="595">
                   <T_NAME offset="595">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="643">
@@ -59,26 +59,26 @@
               <ArgumentDefinition offset="647">
                 <T_NAME offset="647">argument</T_NAME>
                 <TypeHint offset="657">
-                  <Value offset="657">
+                  <SingularTypeHint offset="657">
                     <TypeInvocation offset="657">
                       <TypeName offset="657">
                         <T_NAME offset="657">InputType</T_NAME>
                       </TypeName>
                     </TypeInvocation>
                     <NonNull offset="666"/>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
               </ArgumentDefinition>
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="670">
-            <Value offset="670">
+            <SingularTypeHint offset="670">
               <TypeInvocation offset="670">
                 <TypeName offset="670">
                   <T_NAME offset="670">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="720">
@@ -88,13 +88,13 @@
               <ArgumentDefinition offset="726">
                 <T_NAME offset="726">argument</T_NAME>
                 <TypeHint offset="736">
-                  <Value offset="736">
+                  <SingularTypeHint offset="736">
                     <TypeInvocation offset="736">
                       <TypeName offset="736">
                         <T_NAME offset="736">InputType</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
               </ArgumentDefinition>
             </FieldArgument>
@@ -102,25 +102,25 @@
               <ArgumentDefinition offset="747">
                 <T_NAME offset="747">other</T_NAME>
                 <TypeHint offset="754">
-                  <Value offset="754">
+                  <SingularTypeHint offset="754">
                     <TypeInvocation offset="754">
                       <TypeName offset="754">
                         <T_NAME offset="754">String</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
               </ArgumentDefinition>
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="763">
-            <Value offset="763">
+            <SingularTypeHint offset="763">
               <TypeInvocation offset="763">
                 <TypeName offset="763">
                   <T_NAME offset="763">Int</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="811">
@@ -130,13 +130,13 @@
               <ArgumentDefinition offset="816">
                 <T_NAME offset="816">argument</T_NAME>
                 <TypeHint offset="826">
-                  <Value offset="826">
+                  <SingularTypeHint offset="826">
                     <TypeInvocation offset="826">
                       <TypeName offset="826">
                         <T_NAME offset="826">String</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
                 <Value offset="835">
                   <String offset="835">
@@ -147,13 +147,13 @@
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="846">
-            <Value offset="846">
+            <SingularTypeHint offset="846">
               <TypeInvocation offset="846">
                 <TypeName offset="846">
                   <T_NAME offset="846">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="897">
@@ -163,15 +163,15 @@
               <ArgumentDefinition offset="902">
                 <T_NAME offset="902">argument</T_NAME>
                 <TypeHint offset="912">
-                  <List offset="912">
-                    <Value offset="913">
+                  <ListTypeHint offset="912">
+                    <SingularTypeHint offset="913">
                       <TypeInvocation offset="913">
                         <TypeName offset="913">
                           <T_NAME offset="913">String</T_NAME>
                         </TypeName>
                       </TypeInvocation>
-                    </Value>
-                  </List>
+                    </SingularTypeHint>
+                  </ListTypeHint>
                 </TypeHint>
                 <Value offset="923">
                   <List offset="923">
@@ -191,13 +191,13 @@
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="946">
-            <Value offset="946">
+            <SingularTypeHint offset="946">
               <TypeInvocation offset="946">
                 <TypeName offset="946">
                   <T_NAME offset="946">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="996">
@@ -207,13 +207,13 @@
               <ArgumentDefinition offset="1000">
                 <T_NAME offset="1000">argument</T_NAME>
                 <TypeHint offset="1010">
-                  <Value offset="1010">
+                  <SingularTypeHint offset="1010">
                     <TypeInvocation offset="1010">
                       <TypeName offset="1010">
                         <T_NAME offset="1010">InputType</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
                 <Value offset="1022">
                   <Input offset="1022">
@@ -252,13 +252,13 @@
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="1089">
-            <Value offset="1089">
+            <SingularTypeHint offset="1089">
               <TypeInvocation offset="1089">
                 <TypeName offset="1089">
                   <T_NAME offset="1089">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="1139">
@@ -268,13 +268,13 @@
               <ArgumentDefinition offset="1145">
                 <T_NAME offset="1145">argument</T_NAME>
                 <TypeHint offset="1155">
-                  <Value offset="1155">
+                  <SingularTypeHint offset="1155">
                     <TypeInvocation offset="1155">
                       <TypeName offset="1155">
                         <T_NAME offset="1155">Int</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
                 <Value offset="1161">
                   <Null offset="1161">
@@ -285,13 +285,13 @@
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="1168">
-            <Value offset="1168">
+            <SingularTypeHint offset="1168">
               <TypeInvocation offset="1168">
                 <TypeName offset="1168">
                   <T_NAME offset="1168">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -318,7 +318,9 @@
             <Value offset="1289">
               <List offset="1289">
                 <Value offset="1290">
-                  <T_NAME offset="1290">Relation</T_NAME>
+                  <Constant offset="1290">
+                    <T_NAME offset="1290">Relation</T_NAME>
+                  </Constant>
                 </Value>
               </List>
             </Value>
@@ -333,13 +335,13 @@
               <ArgumentDefinition offset="1384">
                 <T_NAME offset="1384">arg</T_NAME>
                 <TypeHint offset="1389">
-                  <Value offset="1389">
+                  <SingularTypeHint offset="1389">
                     <TypeInvocation offset="1389">
                       <TypeName offset="1389">
                         <T_NAME offset="1389">Type</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
                 <Value offset="1396">
                   <String offset="1396">
@@ -357,13 +359,13 @@
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="1415">
-            <Value offset="1415">
+            <SingularTypeHint offset="1415">
               <TypeInvocation offset="1415">
                 <TypeName offset="1415">
                   <T_NAME offset="1415">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
           <Directives offset="1420">
             <Directive offset="1420">
@@ -383,13 +385,13 @@
         <FieldDefinition offset="1580">
           <T_NAME offset="1580">one</T_NAME>
           <TypeHint offset="1585">
-            <Value offset="1585">
+            <SingularTypeHint offset="1585">
               <TypeInvocation offset="1585">
                 <TypeName offset="1585">
                   <T_NAME offset="1585">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
         <FieldDefinition offset="1639">
@@ -399,13 +401,13 @@
               <ArgumentDefinition offset="1644">
                 <T_NAME offset="1644">argument</T_NAME>
                 <TypeHint offset="1654">
-                  <Value offset="1654">
+                  <SingularTypeHint offset="1654">
                     <TypeInvocation offset="1654">
                       <TypeName offset="1654">
                         <T_NAME offset="1654">String</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
                 <Value offset="1663">
                   <String offset="1663">
@@ -416,13 +418,13 @@
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="1674">
-            <Value offset="1674">
+            <SingularTypeHint offset="1674">
               <TypeInvocation offset="1674">
                 <TypeName offset="1674">
                   <T_NAME offset="1674">String</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -446,13 +448,13 @@
               <ArgumentDefinition offset="1887">
                 <T_NAME offset="1887">arg</T_NAME>
                 <TypeHint offset="1892">
-                  <Value offset="1892">
+                  <SingularTypeHint offset="1892">
                     <TypeInvocation offset="1892">
                       <TypeName offset="1892">
                         <T_NAME offset="1892">Type</T_NAME>
                       </TypeName>
                     </TypeInvocation>
-                  </Value>
+                  </SingularTypeHint>
                 </TypeHint>
               </ArgumentDefinition>
               <Directives offset="1897">
@@ -465,13 +467,13 @@
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="1906">
-            <Value offset="1906">
+            <SingularTypeHint offset="1906">
               <TypeInvocation offset="1906">
                 <TypeName offset="1906">
                   <T_NAME offset="1906">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
           <Directives offset="1911">
             <Directive offset="1911">
@@ -597,26 +599,26 @@
       <InputFieldDefinition offset="2854">
         <T_NAME offset="2854">key</T_NAME>
         <TypeHint offset="2859">
-          <Value offset="2859">
+          <SingularTypeHint offset="2859">
             <TypeInvocation offset="2859">
               <TypeName offset="2859">
                 <T_NAME offset="2859">String</T_NAME>
               </TypeName>
             </TypeInvocation>
             <NonNull offset="2865"/>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
       </InputFieldDefinition>
       <InputFieldDefinition offset="2920">
         <T_NAME offset="2920">answer</T_NAME>
         <TypeHint offset="2928">
-          <Value offset="2928">
+          <SingularTypeHint offset="2928">
             <TypeInvocation offset="2928">
               <TypeName offset="2928">
                 <T_NAME offset="2928">Int</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Value offset="2934">
           <Number offset="2934">
@@ -639,13 +641,13 @@
       <InputFieldDefinition offset="3110">
         <T_NAME offset="3110">annotatedField</T_NAME>
         <TypeHint offset="3126">
-          <Value offset="3126">
+          <SingularTypeHint offset="3126">
             <TypeInvocation offset="3126">
               <TypeName offset="3126">
                 <T_NAME offset="3126">Type</T_NAME>
               </TypeName>
             </TypeInvocation>
-          </Value>
+          </SingularTypeHint>
         </TypeHint>
         <Directives offset="3131">
           <Directive offset="3131">
@@ -668,27 +670,27 @@
               <ArgumentDefinition offset="3276">
                 <T_NAME offset="3276">argument</T_NAME>
                 <TypeHint offset="3286">
-                  <List offset="3286">
-                    <Value offset="3287">
+                  <ListTypeHint offset="3286">
+                    <SingularTypeHint offset="3287">
                       <TypeInvocation offset="3287">
                         <TypeName offset="3287">
                           <T_NAME offset="3287">String</T_NAME>
                         </TypeName>
                       </TypeInvocation>
-                    </Value>
-                  </List>
+                    </SingularTypeHint>
+                  </ListTypeHint>
                 </TypeHint>
               </ArgumentDefinition>
             </FieldArgument>
           </FieldArguments>
           <TypeHint offset="3297">
-            <Value offset="3297">
+            <SingularTypeHint offset="3297">
               <TypeInvocation offset="3297">
                 <TypeName offset="3297">
                   <T_NAME offset="3297">Type</T_NAME>
                 </TypeName>
               </TypeInvocation>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
       </FieldDefinitions>
@@ -718,14 +720,14 @@
         <ArgumentDefinition offset="3538">
           <T_NAME offset="3538">if</T_NAME>
           <TypeHint offset="3542">
-            <Value offset="3542">
+            <SingularTypeHint offset="3542">
               <TypeInvocation offset="3542">
                 <TypeName offset="3542">
                   <T_NAME offset="3542">Boolean</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="3549"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </ArgumentDefinition>
       </DirectiveArgument>
@@ -743,14 +745,14 @@
         <ArgumentDefinition offset="3681">
           <T_NAME offset="3681">if</T_NAME>
           <TypeHint offset="3685">
-            <Value offset="3685">
+            <SingularTypeHint offset="3685">
               <TypeInvocation offset="3685">
                 <TypeName offset="3685">
                   <T_NAME offset="3685">Boolean</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="3692"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </ArgumentDefinition>
       </DirectiveArgument>
@@ -768,14 +770,14 @@
         <ArgumentDefinition offset="3806">
           <T_NAME offset="3806">if</T_NAME>
           <TypeHint offset="3810">
-            <Value offset="3810">
+            <SingularTypeHint offset="3810">
               <TypeInvocation offset="3810">
                 <TypeName offset="3810">
                   <T_NAME offset="3810">Boolean</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="3817"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </ArgumentDefinition>
       </DirectiveArgument>

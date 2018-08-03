@@ -22,14 +22,14 @@ Directive @multiline2 desciption
           </Description>
           <T_NAME offset="116">a</T_NAME>
           <TypeHint offset="119">
-            <Value offset="119">
+            <SingularTypeHint offset="119">
               <TypeInvocation offset="119">
                 <TypeName offset="119">
                   <T_NAME offset="119">Boolean</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="126"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </ArgumentDefinition>
       </DirectiveArgument>
@@ -44,14 +44,14 @@ Directive @multiline2 desciption
           </Description>
           <T_NAME offset="179">b</T_NAME>
           <TypeHint offset="182">
-            <Value offset="182">
+            <SingularTypeHint offset="182">
               <TypeInvocation offset="182">
                 <TypeName offset="182">
                   <T_NAME offset="182">Boolean</T_NAME>
                 </TypeName>
               </TypeInvocation>
               <NonNull offset="189"/>
-            </Value>
+            </SingularTypeHint>
           </TypeHint>
         </ArgumentDefinition>
       </DirectiveArgument>
