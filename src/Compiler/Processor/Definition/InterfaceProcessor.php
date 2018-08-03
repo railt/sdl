@@ -29,7 +29,7 @@ class InterfaceProcessor extends BaseProcessor
         /** @var InterfaceDefinition $interface */
         $interface = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $interface) {
+        $this->immediately(function () use ($ast, $interface): void {
             $interface->withOffset($ast->getOffset());
             $interface->withDescription($ast->getDescription());
         });

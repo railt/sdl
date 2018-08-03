@@ -9,15 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler;
 
-use Railt\Lexer\Exception\LexerException;
-use Railt\Parser\Exception\ParserException;
 use Railt\Reflection\Contracts\Definition;
-use Railt\Reflection\Exception\ReflectionException;
-use Railt\Reflection\Exception\TypeNotFoundException as TypeNotFoundReflectionException;
-use Railt\SDL\Exception\CompilerException;
-use Railt\SDL\Exception\SemanticException;
-use Railt\SDL\Exception\SyntaxException;
-use Railt\SDL\Exception\TypeNotFoundException;
 
 /**
  * Class CallStack

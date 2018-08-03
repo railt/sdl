@@ -25,7 +25,7 @@ if (! \function_exists('\\sdl')) {
 }
 
 
-if (! function_exists('trait_uses_recursive')) {
+if (! \function_exists('trait_uses_recursive')) {
     /**
      * Returns all traits used by a trait and its traits.
      *
@@ -45,7 +45,7 @@ if (! function_exists('trait_uses_recursive')) {
 }
 
 
-if (! function_exists('class_uses_recursive')) {
+if (! \function_exists('class_uses_recursive')) {
     /**
      * Returns all traits used by a class, its parent classes and trait of their traits.
      *
@@ -69,7 +69,7 @@ if (! function_exists('class_uses_recursive')) {
 }
 
 
-if (! function_exists('class_basename')) {
+if (! \function_exists('class_basename')) {
     /**
      * Get the class "basename" of the given object / class.
      *
@@ -78,8 +78,8 @@ if (! function_exists('class_basename')) {
      */
     function class_basename($class): string
     {
-        $class = is_object($class) ? get_class($class) : $class;
+        $class = \is_object($class) ? \get_class($class) : $class;
 
-        return basename(\str_replace('\\', '/', $class));
+        return \basename(\str_replace('\\', '/', $class));
     }
 }

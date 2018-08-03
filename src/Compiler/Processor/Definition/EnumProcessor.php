@@ -29,7 +29,7 @@ class EnumProcessor extends BaseProcessor
         /** @var EnumDefinition $enum */
         $enum = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $enum) {
+        $this->immediately(function () use ($ast, $enum): void {
             $enum->withOffset($ast->getOffset());
             $enum->withDescription($ast->getDescription());
         });

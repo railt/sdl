@@ -29,7 +29,7 @@ class DirectiveProcessor extends BaseProcessor
         /** @var DirectiveDefinition $directive */
         $directive = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $directive) {
+        $this->immediately(function () use ($ast, $directive): void {
             $directive->withOffset($ast->getOffset());
             $directive->withDescription($ast->getDescription());
         });

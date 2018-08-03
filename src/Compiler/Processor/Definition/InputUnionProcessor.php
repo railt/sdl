@@ -29,7 +29,7 @@ class InputUnionProcessor extends BaseProcessor
         /** @var InputUnionDefinition $inputUnion */
         $inputUnion = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $inputUnion) {
+        $this->immediately(function () use ($ast, $inputUnion): void {
             $inputUnion->withOffset($ast->getOffset());
             $inputUnion->withDescription($ast->getDescription());
         });

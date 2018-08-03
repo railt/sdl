@@ -15,10 +15,10 @@ use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
 use Railt\Reflection\Exception\ReflectionException;
+use Railt\Reflection\Exception\TypeNotFoundException as TypeNotFoundReflectionException;
 use Railt\SDL\Compiler\CallStack;
 use Railt\SDL\Compiler\Pipeline;
 use Railt\SDL\Exception\CompilerException;
-use Railt\Reflection\Exception\TypeNotFoundException as TypeNotFoundReflectionException;
 use Railt\SDL\Exception\SemanticException;
 use Railt\SDL\Exception\SyntaxException;
 use Railt\SDL\Exception\TypeNotFoundException;
@@ -66,8 +66,8 @@ abstract class BaseProcessor implements Processable
      */
     public function __construct(Pipeline $pipeline, CallStack $stack, Dictionary $dictionary)
     {
-        $this->stack = $stack;
-        $this->pipeline = $pipeline;
+        $this->stack      = $stack;
+        $this->pipeline   = $pipeline;
         $this->dictionary = $dictionary;
     }
 
@@ -109,22 +109,16 @@ abstract class BaseProcessor implements Processable
     {
         try {
             return $then($def);
-
         } catch (TypeNotFoundReflectionException $e) {
             throw $this->error(new TypeNotFoundException($e->getMessage(), $e->getCode(), $e), $def);
-
         } catch (ReflectionException $e) {
             throw $this->error(new SemanticException($e->getMessage(), $e->getCode(), $e), $def);
-
         } catch (LexerException $e) {
             throw $this->error(new SyntaxException($e->getMessage(), $e->getCode(), $e), $def);
-
         } catch (ParserException $e) {
             throw $this->error(new SyntaxException($e->getMessage(), $e->getCode(), $e), $def);
-
         } catch (CompilerException $e) {
             throw $e->using($this->stack);
-
         } catch (\Throwable $e) {
             throw $this->error(new CompilerException($e->getMessage(), $e->getCode(), $e), $def);
         }

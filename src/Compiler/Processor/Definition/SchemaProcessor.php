@@ -29,7 +29,7 @@ class SchemaProcessor extends BaseProcessor
         /** @var SchemaDefinition $schema */
         $schema = $ast->getTypeDefinition();
 
-        $this->immediately(function () use ($ast, $schema) {
+        $this->immediately(function () use ($ast, $schema): void {
             $schema->withOffset($ast->getOffset());
             $schema->withDescription($ast->getDescription());
         });
