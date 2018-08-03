@@ -1,16 +1,5 @@
 
-//
-// Common invocations
-//
-
-%include invocations/common/arguments
-
-//
-// Directive callee
-//
-
 %include invocations/directive
-%include invocations/type-invocation
 
 Invocation:
     Directive()

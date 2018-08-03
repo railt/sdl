@@ -9,50 +9,20 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Definition;
 
-use Railt\Parser\Ast\Delegate;
 use Railt\Parser\Ast\Rule;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\Parser\Environment;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document;
+use Railt\SDL\Compiler\Ast\Common\DescriptionProvider;
+use Railt\SDL\Compiler\Ast\Common\DirectivesProvider;
 use Railt\SDL\Compiler\Ast\TypeNameNode;
 
 /**
  * Class TypeDefinitionNode
  */
-abstract class TypeDefinitionNode extends Rule implements Delegate
+abstract class TypeDefinitionNode extends Rule
 {
-    /**
-     * @var Document
-     */
-    private $document;
-
-    /**
-     * @param Environment $env
-     */
-    public function boot(Environment $env): void
-    {
-        $this->document = $env->get(Document::class);
-    }
-
-    /**
-     * @return Document
-     */
-    protected function getDocument(): Document
-    {
-        return $this->document;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getDescription(): ?string
-    {
-        /** @var RuleInterface $description */
-        $description = $this->first('Description', 1);
-
-        return $description ? $description->getChild(0)->toPrimitive() : null;
-    }
+    use DescriptionProvider;
+    use DirectivesProvider;
 
     /**
      * @return null|string
@@ -66,7 +36,8 @@ abstract class TypeDefinitionNode extends Rule implements Delegate
     }
 
     /**
+     * @param Document $document
      * @return TypeDefinition
      */
-    abstract public function getTypeDefinition(): TypeDefinition;
+    abstract public function getTypeDefinition(Document $document): TypeDefinition;
 }

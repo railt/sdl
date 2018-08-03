@@ -10,7 +10,6 @@
 
 ObjectDefinitionHead:
     ::T_TYPE:: TypeName()
-        TypeArguments()?
         TypeDefinitionImplements()?
         Directives()?
 

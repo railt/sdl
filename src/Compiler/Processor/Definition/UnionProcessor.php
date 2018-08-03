@@ -13,12 +13,11 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\UnionDefinition;
 use Railt\SDL\Compiler\Ast\Definition\UnionDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class UnionProcessor
  */
-class UnionProcessor extends BaseProcessor
+class UnionProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|UnionDefinitionNode $ast
@@ -27,12 +26,10 @@ class UnionProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var UnionDefinition $union */
-        $union = $ast->getTypeDefinition();
+        $union = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $union): void {
-            $union->withOffset($ast->getOffset());
-            $union->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $union);
+        $this->processDirectives($ast, $union);
 
         return $union;
     }

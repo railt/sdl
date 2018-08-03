@@ -13,12 +13,11 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\ScalarDefinition;
 use Railt\SDL\Compiler\Ast\Definition\ScalarDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class ScalarProcessor
  */
-class ScalarProcessor extends BaseProcessor
+class ScalarProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|ScalarDefinitionNode $ast
@@ -27,12 +26,10 @@ class ScalarProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var ScalarDefinition $scalar */
-        $scalar = $ast->getTypeDefinition();
+        $scalar = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $scalar): void {
-            $scalar->withOffset($ast->getOffset());
-            $scalar->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $scalar);
+        $this->processDirectives($ast, $scalar);
 
         return $scalar;
     }

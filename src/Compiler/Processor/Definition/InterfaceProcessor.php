@@ -13,12 +13,11 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\InterfaceDefinition;
 use Railt\SDL\Compiler\Ast\Definition\InterfaceDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class InterfaceProcessor
  */
-class InterfaceProcessor extends BaseProcessor
+class InterfaceProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|InterfaceDefinitionNode $ast
@@ -27,12 +26,10 @@ class InterfaceProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var InterfaceDefinition $interface */
-        $interface = $ast->getTypeDefinition();
+        $interface = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $interface): void {
-            $interface->withOffset($ast->getOffset());
-            $interface->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $interface);
+        $this->processDirectives($ast, $interface);
 
         return $interface;
     }

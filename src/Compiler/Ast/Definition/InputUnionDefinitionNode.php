@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Ast\Definition;
 
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Definition\InputUnionDefinition;
 
 /**
@@ -18,10 +19,11 @@ use Railt\Reflection\Definition\InputUnionDefinition;
 class InputUnionDefinitionNode extends TypeDefinitionNode
 {
     /**
+     * @param Document $document
      * @return TypeDefinition
      */
-    public function getTypeDefinition(): TypeDefinition
+    public function getTypeDefinition(Document $document): TypeDefinition
     {
-        return new InputUnionDefinition($this->getDocument(), $this->getTypeName());
+        return new InputUnionDefinition($document, $this->getTypeName());
     }
 }

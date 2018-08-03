@@ -68,11 +68,6 @@ class Factory
     private $ast;
 
     /**
-     * @var Dictionary
-     */
-    private $dictionary;
-
-    /**
      * Processor constructor.
      * @param Document $document
      * @param RuleInterface $ast
@@ -83,7 +78,6 @@ class Factory
         $this->document   = $document;
         $this->stack      = new CallStack();
         $this->pipeline   = new Pipeline();
-        $this->dictionary = $document->getDictionary();
     }
 
     /**
@@ -92,15 +86,18 @@ class Factory
      */
     public function process(): Document
     {
-        $this->build();
+        $this->build()->pipeline->reduce(function(\Closure $callback) {
+            $callback();
+        });
 
         return $this->document;
     }
 
     /**
+     * @return Factory|$this
      * @throws \Railt\Io\Exception\ExternalFileException
      */
-    protected function build(): void
+    protected function build(): Factory
     {
         /** @var RuleInterface $child */
         foreach ($this->ast as $child) {
@@ -115,6 +112,8 @@ class Factory
                 $this->document->withDefinition($definition);
             }
         }
+
+        return $this;
     }
 
     /**
@@ -125,6 +124,6 @@ class Factory
     {
         $processor = self::NODE_MAPPINGS[$name] ?? null;
 
-        return $processor ? new $processor($this->pipeline, $this->stack, $this->dictionary) : null;
+        return $processor ? new $processor($this->pipeline, $this->stack, $this->document) : null;
     }
 }

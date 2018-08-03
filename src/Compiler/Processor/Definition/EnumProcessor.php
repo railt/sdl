@@ -13,12 +13,11 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\EnumDefinition;
 use Railt\SDL\Compiler\Ast\Definition\EnumDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class EnumProcessor
  */
-class EnumProcessor extends BaseProcessor
+class EnumProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|EnumDefinitionNode $ast
@@ -27,12 +26,10 @@ class EnumProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var EnumDefinition $enum */
-        $enum = $ast->getTypeDefinition();
+        $enum = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $enum): void {
-            $enum->withOffset($ast->getOffset());
-            $enum->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $enum);
+        $this->processDirectives($ast, $enum);
 
         return $enum;
     }

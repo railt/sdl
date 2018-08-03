@@ -98,4 +98,14 @@ class Pipeline implements \IteratorAggregate, \Countable
 
         return $result;
     }
+
+    /**
+     * @param \Closure $each
+     */
+    public function reduce(\Closure $each): void
+    {
+        foreach ($this->getIterator() as $callback) {
+            $each($callback);
+        }
+    }
 }

@@ -18,7 +18,7 @@ use Railt\SDL\Compiler\Processor\BaseProcessor;
 /**
  * Class InputUnionProcessor
  */
-class InputUnionProcessor extends BaseProcessor
+class InputUnionProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|InputUnionDefinitionNode $ast
@@ -27,12 +27,10 @@ class InputUnionProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var InputUnionDefinition $inputUnion */
-        $inputUnion = $ast->getTypeDefinition();
+        $inputUnion = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $inputUnion): void {
-            $inputUnion->withOffset($ast->getOffset());
-            $inputUnion->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $inputUnion);
+        $this->processDirectives($ast, $inputUnion);
 
         return $inputUnion;
     }

@@ -13,12 +13,11 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\DirectiveDefinition;
 use Railt\SDL\Compiler\Ast\Definition\DirectiveDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class DirectiveDefinition
  */
-class DirectiveProcessor extends BaseProcessor
+class DirectiveProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|DirectiveDefinitionNode $ast
@@ -27,12 +26,10 @@ class DirectiveProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var DirectiveDefinition $directive */
-        $directive = $ast->getTypeDefinition();
+        $directive = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $directive): void {
-            $directive->withOffset($ast->getOffset());
-            $directive->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $directive);
+        $this->processDirectives($ast, $directive);
 
         return $directive;
     }

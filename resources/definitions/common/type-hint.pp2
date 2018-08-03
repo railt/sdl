@@ -1,4 +1,4 @@
-#TypeHint:
+#TypeHint -> Railt\SDL\Compiler\Ast\TypeHintNode:
     __typeHintList() | __typeHintValue()
 
 __typeHintList:
@@ -7,7 +7,7 @@ __typeHintList:
     #ListTypeHint
 
 __typeHintValue:
-    TypeInvocation() __typeHintNotNull()?
+    TypeName() __typeHintNotNull()?
     #SingularTypeHint
 
 __typeHintNotNull:

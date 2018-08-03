@@ -41,12 +41,18 @@ class Compiler
     private $dictionary;
 
     /**
+     * @var Parser
+     */
+    private $parser;
+
+    /**
      * Compiler constructor.
      * @throws \Railt\Io\Exception\ExternalFileException
      * @throws \Railt\Reflection\Exception\TypeConflictException
      */
     public function __construct()
     {
+        $this->parser     = new Parser();
         $this->dictionary = new CallbackDictionary();
         $this->reflection = new Reflection($this->dictionary);
     }
@@ -66,30 +72,27 @@ class Compiler
     /**
      * @param Readable $file
      * @return DocumentInterface
-     * @throws CompilerException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function compile(Readable $file): DocumentInterface
     {
-        $document = new Document($this->reflection, $file);
+        $ast = $this->parse($file);
 
-        $processor = new Factory($document, $this->parse($document, $file));
+        $document  = new Document($this->reflection, $file);
+        $processor = new Factory($document, $ast);
 
         return $processor->process();
     }
 
     /**
-     * @param Document $document
      * @param Readable $file
      * @return RuleInterface
      * @throws CompilerException
      */
-    private function parse(Document $document, Readable $file): RuleInterface
+    private function parse(Readable $file): RuleInterface
     {
-        $parser = new Parser();
-        $parser->env()->share(DocumentInterface::class, $document);
-
         try {
-            return $parser->parse($file);
+            return $this->parser->parse($file);
         } catch (UnexpectedTokenException | UnrecognizedTokenException $e) {
             $error = new SyntaxException($e->getMessage());
             $error->throwsIn($file, $e->getLine(), $e->getColumn());

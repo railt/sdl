@@ -1,4 +1,4 @@
-#FieldDefinition:
+#FieldDefinition -> Railt\SDL\Compiler\Ast\Dependent\FieldDefinitionNode:
     Documentation()?
     NameWithReserved()
     __fieldDefinitionArguments()?

@@ -44,10 +44,10 @@ class InputValueNode extends Rule implements ValueInterface, CompositeValueInter
      */
     private function value(RuleInterface $rule): ValueInterface
     {
-        /** @var RuleInterface $value */
+        /** @var ValueNode $value */
         $value = $rule->first('Value', 1);
 
-        return $value->getChild(0);
+        return $value->getInnerValue();
     }
 
     /**

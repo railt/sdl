@@ -18,7 +18,7 @@ use Railt\SDL\Compiler\Processor\BaseProcessor;
 /**
  * Class DirectiveDefinition
  */
-class ObjectProcessor extends BaseProcessor
+class ObjectProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|ObjectDefinitionNode $ast
@@ -27,12 +27,10 @@ class ObjectProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var ObjectDefinition $object */
-        $object = $ast->getTypeDefinition();
+        $object = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $object): void {
-            $object->withOffset($ast->getOffset());
-            $object->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $object);
+        $this->processDirectives($ast, $object);
 
         return $object;
     }

@@ -1,9 +1,0 @@
-//
-// Type definition:
-// <code>
-//      - Type
-//      - Type(...)
-// </code>
-//
-#TypeInvocation:
-    TypeName()

@@ -13,12 +13,11 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\InputDefinition;
 use Railt\SDL\Compiler\Ast\Definition\InputDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
 
 /**
  * Class InputProcessor
  */
-class InputProcessor extends BaseProcessor
+class InputProcessor extends TypeDefinitionProcessor
 {
     /**
      * @param RuleInterface|InputDefinitionNode $ast
@@ -27,12 +26,10 @@ class InputProcessor extends BaseProcessor
     public function process(RuleInterface $ast): ?TypeDefinition
     {
         /** @var InputDefinition $input */
-        $input = $ast->getTypeDefinition();
+        $input = $ast->getTypeDefinition($this->document);
 
-        $this->immediately(function () use ($ast, $input): void {
-            $input->withOffset($ast->getOffset());
-            $input->withDescription($ast->getDescription());
-        });
+        $this->processDefinition($ast, $input);
+        $this->processDirectives($ast, $input);
 
         return $input;
     }

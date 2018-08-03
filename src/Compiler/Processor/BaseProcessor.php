@@ -14,6 +14,7 @@ use Railt\Parser\Exception\ParserException;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
+use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Exception\ReflectionException;
 use Railt\Reflection\Exception\TypeNotFoundException as TypeNotFoundReflectionException;
 use Railt\SDL\Compiler\CallStack;
@@ -59,16 +60,22 @@ abstract class BaseProcessor implements Processable
     private $dictionary;
 
     /**
+     * @var Document|\Railt\Reflection\Document
+     */
+    protected $document;
+
+    /**
      * BaseProcessor constructor.
      * @param Pipeline $pipeline
      * @param CallStack $stack
-     * @param Dictionary $dictionary
+     * @param Document $document
      */
-    public function __construct(Pipeline $pipeline, CallStack $stack, Dictionary $dictionary)
+    public function __construct(Pipeline $pipeline, CallStack $stack, Document $document)
     {
         $this->stack      = $stack;
         $this->pipeline   = $pipeline;
-        $this->dictionary = $dictionary;
+        $this->dictionary = $document->getDictionary();
+        $this->document   = $document;
     }
 
     /**

@@ -5,7 +5,6 @@
 
 %include definitions/common/documentation
 %include definitions/common/implements
-%include definitions/common/type-arguments
 %include definitions/common/type-hint
 %include definitions/common/arguments
 %include definitions/common/fields

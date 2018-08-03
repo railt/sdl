@@ -1,5 +1,5 @@
 
-#ArgumentDefinition:
+#ArgumentDefinition -> Railt\SDL\Compiler\Ast\Dependent\ArgumentDefinitionNode:
     Documentation()?
     NameWithReserved() ::T_COLON:: TypeHint()
         __argumentDefinitionDefaultValue()?
