@@ -3,7 +3,7 @@
 // Union definition
 //
 
-#UnionDefinition -> Railt\SDL\Compiler\Definition\UnionDelegate:
+#UnionDefinition -> Railt\SDL\Compiler\Ast\Definition\UnionDefinitionNode:
     Documentation()?
     UnionDefinitionHead()
     UnionDefinitionBody()?

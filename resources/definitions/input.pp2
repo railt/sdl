@@ -3,7 +3,7 @@
 // Input definition
 //
 
-#InputDefinition:
+#InputDefinition -> Railt\SDL\Compiler\Ast\Definition\InputDefinitionNode:
     Documentation()?
     InputDefinitionHead()
     InputDefinitionBody()

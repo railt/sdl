@@ -3,7 +3,7 @@
 // Directive definition
 //
 
-#DirectiveDefinition -> Railt\SDL\Compiler\Definition\DirectiveDelegate:
+#DirectiveDefinition -> Railt\SDL\Compiler\Ast\Definition\DirectiveDefinitionNode:
     Documentation()?
     DirectiveDefinitionBody()
 

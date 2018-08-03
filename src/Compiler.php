@@ -21,8 +21,9 @@ use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
 use Railt\Reflection\Dictionary\CallbackDictionary;
 use Railt\Reflection\Document;
 use Railt\Reflection\Reflection;
-use Railt\SDL\Compiler\Compilable;
+use Railt\SDL\Compiler\Parser;
 use Railt\SDL\Compiler\Pipeline;
+use Railt\SDL\Compiler\Factory;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\SyntaxException;
 
@@ -42,39 +43,14 @@ class Compiler
     private $dictionary;
 
     /**
-     * @var Parser
-     */
-    private $parser;
-
-    /**
-     * @var Environment
-     */
-    private $env;
-
-    /**
-     * @var CallStack
-     */
-    private $stack;
-
-    /**
-     * @var Pipeline
-     */
-    private $pipeline;
-
-    /**
      * Compiler constructor.
      * @throws \Railt\Io\Exception\ExternalFileException
      * @throws \Railt\Reflection\Exception\TypeConflictException
      */
     public function __construct()
     {
-        $this->parser     = new Parser();
-        $this->stack      = new CallStack();
-        $this->pipeline   = new Pipeline();
         $this->dictionary = new CallbackDictionary();
         $this->reflection = new Reflection($this->dictionary);
-
-        $this->env = $this->parser->env();
     }
 
     /**
@@ -90,23 +66,6 @@ class Compiler
     }
 
     /**
-     * @param Document $document
-     * @param Readable $file
-     * @return Compiler
-     */
-    private function load(Document $document, Readable $file): self
-    {
-        $this->env->share(Dictionary::class, $this->dictionary);
-        $this->env->share(ReflectionInterface::class, $this->reflection);
-        $this->env->share(CallStack::class, $this->stack);
-        $this->env->share(DocumentInterface::class, $document);
-        $this->env->share(Readable::class, $file);
-        $this->env->share(Pipeline::class, $this->pipeline);
-
-        return $this;
-    }
-
-    /**
      * @param Readable $file
      * @return DocumentInterface
      * @throws CompilerException
@@ -115,13 +74,9 @@ class Compiler
     {
         $document = new Document($this->reflection, $file);
 
-        $this->parse($document, $file);
+        $processor = new Factory($document, $this->parse($document, $file));
 
-        foreach ($this->pipeline as $invocation) {
-            $invocation();
-        }
-
-        return $document;
+        return $processor->process();
     }
 
     /**
@@ -132,11 +87,13 @@ class Compiler
      */
     private function parse(Document $document, Readable $file): RuleInterface
     {
+        $parser = new Parser();
+        $parser->env()->share(DocumentInterface::class, $document);
+
         try {
-            return $this->load($document, $file)->parser->parse($file);
+            return $parser->parse($file);
         } catch (UnexpectedTokenException | UnrecognizedTokenException $e) {
             $error = new SyntaxException($e->getMessage());
-            $error->using($this->stack);
             $error->throwsIn($file, $e->getLine(), $e->getColumn());
 
             throw $error;

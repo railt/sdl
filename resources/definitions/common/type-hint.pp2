@@ -1,14 +1,14 @@
-#TypeHint
-    : __typeHintList() | __typeHintValue()
+#TypeHint:
+    __typeHintList() | __typeHintValue()
 
-__typeHintList
-    : ::T_BRACKET_OPEN:: __typeHintValue() ::T_BRACKET_CLOSE::
+__typeHintList:
+    ::T_BRACKET_OPEN:: __typeHintValue() ::T_BRACKET_CLOSE::
         __typeHintNotNull()?
-    #List
+    #ListTypeHint
 
-__typeHintValue
-    : TypeInvocation() __typeHintNotNull()?
-    #Value
+__typeHintValue:
+    TypeInvocation() __typeHintNotNull()?
+    #SingularTypeHint
 
-__typeHintNotNull
-    : ::T_NON_NULL:: #NonNull
+__typeHintNotNull:
+    ::T_NON_NULL:: #NonNull

@@ -3,7 +3,7 @@
 // InputInputUnion definition
 //
 
-#InputUnionDefinition -> Railt\SDL\Compiler\Definition\InputUnionDelegate:
+#InputUnionDefinition -> Railt\SDL\Compiler\Ast\Definition\InputUnionDefinitionNode:
     Documentation()?
     InputUnionDefinitionHead()
     InputUnionDefinitionBody()?

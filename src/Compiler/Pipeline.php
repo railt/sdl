@@ -15,21 +15,6 @@ namespace Railt\SDL\Compiler;
 class Pipeline implements \IteratorAggregate, \Countable
 {
     /**
-     * @var int
-     */
-    public const PRIORITY_DEFINITION = 0x01;
-
-    /**
-     * @var int
-     */
-    public const PRIORITY_EXTENSION = 0x02;
-
-    /**
-     * @var int
-     */
-    public const PRIORITY_INVOCATION = 0x03;
-
-    /**
      * Example struct:
      *
      * <code>

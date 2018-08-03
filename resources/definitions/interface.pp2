@@ -3,7 +3,7 @@
 // Interface definition
 //
 
-#InterfaceDefinition -> Railt\SDL\Compiler\Definition\InterfaceDelegate:
+#InterfaceDefinition -> Railt\SDL\Compiler\Ast\Definition\InterfaceDefinitionNode:
     Documentation()?
     InterfaceDefinitionHead()
     InterfaceDefinitionBody()

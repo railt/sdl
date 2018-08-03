@@ -12,7 +12,7 @@ namespace Railt\SDL\Exception;
 use Railt\Io\Exception\ExternalFileException;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\SDL\CallStack;
+use Railt\SDL\Compiler\CallStack;
 
 /**
  * Class CompilerException
@@ -28,6 +28,18 @@ class CompilerException extends ExternalFileException
      * @var bool
      */
     private $skipInnerTrace = true;
+
+    /**
+     * @param string $message
+     * @param array $args
+     * @return CompilerException
+     */
+    public function rename(string $message, ...$args): CompilerException
+    {
+        $this->message = \sprintf($message, ...$args);
+
+        return $this;
+    }
 
     /**
      * @param Definition $def

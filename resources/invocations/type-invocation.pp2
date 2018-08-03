@@ -5,4 +5,5 @@
 //      - Type(...)
 // </code>
 //
-#TypeInvocation: TypeName()
+#TypeInvocation:
+    TypeName()

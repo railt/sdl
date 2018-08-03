@@ -42,8 +42,8 @@ class SDLCompileCommand extends Command
     {
         Compiler::load(File::fromPathname(self::SCHEMA_SDL_GRAMMAR))
             ->setClassName('Parser')
-            ->setNamespace('Railt\\SDL')
-            ->saveTo(__DIR__ . '/../');
+            ->setNamespace('Railt\\SDL\\Compiler')
+            ->saveTo(__DIR__ . '/../Compiler');
 
         $this->info('OK');
     }

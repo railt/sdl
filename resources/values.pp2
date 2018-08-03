@@ -1,34 +1,31 @@
 //
 // Boolean value (true or false)
 //
-#Boolean
-    : <T_FALSE>
-    | <T_TRUE>
+#Boolean -> Railt\SDL\Compiler\Ast\Value\BooleanValueNode:
+    <T_FALSE> | <T_TRUE>
 
 //
 // Number value
 //
-#Number
-    : <T_NUMBER>
-    | <T_HEX_NUMBER>
-    | <T_BIN_NUMBER>
+#Number -> Railt\SDL\Compiler\Ast\Value\NumberValueNode:
+    <T_NUMBER> | <T_HEX_NUMBER> | <T_BIN_NUMBER>
 
 //
 // String value
 //
-#String
-    : <T_BLOCK_STRING>
-    | <T_STRING>
+#String -> Railt\SDL\Compiler\Ast\Value\StringValueNode:
+    <T_BLOCK_STRING> | <T_STRING>
 
 //
 // Null value
 //
-#Null: <T_NULL>
+#Null -> Railt\SDL\Compiler\Ast\Value\NullValueNode:
+    <T_NULL>
 
 //
 // Input value
 //
-#Input:
+#Input -> Railt\SDL\Compiler\Ast\Value\InputValueNode:
     ::T_BRACE_OPEN::
         __inputPair()*
     ::T_BRACE_CLOSE::
@@ -43,16 +40,20 @@ __inputPair:
 //
 // The list of values
 //
-#List:
+#List -> Railt\SDL\Compiler\Ast\Value\ListValueNode:
     ::T_BRACKET_OPEN::
         Value()*
     ::T_BRACKET_CLOSE::
+
+// Enum values
+#Constant -> Railt\SDL\Compiler\Ast\Value\ConstantValueNode:
+    NameExceptValues()
 
 //
 // Value
 //
 #Value
-    : NameExceptValues()
+    : Constant()
     | Boolean()
     | Number()
     | String()

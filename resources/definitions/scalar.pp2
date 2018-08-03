@@ -3,7 +3,7 @@
 // Scalar definition
 //
 
-#ScalarDefinition -> Railt\SDL\Compiler\Definition\ScalarDelegate:
+#ScalarDefinition -> Railt\SDL\Compiler\Ast\Definition\ScalarDefinitionNode:
     Documentation()?
     ScalarDefinitionBody()
 

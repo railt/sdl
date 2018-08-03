@@ -3,7 +3,7 @@
 // Schema definition
 //
 
-#SchemaDefinition -> Railt\SDL\Compiler\Definition\SchemaDelegate:
+#SchemaDefinition -> Railt\SDL\Compiler\Ast\Definition\SchemaDefinitionNode:
     Documentation()?
     SchemaDefinitionBody()
 
