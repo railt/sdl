@@ -8,11 +8,9 @@
         <T_NAME offset="20">a</T_NAME>
         <TypeHint offset="23">
           <SingularTypeHint offset="23">
-            <TypeInvocation offset="23">
-              <TypeName offset="23">
-                <T_NAME offset="23">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="23">
+              <T_NAME offset="23">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="29">
@@ -25,11 +23,9 @@
         <T_NAME offset="37">b</T_NAME>
         <TypeHint offset="40">
           <SingularTypeHint offset="40">
-            <TypeInvocation offset="40">
-              <TypeName offset="40">
-                <T_NAME offset="40">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="40">
+              <T_NAME offset="40">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="46">
@@ -42,11 +38,9 @@
         <T_NAME offset="55">c</T_NAME>
         <TypeHint offset="58">
           <SingularTypeHint offset="58">
-            <TypeInvocation offset="58">
-              <TypeName offset="58">
-                <T_NAME offset="58">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="58">
+              <T_NAME offset="58">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="64">
@@ -59,11 +53,9 @@
         <T_NAME offset="71">d</T_NAME>
         <TypeHint offset="74">
           <SingularTypeHint offset="74">
-            <TypeInvocation offset="74">
-              <TypeName offset="74">
-                <T_NAME offset="74">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="74">
+              <T_NAME offset="74">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="80">
@@ -76,11 +68,9 @@
         <T_NAME offset="88">e</T_NAME>
         <TypeHint offset="91">
           <SingularTypeHint offset="91">
-            <TypeInvocation offset="91">
-              <TypeName offset="91">
-                <T_NAME offset="91">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="91">
+              <T_NAME offset="91">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="97">
@@ -93,11 +83,9 @@
         <T_NAME offset="105">f</T_NAME>
         <TypeHint offset="108">
           <SingularTypeHint offset="108">
-            <TypeInvocation offset="108">
-              <TypeName offset="108">
-                <T_NAME offset="108">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="108">
+              <T_NAME offset="108">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="114">
@@ -110,11 +98,9 @@
         <T_NAME offset="123">f</T_NAME>
         <TypeHint offset="126">
           <SingularTypeHint offset="126">
-            <TypeInvocation offset="126">
-              <TypeName offset="126">
-                <T_NAME offset="126">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="126">
+              <T_NAME offset="126">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="132">
@@ -127,11 +113,9 @@
         <T_NAME offset="149">f</T_NAME>
         <TypeHint offset="152">
           <SingularTypeHint offset="152">
-            <TypeInvocation offset="152">
-              <TypeName offset="152">
-                <T_NAME offset="152">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="152">
+              <T_NAME offset="152">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="158">
@@ -144,11 +128,9 @@
         <T_NAME offset="176">f</T_NAME>
         <TypeHint offset="179">
           <SingularTypeHint offset="179">
-            <TypeInvocation offset="179">
-              <TypeName offset="179">
-                <T_NAME offset="179">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="179">
+              <T_NAME offset="179">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="185">
@@ -161,11 +143,9 @@
         <T_NAME offset="203">f</T_NAME>
         <TypeHint offset="206">
           <SingularTypeHint offset="206">
-            <TypeInvocation offset="206">
-              <TypeName offset="206">
-                <T_NAME offset="206">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="206">
+              <T_NAME offset="206">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="212">
@@ -178,11 +158,9 @@
         <T_NAME offset="222">g</T_NAME>
         <TypeHint offset="225">
           <SingularTypeHint offset="225">
-            <TypeInvocation offset="225">
-              <TypeName offset="225">
-                <T_NAME offset="225">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="225">
+              <T_NAME offset="225">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="231">
@@ -195,11 +173,9 @@
         <T_NAME offset="240">h</T_NAME>
         <TypeHint offset="243">
           <SingularTypeHint offset="243">
-            <TypeInvocation offset="243">
-              <TypeName offset="243">
-                <T_NAME offset="243">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="243">
+              <T_NAME offset="243">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="249">
@@ -212,11 +188,9 @@
         <T_NAME offset="259">i</T_NAME>
         <TypeHint offset="262">
           <SingularTypeHint offset="262">
-            <TypeInvocation offset="262">
-              <TypeName offset="262">
-                <T_NAME offset="262">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="262">
+              <T_NAME offset="262">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="268">
@@ -229,11 +203,9 @@
         <T_NAME offset="277">j</T_NAME>
         <TypeHint offset="280">
           <SingularTypeHint offset="280">
-            <TypeInvocation offset="280">
-              <TypeName offset="280">
-                <T_NAME offset="280">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="280">
+              <T_NAME offset="280">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="286">
@@ -246,11 +218,9 @@
         <T_NAME offset="296">k</T_NAME>
         <TypeHint offset="299">
           <SingularTypeHint offset="299">
-            <TypeInvocation offset="299">
-              <TypeName offset="299">
-                <T_NAME offset="299">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="299">
+              <T_NAME offset="299">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="305">
@@ -263,11 +233,9 @@
         <T_NAME offset="318">l</T_NAME>
         <TypeHint offset="321">
           <SingularTypeHint offset="321">
-            <TypeInvocation offset="321">
-              <TypeName offset="321">
-                <T_NAME offset="321">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="321">
+              <T_NAME offset="321">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="327">
@@ -280,11 +248,9 @@
         <T_NAME offset="344">m</T_NAME>
         <TypeHint offset="347">
           <SingularTypeHint offset="347">
-            <TypeInvocation offset="347">
-              <TypeName offset="347">
-                <T_NAME offset="347">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="347">
+              <T_NAME offset="347">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="353">
@@ -297,11 +263,9 @@
         <T_NAME offset="377">n</T_NAME>
         <TypeHint offset="380">
           <SingularTypeHint offset="380">
-            <TypeInvocation offset="380">
-              <TypeName offset="380">
-                <T_NAME offset="380">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="380">
+              <T_NAME offset="380">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="386">
@@ -314,11 +278,9 @@
         <T_NAME offset="414">o</T_NAME>
         <TypeHint offset="417">
           <SingularTypeHint offset="417">
-            <TypeInvocation offset="417">
-              <TypeName offset="417">
-                <T_NAME offset="417">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="417">
+              <T_NAME offset="417">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="423">
@@ -331,11 +293,9 @@
         <T_NAME offset="462">p</T_NAME>
         <TypeHint offset="465">
           <SingularTypeHint offset="465">
-            <TypeInvocation offset="465">
-              <TypeName offset="465">
-                <T_NAME offset="465">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="465">
+              <T_NAME offset="465">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="471">
@@ -348,11 +308,9 @@
         <T_NAME offset="499">q</T_NAME>
         <TypeHint offset="502">
           <SingularTypeHint offset="502">
-            <TypeInvocation offset="502">
-              <TypeName offset="502">
-                <T_NAME offset="502">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="502">
+              <T_NAME offset="502">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="508">
@@ -365,11 +323,9 @@
         <T_NAME offset="515">r</T_NAME>
         <TypeHint offset="518">
           <SingularTypeHint offset="518">
-            <TypeInvocation offset="518">
-              <TypeName offset="518">
-                <T_NAME offset="518">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="518">
+              <T_NAME offset="518">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="524">
@@ -382,11 +338,9 @@
         <T_NAME offset="535">s</T_NAME>
         <TypeHint offset="538">
           <SingularTypeHint offset="538">
-            <TypeInvocation offset="538">
-              <TypeName offset="538">
-                <T_NAME offset="538">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="538">
+              <T_NAME offset="538">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="544">
@@ -399,11 +353,9 @@
         <T_NAME offset="558">t</T_NAME>
         <TypeHint offset="561">
           <SingularTypeHint offset="561">
-            <TypeInvocation offset="561">
-              <TypeName offset="561">
-                <T_NAME offset="561">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="561">
+              <T_NAME offset="561">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="567">
@@ -465,11 +417,9 @@
         <T_NAME offset="643">u</T_NAME>
         <TypeHint offset="646">
           <SingularTypeHint offset="646">
-            <TypeInvocation offset="646">
-              <TypeName offset="646">
-                <T_NAME offset="646">Any</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="646">
+              <T_NAME offset="646">Any</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="652">
@@ -569,11 +519,9 @@
         <TypeHint offset="752">
           <ListTypeHint offset="752">
             <SingularTypeHint offset="753">
-              <TypeInvocation offset="753">
-                <TypeName offset="753">
-                  <T_NAME offset="753">Any</T_NAME>
-                </TypeName>
-              </TypeInvocation>
+              <TypeName offset="753">
+                <T_NAME offset="753">Any</T_NAME>
+              </TypeName>
             </SingularTypeHint>
           </ListTypeHint>
         </TypeHint>

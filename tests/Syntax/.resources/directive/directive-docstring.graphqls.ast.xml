@@ -23,11 +23,9 @@ Directive @multiline2 desciption
           <T_NAME offset="116">a</T_NAME>
           <TypeHint offset="119">
             <SingularTypeHint offset="119">
-              <TypeInvocation offset="119">
-                <TypeName offset="119">
-                  <T_NAME offset="119">Boolean</T_NAME>
-                </TypeName>
-              </TypeInvocation>
+              <TypeName offset="119">
+                <T_NAME offset="119">Boolean</T_NAME>
+              </TypeName>
               <NonNull offset="126"/>
             </SingularTypeHint>
           </TypeHint>
@@ -45,11 +43,9 @@ Directive @multiline2 desciption
           <T_NAME offset="179">b</T_NAME>
           <TypeHint offset="182">
             <SingularTypeHint offset="182">
-              <TypeInvocation offset="182">
-                <TypeName offset="182">
-                  <T_NAME offset="182">Boolean</T_NAME>
-                </TypeName>
-              </TypeInvocation>
+              <TypeName offset="182">
+                <T_NAME offset="182">Boolean</T_NAME>
+              </TypeName>
               <NonNull offset="189"/>
             </SingularTypeHint>
           </TypeHint>

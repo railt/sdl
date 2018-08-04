@@ -19,11 +19,9 @@
           <T_NAME offset="102">a</T_NAME>
           <TypeHint offset="105">
             <SingularTypeHint offset="105">
-              <TypeInvocation offset="105">
-                <TypeName offset="105">
-                  <T_NAME offset="105">TestQuery</T_NAME>
-                </TypeName>
-              </TypeInvocation>
+              <TypeName offset="105">
+                <T_NAME offset="105">TestQuery</T_NAME>
+              </TypeName>
             </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>
@@ -36,11 +34,9 @@
           <T_NAME offset="153">b</T_NAME>
           <TypeHint offset="156">
             <SingularTypeHint offset="156">
-              <TypeInvocation offset="156">
-                <TypeName offset="156">
-                  <T_NAME offset="156">TestMutation</T_NAME>
-                </TypeName>
-              </TypeInvocation>
+              <TypeName offset="156">
+                <T_NAME offset="156">TestMutation</T_NAME>
+              </TypeName>
             </SingularTypeHint>
           </TypeHint>
         </FieldDefinition>

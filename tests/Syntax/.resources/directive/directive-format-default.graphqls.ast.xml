@@ -9,11 +9,9 @@
           <T_NAME offset="21">a</T_NAME>
           <TypeHint offset="24">
             <SingularTypeHint offset="24">
-              <TypeInvocation offset="24">
-                <TypeName offset="24">
-                  <T_NAME offset="24">Boolean</T_NAME>
-                </TypeName>
-              </TypeInvocation>
+              <TypeName offset="24">
+                <T_NAME offset="24">Boolean</T_NAME>
+              </TypeName>
               <NonNull offset="31"/>
             </SingularTypeHint>
           </TypeHint>

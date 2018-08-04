@@ -25,11 +25,9 @@
         <T_NAME offset="140">annotatedField</T_NAME>
         <TypeHint offset="156">
           <SingularTypeHint offset="156">
-            <TypeInvocation offset="156">
-              <TypeName offset="156">
-                <T_NAME offset="156">Type</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="156">
+              <T_NAME offset="156">Type</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Directives offset="161">

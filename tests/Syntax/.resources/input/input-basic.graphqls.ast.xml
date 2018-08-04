@@ -8,11 +8,9 @@
         <T_NAME offset="23">key</T_NAME>
         <TypeHint offset="28">
           <SingularTypeHint offset="28">
-            <TypeInvocation offset="28">
-              <TypeName offset="28">
-                <T_NAME offset="28">Float</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="28">
+              <T_NAME offset="28">Float</T_NAME>
+            </TypeName>
             <NonNull offset="33"/>
           </SingularTypeHint>
         </TypeHint>
@@ -26,11 +24,9 @@
         <T_NAME offset="45">answer</T_NAME>
         <TypeHint offset="53">
           <SingularTypeHint offset="53">
-            <TypeInvocation offset="53">
-              <TypeName offset="53">
-                <T_NAME offset="53">Int</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="53">
+              <T_NAME offset="53">Int</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="59">
@@ -43,11 +39,9 @@
         <T_NAME offset="66">field</T_NAME>
         <TypeHint offset="73">
           <SingularTypeHint offset="73">
-            <TypeInvocation offset="73">
-              <TypeName offset="73">
-                <T_NAME offset="73">String</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="73">
+              <T_NAME offset="73">String</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="82">
@@ -60,11 +54,9 @@
         <T_NAME offset="96">field2</T_NAME>
         <TypeHint offset="104">
           <SingularTypeHint offset="104">
-            <TypeInvocation offset="104">
-              <TypeName offset="104">
-                <T_NAME offset="104">String</T_NAME>
-              </TypeName>
-            </TypeInvocation>
+            <TypeName offset="104">
+              <T_NAME offset="104">String</T_NAME>
+            </TypeName>
           </SingularTypeHint>
         </TypeHint>
         <Value offset="113">
