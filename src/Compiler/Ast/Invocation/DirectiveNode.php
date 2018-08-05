@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Ast\Dependent;
+namespace Railt\SDL\Compiler\Ast\Invocation;
 
 use Railt\Parser\Ast\Rule;
 use Railt\Reflection\Contracts\Invocation\TypeInvocation;

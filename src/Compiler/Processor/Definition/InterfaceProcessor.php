@@ -10,27 +10,22 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Processor\Definition;
 
 use Railt\Parser\Ast\RuleInterface;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Definition\InterfaceDefinition;
-use Railt\SDL\Compiler\Ast\Definition\InterfaceDefinitionNode;
+use Railt\SDL\Compiler\Ast\Definition\ObjectDefinitionNode;
+use Railt\SDL\Compiler\Processor\DefinitionProcessor;
 
 /**
  * Class InterfaceProcessor
  */
-class InterfaceProcessor extends TypeDefinitionProcessor
+class InterfaceProcessor extends DefinitionProcessor
 {
     /**
-     * @param RuleInterface|InterfaceDefinitionNode $ast
-     * @return null|TypeDefinition
+     * @param RuleInterface|ObjectDefinitionNode $rule
+     * @return Definition
      */
-    public function process(RuleInterface $ast): ?TypeDefinition
+    public function resolve(RuleInterface $rule): Definition
     {
-        /** @var InterfaceDefinition $interface */
-        $interface = $ast->getTypeDefinition($this->document);
-
-        $this->processDefinition($ast, $interface);
-        $this->processDirectives($ast, $interface);
-
-        return $interface;
+        return new InterfaceDefinition($this->document, $rule->getTypeName());
     }
 }

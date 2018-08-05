@@ -10,12 +10,11 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler;
 
 use Railt\Parser\Ast\RuleInterface;
-use Railt\Reflection\Contracts\Dictionary;
+use Railt\Reflection\Contracts\Definition as DefinitionInterface;
+use Railt\Reflection\Contracts\Invocation\DirectiveInvocation;
 use Railt\Reflection\Document;
 use Railt\SDL\Compiler\Processor\Definition;
-use Railt\SDL\Compiler\Processor\Extension;
-use Railt\SDL\Compiler\Processor\Invocation;
-use Railt\SDL\Compiler\Processor\Processable;
+use Railt\SDL\Compiler\Processor\ProcessorInterface;
 use Railt\SDL\Exception\CompilerException;
 
 /**
@@ -24,36 +23,15 @@ use Railt\SDL\Exception\CompilerException;
 class Factory
 {
     /**
-     * @var Processable[]
+     * @var ProcessorInterface[]
      */
     private const NODE_MAPPINGS = [
-        'DirectiveDefinition'  => Definition\DirectiveProcessor::class,
-        'Directive'            => Invocation\DirectiveInvocationProcessor::class,
-        'EnumDefinition'       => Definition\EnumProcessor::class,
-        'EnumExtension'        => Extension\EnumExtensionProcessor::class,
-        'InputDefinition'      => Definition\InputProcessor::class,
-        'InputExtension'       => Extension\InputExtensionProcessor::class,
-        'InputUnionDefinition' => Definition\InputUnionProcessor::class,
-        'InputUnionExtension'  => Extension\InputUnionExtensionProcessor::class,
-        'InterfaceDefinition'  => Definition\InterfaceProcessor::class,
-        'InterfaceExtension'   => Extension\InterfaceExtensionProcessor::class,
-        'ObjectDefinition'     => Definition\ObjectProcessor::class,
-        'ObjectExtension'      => Extension\ObjectExtensionProcessor::class,
-        'ScalarDefinition'     => Definition\ScalarProcessor::class,
-        'ScalarExtension'      => Extension\ScalarExtensionProcessor::class,
-        'SchemaDefinition'     => Definition\SchemaProcessor::class,
-        'SchemaExtension'      => Extension\SchemaExtensionProcessor::class,
-        'UnionDefinition'      => Definition\UnionProcessor::class,
-        'UnionExtension'       => Extension\UnionExtensionProcessor::class,
+        'ObjectDefinition'    => Definition\ObjectProcessor::class,
+        'InterfaceDefinition' => Definition\InterfaceProcessor::class,
     ];
 
     /**
-     * @var CallStack
-     */
-    private $stack;
-
-    /**
-     * @var CallStack
+     * @var Pipeline
      */
     private $pipeline;
 
@@ -74,10 +52,9 @@ class Factory
      */
     public function __construct(Document $document, RuleInterface $ast)
     {
-        $this->ast        = $ast;
-        $this->document   = $document;
-        $this->stack      = new CallStack();
-        $this->pipeline   = new Pipeline();
+        $this->ast      = $ast;
+        $this->document = $document;
+        $this->pipeline = new Pipeline();
     }
 
     /**
@@ -86,44 +63,42 @@ class Factory
      */
     public function process(): Document
     {
-        $this->build()->pipeline->reduce(function(\Closure $callback) {
-            $callback();
-        });
+        foreach ($this->ast as $child) {
+            $definition = $this->build($child);
+
+            if ($definition instanceof DefinitionInterface\TypeDefinition) {
+                $this->document->withDefinition($definition);
+            }
+
+            if ($definition instanceof DirectiveInvocation) {
+                $this->document->withDirective($definition);
+            }
+        }
+
+        foreach ($this->pipeline as $next) {
+            $next();
+        }
 
         return $this->document;
     }
 
     /**
-     * @return Factory|$this
+     * @param RuleInterface $rule
+     * @return DefinitionInterface
      * @throws \Railt\Io\Exception\ExternalFileException
      */
-    protected function build(): Factory
+    public function build(RuleInterface $rule): DefinitionInterface
     {
-        /** @var RuleInterface $child */
-        foreach ($this->ast as $child) {
-            $processor = $this->findProcessor($child->getName());
+        $mapping = self::NODE_MAPPINGS[$rule->getName()] ?? null;
 
-            if ($processor === null) {
-                throw (new CompilerException(\sprintf('Unprocessable node %s', $child->getName())))
-                    ->throwsIn($this->document->getFile(), $child->getOffset());
-            }
-
-            if ($definition = $processor->process($child)) {
-                $this->document->withDefinition($definition);
-            }
+        if ($mapping === null) {
+            throw (new CompilerException(\sprintf('No mappings found for %s AST', $rule->getName())))
+                ->throwsIn($this->document->getFile(), $rule->getOffset());
         }
 
-        return $this;
-    }
+        /** @var ProcessorInterface $instance */
+        $instance = new $mapping($this->document, $this->pipeline, $this);
 
-    /**
-     * @param string $name
-     * @return null|Processable
-     */
-    private function findProcessor(string $name): ?Processable
-    {
-        $processor = self::NODE_MAPPINGS[$name] ?? null;
-
-        return $processor ? new $processor($this->pipeline, $this->stack, $this->document) : null;
+        return $instance->resolve($rule);
     }
 }

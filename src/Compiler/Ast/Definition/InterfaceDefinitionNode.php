@@ -9,21 +9,15 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Definition;
 
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Document;
-use Railt\Reflection\Definition\InterfaceDefinition;
+use Railt\SDL\Compiler\Ast\Common\FieldsProviders;
+use Railt\SDL\Compiler\Ast\Common\ImplementationsProvider;
+use Railt\SDL\Compiler\Ast\TypeNameNode;
 
 /**
  * Class InterfaceDefinitionNode
  */
 class InterfaceDefinitionNode extends TypeDefinitionNode
 {
-    /**
-     * @param Document $document
-     * @return TypeDefinition
-     */
-    public function getTypeDefinition(Document $document): TypeDefinition
-    {
-        return new InterfaceDefinition($document, $this->getTypeName());
-    }
+    use FieldsProviders;
+    use ImplementationsProvider;
 }

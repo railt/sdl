@@ -34,10 +34,4 @@ abstract class TypeDefinitionNode extends Rule
 
         return $name ? $name->getTypeName() : null;
     }
-
-    /**
-     * @param Document $document
-     * @return TypeDefinition
-     */
-    abstract public function getTypeDefinition(Document $document): TypeDefinition;
 }

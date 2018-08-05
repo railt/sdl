@@ -10,16 +10,16 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Processor;
 
 use Railt\Parser\Ast\RuleInterface;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Definition;
 
 /**
- * Interface Processable
+ * Interface ProcessorInterface
  */
-interface Processable
+interface ProcessorInterface
 {
     /**
      * @param RuleInterface $rule
-     * @return null|TypeDefinition
+     * @return Definition
      */
-    public function process(RuleInterface $rule): ?TypeDefinition;
+    public function resolve(RuleInterface $rule): Definition;
 }

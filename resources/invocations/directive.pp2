@@ -2,7 +2,7 @@
 #Directives:
     Directive()+
 
-#Directive -> Railt\SDL\Compiler\Ast\Dependent\DirectiveNode:
+#Directive -> Railt\SDL\Compiler\Ast\Invocation\DirectiveNode:
     ::T_DIRECTIVE_AT:: TypeName()
         __directiveInvocationArgumentsGroup()?
 
@@ -15,6 +15,6 @@ __directiveInvocationArguments:
     DirectiveArgument()+
     #DirectiveArguments
 
-#DirectiveArgument -> Railt\SDL\Compiler\Ast\Dependent\DirectiveArgumentNode:
+#DirectiveArgument -> Railt\SDL\Compiler\Ast\Invocation\DirectiveArgumentNode:
     NameWithReserved() ::T_COLON:: Value()
 

@@ -9,21 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Definition;
 
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Document;
-use Railt\Reflection\Definition\SchemaDefinition;
-
 /**
  * Class SchemaDefinitionNode
  */
 class SchemaDefinitionNode extends TypeDefinitionNode
 {
-    /**
-     * @param Document $document
-     * @return TypeDefinition
-     */
-    public function getTypeDefinition(Document $document): TypeDefinition
-    {
-        return new SchemaDefinition($document, $this->getTypeName());
-    }
+
 }

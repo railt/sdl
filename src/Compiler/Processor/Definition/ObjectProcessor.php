@@ -10,27 +10,28 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Processor\Definition;
 
 use Railt\Parser\Ast\RuleInterface;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Definition\ObjectDefinition;
 use Railt\SDL\Compiler\Ast\Definition\ObjectDefinitionNode;
-use Railt\SDL\Compiler\Processor\BaseProcessor;
+use Railt\SDL\Compiler\Processor\DefinitionProcessor;
 
 /**
- * Class DirectiveDefinition
+ * Class ObjectProcessor
  */
-class ObjectProcessor extends TypeDefinitionProcessor
+class ObjectProcessor extends DefinitionProcessor
 {
     /**
-     * @param RuleInterface|ObjectDefinitionNode $ast
-     * @return null|TypeDefinition
+     * @param RuleInterface|ObjectDefinitionNode $rule
+     * @return Definition
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function process(RuleInterface $ast): ?TypeDefinition
+    public function resolve(RuleInterface $rule): Definition
     {
-        /** @var ObjectDefinition $object */
-        $object = $ast->getTypeDefinition($this->document);
+        $object = new ObjectDefinition($this->document, $rule->getTypeName());
 
-        $this->processDefinition($ast, $object);
-        $this->processDirectives($ast, $object);
+        foreach ($rule->getFields() as $field) {
+            $object->withField($this->build($field));
+        }
 
         return $object;
     }
