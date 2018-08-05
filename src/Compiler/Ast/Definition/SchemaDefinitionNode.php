@@ -14,5 +14,4 @@ namespace Railt\SDL\Compiler\Ast\Definition;
  */
 class SchemaDefinitionNode extends TypeDefinitionNode
 {
-
 }

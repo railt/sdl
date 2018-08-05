@@ -45,7 +45,7 @@ abstract class DefinitionProcessor implements ProcessorInterface
     {
         $this->document = $document;
         $this->pipeline = $pipeline;
-        $this->factory = $factory;
+        $this->factory  = $factory;
     }
 
     /**
@@ -62,7 +62,7 @@ abstract class DefinitionProcessor implements ProcessorInterface
      * @param \Closure $then
      * @return DefinitionProcessor
      */
-    protected function deferred(\Closure $then): DefinitionProcessor
+    protected function deferred(\Closure $then): self
     {
         $this->pipeline->push(1, $then);
 
@@ -73,7 +73,7 @@ abstract class DefinitionProcessor implements ProcessorInterface
      * @param \Closure $then
      * @return DefinitionProcessor
      */
-    protected function then(\Closure $then): DefinitionProcessor
+    protected function then(\Closure $then): self
     {
         $this->pipeline->push(2, $then);
 

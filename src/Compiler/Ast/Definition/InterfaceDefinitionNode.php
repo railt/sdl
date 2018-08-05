@@ -11,7 +11,6 @@ namespace Railt\SDL\Compiler\Ast\Definition;
 
 use Railt\SDL\Compiler\Ast\Common\FieldsProviders;
 use Railt\SDL\Compiler\Ast\Common\ImplementationsProvider;
-use Railt\SDL\Compiler\Ast\TypeNameNode;
 
 /**
  * Class InterfaceDefinitionNode
