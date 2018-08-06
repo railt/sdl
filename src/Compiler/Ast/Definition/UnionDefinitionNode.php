@@ -9,9 +9,24 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Definition;
 
+use Railt\SDL\Compiler\Ast\TypeNameNode;
+
 /**
  * Class UnionDefinitionNode
  */
 class UnionDefinitionNode extends TypeDefinitionNode
 {
+    /**
+     * @return iterable|TypeNameNode[]
+     */
+    public function getUnitedTypes(): iterable
+    {
+        $unites = $this->first('UnionDefinitionTargets', 1);
+
+        if ($unites) {
+            foreach ($unites as $type) {
+                yield $type;
+            }
+        }
+    }
 }

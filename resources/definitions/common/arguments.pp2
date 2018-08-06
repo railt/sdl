@@ -1,9 +1,12 @@
 
 #ArgumentDefinition -> Railt\SDL\Compiler\Ast\Dependent\ArgumentDefinitionNode:
     Documentation()?
+    __argumentDefinitionBody()
+    __argumentDefinitionDefaultValue()?
+    Directives()?
+
+__argumentDefinitionBody:
     NameWithReserved() ::T_COLON:: TypeHint()
-        __argumentDefinitionDefaultValue()?
-        Directives()?
 
 __argumentDefinitionDefaultValue:
     ::T_EQUAL:: Value()

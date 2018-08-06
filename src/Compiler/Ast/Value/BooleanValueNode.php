@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
-use Railt\Parser\Ast\Rule;
-
 /**
  * Class BooleanValueNode
  */
-class BooleanValueNode extends Rule implements ValueInterface
+class BooleanValueNode extends BaseValueNode
 {
     /**
      * @return bool

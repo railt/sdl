@@ -9,12 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
-use Railt\Parser\Ast\Rule;
+use Railt\Reflection\Contracts\Document;
 
 /**
  * Class NullValueNode
  */
-class NullValueNode extends Rule implements ValueInterface
+class NullValueNode extends BaseValueNode
 {
     /**
      * @return mixed|null

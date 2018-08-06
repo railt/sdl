@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
-use Railt\Parser\Ast\Rule;
-
 /**
  * Class ConstantValueNode
  */
-class ConstantValueNode extends Rule implements ValueInterface
+class ConstantValueNode extends BaseValueNode
 {
     /**
      * @return string

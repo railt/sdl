@@ -12,9 +12,7 @@ namespace Railt\SDL\Compiler\Builder\Dependent;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Definition\Dependent\ArgumentDefinition;
-use Railt\Reflection\Definition\Dependent\FieldDefinition;
 use Railt\SDL\Compiler\Ast\Dependent\ArgumentDefinitionNode;
-use Railt\SDL\Compiler\Ast\Dependent\FieldDefinitionNode;
 use Railt\SDL\Compiler\Builder\Builder;
 
 /**
@@ -36,6 +34,10 @@ class ArgumentBuilder extends Builder
         $argument->withOffset($rule->getOffset());
         $argument->withDescription($rule->getDescription());
         $argument->withModifiers($hint->getModifiers());
+
+        if ($default = $rule->getDefaultValue()) {
+            // TODO Default value
+        }
 
         foreach ($rule->getDirectives() as $ast) {
             $argument->withDirective($this->dependent($ast, $argument));

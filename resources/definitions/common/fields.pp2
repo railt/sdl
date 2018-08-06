@@ -7,11 +7,6 @@
 
 __fieldDefinitionArguments:
     ::T_PARENTHESIS_OPEN::
-        __fieldDefinitionArgument()*
+        ArgumentDefinition()*
     ::T_PARENTHESIS_CLOSE::
     #FieldArguments
-
-__fieldDefinitionArgument:
-    ArgumentDefinition()
-    Directives()?
-    #FieldArgument

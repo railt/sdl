@@ -6,3 +6,18 @@
  * file that was distributed with this source code.
  */
 declare(strict_types=1);
+
+namespace Railt\SDL\Compiler\Ast\Value;
+
+use Railt\Parser\Ast\Rule;
+
+/**
+ * Class BaseValueNode
+ */
+abstract class BaseValueNode extends Rule
+{
+    /**
+     * @return mixed
+     */
+    abstract public function toPrimitive();
+}

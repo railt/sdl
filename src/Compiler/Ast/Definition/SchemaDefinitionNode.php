@@ -9,10 +9,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Definition;
 
+use Railt\SDL\Compiler\Ast\Dependent\SchemaFieldDefinitionNode;
+
 /**
  * Class SchemaDefinitionNode
  */
 class SchemaDefinitionNode extends TypeDefinitionNode
 {
+    /**
+     * @return iterable|SchemaFieldDefinitionNode[]
+     */
+    public function getSchemaFields(): iterable
+    {
+        $fields = $this->first('SchemaFields', 1);
 
+        foreach ($fields as $field) {
+            yield $field;
+        }
+    }
 }

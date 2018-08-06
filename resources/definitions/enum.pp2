@@ -17,14 +17,13 @@ EnumDefinitionBody:
     ::T_BRACE_CLOSE::
 
 __enumDefinitionFields:
-    __enumDefinitionField()*
+    EnumValue()*
     #EnumValues
+
+#EnumValue -> Railt\SDL\Compiler\Ast\Dependent\EnumValueDefinitionNode:
+    Documentation()?
+    NameExceptValues() __enumDefinitionValue()?
+    Directives()?
 
 __enumDefinitionValue:
     ::T_COLON:: TypeHint() ::T_EQUAL:: Value()
-
-__enumDefinitionField:
-    Documentation()?
-    NameExceptValues() __enumDefinitionValue()?
-        Directives()?
-    #EnumValue

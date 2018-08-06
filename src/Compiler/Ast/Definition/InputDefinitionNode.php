@@ -9,9 +9,24 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Definition;
 
+use Railt\SDL\Compiler\Ast\Dependent\InputFieldDefinitionNode;
+
 /**
  * Class InputDefinitionNode
  */
 class InputDefinitionNode extends TypeDefinitionNode
 {
+    /**
+     * @return iterable|InputFieldDefinitionNode[]
+     */
+    public function getInputFields(): iterable
+    {
+        $fields = $this->first('InputFieldDefinitions', 1);
+
+        if ($fields) {
+            foreach ($fields as $field) {
+                yield $field;
+            }
+        }
+    }
 }

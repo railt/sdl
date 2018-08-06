@@ -13,26 +13,15 @@ use Railt\Parser\Ast\Rule;
 use Railt\Reflection\Contracts\Invocation\TypeInvocation;
 use Railt\Reflection\Invocation\Dependent\ArgumentInvocation;
 use Railt\Reflection\Invocation\DirectiveInvocation;
-use Railt\SDL\Compiler\Ast\Value\ValueInterface;
+use Railt\SDL\Compiler\Ast\Value\BaseValueNode;
 use Railt\SDL\Compiler\Ast\Value\ValueNode;
+use Railt\SDL\Compiler\Builder\Value\BaseValue;
 
 /**
  * Class DirectiveArgumentNode
  */
 class DirectiveArgumentNode extends Rule
 {
-    /**
-     * @param DirectiveInvocationBuilder $parent
-     * @return TypeInvocation|ArgumentInvocation
-     */
-    public function getTypeInvocation(DirectiveInvocation $parent): TypeInvocation
-    {
-        $argument = new ArgumentInvocation($parent, $this->getArgumentName(), $this->getArgumentValue()->toPrimitive());
-        $argument->withOffset($this->getOffset());
-
-        return $argument;
-    }
-
     /**
      * @return string
      */
@@ -42,13 +31,10 @@ class DirectiveArgumentNode extends Rule
     }
 
     /**
-     * @return ValueInterface
+     * @return BaseValueNode
      */
-    public function getArgumentValue(): ValueInterface
+    public function getArgumentValue(): BaseValueNode
     {
-        /** @var ValueNode $value */
-        $value = $this->first('Value', 1);
-
-        return $value->getInnerValue();
+        return $this->first('Value', 1);
     }
 }

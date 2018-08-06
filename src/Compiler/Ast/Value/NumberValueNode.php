@@ -10,29 +10,20 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Ast\Value;
 
 use Railt\Parser\Ast\LeafInterface;
-use Railt\Parser\Ast\Rule;
+use Railt\Reflection\Contracts\Document;
+use Railt\SDL\Compiler\Builder\Value\FloatValue;
+use Railt\SDL\Compiler\Builder\Value\IntValue;
+use Railt\SDL\Compiler\Builder\Value\ValueInterface;
 use Railt\SDL\Compiler\Parser;
 
 /**
  * Class NumberValueNode
  */
-class NumberValueNode extends Rule implements ValueInterface
+class NumberValueNode extends BaseValueNode
 {
-    /**
-     * @var float|int|null
-     */
-    private $value;
-
-    /**
-     * @return float|int|null
-     */
     public function toPrimitive()
     {
-        if ($this->value === null) {
-            $this->value = $this->parse();
-        }
-
-        return $this->value;
+        return $this->parse();
     }
 
     /**

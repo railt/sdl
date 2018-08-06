@@ -9,26 +9,24 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
-use Railt\Parser\Ast\Rule;
+use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\RuleInterface;
 
 /**
  * Class InputValueNode
  */
-class InputValueNode extends Rule implements ValueInterface, CompositeValueInterface
+class InputValueNode extends BaseValueNode
 {
     /**
-     * @return iterable
+     * @return iterable|BaseValueNode[]
      */
     public function toPrimitive(): iterable
     {
-        foreach ($this->getValues() as $key => $value) {
-            yield $key => $value->toPrimitive();
-        }
+        return $this->getValues();
     }
 
     /**
-     * @return iterable|ValueInterface[]
+     * @return iterable|BaseValueNode[]
      */
     public function getValues(): iterable
     {
@@ -36,18 +34,6 @@ class InputValueNode extends Rule implements ValueInterface, CompositeValueInter
         foreach ($this->getChildren() as $child) {
             yield $this->key($child) => $this->value($child);
         }
-    }
-
-    /**
-     * @param RuleInterface $rule
-     * @return ValueInterface|RuleInterface
-     */
-    private function value(RuleInterface $rule): ValueInterface
-    {
-        /** @var ValueNode $value */
-        $value = $rule->first('Value', 1);
-
-        return $value->getInnerValue();
     }
 
     /**
@@ -60,5 +46,15 @@ class InputValueNode extends Rule implements ValueInterface, CompositeValueInter
         $key = $rule->first('Key', 1);
 
         return $key->getChild(0)->getValue();
+    }
+
+    /**
+     * @param RuleInterface $rule
+     * @return BaseValueNode|NodeInterface
+     */
+    private function value(RuleInterface $rule): BaseValueNode
+    {
+        /** @var ValueNode $value */
+        return $rule->first('Value', 1);
     }
 }

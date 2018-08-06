@@ -15,12 +15,12 @@ InputDefinitionBody:
     ::T_BRACE_OPEN::
         __inputDefinitionField()*
     ::T_BRACE_CLOSE::
+    #InputFieldDefinitions
 
 __inputDefinitionField:
     InputFieldDefinition()
 
-
-#InputFieldDefinition:
+#InputFieldDefinition -> Railt\SDL\Compiler\Ast\Dependent\InputFieldDefinitionNode:
     Documentation()?
     NameWithReserved() ::T_COLON:: TypeHint()
         __inputFieldDefinitionDefaultValue()?

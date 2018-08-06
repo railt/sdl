@@ -5,15 +5,18 @@
 
 #SchemaDefinition -> Railt\SDL\Compiler\Ast\Definition\SchemaDefinitionNode:
     Documentation()?
+    SchemaDefinitionHead()
     SchemaDefinitionBody()
 
-SchemaDefinitionBody:
-    ::T_SCHEMA:: TypeName()?
-    ::T_BRACE_OPEN::
-        __schemaField()*
-    ::T_BRACE_CLOSE::
+SchemaDefinitionHead:
+    ::T_SCHEMA:: TypeName()? Directives()?
 
-__schemaField:
+SchemaDefinitionBody:
+    ::T_BRACE_OPEN::
+        SchemaField()*
+    ::T_BRACE_CLOSE::
+    #SchemaFields
+
+#SchemaField -> Railt\SDL\Compiler\Ast\Dependent\SchemaFieldDefinitionNode:
     Documentation()?
-    NameWithReserved() ::T_COLON:: TypeName()
-    #SchemaField
+    NameWithReserved() ::T_COLON:: TypeHint()

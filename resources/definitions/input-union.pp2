@@ -12,8 +12,8 @@ InputUnionDefinitionHead:
     ::T_INPUT_UNION:: TypeName() Directives()?
 
 InputUnionDefinitionBody:
-    ::T_EQUAL:: ::T_OR::? __inputUnionDefinitionTargets()+
-
+    ::T_EQUAL:: ::T_OR::? __inputUnionDefinitionTargets()?
 
 __inputUnionDefinitionTargets:
     TypeName() (::T_OR:: TypeName())*
+    #InputUnionDefinitionTargets

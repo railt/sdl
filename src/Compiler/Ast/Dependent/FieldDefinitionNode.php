@@ -50,7 +50,7 @@ class FieldDefinitionNode extends Rule
         if ($arguments) {
             /** @var RuleInterface $argument */
             foreach ($arguments as $argument) {
-                yield $argument->getChild(0);
+                yield $argument;
             }
         }
     }

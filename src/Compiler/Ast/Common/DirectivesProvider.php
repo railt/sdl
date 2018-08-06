@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Common;
 
-use Railt\SDL\Compiler\Ast\Dependent\DirectiveNode;
+use Railt\SDL\Compiler\Ast\Invocation\DirectiveNode;
 
 /**
  * Trait DirectivesProvider

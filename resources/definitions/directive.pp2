@@ -16,13 +16,9 @@ DirectiveDefinitionBody:
 
 __directiveDefinitionArguments:
     ::T_PARENTHESIS_OPEN::
-        __directiveDefinitionArgument()*
+        ArgumentDefinition()*
     ::T_PARENTHESIS_CLOSE::
-
-
-__directiveDefinitionArgument:
-     ArgumentDefinition()
-     #DirectiveArgument
+     #DirectiveArguments
 
 
 __directiveDefinitionLocations:

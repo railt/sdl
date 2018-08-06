@@ -11,6 +11,10 @@ namespace Railt\SDL\Compiler\Builder;
 
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
+use Railt\SDL\Compiler\Ast\Value\BaseValueNode;
+use Railt\SDL\Compiler\Builder\Value\NullValue;
+use Railt\SDL\Compiler\Builder\Value\ValueInterface;
 use Railt\SDL\Compiler\Factory;
 use Railt\SDL\Compiler\Pipeline;
 
@@ -37,14 +41,14 @@ abstract class Builder implements BuilderInterface
     public function __construct(Pipeline $pipeline, Factory $factory)
     {
         $this->pipeline = $pipeline;
-        $this->factory = $factory;
+        $this->factory  = $factory;
     }
 
     /**
      * @param \Closure $then
      * @return Builder
      */
-    protected function future(\Closure $then): Builder
+    protected function future(\Closure $then): self
     {
         $this->pipeline->push(3, $then);
 
@@ -55,7 +59,7 @@ abstract class Builder implements BuilderInterface
      * @param \Closure $then
      * @return Builder
      */
-    protected function deferred(\Closure $then): Builder
+    protected function deferred(\Closure $then): self
     {
         $this->pipeline->push(2, $then);
 
