@@ -10,27 +10,12 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Ast\Invocation;
 
 use Railt\Parser\Ast\Rule;
-use Railt\Reflection\Contracts\Invocation\TypeInvocation;
-use Railt\Reflection\Document;
-use Railt\Reflection\Invocation\DirectiveInvocation;
 
 /**
  * Class DirectiveNode
  */
 class DirectiveNode extends Rule
 {
-    /**
-     * @param Document $document
-     * @return TypeInvocation|DirectiveInvocation
-     */
-    public function getTypeInvocation(Document $document): TypeInvocation
-    {
-        $directive = new DirectiveInvocation($document, $this->getDirectiveName());
-        $directive->withOffset($this->getOffset());
-
-        return $directive;
-    }
-
     /**
      * @return string
      */

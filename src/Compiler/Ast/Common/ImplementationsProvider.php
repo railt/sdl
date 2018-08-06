@@ -17,7 +17,7 @@ use Railt\SDL\Compiler\Ast\TypeNameNode;
 trait ImplementationsProvider
 {
     /**
-     * @return iterable|TypeNameNode
+     * @return iterable|TypeNameNode[]
      */
     public function getImplementations(): iterable
     {

@@ -12,6 +12,7 @@ namespace Railt\SDL\Compiler\Ast\Dependent;
 use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\Rule;
 use Railt\SDL\Compiler\Ast\Common\DescriptionProvider;
+use Railt\SDL\Compiler\Ast\Common\DirectivesProvider;
 use Railt\SDL\Compiler\Ast\TypeHintNode;
 use Railt\SDL\Compiler\Ast\Value\ValueInterface;
 use Railt\SDL\Compiler\Ast\Value\ValueNode;
@@ -22,6 +23,7 @@ use Railt\SDL\Compiler\Ast\Value\ValueNode;
 class ArgumentDefinitionNode extends Rule
 {
     use DescriptionProvider;
+    use DirectivesProvider;
 
     /**
      * @return TypeHintNode|NodeInterface

@@ -7,19 +7,20 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Compiler\Processor;
+namespace Railt\SDL\Compiler\Builder;
 
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
 
 /**
- * Interface ProcessorInterface
+ * Interface BuilderInterface
  */
-interface ProcessorInterface
+interface BuilderInterface
 {
     /**
      * @param RuleInterface $rule
+     * @param Definition $parent
      * @return Definition
      */
-    public function resolve(RuleInterface $rule): Definition;
+    public function build(RuleInterface $rule, Definition $parent): Definition;
 }

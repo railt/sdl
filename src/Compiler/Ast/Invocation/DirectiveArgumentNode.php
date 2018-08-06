@@ -22,7 +22,7 @@ use Railt\SDL\Compiler\Ast\Value\ValueNode;
 class DirectiveArgumentNode extends Rule
 {
     /**
-     * @param DirectiveInvocation $parent
+     * @param DirectiveInvocationBuilder $parent
      * @return TypeInvocation|ArgumentInvocation
      */
     public function getTypeInvocation(DirectiveInvocation $parent): TypeInvocation

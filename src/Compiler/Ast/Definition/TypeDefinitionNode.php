@@ -10,8 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Ast\Definition;
 
 use Railt\Parser\Ast\Rule;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Document;
 use Railt\SDL\Compiler\Ast\Common\DescriptionProvider;
 use Railt\SDL\Compiler\Ast\Common\DirectivesProvider;
 use Railt\SDL\Compiler\Ast\TypeNameNode;

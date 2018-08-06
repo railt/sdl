@@ -13,6 +13,7 @@ use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\Rule;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Ast\Common\DescriptionProvider;
+use Railt\SDL\Compiler\Ast\Common\DirectivesProvider;
 use Railt\SDL\Compiler\Ast\TypeHintNode;
 
 /**
@@ -21,6 +22,7 @@ use Railt\SDL\Compiler\Ast\TypeHintNode;
 class FieldDefinitionNode extends Rule
 {
     use DescriptionProvider;
+    use DirectivesProvider;
 
     /**
      * @return TypeHintNode|NodeInterface

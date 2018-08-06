@@ -13,8 +13,10 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition as DefinitionInterface;
 use Railt\Reflection\Contracts\Invocation\DirectiveInvocation;
 use Railt\Reflection\Document;
-use Railt\SDL\Compiler\Processor\Definition;
-use Railt\SDL\Compiler\Processor\ProcessorInterface;
+use Railt\SDL\Compiler\Builder\BuilderInterface;
+use Railt\SDL\Compiler\Builder\Definition;
+use Railt\SDL\Compiler\Builder\Dependent;
+use Railt\SDL\Compiler\Builder\Invocation;
 use Railt\SDL\Exception\CompilerException;
 
 /**
@@ -23,11 +25,17 @@ use Railt\SDL\Exception\CompilerException;
 class Factory
 {
     /**
-     * @var ProcessorInterface[]
+     * @var BuilderInterface[]
      */
     private const NODE_MAPPINGS = [
-        'ObjectDefinition'    => Definition\ObjectProcessor::class,
-        'InterfaceDefinition' => Definition\InterfaceProcessor::class,
+        'ObjectDefinition'    => Definition\ObjectBuilder::class,
+        'InterfaceDefinition' => Definition\InterfaceBuilder::class,
+
+        'FieldDefinition'    => Dependent\FieldBuilder::class,
+        'ArgumentDefinition' => Dependent\ArgumentBuilder::class,
+
+        'Directive'         => Invocation\DirectiveBuilder::class,
+        'DirectiveArgument' => Invocation\DirectiveArgumentBuilder::class,
     ];
 
     /**
@@ -64,7 +72,7 @@ class Factory
     public function process(): Document
     {
         foreach ($this->ast as $child) {
-            $definition = $this->build($child);
+            $definition = $this->build($child, $this->document);
 
             if ($definition instanceof DefinitionInterface\TypeDefinition) {
                 $this->document->withDefinition($definition);
@@ -84,10 +92,11 @@ class Factory
 
     /**
      * @param RuleInterface $rule
+     * @param DefinitionInterface $parent
      * @return DefinitionInterface
      * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function build(RuleInterface $rule): DefinitionInterface
+    public function build(RuleInterface $rule, DefinitionInterface $parent): DefinitionInterface
     {
         $mapping = self::NODE_MAPPINGS[$rule->getName()] ?? null;
 
@@ -96,9 +105,9 @@ class Factory
                 ->throwsIn($this->document->getFile(), $rule->getOffset());
         }
 
-        /** @var ProcessorInterface $instance */
-        $instance = new $mapping($this->document, $this->pipeline, $this);
+        /** @var BuilderInterface $instance */
+        $instance = new $mapping($this->pipeline, $this);
 
-        return $instance->resolve($rule);
+        return $instance->build($rule, $parent);
     }
 }
