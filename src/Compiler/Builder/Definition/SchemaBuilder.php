@@ -50,7 +50,7 @@ class SchemaBuilder extends Builder
         $schema->withOffset($rule->getOffset());
         $schema->withDescription($rule->getDescription());
 
-        $this->when->runtime(function () use ($rule, $schema) {
+        $this->when->runtime(function () use ($rule, $schema): void {
             foreach ($rule->getDirectives() as $ast) {
                 $schema->withDirective($this->dependent($ast, $schema));
             }
@@ -75,7 +75,7 @@ class SchemaBuilder extends Builder
             $this->validateModifiers($name, $hint, $schema);
             $this->validateFieldName($name, $ast, $schema);
 
-            $this->when->resolving(function () use ($name, $schema, $hint) {
+            $this->when->resolving(function () use ($name, $schema, $hint): void {
                 $type = $this->load($hint->getTypeName(), $schema);
 
                 if (! ($type instanceof Definition\ObjectDefinition)) {

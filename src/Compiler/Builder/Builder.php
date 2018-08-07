@@ -40,7 +40,7 @@ abstract class Builder implements BuilderInterface
      */
     public function __construct(Pipeline $pipeline, Factory $factory)
     {
-        $this->when = $pipeline;
+        $this->when    = $pipeline;
         $this->factory = $factory;
     }
 

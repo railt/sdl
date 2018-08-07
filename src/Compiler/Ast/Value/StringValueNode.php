@@ -31,7 +31,7 @@ class StringValueNode extends Rule implements ValueInterface
      */
     public function toString(): string
     {
-        $result = addcslashes($this->toPrimitive(), '"\\');
+        $result = \addcslashes($this->toPrimitive(), '"\\');
 
         $result = \str_replace(
             ["\b", "\f", "\n", "\r", "\t"],

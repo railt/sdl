@@ -33,13 +33,13 @@ class InputUnionBuilder extends Builder
         $inputUnion->withOffset($rule->getOffset());
         $inputUnion->withDescription($rule->getDescription());
 
-        $this->when->runtime(function () use ($rule, $inputUnion) {
+        $this->when->runtime(function () use ($rule, $inputUnion): void {
             foreach ($rule->getDirectives() as $ast) {
                 $inputUnion->withDirective($this->dependent($ast, $inputUnion));
             }
         });
 
-        $this->when->resolving(function () use ($rule, $inputUnion) {
+        $this->when->resolving(function () use ($rule, $inputUnion): void {
             foreach ($rule->getUnitedTypes() as $ast) {
                 $inputUnion->withDefinition($ast->getTypeName());
             }

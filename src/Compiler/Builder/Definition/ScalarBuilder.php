@@ -32,7 +32,7 @@ class ScalarBuilder extends Builder
         $scalar->withOffset($rule->getOffset());
         $scalar->withDescription($rule->getDescription());
 
-        $this->when->resolving(function () use ($rule, $scalar) {
+        $this->when->resolving(function () use ($rule, $scalar): void {
             if ($ast = $rule->getExtends()) {
                 $parent = $this->load($ast->getTypeName(), $scalar);
 
@@ -46,7 +46,7 @@ class ScalarBuilder extends Builder
             }
         });
 
-        $this->when->runtime(function () use ($rule, $scalar) {
+        $this->when->runtime(function () use ($rule, $scalar): void {
             foreach ($rule->getDirectives() as $ast) {
                 $scalar->withDirective($this->dependent($ast, $scalar));
             }

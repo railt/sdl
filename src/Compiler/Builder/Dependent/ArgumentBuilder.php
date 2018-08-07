@@ -34,7 +34,7 @@ class ArgumentBuilder extends Builder
         $argument->withDescription($rule->getDescription());
         $argument->withModifiers($hint->getModifiers());
 
-        $this->when->runtime(function () use ($rule, $argument) {
+        $this->when->runtime(function () use ($rule, $argument): void {
             if ($default = $rule->getDefaultValue()) {
                 $argument->withDefaultValue($this->valueOf($argument, $default));
             }

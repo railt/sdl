@@ -36,7 +36,7 @@ class EnumValueBuilder extends Builder
         $value->withOffset($rule->getOffset());
         $value->withDescription($rule->getDescription());
 
-        $this->when->runtime(function () use ($rule, $value) {
+        $this->when->runtime(function () use ($rule, $value): void {
             if ($hint = $rule->getTypeHint()) {
                 $value->withValue($this->valueOf($this->virtualTypeHint($value, $hint), $rule->getValue()));
             }
@@ -56,8 +56,7 @@ class EnumValueBuilder extends Builder
      */
     private function virtualTypeHint(EnumValueDefinition $value, TypeHintNode $ast): TypeHint
     {
-        $virtual = new class($value->getDocument()) extends TypeHint
-        {
+        $virtual = new class($value->getDocument()) extends TypeHint {
             public static function getType(): TypeInterface
             {
                 return Type::of(Type::ENUM_VALUE);
