@@ -71,7 +71,7 @@ class ValueBuilder
             return $this->getValueOf($value->getInnerValue(), $type);
         }
 
-        if ($this->type->isList()) {
+        if ($type->isList()) {
             return \iterator_to_array($this->valueOfList($type, $value));
         }
 
