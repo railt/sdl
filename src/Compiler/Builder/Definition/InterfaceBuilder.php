@@ -37,13 +37,13 @@ class InterfaceBuilder extends Builder
             $interface->withField($this->dependent($ast, $interface));
         }
 
-        $this->when->runtime(function () use ($rule, $interface) {
+        $this->when->runtime(function () use ($rule, $interface): void {
             foreach ($rule->getDirectives() as $ast) {
                 $interface->withDirective($this->dependent($ast, $interface));
             }
         });
 
-        $this->when->resolving(function () use ($rule, $interface) {
+        $this->when->resolving(function () use ($rule, $interface): void {
             foreach ($rule->getImplementations() as $child) {
                 $interface->withInterface($child->getTypeName());
             }

@@ -37,13 +37,13 @@ class ObjectBuilder extends Builder
             $object->withField($this->dependent($ast, $object));
         }
 
-        $this->when->resolving(function () use ($rule, $object) {
+        $this->when->resolving(function () use ($rule, $object): void {
             foreach ($rule->getImplementations() as $interface) {
                 $object->withInterface($interface->getTypeName());
             }
         });
 
-        $this->when->runtime(function () use ($rule, $object) {
+        $this->when->runtime(function () use ($rule, $object): void {
             foreach ($rule->getDirectives() as $ast) {
                 $object->withDirective($this->dependent($ast, $object));
             }

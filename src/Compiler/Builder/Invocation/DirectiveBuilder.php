@@ -33,7 +33,7 @@ class DirectiveBuilder extends Builder
         $directive = new DirectiveInvocation($parent->getDocument(), $rule->getDirectiveName());
         $directive->withOffset($rule->getOffset());
 
-        $this->when->resolving(function() use ($rule, $directive) {
+        $this->when->resolving(function () use ($rule, $directive): void {
             /** @var DirectiveDefinition $definition */
             $definition = $directive->getDefinition();
 

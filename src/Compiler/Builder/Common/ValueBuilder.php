@@ -45,7 +45,7 @@ class ValueBuilder
      */
     public function __construct(TypeHint $type)
     {
-        $this->type = $type;
+        $this->type     = $type;
         $this->resolver = new ValueTypeResolver($this->type->getDocument()->getDictionary());
     }
 

@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Builder\Common;
 
-use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
 use Railt\Reflection\Contracts\Definition\ScalarDefinition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Dictionary;
@@ -54,7 +53,7 @@ class ValueTypeResolver
      * @param callable $filter
      * @return ValueTypeResolver
      */
-    public function breakpoint(string $type, callable $filter): ValueTypeResolver
+    public function breakpoint(string $type, callable $filter): self
     {
         $this->breakpoints[$type] = $filter;
 

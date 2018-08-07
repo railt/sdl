@@ -36,7 +36,7 @@ class EnumBuilder extends Builder
             $enum->withValue($this->dependent($enumValue, $enum));
         }
 
-        $this->when->runtime(function () use ($rule, $enum) {
+        $this->when->runtime(function () use ($rule, $enum): void {
             foreach ($rule->getDirectives() as $ast) {
                 $enum->withDirective($this->dependent($ast, $enum));
             }

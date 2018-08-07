@@ -14,10 +14,10 @@ namespace Railt\SDL\Compiler;
  */
 class Pipeline implements \IteratorAggregate, \Countable
 {
-    private const PRIORITY_BUILDING = 1;
-    private const PRIORITY_EXTENSIONS = 2;
+    private const PRIORITY_BUILDING       = 1;
+    private const PRIORITY_EXTENSIONS     = 2;
     private const PRIORITY_TYPE_RESOLVING = 3;
-    private const PRIORITY_RUNTIME = 4;
+    private const PRIORITY_RUNTIME        = 4;
 
     /**
      * Example struct:

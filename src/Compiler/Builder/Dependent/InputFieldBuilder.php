@@ -34,7 +34,7 @@ class InputFieldBuilder extends Builder
         $field->withDescription($rule->getDescription());
         $field->withModifiers($hint->getModifiers());
 
-        $this->when->runtime(function () use ($rule, $field) {
+        $this->when->runtime(function () use ($rule, $field): void {
             if ($default = $rule->getDefaultValue()) {
                 $field->withDefaultValue($this->valueOf($field, $default));
             }
