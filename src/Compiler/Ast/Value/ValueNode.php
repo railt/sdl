@@ -9,19 +9,34 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
-use Railt\Reflection\Contracts\Document;
-use Railt\SDL\Compiler\Builder\Value\ValueInterface;
+use Railt\Parser\Ast\Rule;
 
 /**
  * Class ValueNode
  */
-class ValueNode extends BaseValueNode
+class ValueNode extends Rule implements ValueInterface
 {
+    /**
+     * @return ValueInterface
+     */
+    public function getInnerValue(): ValueInterface
+    {
+        return $this->getChild(0);
+    }
+
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->getInnerValue()->toString();
+    }
+
     /**
      * @return mixed
      */
     public function toPrimitive()
     {
-        return $this->getChild(0)->toPrimitive();
+        return $this->getInnerValue()->toPrimitive();
     }
 }

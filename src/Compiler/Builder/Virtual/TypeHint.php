@@ -11,9 +11,6 @@ namespace Railt\SDL\Compiler\Builder\Virtual;
 
 use Railt\Reflection\AbstractDefinition;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
-use Railt\Reflection\Contracts\Dictionary;
-use Railt\Reflection\Contracts\Type;
 use Railt\Reflection\Definition\Behaviour\HasTypeIndication;
 
 /**
@@ -23,4 +20,3 @@ abstract class TypeHint extends AbstractDefinition implements ProvidesTypeIndica
 {
     use HasTypeIndication;
 }
-

@@ -19,6 +19,7 @@ use Railt\SDL\Compiler\Builder\Definition;
 use Railt\SDL\Compiler\Builder\Dependent;
 use Railt\SDL\Compiler\Builder\Invocation;
 use Railt\SDL\Exception\CompilerException;
+use Railt\SDL\Exception\TypeConflictException;
 
 /**
  * Class Factory
@@ -44,8 +45,7 @@ class Factory
         'EnumValue'            => Dependent\EnumValueBuilder::class,
         'InputFieldDefinition' => Dependent\InputFieldBuilder::class,
 
-        'Directive'         => Invocation\DirectiveBuilder::class,
-        'DirectiveArgument' => Invocation\DirectiveArgumentBuilder::class,
+        'Directive' => Invocation\DirectiveBuilder::class,
     ];
 
     /**
@@ -64,21 +64,15 @@ class Factory
     private $ast;
 
     /**
-     * @var Coercion
-     */
-    private $coercion;
-
-    /**
      * Processor constructor.
      * @param Document $document
      * @param RuleInterface $ast
      */
     public function __construct(Document $document, RuleInterface $ast)
     {
-        $this->ast = $ast;
+        $this->ast      = $ast;
         $this->document = $document;
         $this->pipeline = new Pipeline();
-        $this->coercion = new Coercion();
     }
 
     /**
@@ -87,10 +81,17 @@ class Factory
      */
     public function process(): Document
     {
+        $dictionary = $this->document->getDictionary();
+
         foreach ($this->ast as $child) {
             $definition = $this->build($child, $this->document);
 
             if ($definition instanceof TypeDefinition) {
+                if ($dictionary->has($definition->getName())) {
+                    $error = \sprintf('Can not redeclare already registered type %s', $definition);
+                    throw (new TypeConflictException($error))->in($definition);
+                }
+
                 $this->document->withDefinition($definition);
             }
 
@@ -125,13 +126,5 @@ class Factory
         $instance = new $mapping($this->pipeline, $this);
 
         return $instance->build($rule, $parent);
-    }
-
-    /**
-     * @return Coercion
-     */
-    public function getTypeCoercion(): Coercion
-    {
-        return $this->coercion;
     }
 }

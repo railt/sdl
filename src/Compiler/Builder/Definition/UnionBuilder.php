@@ -33,13 +33,17 @@ class UnionBuilder extends Builder
         $union->withOffset($rule->getOffset());
         $union->withDescription($rule->getDescription());
 
-        foreach ($rule->getUnitedTypes() as $ast) {
-            $union->withDefinition($ast->getTypeName());
-        }
+        $this->when->resolving(function () use ($rule, $union) {
+            foreach ($rule->getUnitedTypes() as $ast) {
+                $union->withDefinition($ast->getTypeName());
+            }
+        });
 
-        foreach ($rule->getDirectives() as $ast) {
-            $union->withDirective($this->dependent($ast, $union));
-        }
+        $this->when->runtime(function () use ($rule, $union) {
+            foreach ($rule->getDirectives() as $ast) {
+                $union->withDirective($this->dependent($ast, $union));
+            }
+        });
 
         return $union;
     }

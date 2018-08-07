@@ -11,10 +11,11 @@ namespace Railt\SDL\Compiler\Ast\Dependent;
 
 use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\Rule;
+use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Compiler\Ast\Common\DescriptionProvider;
 use Railt\SDL\Compiler\Ast\Common\DirectivesProvider;
 use Railt\SDL\Compiler\Ast\TypeHintNode;
-use Railt\SDL\Compiler\Ast\Value\BaseValueNode;
+use Railt\SDL\Compiler\Ast\Value\ValueInterface;
 
 /**
  * Class InputFieldDefinitionNode
@@ -29,7 +30,10 @@ class InputFieldDefinitionNode extends Rule
      */
     public function getFieldName(): string
     {
-        return $this->first('T_NAME', 1)->getValue();
+        /** @var RuleInterface $fieldName */
+        $fieldName = $this->first('InputFieldName', 1);
+
+        return $fieldName->getChild(0)->getValue();
     }
 
     /**
@@ -41,9 +45,9 @@ class InputFieldDefinitionNode extends Rule
     }
 
     /**
-     * @return null|BaseValueNode|NodeInterface
+     * @return null|ValueInterface|NodeInterface
      */
-    public function getDefaultValue(): ?BaseValueNode
+    public function getDefaultValue(): ?ValueInterface
     {
         return $this->first('Value', 1);
     }

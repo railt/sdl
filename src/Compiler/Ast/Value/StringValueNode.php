@@ -9,14 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
-use Railt\Reflection\Contracts\Document;
-use Railt\SDL\Compiler\Builder\Value\StringValue;
-use Railt\SDL\Compiler\Builder\Value\ValueInterface;
+use Railt\Parser\Ast\Rule;
 
 /**
  * Class StringValueNode
  */
-class StringValueNode extends BaseValueNode
+class StringValueNode extends Rule implements ValueInterface
 {
     /**
      * @var string
@@ -27,6 +25,22 @@ class StringValueNode extends BaseValueNode
      * @var string
      */
     private const CHAR_SEQUENCE_PATTERN = '/(?<!\\\\)\\\\(b|f|n|r|t)/u';
+
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        $result = addcslashes($this->toPrimitive(), '"\\');
+
+        $result = \str_replace(
+            ["\b", "\f", "\n", "\r", "\t"],
+            ['\u0092', '\u0012', '\u0010', '\u0013', '\u0009'],
+            $result
+        );
+
+        return \sprintf('"%s"', $result);
+    }
 
     /**
      * @return string

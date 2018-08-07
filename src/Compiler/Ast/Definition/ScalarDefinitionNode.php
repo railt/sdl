@@ -9,9 +9,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Definition;
 
+use Railt\Parser\Ast\RuleInterface;
+use Railt\SDL\Compiler\Ast\TypeNameNode;
+
 /**
  * Class ScalarDefinitionNode
  */
 class ScalarDefinitionNode extends TypeDefinitionNode
 {
+    /**
+     * @return null|TypeNameNode
+     */
+    public function getExtends(): ?TypeNameNode
+    {
+        /** @var RuleInterface $extends */
+        $extends = $this->first('Extends', 1);
+
+        return $extends ? $extends->getChild(0) : null;
+    }
 }

@@ -14,7 +14,7 @@ use Railt\Parser\Ast\Rule;
 use Railt\SDL\Compiler\Ast\Common\DescriptionProvider;
 use Railt\SDL\Compiler\Ast\Common\DirectivesProvider;
 use Railt\SDL\Compiler\Ast\TypeHintNode;
-use Railt\SDL\Compiler\Ast\Value\BaseValueNode;
+use Railt\SDL\Compiler\Ast\Value\ValueInterface;
 
 /**
  * Class ArgumentDefinitionNode
@@ -37,13 +37,15 @@ class ArgumentDefinitionNode extends Rule
      */
     public function getArgumentName(): string
     {
-        return $this->first('T_NAME', 1)->getValue();
+        return $this->first('ArgumentName', 1)
+            ->getChild(0)
+            ->getValue();
     }
 
     /**
-     * @return null|BaseValueNode|NodeInterface
+     * @return null|ValueInterface|NodeInterface
      */
-    public function getDefaultValue(): ?BaseValueNode
+    public function getDefaultValue(): ?ValueInterface
     {
         return $this->first('Value', 1);
     }

@@ -22,9 +22,8 @@ class InputFieldBuilder extends Builder
 {
     /**
      * @param RuleInterface|InputFieldDefinitionNode $rule
-     * @param Definition $parent
+     * @param Definition|Definition\TypeDefinition $parent
      * @return Definition
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function build(RuleInterface $rule, Definition $parent): Definition
     {
@@ -35,13 +34,15 @@ class InputFieldBuilder extends Builder
         $field->withDescription($rule->getDescription());
         $field->withModifiers($hint->getModifiers());
 
-        if ($default = $rule->getDefaultValue()) {
-            // TODO Default value
-        }
+        $this->when->runtime(function () use ($rule, $field) {
+            if ($default = $rule->getDefaultValue()) {
+                $field->withDefaultValue($this->valueOf($field, $default));
+            }
 
-        foreach ($rule->getDirectives() as $ast) {
-            $field->withDirective($this->dependent($ast, $field));
-        }
+            foreach ($rule->getDirectives() as $ast) {
+                $field->withDirective($this->dependent($ast, $field));
+            }
+        });
 
         return $field;
     }

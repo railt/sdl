@@ -10,17 +10,25 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Ast\Value;
 
 use Railt\Parser\Ast\LeafInterface;
-use Railt\Reflection\Contracts\Document;
-use Railt\SDL\Compiler\Builder\Value\FloatValue;
-use Railt\SDL\Compiler\Builder\Value\IntValue;
-use Railt\SDL\Compiler\Builder\Value\ValueInterface;
+use Railt\Parser\Ast\Rule;
 use Railt\SDL\Compiler\Parser;
 
 /**
  * Class NumberValueNode
  */
-class NumberValueNode extends BaseValueNode
+class NumberValueNode extends Rule implements ValueInterface
 {
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        return (string)$this->toPrimitive();
+    }
+
+    /**
+     * @return float|int
+     */
     public function toPrimitive()
     {
         return $this->parse();
@@ -55,57 +63,21 @@ class NumberValueNode extends BaseValueNode
     }
 
     /**
-     * @param string $value
-     * @return int
-     */
-    private function parseHex(string $value): int
-    {
-        return \hexdec($value);
-    }
-
-    /**
-     * @param string $value
-     * @return int
-     */
-    private function parseBin(string $value): int
-    {
-        return \bindec($value);
-    }
-
-    /**
-     * @param string $value
-     * @return float
-     */
-    private function parseExponential(string $value): float
-    {
-        return (float)$value;
-    }
-
-    /**
-     * @param string $value
-     * @return float
-     */
-    private function parseFloat(string $value): float
-    {
-        return (float)$value;
-    }
-
-    /**
-     * @param string $value
-     * @return int
-     */
-    private function parseInt(string $value): int
-    {
-        return $value >> 0;
-    }
-
-    /**
      * @param LeafInterface $leaf
      * @return bool
      */
     private function isHex(LeafInterface $leaf): bool
     {
         return $leaf->getName() === Parser::T_HEX_NUMBER;
+    }
+
+    /**
+     * @param string $value
+     * @return int
+     */
+    private function parseHex(string $value): int
+    {
+        return \hexdec($value);
     }
 
     /**
@@ -118,12 +90,30 @@ class NumberValueNode extends BaseValueNode
     }
 
     /**
+     * @param string $value
+     * @return int
+     */
+    private function parseBin(string $value): int
+    {
+        return \bindec($value);
+    }
+
+    /**
      * @param LeafInterface $leaf
      * @return bool
      */
     private function isExponential(LeafInterface $leaf): bool
     {
         return \substr_count(\mb_strtolower($leaf->getValue()), 'e') !== 0;
+    }
+
+    /**
+     * @param string $value
+     * @return float
+     */
+    private function parseExponential(string $value): float
+    {
+        return (float)$value;
     }
 
     /**
@@ -136,12 +126,29 @@ class NumberValueNode extends BaseValueNode
     }
 
     /**
+     * @param string $value
+     * @return float
+     */
+    private function parseFloat(string $value): float
+    {
+        return (float)$value;
+    }
+
+    /**
      * @param LeafInterface $leaf
      * @return bool
      */
     private function isInt(LeafInterface $leaf): bool
     {
-        return $leaf->getName() === Parser::T_NUMBER &&
-            \substr_count($leaf->getValue(), '.') === 0;
+        return $leaf->getName() === Parser::T_NUMBER && \substr_count($leaf->getValue(), '.') === 0;
+    }
+
+    /**
+     * @param string $value
+     * @return int
+     */
+    private function parseInt(string $value): int
+    {
+        return $value >> 0;
     }
 }

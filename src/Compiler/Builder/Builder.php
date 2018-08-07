@@ -12,9 +12,9 @@ namespace Railt\SDL\Compiler\Builder;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication;
-use Railt\SDL\Compiler\Ast\Value\BaseValueNode;
-use Railt\SDL\Compiler\Builder\Value\NullValue;
-use Railt\SDL\Compiler\Builder\Value\ValueInterface;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\SDL\Compiler\Ast\Value\ValueInterface;
+use Railt\SDL\Compiler\Builder\Common\ValueBuilder;
 use Railt\SDL\Compiler\Factory;
 use Railt\SDL\Compiler\Pipeline;
 
@@ -26,7 +26,7 @@ abstract class Builder implements BuilderInterface
     /**
      * @var Pipeline
      */
-    private $pipeline;
+    protected $when;
 
     /**
      * @var Factory
@@ -40,30 +40,32 @@ abstract class Builder implements BuilderInterface
      */
     public function __construct(Pipeline $pipeline, Factory $factory)
     {
-        $this->pipeline = $pipeline;
-        $this->factory  = $factory;
+        $this->when = $pipeline;
+        $this->factory = $factory;
     }
 
     /**
-     * @param \Closure $then
-     * @return Builder
+     * @param Definition|ProvidesTypeIndication $from
+     * @param ValueInterface $value
+     * @return array|mixed
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    protected function future(\Closure $then): self
+    protected function valueOf(ProvidesTypeIndication $from, ValueInterface $value)
     {
-        $this->pipeline->push(3, $then);
-
-        return $this;
+        return (new ValueBuilder($from))->valueOf($value);
     }
 
     /**
-     * @param \Closure $then
-     * @return Builder
+     * @param string $type
+     * @param TypeDefinition $from
+     * @return TypeDefinition
+     * @throws \Railt\Reflection\Exception\TypeNotFoundException
      */
-    protected function deferred(\Closure $then): self
+    protected function load(string $type, TypeDefinition $from): TypeDefinition
     {
-        $this->pipeline->push(2, $then);
+        $dict = $from->getDictionary();
 
-        return $this;
+        return $dict->get($type, $from);
     }
 
     /**

@@ -6,7 +6,10 @@
     Directives()?
 
 __argumentDefinitionBody:
-    NameWithReserved() ::T_COLON:: TypeHint()
+    ArgumentName() ::T_COLON:: TypeHint()
+
+#ArgumentName:
+    NameWithReserved()
 
 __argumentDefinitionDefaultValue:
     ::T_EQUAL:: Value()

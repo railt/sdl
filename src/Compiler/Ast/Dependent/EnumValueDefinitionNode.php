@@ -14,7 +14,7 @@ use Railt\Parser\Ast\Rule;
 use Railt\SDL\Compiler\Ast\Common\DescriptionProvider;
 use Railt\SDL\Compiler\Ast\Common\DirectivesProvider;
 use Railt\SDL\Compiler\Ast\TypeHintNode;
-use Railt\SDL\Compiler\Ast\Value\BaseValueNode;
+use Railt\SDL\Compiler\Ast\Value\ValueInterface;
 
 /**
  * Class EnumValueDefinitionNode
@@ -41,9 +41,9 @@ class EnumValueDefinitionNode extends Rule
     }
 
     /**
-     * @return null|BaseValueNode|NodeInterface
+     * @return null|ValueInterface|NodeInterface
      */
-    public function getValue(): ?BaseValueNode
+    public function getValue(): ?ValueInterface
     {
         return $this->first('Value', 1);
     }

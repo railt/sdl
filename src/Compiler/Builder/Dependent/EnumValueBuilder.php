@@ -29,22 +29,45 @@ class EnumValueBuilder extends Builder
      * @param RuleInterface|EnumValueDefinitionNode $rule
      * @param Definition|EnumDefinition $parent
      * @return Definition
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function build(RuleInterface $rule, Definition $parent): Definition
     {
-        $value = new EnumValueDefinition($parent, $rule->getName());
+        $value = new EnumValueDefinition($parent, $rule->getValueName());
         $value->withOffset($rule->getOffset());
         $value->withDescription($rule->getDescription());
 
-        if ($hint = $rule->getTypeHint()) {
-            // TODO With Value
-        }
+        $this->when->runtime(function () use ($rule, $value) {
+            if ($hint = $rule->getTypeHint()) {
+                $value->withValue($this->valueOf($this->virtualTypeHint($value, $hint), $rule->getValue()));
+            }
 
-        foreach ($rule->getDirectives() as $ast) {
-            $value->withDirective($this->dependent($ast, $value));
-        }
+            foreach ($rule->getDirectives() as $ast) {
+                $value->withDirective($this->dependent($ast, $value));
+            }
+        });
 
         return $value;
+    }
+
+    /**
+     * @param EnumValueDefinition $value
+     * @param TypeHintNode $ast
+     * @return TypeHint
+     */
+    private function virtualTypeHint(EnumValueDefinition $value, TypeHintNode $ast): TypeHint
+    {
+        $virtual = new class($value->getDocument()) extends TypeHint
+        {
+            public static function getType(): TypeInterface
+            {
+                return Type::of(Type::ENUM_VALUE);
+            }
+        };
+
+        $virtual->withOffset($ast->getOffset());
+        $virtual->withTypeDefinition($ast->getTypeName());
+        $virtual->withModifiers($ast->getModifiers());
+
+        return $virtual;
     }
 }

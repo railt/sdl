@@ -32,9 +32,11 @@ class InputBuilder extends Builder
         $input->withOffset($rule->getOffset());
         $input->withDescription($rule->getDescription());
 
-        foreach ($rule->getDirectives() as $ast) {
-            $input->withDirective($this->dependent($ast, $input));
-        }
+        $this->when->runtime(function () use ($rule, $input) {
+            foreach ($rule->getDirectives() as $ast) {
+                $input->withDirective($this->dependent($ast, $input));
+            }
+        });
 
         foreach ($rule->getInputFields() as $ast) {
             $input->withField($this->dependent($ast, $input));

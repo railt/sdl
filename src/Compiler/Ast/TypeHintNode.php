@@ -32,10 +32,12 @@ class TypeHintNode extends Rule
      * @var string
      */
     private const HINT_NOT_NULL = 'NonNull';
+
     /**
      * @var int
      */
     protected $modifiers = 0;
+
     /**
      * @var string
      */
@@ -79,11 +81,11 @@ class TypeHintNode extends Rule
         foreach ($rule->getChildren() as $child) {
             switch ($child->getName()) {
                 case self::HINT_SINGULAR:
-                    $this->parseInnerTypeHint($child);
+                    $this->parseInnerTypeHint($child, false);
                     break;
 
                 case self::HINT_NOT_NULL:
-                    $this->modifiers |= ProvidesTypeIndication::IS_LIST_OF_NOT_NULL;
+                    $this->modifiers |= ProvidesTypeIndication::IS_NOT_NULL;
                     break;
             }
         }
@@ -91,13 +93,16 @@ class TypeHintNode extends Rule
 
     /**
      * @param RuleInterface $rule
+     * @param bool $root
      */
-    private function parseInnerTypeHint(RuleInterface $rule): void
+    private function parseInnerTypeHint(RuleInterface $rule, bool $root = true): void
     {
         foreach ($rule->getChildren() as $child) {
             switch ($child->getName()) {
                 case self::HINT_NOT_NULL:
-                    $this->modifiers |= ProvidesTypeIndication::IS_NOT_NULL;
+                    $this->modifiers |= $root
+                        ? ProvidesTypeIndication::IS_NOT_NULL
+                        : ProvidesTypeIndication::IS_LIST_OF_NOT_NULL;
                     break;
 
                 case 'TypeName':

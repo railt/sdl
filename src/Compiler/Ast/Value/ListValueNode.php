@@ -9,16 +9,42 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
+use Railt\Parser\Ast\Rule;
+
 /**
  * Class ListValueNode
  */
-class ListValueNode extends BaseValueNode
+class ListValueNode extends Rule implements ValueInterface
 {
     /**
-     * @return iterable|BaseValueNode[]
+     * @return string
+     */
+    public function toString(): string
+    {
+        $values = \array_map(function (ValueInterface $value) {
+            return $value->toString();
+        }, \iterator_to_array($this->getValues()));
+
+        return \sprintf('[%s]', \implode(', ', $values));
+    }
+
+    /**
+     * @return iterable|ValueInterface[]
      */
     public function toPrimitive(): iterable
     {
-        return $this->getChildren();
+        return \array_map(function (ValueInterface $value) {
+            return $value->toPrimitive();
+        }, \iterator_to_array($this->getValues()));
+    }
+
+    /**
+     * @return iterable|ValueInterface[]
+     */
+    public function getValues(): iterable
+    {
+        foreach ($this->getChildren() as $children) {
+            yield $children->getInnerValue();
+        }
     }
 }

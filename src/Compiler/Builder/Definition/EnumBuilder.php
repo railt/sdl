@@ -12,7 +12,6 @@ namespace Railt\SDL\Compiler\Builder\Definition;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Definition\EnumDefinition;
-use Railt\SDL\Compiler\Ast\Definition\DirectiveDefinitionNode;
 use Railt\SDL\Compiler\Ast\Definition\EnumDefinitionNode;
 use Railt\SDL\Compiler\Builder\Builder;
 
@@ -33,13 +32,15 @@ class EnumBuilder extends Builder
         $enum->withOffset($rule->getOffset());
         $enum->withDescription($rule->getDescription());
 
-        foreach ($rule->getDirectives() as $ast) {
-            $enum->withDirective($this->dependent($ast, $enum));
-        }
-
         foreach ($rule->getEnumValues() as $enumValue) {
             $enum->withValue($this->dependent($enumValue, $enum));
         }
+
+        $this->when->runtime(function () use ($rule, $enum) {
+            foreach ($rule->getDirectives() as $ast) {
+                $enum->withDirective($this->dependent($ast, $enum));
+            }
+        });
 
         return $enum;
     }

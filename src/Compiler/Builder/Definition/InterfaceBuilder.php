@@ -33,17 +33,21 @@ class InterfaceBuilder extends Builder
         $interface->withOffset($rule->getOffset());
         $interface->withDescription($rule->getDescription());
 
-        foreach ($rule->getDirectives() as $ast) {
-            $interface->withDirective($this->dependent($ast, $interface));
-        }
-
         foreach ($rule->getFields() as $ast) {
             $interface->withField($this->dependent($ast, $interface));
         }
 
-        foreach ($rule->getImplementations() as $child) {
-            $interface->withInterface($child->getTypeName());
-        }
+        $this->when->runtime(function () use ($rule, $interface) {
+            foreach ($rule->getDirectives() as $ast) {
+                $interface->withDirective($this->dependent($ast, $interface));
+            }
+        });
+
+        $this->when->resolving(function () use ($rule, $interface) {
+            foreach ($rule->getImplementations() as $child) {
+                $interface->withInterface($child->getTypeName());
+            }
+        });
 
         return $interface;
     }

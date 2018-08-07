@@ -24,7 +24,6 @@ class ArgumentBuilder extends Builder
      * @param RuleInterface|ArgumentDefinitionNode $rule
      * @param Definition|Definition\TypeDefinition $parent
      * @return Definition
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function build(RuleInterface $rule, Definition $parent): Definition
     {
@@ -35,13 +34,15 @@ class ArgumentBuilder extends Builder
         $argument->withDescription($rule->getDescription());
         $argument->withModifiers($hint->getModifiers());
 
-        if ($default = $rule->getDefaultValue()) {
-            // TODO Default value
-        }
+        $this->when->runtime(function () use ($rule, $argument) {
+            if ($default = $rule->getDefaultValue()) {
+                $argument->withDefaultValue($this->valueOf($argument, $default));
+            }
 
-        foreach ($rule->getDirectives() as $ast) {
-            $argument->withDirective($this->dependent($ast, $argument));
-        }
+            foreach ($rule->getDirectives() as $ast) {
+                $argument->withDirective($this->dependent($ast, $argument));
+            }
+        });
 
         return $argument;
     }

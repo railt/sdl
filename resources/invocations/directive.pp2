@@ -16,5 +16,7 @@ __directiveInvocationArguments:
     #DirectiveArguments
 
 #DirectiveArgument -> Railt\SDL\Compiler\Ast\Invocation\DirectiveArgumentNode:
-    NameWithReserved() ::T_COLON:: Value()
+    DirectiveArgumentName() ::T_COLON:: Value()
 
+#DirectiveArgumentName:
+    NameWithReserved()

@@ -9,50 +9,72 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
+use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\NodeInterface;
+use Railt\Parser\Ast\Rule;
 use Railt\Parser\Ast\RuleInterface;
 
 /**
  * Class InputValueNode
  */
-class InputValueNode extends BaseValueNode
+class InputValueNode extends Rule implements ValueInterface
 {
     /**
-     * @return iterable|BaseValueNode[]
+     * @return string
      */
-    public function toPrimitive(): iterable
+    public function toString(): string
     {
-        return $this->getValues();
+        $result = [];
+
+        foreach ($this->getValues() as $key => $value) {
+            $result[] = $key->getValue() . ': ' . $value->toString();
+        }
+
+        return \sprintf('{%s}', \implode(', ', $result));
     }
 
     /**
-     * @return iterable|BaseValueNode[]
+     * @return iterable|ValueInterface[]
+     */
+    public function toPrimitive(): iterable
+    {
+        $result = [];
+
+        foreach ($this->getValues() as $key => $value) {
+            $result[$key->getValue()] = $value->toPrimitive();
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return iterable|ValueInterface[]
      */
     public function getValues(): iterable
     {
         /** @var RuleInterface $child */
         foreach ($this->getChildren() as $child) {
-            yield $this->key($child) => $this->value($child);
+            yield $this->key($child) => $this->value($child)->getInnerValue();
         }
     }
 
     /**
      * @param RuleInterface $rule
-     * @return string
+     * @return LeafInterface
      */
-    private function key(RuleInterface $rule): string
+    private function key(RuleInterface $rule): LeafInterface
     {
         /** @var RuleInterface $key */
         $key = $rule->first('Key', 1);
 
-        return $key->getChild(0)->getValue();
+        return $key->getChild(0);
     }
 
     /**
      * @param RuleInterface $rule
-     * @return BaseValueNode|NodeInterface
+     * @return ValueInterface|NodeInterface
      */
-    private function value(RuleInterface $rule): BaseValueNode
+    private function value(RuleInterface $rule): ValueInterface
     {
         /** @var ValueNode $value */
         return $rule->first('Value', 1);

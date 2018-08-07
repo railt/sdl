@@ -9,15 +9,18 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
-use Railt\Parser\Ast\Rule;
-
 /**
- * Class BaseValueNode
+ * Interface ValueInterface
  */
-abstract class BaseValueNode extends Rule
+interface ValueInterface
 {
     /**
      * @return mixed
      */
-    abstract public function toPrimitive();
+    public function toPrimitive();
+
+    /**
+     * @return string
+     */
+    public function toString(): string;
 }

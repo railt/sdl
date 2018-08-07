@@ -9,16 +9,26 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
+use Railt\Parser\Ast\Rule;
+
 /**
  * Class BooleanValueNode
  */
-class BooleanValueNode extends BaseValueNode
+class BooleanValueNode extends Rule implements ValueInterface
 {
     /**
      * @return bool
      */
     public function toPrimitive(): bool
     {
-        return $this->getChild(0)->getValue() === 'true';
+        return $this->toString() === 'true';
+    }
+
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->getChild(0)->getValue();
     }
 }

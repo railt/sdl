@@ -22,9 +22,12 @@ __inputDefinitionField:
 
 #InputFieldDefinition -> Railt\SDL\Compiler\Ast\Dependent\InputFieldDefinitionNode:
     Documentation()?
-    NameWithReserved() ::T_COLON:: TypeHint()
+    InputFieldName() ::T_COLON:: TypeHint()
         __inputFieldDefinitionDefaultValue()?
         Directives()?
+
+#InputFieldName:
+    NameWithReserved()
 
 __inputFieldDefinitionDefaultValue:
     ::T_EQUAL:: Value()

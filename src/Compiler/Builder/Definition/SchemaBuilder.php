@@ -16,7 +16,6 @@ use Railt\SDL\Compiler\Ast\Definition\SchemaDefinitionNode;
 use Railt\SDL\Compiler\Ast\Dependent\SchemaFieldDefinitionNode;
 use Railt\SDL\Compiler\Ast\TypeHintNode;
 use Railt\SDL\Compiler\Builder\Builder;
-use Railt\SDL\Compiler\Renderer;
 use Railt\SDL\Exception\TypeConflictException;
 
 /**
@@ -51,9 +50,11 @@ class SchemaBuilder extends Builder
         $schema->withOffset($rule->getOffset());
         $schema->withDescription($rule->getDescription());
 
-        foreach ($rule->getDirectives() as $ast) {
-            $schema->withDirective($this->dependent($ast, $schema));
-        }
+        $this->when->runtime(function () use ($rule, $schema) {
+            foreach ($rule->getDirectives() as $ast) {
+                $schema->withDirective($this->dependent($ast, $schema));
+            }
+        });
 
         $this->buildSchemaFields($rule, $schema);
 
@@ -74,19 +75,29 @@ class SchemaBuilder extends Builder
             $this->validateModifiers($name, $hint, $schema);
             $this->validateFieldName($name, $ast, $schema);
 
-            switch ($name) {
-                case self::FIELD_QUERY:
-                    $schema->withQuery($hint->getTypeName());
-                    break;
+            $this->when->resolving(function () use ($name, $schema, $hint) {
+                $type = $this->load($hint->getTypeName(), $schema);
 
-                case self::FIELD_MUTATION:
-                    $schema->withMutation($hint->getTypeName());
-                    break;
+                if (! ($type instanceof Definition\ObjectDefinition)) {
+                    $error = 'Schema field %s<SchemaField> should return Object type, but %s given';
+                    throw (new TypeConflictException(\sprintf($error, $name, $type)))
+                        ->throwsIn($schema->getFile(), $hint->getOffset());
+                }
 
-                case self::FIELD_SUBSCRIPTION:
-                    $schema->withSubscription($hint->getTypeName());
-                    break;
-            }
+                switch ($name) {
+                    case self::FIELD_QUERY:
+                        $schema->withQuery($type);
+                        break;
+
+                    case self::FIELD_MUTATION:
+                        $schema->withMutation($type);
+                        break;
+
+                    case self::FIELD_SUBSCRIPTION:
+                        $schema->withSubscription($type);
+                        break;
+                }
+            });
         }
     }
 
@@ -99,11 +110,9 @@ class SchemaBuilder extends Builder
     private function validateModifiers(string $field, TypeHintNode $hint, SchemaDefinition $schema): void
     {
         if ($hint->getModifiers() !== 0) {
-            $error = 'Schema field "%s" should be a nullable and non-list type, but "%s" given';
-            $indication = Renderer::typeIndication($hint->getTypeName(), $hint->getModifiers());
-
-            throw (new TypeConflictException(\sprintf($error, $field, $indication)))->throwsIn($schema->getFile(),
-                $hint->getOffset());
+            $error = 'Schema field %s<SchemaField> should be a Nullable and Non-List';
+            throw (new TypeConflictException(\sprintf($error, $field)))
+                ->throwsIn($schema->getFile(), $hint->getOffset());
         }
     }
 
@@ -116,7 +125,7 @@ class SchemaBuilder extends Builder
     private function validateFieldName(string $field, SchemaFieldDefinitionNode $rule, SchemaDefinition $schema): void
     {
         if (! \in_array($field, [self::FIELD_QUERY, self::FIELD_MUTATION, self::FIELD_SUBSCRIPTION], true)) {
-            $error = \sprintf('Invalid %s field name "%s"', $schema, $field);
+            $error = \sprintf('Invalid %s schema field name "%s"', $schema, $field);
 
             throw (new TypeConflictException($error))->throwsIn($schema->getFile(), $rule->getOffset());
         }

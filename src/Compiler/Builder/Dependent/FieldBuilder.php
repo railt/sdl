@@ -39,9 +39,11 @@ class FieldBuilder extends Builder
             $field->withArgument($this->dependent($ast, $field));
         }
 
-        foreach ($rule->getDirectives() as $ast) {
-            $field->withDirective($this->dependent($ast, $field));
-        }
+        $this->when->runtime(function () use ($rule, $field) {
+            foreach ($rule->getDirectives() as $ast) {
+                $field->withDirective($this->dependent($ast, $field));
+            }
+        });
 
         return $field;
     }

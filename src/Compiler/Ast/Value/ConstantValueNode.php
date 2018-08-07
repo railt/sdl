@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler\Ast\Value;
 
+use Railt\Parser\Ast\Rule;
+
 /**
  * Class ConstantValueNode
  */
-class ConstantValueNode extends BaseValueNode
+class ConstantValueNode extends Rule implements ValueInterface
 {
     /**
      * @return string
@@ -20,5 +22,13 @@ class ConstantValueNode extends BaseValueNode
     public function toPrimitive(): string
     {
         return (string)$this->getChild(0)->getValue();
+    }
+
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->toPrimitive();
     }
 }

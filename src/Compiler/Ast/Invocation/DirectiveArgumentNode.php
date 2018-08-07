@@ -10,12 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Compiler\Ast\Invocation;
 
 use Railt\Parser\Ast\Rule;
-use Railt\Reflection\Contracts\Invocation\TypeInvocation;
-use Railt\Reflection\Invocation\Dependent\ArgumentInvocation;
-use Railt\Reflection\Invocation\DirectiveInvocation;
-use Railt\SDL\Compiler\Ast\Value\BaseValueNode;
-use Railt\SDL\Compiler\Ast\Value\ValueNode;
-use Railt\SDL\Compiler\Builder\Value\BaseValue;
+use Railt\SDL\Compiler\Ast\Value\ValueInterface;
 
 /**
  * Class DirectiveArgumentNode
@@ -27,13 +22,15 @@ class DirectiveArgumentNode extends Rule
      */
     public function getArgumentName(): string
     {
-        return $this->first('T_NAME', 1)->getValue();
+        return $this->first('DirectiveArgumentName', 1)
+            ->getChild(0)
+            ->getValue();
     }
 
     /**
-     * @return BaseValueNode
+     * @return ValueInterface
      */
-    public function getArgumentValue(): BaseValueNode
+    public function getArgumentValue(): ValueInterface
     {
         return $this->first('Value', 1);
     }
