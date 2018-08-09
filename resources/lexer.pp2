@@ -50,7 +50,6 @@
 %token T_TYPE                   type\b
 %token T_ENUM                   enum\b
 %token T_UNION                  union\b
-%token T_INPUT_UNION            inputUnion\b
 %token T_INTERFACE              interface\b
 %token T_SCHEMA                 schema\b
 %token T_SCALAR                 scalar\b

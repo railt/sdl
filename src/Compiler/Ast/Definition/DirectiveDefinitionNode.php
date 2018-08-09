@@ -26,7 +26,7 @@ class DirectiveDefinitionNode extends TypeDefinitionNode
 
         /** @var LeafInterface $location */
         foreach ($locations as $location) {
-            yield $location->getValue();
+            yield $location => $location->getValue();
         }
     }
 

@@ -12,6 +12,7 @@ namespace Railt\SDL\Compiler\Builder\Dependent;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Definition\Dependent\FieldDefinition;
+use Railt\Reflection\Type;
 use Railt\SDL\Compiler\Ast\Dependent\FieldDefinitionNode;
 use Railt\SDL\Compiler\Builder\Builder;
 
@@ -38,6 +39,17 @@ class FieldBuilder extends Builder
         foreach ($rule->getArguments() as $ast) {
             $field->withArgument($this->dependent($ast, $field));
         }
+
+        $this->when->resolving(function() use ($field) {
+            $this->shouldBeTypeOf($field, $field->getDefinition(), [
+                Type::SCALAR,
+                Type::OBJECT,
+                Type::INTERFACE,
+                Type::UNION,
+                Type::ENUM,
+                Type::ANY,
+            ]);
+        });
 
         $this->when->runtime(function () use ($rule, $field): void {
             foreach ($rule->getDirectives() as $ast) {

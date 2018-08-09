@@ -12,6 +12,7 @@ namespace Railt\SDL\Compiler\Builder\Dependent;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Definition\Dependent\ArgumentDefinition;
+use Railt\Reflection\Type;
 use Railt\SDL\Compiler\Ast\Dependent\ArgumentDefinitionNode;
 use Railt\SDL\Compiler\Builder\Builder;
 
@@ -34,9 +35,20 @@ class ArgumentBuilder extends Builder
         $argument->withDescription($rule->getDescription());
         $argument->withModifiers($hint->getModifiers());
 
+        $this->when->resolving(function() use ($argument) {
+            $this->shouldBeTypeOf($argument, $argument->getDefinition(), [
+                Type::SCALAR,
+                Type::ENUM,
+                Type::INPUT_OBJECT,
+                Type::ANY,
+            ]);
+        });
+
         $this->when->runtime(function () use ($rule, $argument): void {
             if ($default = $rule->getDefaultValue()) {
                 $argument->withDefaultValue($this->valueOf($argument, $default));
+            } elseif (! $argument->isNonNull()) {
+                $argument->withDefaultValue(null);
             }
 
             foreach ($rule->getDirectives() as $ast) {

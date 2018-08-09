@@ -24,7 +24,6 @@ class UnionBuilder extends Builder
      * @param RuleInterface|UnionDefinitionNode $rule
      * @param Definition $parent
      * @return Definition
-     * @throws \Railt\Io\Exception\ExternalFileException
      */
     public function build(RuleInterface $rule, Definition $parent): Definition
     {

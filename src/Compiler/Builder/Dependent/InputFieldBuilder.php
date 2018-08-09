@@ -12,6 +12,7 @@ namespace Railt\SDL\Compiler\Builder\Dependent;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Definition\Dependent\InputFieldDefinition;
+use Railt\Reflection\Type;
 use Railt\SDL\Compiler\Ast\Dependent\InputFieldDefinitionNode;
 use Railt\SDL\Compiler\Builder\Builder;
 
@@ -33,6 +34,15 @@ class InputFieldBuilder extends Builder
         $field->withOffset($rule->getOffset());
         $field->withDescription($rule->getDescription());
         $field->withModifiers($hint->getModifiers());
+
+        $this->when->resolving(function() use ($field) {
+            $this->shouldBeTypeOf($field, $field->getDefinition(), [
+                Type::SCALAR,
+                Type::ENUM,
+                Type::INPUT_OBJECT,
+                Type::ANY,
+            ]);
+        });
 
         $this->when->runtime(function () use ($rule, $field): void {
             if ($default = $rule->getDefaultValue()) {

@@ -5,7 +5,6 @@
 
 %include extensions/enum
 %include extensions/input
-%include extensions/input-union
 %include extensions/interface
 %include extensions/object
 %include extensions/scalar
@@ -16,7 +15,6 @@
 Extension
     : EnumExtension()
     | InputExtension()
-    | InputUnionExtension()
     | InterfaceExtension()
     | ObjectExtension()
     | ScalarExtension()

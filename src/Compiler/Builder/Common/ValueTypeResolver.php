@@ -105,7 +105,7 @@ class ValueTypeResolver
     {
         foreach ($this->breakpoints as $name => $filter) {
             if ($filter($value)) {
-                $inheritance = $this->getFilteredChildrenInheritance($this->load($name), $this->getFilter());
+                $inheritance = $this->inheritedBy($this->load($name), $this->getFilter());
 
                 foreach ($inheritance as $child) {
                     yield $child;
@@ -140,16 +140,16 @@ class ValueTypeResolver
      * @param \Closure $filter
      * @return \Generator|TypeDefinition[]
      */
-    private function getFilteredChildrenInheritance(TypeDefinition $type, \Closure $filter): \Traversable
+    private function inheritedBy(TypeDefinition $type, \Closure $filter): \Traversable
     {
         yield $type;
 
-        foreach ($type->getChildrenInheritance() as $child) {
+        foreach ($type->inheritedBy() as $child) {
             if (! $filter($child)) {
                 continue;
             }
 
-            yield from $this->getFilteredChildrenInheritance($child, $filter);
+            yield from $this->inheritedBy($child, $filter);
         }
     }
 }

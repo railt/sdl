@@ -33,7 +33,6 @@ class Factory
         'DirectiveDefinition'  => Definition\DirectiveBuilder::class,
         'EnumDefinition'       => Definition\EnumBuilder::class,
         'InputDefinition'      => Definition\InputBuilder::class,
-        'InputUnionDefinition' => Definition\InputUnionBuilder::class,
         'InterfaceDefinition'  => Definition\InterfaceBuilder::class,
         'ObjectDefinition'     => Definition\ObjectBuilder::class,
         'ScalarDefinition'     => Definition\ScalarBuilder::class,

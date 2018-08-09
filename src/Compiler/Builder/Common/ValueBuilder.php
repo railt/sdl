@@ -15,6 +15,7 @@ use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\Behaviour\ProvidesTypeIndication as TypeHint;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Definition\EnumDefinition;
+use Railt\Reflection\Definition\InputDefinition;
 use Railt\Reflection\Invocation\InputInvocation;
 use Railt\Reflection\Type;
 use Railt\SDL\Compiler\Ast\Value\ConstantValueNode;
@@ -23,6 +24,7 @@ use Railt\SDL\Compiler\Ast\Value\ListValueNode;
 use Railt\SDL\Compiler\Ast\Value\NullValueNode;
 use Railt\SDL\Compiler\Ast\Value\ValueInterface;
 use Railt\SDL\Compiler\Ast\Value\ValueNode;
+use Railt\SDL\Exception\SemanticException;
 use Railt\SDL\Exception\TypeConflictException;
 
 /**
@@ -209,8 +211,8 @@ class ValueBuilder
          */
         if (! ($value instanceof ConstantValueNode)) {
             $error = 'Value of %s can be one of %s value, but %s given';
-            throw (new TypeConflictException(\sprintf($error, $type, $type->getDefinition(),
-                $value->toString())))->throwsIn($type->getFile(), $value->getOffset());
+            throw (new TypeConflictException(\sprintf($error, $type, $type->getDefinition(), $value->toString())))
+                ->throwsIn($type->getFile(), $value->getOffset());
         }
 
         /** @var EnumDefinition $definition */

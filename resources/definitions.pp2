@@ -17,7 +17,6 @@
 %include definitions/directive
 %include definitions/enum
 %include definitions/input
-%include definitions/input-union
 %include definitions/interface
 %include definitions/object
 %include definitions/scalar
@@ -38,7 +37,6 @@ Definition
 __typeDefinitions
     : EnumDefinition()
     | InputDefinition()
-    | InputUnionDefinition()
     | InterfaceDefinition()
     | ObjectDefinition()
     | ScalarDefinition()

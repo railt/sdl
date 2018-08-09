@@ -14,6 +14,7 @@ use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Type as TypeInterface;
 use Railt\Reflection\Definition\Dependent\EnumValueDefinition;
 use Railt\Reflection\Definition\EnumDefinition;
+use Railt\Reflection\Document;
 use Railt\Reflection\Type;
 use Railt\SDL\Compiler\Ast\Dependent\EnumValueDefinitionNode;
 use Railt\SDL\Compiler\Ast\TypeHintNode;
@@ -38,7 +39,18 @@ class EnumValueBuilder extends Builder
 
         $this->when->runtime(function () use ($rule, $value): void {
             if ($hint = $rule->getTypeHint()) {
-                $value->withValue($this->valueOf($this->virtualTypeHint($value, $hint), $rule->getValue()));
+                $virtualTypeHint = $this->virtualTypeHint($value, $hint);
+
+                $value->withValue($this->valueOf($virtualTypeHint, $rule->getValue()));
+
+                $this->when->resolving(function() use ($value, $virtualTypeHint) {
+                    $this->shouldBeTypeOf($value, $virtualTypeHint->getDefinition(), [
+                        Type::SCALAR,
+                        Type::ENUM,
+                        Type::INPUT_OBJECT,
+                        Type::ANY,
+                    ]);
+                });
             }
 
             foreach ($rule->getDirectives() as $ast) {
@@ -56,7 +68,33 @@ class EnumValueBuilder extends Builder
      */
     private function virtualTypeHint(EnumValueDefinition $value, TypeHintNode $ast): TypeHint
     {
-        $virtual = new class($value->getDocument()) extends TypeHint {
+        $virtual = new class($value->getDocument(), $value->getName()) extends TypeHint {
+            /**
+             * @var string
+             */
+            private $name;
+
+            /**
+             * @param Document $document
+             * @param string $name
+             */
+            public function __construct(Document $document, string $name)
+            {
+                $this->name = $name;
+                parent::__construct($document);
+            }
+
+            /**
+             * @return string
+             */
+            public function getName(): string
+            {
+                return $this->name;
+            }
+
+            /**
+             * @return TypeInterface
+             */
             public static function getType(): TypeInterface
             {
                 return Type::of(Type::ENUM_VALUE);
