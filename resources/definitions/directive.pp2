@@ -3,28 +3,29 @@
 // Directive definition
 //
 
-#DirectiveDefinition -> Railt\SDL\Compiler\Ast\Definition\DirectiveDefinitionNode:
+#DirectiveDefinition -> Railt\SDL\Ast\Definition\DirectiveDefinitionNode:
     Documentation()?
+    DirectiveDefinitionHead()
     DirectiveDefinitionBody()
 
+DirectiveDefinitionHead:
+    ::T_DIRECTIVE:: ::T_DIRECTIVE_AT:: TypeName() __directiveDefinitionArguments()?
 
 DirectiveDefinitionBody:
-    ::T_DIRECTIVE:: ::T_DIRECTIVE_AT:: TypeName()
-        __directiveDefinitionArguments()?
-    ::T_ON:: __directiveDefinitionLocations()
-
+    ::T_ON:: DirectiveLocations()
 
 __directiveDefinitionArguments:
     ::T_PARENTHESIS_OPEN::
-        ArgumentDefinition()*
+        ArgumentDefinitions()?
     ::T_PARENTHESIS_CLOSE::
-     #DirectiveArguments
 
 
-__directiveDefinitionLocations:
-    ::T_OR::? __directiveDefinitionLocation()+
-    #DirectiveLocations
+//
+// DirectiveLocation definition
+//
 
+#DirectiveLocations:
+    ::T_OR::? DirectiveLocation() (::T_OR:: DirectiveLocation())*
 
-__directiveDefinitionLocation:
-    NameWithReserved() (::T_OR:: NameWithReserved())*
+#DirectiveLocation:
+    ValueName()

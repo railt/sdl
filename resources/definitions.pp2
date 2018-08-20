@@ -2,18 +2,15 @@
 //
 // Common definitions and partials
 //
-
 %include definitions/common/documentation
 %include definitions/common/implements
+%include definitions/common/extends
 %include definitions/common/type-hint
-%include definitions/common/arguments
-%include definitions/common/fields
 
 
 //
 // TypeDefinitions
 //
-
 %include definitions/directive
 %include definitions/enum
 %include definitions/input
@@ -23,19 +20,17 @@
 %include definitions/schema
 %include definitions/union
 
+//
+// Dependent
+//
+%include definitions/dependent/argument
+%include definitions/dependent/field
+
 
 Definition
     : DirectiveDefinition()
     | SchemaDefinition()
-    | __typeDefinitions()
-
-
-#ChildrenDefinitions
-    : __typeDefinitions()
-
-
-__typeDefinitions
-    : EnumDefinition()
+    | EnumDefinition()
     | InputDefinition()
     | InterfaceDefinition()
     | ObjectDefinition()

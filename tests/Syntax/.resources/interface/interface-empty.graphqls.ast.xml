@@ -1,9 +1,0 @@
-<Ast>
-  <Document offset="1">
-    <InterfaceDefinition offset="1">
-      <TypeName offset="11">
-        <T_NAME offset="11">Example</T_NAME>
-      </TypeName>
-    </InterfaceDefinition>
-  </Document>
-</Ast>

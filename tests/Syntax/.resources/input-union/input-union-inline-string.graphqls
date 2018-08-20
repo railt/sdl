@@ -1,6 +1,0 @@
-"Description of \"union Feed\""
-inputUnion Feed = Story | Article | Advert
-
-"Description of \"union AnnotatedUnion\""
-inputUnion AnnotatedUnion @onUnion = A | B
-

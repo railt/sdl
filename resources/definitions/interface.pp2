@@ -3,22 +3,15 @@
 // Interface definition
 //
 
-#InterfaceDefinition -> Railt\SDL\Compiler\Ast\Definition\InterfaceDefinitionNode:
+#InterfaceDefinition -> Railt\SDL\Ast\Definition\InterfaceDefinitionNode:
     Documentation()?
     InterfaceDefinitionHead()
     InterfaceDefinitionBody()
 
 InterfaceDefinitionHead:
-    ::T_INTERFACE:: TypeName()
-        TypeDefinitionImplements()?
-        Directives()?
+    ::T_INTERFACE:: TypeName() TypeDefinitionImplementations()? Directives()?
 
 InterfaceDefinitionBody:
     ::T_BRACE_OPEN::
-        __interfaceFieldDefinitions()?
-        ChildrenDefinitions()?
+        FieldDefinitions()?
     ::T_BRACE_CLOSE::
-
-__interfaceFieldDefinitions:
-    FieldDefinition()*
-    #FieldDefinitions

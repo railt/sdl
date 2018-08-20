@@ -5,5 +5,7 @@
 
 #ScalarExtension:
     Documentation()?
-    ::T_EXTEND::
-        ScalarDefinitionBody()
+    ::T_EXTEND:: __scalarExtensionVariants()
+
+__scalarExtensionVariants:
+    ScalarDefinitionBody()

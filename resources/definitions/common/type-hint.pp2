@@ -1,14 +1,25 @@
-#TypeHint -> Railt\SDL\Compiler\Ast\TypeHintNode:
-    __typeHintList() | __typeHintValue()
+
+#TypeHint -> Railt\SDL\Ast\Common\TypeHintNode:
+    __typeHintList() | __typeHintSingular()
 
 __typeHintList:
-    ::T_BRACKET_OPEN:: __typeHintValue() ::T_BRACKET_CLOSE::
-        __typeHintNotNull()?
-    #ListTypeHint
+    __typeHintNonNullList() | __typeHintNullableList()
 
-__typeHintValue:
-    TypeName() __typeHintNotNull()?
-    #SingularTypeHint
+__typeHintNullableList:
+    ::T_BRACKET_OPEN:: __typeHintSingular() ::T_BRACKET_CLOSE::
+    #List
 
-__typeHintNotNull:
-    ::T_NON_NULL:: #NonNull
+__typeHintNonNullList:
+    __typeHintNullableList() ::T_NON_NULL::
+    #NonNull
+
+__typeHintSingular:
+    __typeHintNonNullSingular() | __typeHintNullableSingular()
+
+__typeHintNullableSingular:
+    TypeName()
+
+__typeHintNonNullSingular:
+    TypeName() ::T_NON_NULL::
+    #NonNull
+

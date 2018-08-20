@@ -63,25 +63,4 @@ class GrammarTestCase extends TestCase
             $this->parser()->parse($file);
         }
     }
-
-    /**
-     * @dataProvider dataProvider
-     * @param Readable $file
-     * @param bool $valid
-     * @throws \PHPUnit\Framework\Exception
-     */
-    public function testAst(Readable $file, bool $valid): void
-    {
-        if (! $valid) {
-            $this->markTestSkipped('Could not test AST of negative sample');
-        }
-
-        try {
-            $ast = File::fromPathname($file->getPathname() . '.ast.xml');
-
-            $this->assertAst($ast->getContents(), $this->parser()->parse($file));
-        } catch (NotReadableException $e) {
-            $this->markTestIncomplete('Could not test AST because ast file did not provided');
-        }
-    }
 }

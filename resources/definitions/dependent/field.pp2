@@ -1,0 +1,13 @@
+
+#FieldDefinitions:
+    FieldDefinition()+
+
+#FieldDefinition -> Railt\SDL\Ast\Dependent\FieldDefinitionNode:
+    Documentation()?
+    DependentName() __fieldDefinitionArguments()? ::T_COLON:: TypeHint()
+        Directives()?
+
+__fieldDefinitionArguments:
+    ::T_PARENTHESIS_OPEN::
+        ArgumentDefinitions()?
+    ::T_PARENTHESIS_CLOSE::

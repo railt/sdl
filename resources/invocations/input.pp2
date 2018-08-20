@@ -1,0 +1,8 @@
+
+#InputInvocation:
+    ::T_BRACE_OPEN::
+        InputInvocationArguments()?
+    ::T_BRACE_CLOSE::
+
+#InputInvocationArguments:
+    ArgumentInvocation()+

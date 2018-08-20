@@ -1,57 +1,48 @@
 //
 // Boolean value (true or false)
 //
-#Boolean -> Railt\SDL\Compiler\Ast\Value\BooleanValueNode:
+#BooleanValue -> Railt\SDL\Ast\Value\BooleanValueNode:
     <T_FALSE> | <T_TRUE>
 
 //
 // Number value
 //
-#Number -> Railt\SDL\Compiler\Ast\Value\NumberValueNode:
+#NumberValue -> Railt\SDL\Ast\Value\NumberValueNode:
     <T_NUMBER> | <T_HEX_NUMBER> | <T_BIN_NUMBER>
 
 //
 // String value
 //
-#String -> Railt\SDL\Compiler\Ast\Value\StringValueNode:
+#StringValue -> Railt\SDL\Ast\Value\StringValueNode:
     <T_BLOCK_STRING> | <T_STRING>
 
 //
 // Null value
 //
-#Null -> Railt\SDL\Compiler\Ast\Value\NullValueNode:
+#NullValue -> Railt\SDL\Ast\Value\NullValueNode:
     <T_NULL>
-
-//
-// Input value
-//
-#Input -> Railt\SDL\Compiler\Ast\Value\InputValueNode:
-    ::T_BRACE_OPEN::
-        __inputPair()*
-    ::T_BRACE_CLOSE::
-
-__inputPairKey:
-    NameWithReserved()
-    #Key
-
-__inputPair:
-    __inputPairKey() ::T_COLON:: Value() #Pair
 
 //
 // The list of values
 //
-#List -> Railt\SDL\Compiler\Ast\Value\ListValueNode:
+#ListValue -> Railt\SDL\Ast\Value\ListValueNode:
     ::T_BRACKET_OPEN::
         Value()*
     ::T_BRACKET_CLOSE::
 
 // Enum values
-#Constant -> Railt\SDL\Compiler\Ast\Value\ConstantValueNode:
+#ConstantValue -> Railt\SDL\Ast\Value\ConstantValueNode:
     NameExceptValues()
 
 //
 // Value
 //
-#Value -> Railt\SDL\Compiler\Ast\Value\ValueNode:
-    Constant() | Boolean() | Number() | String() | Input() | Null() | List()
+#Value -> Railt\SDL\Ast\Value\ValueNode
+    : ConstantValue()
+    | BooleanValue()
+    | NumberValue()
+    | StringValue()
+    | NullValue()
+    | InputInvocation()
+    | ListValue()
 

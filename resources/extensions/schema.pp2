@@ -5,5 +5,10 @@
 
 #SchemaExtension:
     Documentation()?
-    ::T_EXTEND::
+    ::T_EXTEND:: __schemaExtensionVariants()
+
+__schemaExtensionVariants:
+    SchemaDefinitionHead() | (
+        SchemaDefinitionHead()
         SchemaDefinitionBody()
+    )

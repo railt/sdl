@@ -5,8 +5,7 @@
 
 #EnumExtension:
     Documentation()?
-    ::T_EXTEND::
-        __enumExtensionVariants()
+    ::T_EXTEND:: __enumExtensionVariants()
 
 __enumExtensionVariants:
     EnumDefinitionHead() | (

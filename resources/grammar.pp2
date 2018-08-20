@@ -22,15 +22,14 @@
 // ==========================================================================
 
 #Document:
-    DocumentImports()*
-    DocumentDefinitions()*
+    DocumentHead()
+    DocumentBody()
 
-DocumentImports:
-    Directive()
+DocumentHead:
+    DirectiveInvocation()*
 
-DocumentDefinitions:
-    Extension() |
-    Definition()
+DocumentBody:
+    (Extension() | Definition())*
 
 
 /**

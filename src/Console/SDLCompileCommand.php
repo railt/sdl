@@ -9,9 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Console;
 
-use Railt\Compiler\Compiler;
 use Railt\Console\Command;
+use Railt\Io\Exception\NotReadableException;
 use Railt\Io\File;
+use Railt\SDL\Compiler;
 
 /**
  * Class SDLCompileCommand
@@ -21,30 +22,42 @@ class SDLCompileCommand extends Command
     /**
      * @var string
      */
-    private const SCHEMA_SDL_GRAMMAR = __DIR__ . '/../../resources/grammar.pp2';
+    protected $signature = 'sdl:compile 
+        {schema : GraphQL SDL file}
+        {--out= : Output directory}';
 
     /**
      * @var string
      */
-    protected $signature = 'sdl:compile';
-
-    /**
-     * @var string
-     */
-    protected $description = 'Compile GraphQL SDL Parser';
+    protected $description = 'Parse and compile GraphQL SDL file';
 
     /**
      * @throws \Railt\Io\Exception\ExternalFileException
      * @throws \Railt\Io\Exception\NotReadableException
-     * @throws \Throwable
+     * @throws \Railt\Reflection\Exception\TypeConflictException
+     * @throws \Symfony\Component\Console\Exception\InvalidArgumentException
      */
     public function handle(): void
     {
-        Compiler::load(File::fromPathname(self::SCHEMA_SDL_GRAMMAR))
-            ->setClassName('Parser')
-            ->setNamespace('Railt\\SDL\\Compiler')
-            ->saveTo(__DIR__ . '/../Compiler');
+        $schema = File::fromPathname($this->argument('schema'));
 
-        $this->info('OK');
+        $document   = (new Compiler())->compile($schema);
+        $dictionary = $document->getDictionary();
+
+        $result = [];
+
+        foreach ($dictionary->all() as $type) {
+            $result[] = $type;
+        }
+
+        $output = $this->option('out') ?: \dirname($schema->getPathname());
+
+        if (! \is_dir($output)) {
+            throw new NotReadableException('Output directory "' . $output . '" not exists');
+        }
+
+        $outputPathname = $output . '/' . \basename($schema->getPathname()) . '.json';
+
+        \file_put_contents($outputPathname, \json_encode($result));
     }
 }

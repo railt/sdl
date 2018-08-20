@@ -5,8 +5,7 @@
 
 #ObjectExtension:
     Documentation()?
-    ::T_EXTEND::
-        __objectExtensionVariants()
+    ::T_EXTEND:: __objectExtensionVariants()
 
 __objectExtensionVariants:
     ObjectDefinitionHead() | (

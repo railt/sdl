@@ -1,0 +1,15 @@
+
+#ArgumentDefinitions:
+    ArgumentDefinition()+
+
+#ArgumentDefinition -> Railt\SDL\Ast\Dependent\ArgumentDefinitionNode:
+    Documentation()?
+    __argumentDefinitionBody()
+    __argumentDefinitionDefaultValue()?
+    Directives()?
+
+__argumentDefinitionBody:
+    DependentName() ::T_COLON:: TypeHint()
+
+__argumentDefinitionDefaultValue:
+    ::T_EQUAL:: Value()

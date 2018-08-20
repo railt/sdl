@@ -5,8 +5,7 @@
 
 #InterfaceExtension:
     Documentation()?
-    ::T_EXTEND::
-        __interfaceExtensionVariants()
+    ::T_EXTEND:: __interfaceExtensionVariants()
 
 __interfaceExtensionVariants:
     InterfaceDefinitionHead() | (

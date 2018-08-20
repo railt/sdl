@@ -1,0 +1,3 @@
+
+#TypeDefinitionExtends:
+    ::T_EXTENDS:: TypeName()

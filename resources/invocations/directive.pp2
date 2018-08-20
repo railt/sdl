@@ -1,8 +1,8 @@
 
 #Directives:
-    Directive()+
+    DirectiveInvocation()+
 
-#Directive -> Railt\SDL\Compiler\Ast\Invocation\DirectiveNode:
+#DirectiveInvocation -> Railt\SDL\Ast\Invocation\DirectiveInvocationNode:
     ::T_DIRECTIVE_AT:: TypeName()
         __directiveInvocationArgumentsGroup()?
 
@@ -12,11 +12,4 @@ __directiveInvocationArgumentsGroup:
     ::T_PARENTHESIS_CLOSE::
 
 __directiveInvocationArguments:
-    DirectiveArgument()+
-    #DirectiveArguments
-
-#DirectiveArgument -> Railt\SDL\Compiler\Ast\Invocation\DirectiveArgumentNode:
-    DirectiveArgumentName() ::T_COLON:: Value()
-
-#DirectiveArgumentName:
-    NameWithReserved()
+    ArgumentInvocation()+

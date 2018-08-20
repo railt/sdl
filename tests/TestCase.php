@@ -13,6 +13,8 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Parser\Ast\NodeInterface;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
+use Railt\SDL\Compiler;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -26,6 +28,7 @@ abstract class TestCase extends BaseTestCase
      * @param string $ext
      * @return iterable|Readable[]
      * @throws \Railt\Io\Exception\NotReadableException
+     * @throws \InvalidArgumentException
      */
     protected function read(string $dir, string $ext): iterable
     {
@@ -40,10 +43,36 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * @return Compiler
+     * @throws \Railt\Io\Exception\ExternalFileException
+     * @throws \Railt\Reflection\Exception\TypeConflictException
+     */
+    protected function getCompiler(): Compiler
+    {
+        return new Compiler();
+    }
+
+    /**
+     * @param string $type
+     * @param string $code
+     * @return TypeDefinition
+     * @throws \Railt\Io\Exception\ExternalFileException
+     * @throws \Railt\Reflection\Exception\TypeConflictException
+     */
+    protected function compile(string $code, string $type = 'Type'): TypeDefinition
+    {
+        $compiler   = $this->getCompiler();
+        $document   = $compiler->compile(File::fromSources(\trim($code)));
+        $definition = $document->getDefinition($type);
+
+        $this->assertNotNull($definition);
+
+        return $definition;
+    }
+
+    /**
      * @param string $expected
      * @param null|NodeInterface $actual
-     * @throws \PHPUnit\Framework\Exception
-     * @throws \PHPUnit\Framework\ExpectationFailedException
      */
     protected function assertAst(string $expected, ?NodeInterface $actual): void
     {

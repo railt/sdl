@@ -5,6 +5,10 @@
 
 #UnionExtension:
     Documentation()?
-    ::T_EXTEND::
+    ::T_EXTEND:: __unionExtensionVariants()
+
+__unionExtensionVariants:
+    UnionDefinitionHead() | (
         UnionDefinitionHead()
         UnionDefinitionBody()
+    )

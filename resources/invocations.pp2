@@ -1,5 +1,4 @@
 
 %include invocations/directive
-
-Invocation:
-    Directive()
+%include invocations/argument
+%include invocations/input
