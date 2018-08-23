@@ -39,9 +39,9 @@ class Prototype
      */
     public function __construct(int $offset, int $operation, iterable $operands)
     {
-        $this->offset = $offset;
+        $this->offset    = $offset;
         $this->operation = $operation;
-        $this->operands = $operands;
+        $this->operands  = $operands;
     }
 
     /**

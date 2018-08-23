@@ -23,7 +23,7 @@ interface ContextInterface
      * @param TypeDefinition $type
      * @return ContextInterface
      */
-    public function create(TypeDefinition $type): ContextInterface;
+    public function create(TypeDefinition $type): self;
 
     /**
      * Select type definition from current context.

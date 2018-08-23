@@ -9,9 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\AST\Definition;
 
-use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Definition\InterfaceDefinition;
 use Railt\Reflection\Type;
 use Railt\SDL\Frontend\AST\ProvidesFieldNodes;
 use Railt\SDL\Frontend\AST\ProvidesInterfaceNodes;

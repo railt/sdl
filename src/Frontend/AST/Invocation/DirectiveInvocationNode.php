@@ -12,8 +12,8 @@ namespace Railt\SDL\Frontend\AST\Invocation;
 use Railt\Parser\Ast\Rule;
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Invocation\DirectiveInvocation;
-use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\ProvidesName;
+use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\Support\TypeNameProvider;
 
 /**

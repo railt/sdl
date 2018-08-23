@@ -27,7 +27,7 @@ class SystemManager
      * @var string[]
      */
     private const DEFAULT_SYSTEMS = [
-        DefinitionSystem::class
+        DefinitionSystem::class,
     ];
 
     /**
@@ -64,7 +64,7 @@ class SystemManager
      * @param SystemInterface $system
      * @return SystemManager
      */
-    public function addSystem(SystemInterface $system): SystemManager
+    public function addSystem(SystemInterface $system): self
     {
         $this->systems[] = $system;
 

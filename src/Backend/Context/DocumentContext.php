@@ -36,7 +36,7 @@ class DocumentContext extends AbstractContext implements LocalContextInterface
      */
     public function __construct(ContextInterface $parent, Document $document)
     {
-        $this->parent = $parent;
+        $this->parent  = $parent;
         $this->context = $document;
     }
 

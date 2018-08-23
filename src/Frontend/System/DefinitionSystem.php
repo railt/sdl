@@ -39,7 +39,7 @@ class DefinitionSystem implements SystemInterface
     {
         yield new Prototype($ast->getOffset(), Opcode::C_TYPE_DEFINITION, [
             $ast->getType(),
-            $ast->getFullName()
+            $ast->getFullName(),
         ]);
     }
 }

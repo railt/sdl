@@ -40,7 +40,7 @@ class Builder implements LoggerAwareInterface
      */
     public function __construct(Reflection $root)
     {
-        $this->root = $root;
+        $this->root    = $root;
         $this->context = new GlobalContext();
         $this->exportTypes($root);
     }

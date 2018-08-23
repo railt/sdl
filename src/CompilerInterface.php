@@ -22,7 +22,7 @@ interface CompilerInterface
      * @param \Closure $then
      * @return CompilerInterface
      */
-    public function autoload(\Closure $then): CompilerInterface;
+    public function autoload(\Closure $then): self;
 
     /**
      * @param Readable $readable

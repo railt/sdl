@@ -56,10 +56,10 @@ class Opcode implements OpcodeInterface
      */
     public function __construct(Readable $readable, int $offset, int $operation, iterable $operands)
     {
-        $this->readable = $readable;
+        $this->readable  = $readable;
         $this->operation = $operation;
-        $this->operands = $operands;
-        $this->offset = $offset;
+        $this->operands  = $operands;
+        $this->offset    = $offset;
     }
 
     /**

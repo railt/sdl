@@ -11,9 +11,9 @@ namespace Railt\SDL\Frontend\AST\Dependent;
 
 use Railt\Parser\Ast\Rule;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\ProvidesDescription;
 use Railt\SDL\Frontend\AST\ProvidesName;
+use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\Support\DependentNameProvider;
 use Railt\SDL\Frontend\AST\Support\DescriptionProvider;
 
