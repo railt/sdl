@@ -14,30 +14,22 @@ use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Railt\Io\File;
 use Railt\Io\Readable;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\Parser\Exception\UnexpectedTokenException;
-use Railt\Parser\Exception\UnrecognizedTokenException;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
-use Railt\Reflection\Contracts\Reflection as ReflectionInterface;
 use Railt\Reflection\Reflection;
-use Railt\SDL\Compiler\Builder;
+use Railt\SDL\Backend\Builder;
 use Railt\SDL\Compiler\Dictionary;
-use Railt\SDL\Compiler\Parser;
+use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
-use Railt\SDL\Exception\SyntaxException;
+use Railt\SDL\Frontend\Frontend;
+use Railt\SDL\Frontend\IR\OpcodeInterface;
 
 /**
  * Class Compiler
  */
-class Compiler implements LoggerAwareInterface
+class Compiler implements LoggerAwareInterface, CompilerInterface
 {
     use LoggerAwareTrait;
-
-    /**
-     * @var ReflectionInterface
-     */
-    private $reflection;
 
     /**
      * @var Dictionary
@@ -45,19 +37,19 @@ class Compiler implements LoggerAwareInterface
     private $dictionary;
 
     /**
-     * @var Parser
+     * @var Store
      */
-    private $parser;
+    private $store;
+
+    /**
+     * @var Frontend
+     */
+    private $front;
 
     /**
      * @var Builder
      */
-    private $builder;
-
-    /**
-     * @var array|\Railt\Reflection\Contracts\Document[]
-     */
-    private $documents = [];
+    private $back;
 
     /**
      * Compiler constructor.
@@ -67,10 +59,10 @@ class Compiler implements LoggerAwareInterface
      */
     public function __construct(LoggerInterface $logger = null)
     {
-        $this->parser = new Parser();
-        $this->builder = new Builder();
+        $this->store      = new Store();
+        $this->front      = new Frontend();
         $this->dictionary = new Dictionary($this);
-        $this->reflection = new Reflection($this->dictionary);
+        $this->back       = new Builder(new Reflection($this->dictionary));
 
         if ($logger) {
             $this->setLogger($logger);
@@ -79,20 +71,22 @@ class Compiler implements LoggerAwareInterface
 
     /**
      * @param LoggerInterface $logger
+     * @return Compiler
      */
-    public function setLogger(LoggerInterface $logger): void
+    public function setLogger(LoggerInterface $logger): Compiler
     {
         $this->logger = $logger;
 
-        $this->builder->setLogger($logger);
-        $this->dictionary->setLogger($logger);
+        $this->front->setLogger($logger);
+
+        return $this;
     }
 
     /**
      * @param \Closure $then
-     * @return Compiler
+     * @return CompilerInterface|$this
      */
-    public function autoload(\Closure $then): Compiler
+    public function autoload(\Closure $then): CompilerInterface
     {
         $this->dictionary->onTypeNotFound($then);
 
@@ -102,15 +96,40 @@ class Compiler implements LoggerAwareInterface
     /**
      * @param Readable $file
      * @return DocumentInterface
-     * @throws CompilerException
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function compile(Readable $file): DocumentInterface
     {
+        return $this->store->memoize($file, function (Readable $file): DocumentInterface {
+            return $this->generate($file, $this->ir($file));
+        });
+    }
+
+    /**
+     * @param Readable $file
+     * @param iterable|OpcodeInterface[] $opcodes
+     * @return DocumentInterface
+     * @throws CompilerException
+     * @throws InternalException
+     * @throws \Railt\Io\Exception\NotReadableException
+     */
+    public function generate(Readable $file, iterable $opcodes): DocumentInterface
+    {
+        return $this->wrap(function () use ($file, $opcodes) {
+            return $this->back->run($file, $opcodes);
+        });
+    }
+
+    /**
+     * @param \Closure $runner
+     * @return mixed
+     * @throws CompilerException
+     * @throws InternalException
+     * @throws \Railt\Io\Exception\NotReadableException
+     */
+    private function wrap(\Closure $runner)
+    {
         try {
-            return $this->memoize($file, function (Readable $file): DocumentInterface {
-                return $this->builder->run($this->reflection, $file, $this->parse($file));
-            });
+            return $runner();
         } catch (CompilerException $e) {
             throw $e;
         } catch (\Throwable $e) {
@@ -122,40 +141,16 @@ class Compiler implements LoggerAwareInterface
     }
 
     /**
-     * @param Readable $file
-     * @param \Closure $otherwise
-     * @return DocumentInterface
-     */
-    private function memoize(Readable $file, \Closure $otherwise): DocumentInterface
-    {
-        if (isset($this->documents[$file->getHash()])) {
-            //
-            // Log memoized document selection
-            //
-            if ($this->logger) {
-                $this->logger->debug(\sprintf('Avoid duplication compilation of %s', $file->getPathname()));
-            }
-
-            return $this->documents[$file->getHash()];
-        }
-
-        return $this->documents[$file->getHash()] = $otherwise($file);
-    }
-
-    /**
-     * @param Readable $file
-     * @return RuleInterface
+     * @param Readable $readable
+     * @return iterable
      * @throws CompilerException
+     * @throws InternalException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
-    private function parse(Readable $file): RuleInterface
+    public function ir(Readable $readable): iterable
     {
-        try {
-            return $this->parser->parse($file);
-        } catch (UnexpectedTokenException | UnrecognizedTokenException $e) {
-            $error = new SyntaxException($e->getMessage(), $e->getCode());
-            $error->throwsIn($file, $e->getLine(), $e->getColumn());
-
-            throw $error;
-        }
+        return $this->wrap(function () use ($readable) {
+            return $this->front->load($readable);
+        });
     }
 }

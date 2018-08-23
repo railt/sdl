@@ -32,11 +32,11 @@ class OffsetsTestCase extends TestCase
             ) on FIELD
         ');
 
-        $this->assertEquals(5, $directive->getLine());
-        $this->assertEquals(24, $directive->getColumn());
+        $this->assertSame(5, $directive->getLine());
+        $this->assertSame(24, $directive->getColumn());
 
-        $this->assertEquals(7, $directive->getArgument('arg')->getLine());
-        $this->assertEquals(17, $directive->getArgument('arg')->getColumn());
+        $this->assertSame(7, $directive->getArgument('arg')->getLine());
+        $this->assertSame(17, $directive->getArgument('arg')->getColumn());
     }
 
     /**
@@ -57,11 +57,11 @@ class OffsetsTestCase extends TestCase
             }
         ');
 
-        $this->assertEquals(5, $enum->getLine());
-        $this->assertEquals(18, $enum->getColumn());
+        $this->assertSame(5, $enum->getLine());
+        $this->assertSame(18, $enum->getColumn());
 
-        $this->assertEquals(7, $enum->getValue('VALUE')->getLine());
-        $this->assertEquals(17, $enum->getValue('VALUE')->getColumn());
+        $this->assertSame(7, $enum->getValue('VALUE')->getLine());
+        $this->assertSame(17, $enum->getValue('VALUE')->getColumn());
     }
 
     /**
@@ -82,13 +82,12 @@ class OffsetsTestCase extends TestCase
             }
         ');
 
-        $this->assertEquals(5, $input->getLine());
-        $this->assertEquals(19, $input->getColumn());
+        $this->assertSame(5, $input->getLine());
+        $this->assertSame(19, $input->getColumn());
 
-        $this->assertEquals(7, $input->getField('field')->getLine());
-        $this->assertEquals(17, $input->getField('field')->getColumn());
+        $this->assertSame(7, $input->getField('field')->getLine());
+        $this->assertSame(17, $input->getField('field')->getColumn());
     }
-
 
     /**
      * @throws \PHPUnit\Framework\Exception
@@ -111,14 +110,14 @@ class OffsetsTestCase extends TestCase
             }
         ');
 
-        $this->assertEquals(5, $interface->getLine());
-        $this->assertEquals(23, $interface->getColumn());
+        $this->assertSame(5, $interface->getLine());
+        $this->assertSame(23, $interface->getColumn());
 
-        $this->assertEquals(7, $interface->getField('field')->getLine());
-        $this->assertEquals(17, $interface->getField('field')->getColumn());
+        $this->assertSame(7, $interface->getField('field')->getLine());
+        $this->assertSame(17, $interface->getField('field')->getColumn());
 
-        $this->assertEquals(9, $interface->getField('field')->getArgument('arg')->getLine());
-        $this->assertEquals(21, $interface->getField('field')->getArgument('arg')->getColumn());
+        $this->assertSame(9, $interface->getField('field')->getArgument('arg')->getLine());
+        $this->assertSame(21, $interface->getField('field')->getArgument('arg')->getColumn());
     }
 
     /**
@@ -142,14 +141,14 @@ class OffsetsTestCase extends TestCase
             }
         ');
 
-        $this->assertEquals(5, $object->getLine());
-        $this->assertEquals(18, $object->getColumn());
+        $this->assertSame(5, $object->getLine());
+        $this->assertSame(18, $object->getColumn());
 
-        $this->assertEquals(7, $object->getField('field')->getLine());
-        $this->assertEquals(17, $object->getField('field')->getColumn());
+        $this->assertSame(7, $object->getField('field')->getLine());
+        $this->assertSame(17, $object->getField('field')->getColumn());
 
-        $this->assertEquals(9, $object->getField('field')->getArgument('arg')->getLine());
-        $this->assertEquals(21, $object->getField('field')->getArgument('arg')->getColumn());
+        $this->assertSame(9, $object->getField('field')->getArgument('arg')->getLine());
+        $this->assertSame(21, $object->getField('field')->getArgument('arg')->getColumn());
     }
 
     /**
@@ -167,8 +166,8 @@ class OffsetsTestCase extends TestCase
             scalar Type             # 5
         ');
 
-        $this->assertEquals(5, $scalar->getLine());
-        $this->assertEquals(20, $scalar->getColumn());
+        $this->assertSame(5, $scalar->getLine());
+        $this->assertSame(20, $scalar->getColumn());
     }
 
     /**
@@ -186,8 +185,8 @@ class OffsetsTestCase extends TestCase
             schema Type {}          # 5
         ');
 
-        $this->assertEquals(5, $schema->getLine());
-        $this->assertEquals(20, $schema->getColumn());
+        $this->assertSame(5, $schema->getLine());
+        $this->assertSame(20, $schema->getColumn());
     }
 
     /**
@@ -205,7 +204,7 @@ class OffsetsTestCase extends TestCase
             union Type = String | Int # 5
         ');
 
-        $this->assertEquals(5, $union->getLine());
-        $this->assertEquals(19, $union->getColumn());
+        $this->assertSame(5, $union->getLine());
+        $this->assertSame(19, $union->getColumn());
     }
 }

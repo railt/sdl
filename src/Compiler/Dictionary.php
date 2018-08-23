@@ -49,9 +49,8 @@ class Dictionary extends CallbackDictionary implements LoggerAwareInterface
                 $direct = 'Try to load type %s from direct method executing';
                 $context = 'Try to load type %s from %s (%s:%d)';
 
-                $message = $from === null
-                    ? \sprintf($direct, $type)
-                    : \sprintf($context, $type, $from, $from->getFile(), $from->getLine());
+                $message = $from === null ? \sprintf($direct, $type) : \sprintf($context, $type, $from,
+                    $from->getFile(), $from->getLine());
 
                 $this->logger->debug($message);
             }

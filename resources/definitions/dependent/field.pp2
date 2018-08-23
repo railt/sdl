@@ -2,7 +2,7 @@
 #FieldDefinitions:
     FieldDefinition()+
 
-#FieldDefinition -> Railt\SDL\Ast\Dependent\FieldDefinitionNode:
+#FieldDefinition -> Railt\SDL\Frontend\AST\Dependent\FieldDefinitionNode:
     Documentation()?
     DependentName() __fieldDefinitionArguments()? ::T_COLON:: TypeHint()
         Directives()?

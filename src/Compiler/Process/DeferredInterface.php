@@ -18,11 +18,11 @@ interface DeferredInterface
      * @param \Closure $then
      * @return DeferredInterface
      */
-    public function then(\Closure $then): DeferredInterface;
+    public function then(\Closure $then): self;
 
     /**
      * @param \Closure $exception
      * @return DeferredInterface
      */
-    public function catch(\Closure $exception): DeferredInterface;
+    public function catch(\Closure $exception): self;
 }

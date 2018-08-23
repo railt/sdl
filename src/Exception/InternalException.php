@@ -14,5 +14,4 @@ namespace Railt\SDL\Exception;
  */
 class InternalException extends CompilerException
 {
-
 }

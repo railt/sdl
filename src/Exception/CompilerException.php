@@ -22,7 +22,7 @@ class CompilerException extends ExternalFileException
      * @param array $args
      * @return CompilerException
      */
-    public function rename(string $message, ...$args): CompilerException
+    public function rename(string $message, ...$args): self
     {
         $this->message = \sprintf($message, ...$args);
 
@@ -33,7 +33,7 @@ class CompilerException extends ExternalFileException
      * @param Definition $def
      * @return CompilerException
      */
-    public function in(Definition $def): CompilerException
+    public function in(Definition $def): self
     {
         $this->throwsIn($def->getFile(), $def->getLine(), $def->getColumn());
 

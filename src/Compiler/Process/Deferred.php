@@ -29,7 +29,7 @@ class Deferred implements DeferredInterface, Emittable
      */
     public function __construct()
     {
-        $this->handlers = new \SplQueue();
+        $this->handlers     = new \SplQueue();
         $this->interceptors = new \SplQueue();
     }
 
@@ -91,7 +91,7 @@ class Deferred implements DeferredInterface, Emittable
      * @param \Throwable $exception
      * @throws \Throwable
      */
-    private function throw(\Throwable $exception)
+    private function throw(\Throwable $exception): void
     {
         if ($this->interceptors->count() === 0) {
             throw $exception;

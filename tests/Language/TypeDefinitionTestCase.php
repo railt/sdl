@@ -109,7 +109,7 @@ abstract class TypeDefinitionTestCase extends TestCase
         $definition = $this->compileType();
 
         $this->assertFalse($definition->isDeprecated());
-        $this->assertEquals('', $definition->getDeprecationReason());
+        $this->assertSame('', $definition->getDeprecationReason());
     }
 
     /**
@@ -142,7 +142,7 @@ abstract class TypeDefinitionTestCase extends TestCase
         $expected = $this->getCompiler()->compile(File::fromSources(''))->getDictionary()->all();
 
         $this->assertCount(\iterator_count($expected) + 1, $dictionary->all());
-        $this->assertEquals($definition, $dictionary->get($this->getTypeName()));
+        $this->assertSame($definition, $dictionary->get($this->getTypeName()));
     }
 
     /**
@@ -154,7 +154,7 @@ abstract class TypeDefinitionTestCase extends TestCase
     {
         $definition = $this->compileType();
 
-        $this->assertEquals(\trim($this->getSources()), $definition->getFile()->getContents());
+        $this->assertSame(\trim($this->getSources()), $definition->getFile()->getContents());
     }
 
     /**
@@ -166,8 +166,8 @@ abstract class TypeDefinitionTestCase extends TestCase
     {
         $definition = $this->compileType();
 
-        $this->assertNotEquals(0, $definition->getLine());
-        $this->assertNotEquals(0, $definition->getColumn());
+        $this->assertNotSame(0, $definition->getLine());
+        $this->assertNotSame(0, $definition->getColumn());
     }
 
     /**
@@ -187,7 +187,7 @@ abstract class TypeDefinitionTestCase extends TestCase
      */
     public function testTypeName(): void
     {
-        $this->assertEquals($this->getTypeName(), $this->compileType()->getName());
+        $this->assertSame($this->getTypeName(), $this->compileType()->getName());
     }
 
     /**
@@ -207,7 +207,7 @@ abstract class TypeDefinitionTestCase extends TestCase
      */
     public function testTypeDescription(): void
     {
-        $this->assertEquals('', $this->compileType()->getDescription());
+        $this->assertSame('', $this->compileType()->getDescription());
     }
 
     /**
@@ -220,8 +220,8 @@ abstract class TypeDefinitionTestCase extends TestCase
     {
         $definition = $this->compileType();
 
-        $this->assertEquals($this->getType()->getName(), $definition::getType()->getName());
-        $this->assertEquals($this->getType(), $definition::getType());
+        $this->assertSame($this->getType()->getName(), $definition::getType()->getName());
+        $this->assertSame($this->getType(), $definition::getType());
         $this->assertTrue($definition::typeOf($this->getType()));
     }
 

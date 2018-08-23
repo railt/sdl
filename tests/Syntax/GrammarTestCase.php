@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Syntax;
 
-use Railt\Io\Exception\NotReadableException;
 use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Parser\Exception\UnexpectedTokenException;

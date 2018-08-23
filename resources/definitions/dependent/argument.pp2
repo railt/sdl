@@ -2,7 +2,7 @@
 #ArgumentDefinitions:
     ArgumentDefinition()+
 
-#ArgumentDefinition -> Railt\SDL\Ast\Dependent\ArgumentDefinitionNode:
+#ArgumentDefinition -> Railt\SDL\Frontend\AST\Dependent\ArgumentDefinitionNode:
     Documentation()?
     __argumentDefinitionBody()
     __argumentDefinitionDefaultValue()?

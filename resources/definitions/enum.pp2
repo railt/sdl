@@ -3,7 +3,7 @@
 // Enum definition
 //
 
-#EnumDefinition -> Railt\SDL\Ast\Definition\EnumDefinitionNode:
+#EnumDefinition -> Railt\SDL\Frontend\AST\Definition\EnumDefinitionNode:
     Documentation()?
     EnumDefinitionHead()
     EnumDefinitionBody()
@@ -24,7 +24,7 @@ EnumDefinitionBody:
 #EnumValues:
     EnumValue()+
 
-#EnumValue:
+#EnumValue -> Railt\SDL\Frontend\AST\Dependent\EnumValueDefinitionNode:
     Documentation()?
     ValueName() __enumDefinitionValue()?
         Directives()?

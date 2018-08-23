@@ -29,10 +29,10 @@ class DeprecationTestCase extends TestCase
         ');
 
         $this->assertTrue($enum->isDeprecated());
-        $this->assertEquals('A', $enum->getDeprecationReason());
+        $this->assertSame('A', $enum->getDeprecationReason());
 
         $this->assertTrue($enum->getValue('VALUE')->isDeprecated());
-        $this->assertEquals('B', $enum->getValue('VALUE')->getDeprecationReason());
+        $this->assertSame('B', $enum->getValue('VALUE')->getDeprecationReason());
     }
 
     /**
@@ -50,10 +50,10 @@ class DeprecationTestCase extends TestCase
         ');
 
         $this->assertTrue($input->isDeprecated());
-        $this->assertEquals('A', $input->getDeprecationReason());
+        $this->assertSame('A', $input->getDeprecationReason());
 
         $this->assertTrue($input->getField('field')->isDeprecated());
-        $this->assertEquals('B', $input->getField('field')->getDeprecationReason());
+        $this->assertSame('B', $input->getField('field')->getDeprecationReason());
     }
 
     /**
@@ -75,13 +75,13 @@ class DeprecationTestCase extends TestCase
         ');
 
         $this->assertTrue($interface->isDeprecated());
-        $this->assertEquals('A', $interface->getDeprecationReason());
+        $this->assertSame('A', $interface->getDeprecationReason());
 
         $this->assertTrue($interface->getField('field')->isDeprecated());
-        $this->assertEquals('B', $interface->getField('field')->getDeprecationReason());
+        $this->assertSame('B', $interface->getField('field')->getDeprecationReason());
 
         $this->assertTrue($interface->getField('field')->getArgument('arg')->isDeprecated());
-        $this->assertEquals('C', $interface->getField('field')->getArgument('arg')->getDeprecationReason());
+        $this->assertSame('C', $interface->getField('field')->getArgument('arg')->getDeprecationReason());
     }
 
     /**
@@ -103,13 +103,13 @@ class DeprecationTestCase extends TestCase
         ');
 
         $this->assertTrue($object->isDeprecated());
-        $this->assertEquals('A', $object->getDeprecationReason());
+        $this->assertSame('A', $object->getDeprecationReason());
 
         $this->assertTrue($object->getField('field')->isDeprecated());
-        $this->assertEquals('B', $object->getField('field')->getDeprecationReason());
+        $this->assertSame('B', $object->getField('field')->getDeprecationReason());
 
         $this->assertTrue($object->getField('field')->getArgument('arg')->isDeprecated());
-        $this->assertEquals('C', $object->getField('field')->getArgument('arg')->getDeprecationReason());
+        $this->assertSame('C', $object->getField('field')->getArgument('arg')->getDeprecationReason());
     }
 
     /**
@@ -125,7 +125,7 @@ class DeprecationTestCase extends TestCase
         ');
 
         $this->assertTrue($object->isDeprecated());
-        $this->assertEquals('A', $object->getDeprecationReason());
+        $this->assertSame('A', $object->getDeprecationReason());
     }
 
     /**
@@ -141,7 +141,7 @@ class DeprecationTestCase extends TestCase
         ');
 
         $this->assertTrue($object->isDeprecated());
-        $this->assertEquals('A', $object->getDeprecationReason());
+        $this->assertSame('A', $object->getDeprecationReason());
     }
 
     /**
@@ -157,6 +157,6 @@ class DeprecationTestCase extends TestCase
         ');
 
         $this->assertTrue($object->isDeprecated());
-        $this->assertEquals('A', $object->getDeprecationReason());
+        $this->assertSame('A', $object->getDeprecationReason());
     }
 }

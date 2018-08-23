@@ -3,7 +3,7 @@
 // Input definition
 //
 
-#InputDefinition -> Railt\SDL\Ast\Definition\InputDefinitionNode:
+#InputDefinition -> Railt\SDL\Frontend\AST\Definition\InputDefinitionNode:
     Documentation()?
     InputDefinitionHead()
     InputDefinitionBody()
@@ -24,7 +24,7 @@ InputDefinitionBody:
 #InputFieldDefinitions:
     InputFieldDefinition()+
 
-#InputFieldDefinition:
+#InputFieldDefinition -> Railt\SDL\Frontend\AST\Dependent\InputFieldDefinitionNode:
     Documentation()?
     __inputFieldDefinitionBody()
     __inputFieldDefinitionDefaultValue()?

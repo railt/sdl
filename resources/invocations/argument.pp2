@@ -1,3 +1,3 @@
 
-#ArgumentInvocation:
+#ArgumentInvocation -> Railt\SDL\Frontend\AST\Invocation\ArgumentInvocationNode:
     DependentName() ::T_COLON:: Value()

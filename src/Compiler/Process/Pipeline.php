@@ -35,9 +35,9 @@ class Pipeline implements \IteratorAggregate, \Countable, LoggerAwareInterface
     private $queue = [];
 
     /**
-     * @return \Traversable|Emittable[]
+     * @return \Generator|Emittable[]
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): \Generator
     {
         while ($next = $this->next()) {
             yield $next;
@@ -76,11 +76,11 @@ class Pipeline implements \IteratorAggregate, \Countable, LoggerAwareInterface
 
         $this->logger->debug(\sprintf('Add deferred execution (%s:%d)', $trace['file'], $trace['line']));
 
-        $handler->then(function() use ($trace) {
+        $handler->then(function () use ($trace): void {
             $this->logger->debug(\sprintf('Execute deferred handler (%s:%d)', $trace['file'], $trace['line']));
         });
 
-        $handler->catch(function(\Throwable $e) use ($trace) {
+        $handler->catch(function (\Throwable $e) use ($trace): void {
             $this->logger->debug(\sprintf('Deferred handler rejection (%s:%d)', $trace['file'], $trace['line']));
             $this->logger->error($e);
 
