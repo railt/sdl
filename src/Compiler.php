@@ -73,7 +73,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      * @param LoggerInterface $logger
      * @return Compiler
      */
-    public function setLogger(LoggerInterface $logger): Compiler
+    public function setLogger(LoggerInterface $logger): self
     {
         $this->logger = $logger;
 

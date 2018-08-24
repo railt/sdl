@@ -46,7 +46,7 @@ abstract class AbstractValue implements ValueInterface
     public function __construct($value, TypeDefinition $type)
     {
         $this->value = $value;
-        $this->type = $type;
+        $this->type  = $type;
     }
 
     /**

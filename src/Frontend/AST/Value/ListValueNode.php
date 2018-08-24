@@ -25,7 +25,7 @@ class ListValueNode extends Rule implements ValueInterface
             return $value->toString();
         }, \iterator_to_array($this->getValues()));
 
-        return \sprintf('[%s]', \implode(', ', $values));
+        return \sprintf('(list)[%s]', \implode(', ', $values));
     }
 
     /**

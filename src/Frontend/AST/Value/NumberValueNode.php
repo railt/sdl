@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\AST\Value;
 
 use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\Rule;
-use Railt\SDL\Compiler\Parser;
+use Railt\SDL\Frontend\Parser;
 
 /**
  * Class NumberValueNode
@@ -23,7 +23,7 @@ class NumberValueNode extends Rule implements ValueInterface
      */
     public function toString(): string
     {
-        return (string)$this->toPrimitive();
+        return '(number)' . $this->toPrimitive();
     }
 
     /**

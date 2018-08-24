@@ -21,7 +21,7 @@ class NullValueNode extends Rule implements ValueInterface
      */
     public function toString(): string
     {
-        return 'null';
+        return '(null)null';
     }
 
     /**

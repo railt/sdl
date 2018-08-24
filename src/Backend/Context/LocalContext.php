@@ -44,8 +44,8 @@ class LocalContext extends AbstractContext implements LocalContextInterface
      */
     public function __construct(LocalContextInterface $parent, TypeDefinition $definition, array $variables = [])
     {
-        $this->parent = $parent;
-        $this->context = $definition;
+        $this->parent    = $parent;
+        $this->context   = $definition;
         $this->variables = $variables;
     }
 

@@ -39,4 +39,12 @@ class ValueNode extends Rule implements ValueInterface
     {
         return $this->getInnerValue()->toPrimitive();
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toString();
+    }
 }

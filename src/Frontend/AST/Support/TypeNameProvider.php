@@ -20,7 +20,7 @@ trait TypeNameProvider
     /**
      * @return null|TypeNameNode|NodeInterface
      */
-    protected function getTypeNameNode(): ?TypeNameNode
+    public function getTypeNameNode(): ?TypeNameNode
     {
         return $this->first('TypeName', 1);
     }

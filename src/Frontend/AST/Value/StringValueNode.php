@@ -39,7 +39,7 @@ class StringValueNode extends Rule implements ValueInterface
             $result
         );
 
-        return \sprintf('"%s"', $result);
+        return '(string)' . \sprintf('"%s"', $result);
     }
 
     /**

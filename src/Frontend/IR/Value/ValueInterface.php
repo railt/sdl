@@ -31,7 +31,7 @@ interface ValueInterface
      * @param TypeDefinition $type
      * @return ValueInterface
      */
-    public function bindTo(TypeDefinition $type): ValueInterface;
+    public function bindTo(TypeDefinition $type): self;
 
     /**
      * @param TypeDefinition $type

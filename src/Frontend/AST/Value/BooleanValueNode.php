@@ -29,6 +29,6 @@ class BooleanValueNode extends Rule implements ValueInterface
      */
     public function toString(): string
     {
-        return $this->getChild(0)->getValue();
+        return '(bool)' . $this->getChild(0)->getValue();
     }
 }

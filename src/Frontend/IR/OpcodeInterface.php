@@ -9,33 +9,50 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR;
 
-use Railt\Io\PositionInterface;
-use Railt\Io\Readable;
-
 /**
  * Interface OpcodeInterface
  */
-interface OpcodeInterface extends PositionInterface
+interface OpcodeInterface
 {
     /**
      * @var int
      */
-    public const C_TYPE_DEFINITION = 0x01;
+    public const RL_NOP = 0x00;
 
     /**
-     * @return Readable
+     * @var int
      */
-    public function getFile(): Readable;
+    public const RL_OPEN = 0x01;
 
     /**
-     * {@inheritdoc}
+     * @var int
      */
-    public function getLine(): int;
+    public const RL_CALL = 0x02;
 
     /**
-     * {@inheritdoc}
+     * @var int
      */
-    public function getColumn(): int;
+    public const RL_DESCRIPTION = 0x03;
+
+    /**
+     * @var int
+     */
+    public const RL_DEFINE = 0x04;
+
+    /**
+     * @var int
+     */
+    public const RL_COMPARE = 0x05;
+
+    /**
+     * @var int
+     */
+    public const RL_FETCH = 0x06;
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
 
     /**
      * @return int

@@ -29,6 +29,6 @@ class ConstantValueNode extends Rule implements ValueInterface
      */
     public function toString(): string
     {
-        return $this->toPrimitive();
+        return '(const)' . $this->toPrimitive();
     }
 }

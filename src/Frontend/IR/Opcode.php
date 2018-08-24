@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR;
 
-use Railt\Io\PositionInterface;
 use Railt\Io\Readable;
+use Railt\Reflection\Contracts\TypeInterface;
+use Railt\SDL\Frontend\AST\Value\ValueInterface;
 
 /**
  * Class Opcode
@@ -18,88 +19,29 @@ use Railt\Io\Readable;
 class Opcode implements OpcodeInterface
 {
     /**
-     * @var int
+     * @var array|string[]|null
      */
-    private $offset;
-
-    /**
-     * @var int|null
-     */
-    private $line;
-
-    /**
-     * @var int|null
-     */
-    private $column;
-
-    /**
-     * @var Readable
-     */
-    private $readable;
+    protected static $opcodes;
 
     /**
      * @var int
      */
-    private $operation;
+    protected $operation;
 
     /**
-     * @var iterable
+     * @var array
      */
-    private $operands;
+    protected $operands;
 
     /**
      * Opcode constructor.
-     * @param Readable $readable
-     * @param int $offset
      * @param int $operation
-     * @param iterable $operands
+     * @param mixed ...$operands
      */
-    public function __construct(Readable $readable, int $offset, int $operation, iterable $operands)
+    public function __construct(int $operation, ...$operands)
     {
-        $this->readable = $readable;
         $this->operation = $operation;
         $this->operands = $operands;
-        $this->offset = $offset;
-    }
-
-    /**
-     * @return Readable
-     */
-    public function getFile(): Readable
-    {
-        return $this->readable;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLine(): int
-    {
-        if ($this->line === null) {
-            $this->line = $this->getPosition()->getLine();
-        }
-
-        return $this->line;
-    }
-
-    /**
-     * @return PositionInterface
-     */
-    private function getPosition(): PositionInterface
-    {
-        return $this->readable->getPosition($this->offset);
-    }
-
-    /**
-     * @return int
-     */
-    public function getColumn(): int
-    {
-        if ($this->column === null) {
-            $this->column = $this->getPosition()->getLine();
-        }
-
-        return $this->column;
     }
 
     /**
@@ -111,13 +53,62 @@ class Opcode implements OpcodeInterface
     }
 
     /**
-     * @return iterable
+     * @return array
      */
-    public function getOperands(): iterable
+    public function getOperands(): array
     {
-        foreach ($this->operands as $operand) {
-            yield $operand;
+        return $this->operands;
+    }
+
+    /**
+     * @param int $id
+     * @param Readable $readable
+     * @param int $offset
+     * @return JoinableOpcode
+     */
+    public function join(int $id, Readable $readable, int $offset = 0): JoinableOpcode
+    {
+        return new JoinableOpcode($this, $id, $readable, $offset);
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     */
+    protected function operandToString($value): string
+    {
+        switch (true) {
+            case $value instanceof ValueInterface:
+                return $value->toString();
+
+            case $value instanceof TypeInterface:
+                return '$' . $value->getName();
+
+            case $value instanceof JoinableOpcode:
+                return '!' . $value->getId();
+
+            case $value instanceof OpcodeInterface:
+                return $value->getName();
+
+            case $value instanceof Readable:
+                return 'file:' . $value->getPathname();
+
+            case \is_bool($value):
+                return '(php:bool)' . ($value ? 'true' : 'false');
+
+            case $value === null:
+                return '(php:null)null';
+
+            case \is_scalar($value):
+                $type = \gettype($value);
+                $minified = \preg_replace('/\s+/', ' ', (string)$value);
+                return '(php:' . $type . ')"' . \addcslashes($minified, '"') . '"';
+
+            case \is_object($value):
+                return \get_class($value) . '#' . \spl_object_hash($value);
         }
+
+        return '';
     }
 
     /**
@@ -125,6 +116,40 @@ class Opcode implements OpcodeInterface
      */
     public function __toString(): string
     {
-        return $this->operation . ' ' . \implode(', ', $this->operands);
+        $operands = \array_map(function ($value): string {
+            return $this->operandToString($value);
+        }, $this->operands);
+
+        return \sprintf('%-20s %-20s', $this->getName(), '{' . \implode(', ', $operands) . '}');
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return static::getOperationName($this->operation);
+    }
+
+    /**
+     * @param int $operation
+     * @return string
+     */
+    public static function getOperationName(int $operation): string
+    {
+        if (static::$opcodes === null) {
+            static::$opcodes = [];
+
+            try {
+                $reflection = new \ReflectionClass(static::class);
+                foreach ($reflection->getConstants() as $name => $value) {
+                    static::$opcodes[$value] = $name;
+                }
+            } catch (\ReflectionException $e) {
+                return 'RL_NOP';
+            }
+        }
+
+        return static::$opcodes[$operation] ?? static::$opcodes[static::RL_NOP];
     }
 }

@@ -11,16 +11,26 @@ namespace Railt\SDL\Frontend\AST\Dependent;
 
 use Railt\Parser\Ast\Rule;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\ProvidesDescription;
 use Railt\SDL\Frontend\AST\ProvidesName;
+use Railt\SDL\Frontend\AST\ProvidesOpcode;
+use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\Support\DependentNameProvider;
 use Railt\SDL\Frontend\AST\Support\DescriptionProvider;
+use Railt\SDL\Frontend\Context;
+use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\Opcode\DefineOpcode;
+use Railt\SDL\Frontend\IR\OpcodeHeap;
+use Railt\SDL\Frontend\IR\OpcodeInterface;
 
 /**
  * Class DependentTypeDefinitionNode
  */
-abstract class DependentTypeDefinitionNode extends Rule implements ProvidesName, ProvidesDescription, ProvidesType
+abstract class DependentTypeDefinitionNode extends Rule implements
+    ProvidesType,
+    ProvidesName,
+    ProvidesOpcode,
+    ProvidesDescription
 {
     use DependentNameProvider;
     use DescriptionProvider;
@@ -37,5 +47,20 @@ abstract class DependentTypeDefinitionNode extends Rule implements ProvidesName,
         }
 
         return parent::getOffset();
+    }
+
+    /**
+     * @param Context $context
+     * @return iterable
+     */
+    public function getOpcodes(Context $context): iterable
+    {
+        $current = $context->create();
+
+        $joinable = yield new DefineOpcode($this->getFullName(), $this->getType(), $current);
+
+        if ($description = $this->getDescriptionNode()) {
+            yield $description => new Opcode(Opcode::RL_DESCRIPTION, $joinable, $this->getDescription());
+        }
     }
 }

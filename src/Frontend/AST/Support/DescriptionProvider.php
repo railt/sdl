@@ -18,11 +18,19 @@ use Railt\SDL\Frontend\AST\Value\StringValueNode;
 trait DescriptionProvider
 {
     /**
+     * @return null|RuleInterface
+     */
+    protected function getDescriptionNode(): ?RuleInterface
+    {
+        return $this->first('Description', 1);
+    }
+
+    /**
      * @return null|string
      */
     public function getDescription(): ?string
     {
-        $description = $this->first('Description', 1);
+        $description = $this->getDescriptionNode();
 
         if ($description instanceof RuleInterface) {
             /** @var StringValueNode $value */
