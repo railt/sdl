@@ -7,20 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Value;
+namespace Railt\SDL\Backend\State;
+
+use Railt\SDL\Frontend\IR\OpcodeInterface;
 
 /**
- * Interface ValueInterface
+ * Interface StateInterface
  */
-interface ValueInterface
+interface StateInterface
 {
     /**
+     * @param OpcodeInterface $opcode
      * @return mixed
      */
-    public function toPrimitive();
-
-    /**
-     * @return string
-     */
-    public function toString(): string;
+    public function resolve(OpcodeInterface $opcode);
 }

@@ -17,10 +17,13 @@ use Railt\SDL\Frontend\AST\ProvidesOpcode;
 use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\Support\TypeNameProvider;
 use Railt\SDL\Frontend\Context;
-use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\JoinedOpcode;
+use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
 use Railt\SDL\Frontend\IR\Opcode\CallOpcode;
 use Railt\SDL\Frontend\IR\Opcode\CompareOpcode;
-use Railt\SDL\Frontend\IR\Opcode\FetchOpcode;
+use Railt\SDL\Frontend\IR\Opcode\FetchDeepOpcode;
+use Railt\SDL\Frontend\IR\Opcode\NewOpcode;
+use Railt\SDL\Frontend\IR\Value\TypeValue;
 
 /**
  * Class DirectiveInvocationNode
@@ -35,11 +38,14 @@ class DirectiveInvocationNode extends Rule implements ProvidesType, ProvidesName
      */
     public function getOpcodes(Context $context): iterable
     {
-        $current = $context->create();
+        /** @var JoinedOpcode $definition */
+        $definition = yield new FetchDeepOpcode($this->getFullNameValue(), $context->current());
+        yield new CompareOpcode($definition, new TypeValue($this->getType(), $definition->getOffset()));
 
-        $fetched = yield new FetchOpcode($this->getFullName(), $current, false);
-        yield new CompareOpcode($fetched, $this->getType());
-        yield new CallOpcode($fetched);
+        $parent = $context->create();
+
+        $invocation = yield new NewOpcode($definition, $parent);
+        yield new AttachOpcode($invocation, $parent);
     }
 
     /**

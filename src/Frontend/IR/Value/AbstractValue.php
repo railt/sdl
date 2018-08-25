@@ -24,29 +24,32 @@ abstract class AbstractValue implements ValueInterface
     private $value;
 
     /**
-     * @var TypeDefinition
+     * @var TypeDefinition|null
      */
     private $type;
 
     /**
-     * @var string|null
-     */
-    private $representation;
-
-    /**
      * @var int
      */
-    private $offset = 0;
+    private $offset;
 
     /**
      * AbstractValue constructor.
-     * @param $value
-     * @param TypeDefinition $type
+     * @param mixed $value
+     * @param int $offset
      */
-    public function __construct($value, TypeDefinition $type)
+    public function __construct($value, int $offset = 0)
     {
         $this->value = $value;
-        $this->type  = $type;
+        $this->offset = $offset;
+    }
+
+    /**
+     * @return TypeDefinition|null
+     */
+    public function getTypeDefinition(): ?TypeDefinition
+    {
+        return $this->type;
     }
 
     /**
@@ -64,17 +67,6 @@ abstract class AbstractValue implements ValueInterface
     public function setOffset(int $offset): ValueInterface
     {
         $this->offset = $offset;
-
-        return $this;
-    }
-
-    /**
-     * @param string $value
-     * @return ValueInterface
-     */
-    public function setRepresentation(string $value): ValueInterface
-    {
-        $this->representation = $value;
 
         return $this;
     }
@@ -126,12 +118,13 @@ abstract class AbstractValue implements ValueInterface
      */
     public function __toString(): string
     {
-        if ($this->representation === null) {
-            return '? of ' . $this->getType();
-        }
-
-        return $this->representation;
+        return $this->toString();
     }
+
+    /**
+     * @return string
+     */
+    abstract public function toString(): string;
 
     /**
      * @return TypeDefinition

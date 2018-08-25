@@ -10,19 +10,19 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\IR\Opcode;
 
 use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
- * Create a new definition $0 type of $1 with context $2
+ * Class DescriptionOpcode
  */
-class CallOpcode extends Opcode
+class DescriptionOpcode extends Opcode
 {
     /**
-     * CallOpcode constructor.
-     * @param $type
-     * @param mixed ...$values
+     * DescriptionOpcode constructor.
+     * @param ValueInterface $description
      */
-    public function __construct($type, ...$values)
+    public function __construct(ValueInterface $description)
     {
-        parent::__construct(self::RL_CALL, $type, ...$values);
+        parent::__construct(self::RL_DESCRIPTION, $description);
     }
 }

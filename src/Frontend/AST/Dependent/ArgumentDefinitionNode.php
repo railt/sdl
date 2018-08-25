@@ -13,6 +13,8 @@ use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Type;
 use Railt\SDL\Frontend\AST\ProvidesTypeHint;
 use Railt\SDL\Frontend\AST\Support\TypeHintProvider;
+use Railt\SDL\Frontend\IR\Value\StringValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Class ArgumentDefinitionNode
@@ -27,5 +29,13 @@ class ArgumentDefinitionNode extends DependentTypeDefinitionNode implements Prov
     public function getType(): TypeInterface
     {
         return Type::of(Type::ARGUMENT);
+    }
+
+    /**
+     * @return ValueInterface
+     */
+    public function getKey(): ValueInterface
+    {
+        return new StringValue($this->getFullName(), $this->getOffset());
     }
 }

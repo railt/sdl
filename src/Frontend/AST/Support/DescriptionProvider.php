@@ -10,7 +10,10 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\AST\Support;
 
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\AST\Value\StringValueNode;
+use Railt\SDL\Frontend\AST\Invocation\StringValueNode;
+use Railt\SDL\Frontend\IR\Value\NullValue;
+use Railt\SDL\Frontend\IR\Value\StringValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Trait DescriptionProvider
@@ -36,10 +39,24 @@ trait DescriptionProvider
             /** @var StringValueNode $value */
             $value = $description->getChild(0);
 
-            return $this->trim($value->toPrimitive());
+            return $this->trim($value->toPHPString());
         }
 
         return null;
+    }
+
+    /**
+     * @return ValueInterface
+     */
+    protected function getDescriptionValue(): ValueInterface
+    {
+        $description = $this->getDescriptionNode();
+
+        if ($description instanceof RuleInterface) {
+            return new StringValue($this->getDescription(), $description->getOffset());
+        }
+
+        return new NullValue($this->getOffset());
     }
 
     /**

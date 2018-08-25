@@ -12,19 +12,20 @@ namespace Railt\SDL\Frontend\AST\Invocation;
 use Railt\Parser\Ast\Rule;
 use Railt\SDL\Frontend\AST\ProvidesName;
 use Railt\SDL\Frontend\AST\ProvidesOpcode;
-use Railt\SDL\Frontend\AST\ProvidesValue;
 use Railt\SDL\Frontend\AST\Support\DependentNameProvider;
-use Railt\SDL\Frontend\AST\Value\ValueInterface;
 use Railt\SDL\Frontend\Context;
-use Railt\SDL\Frontend\IR\Opcode\CompareOpcode;
+use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
 use Railt\SDL\Frontend\IR\Opcode\CallOpcode;
+use Railt\SDL\Frontend\IR\Opcode\CompareOpcode;
 use Railt\SDL\Frontend\IR\Opcode\FetchOpcode;
-use Railt\SDL\Frontend\IR\Opcode\DefineOpcode;
+use Railt\SDL\Frontend\IR\Value\ConstantValue;
+use Railt\SDL\Frontend\IR\Value\StringValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Class ArgumentInvocationNode
  */
-class ArgumentInvocationNode extends Rule implements ProvidesName, ProvidesValue, ProvidesOpcode
+class ArgumentInvocationNode extends Rule implements ProvidesName, ProvidesOpcode
 {
     use DependentNameProvider;
 
@@ -36,9 +37,18 @@ class ArgumentInvocationNode extends Rule implements ProvidesName, ProvidesValue
     {
         $current = $context->create();
 
-        $definition = yield new FetchOpcode($this->getFullName(), $current, false);
+        $definition = yield new FetchOpcode($this->getNameValue(), $current);
+
         yield new CompareOpcode($this->getValue(), $definition);
-        yield new CallOpcode($definition, $this->getValue());
+        yield new AttachOpcode($this->getValue(), $definition);
+    }
+
+    /**
+     * @return ValueInterface
+     */
+    public function getKey(): ValueInterface
+    {
+        return $this->getNameValue();
     }
 
     /**
@@ -46,6 +56,9 @@ class ArgumentInvocationNode extends Rule implements ProvidesName, ProvidesValue
      */
     public function getValue(): ValueInterface
     {
-        return $this->first('Value', 1);
+        /** @var AstValueInterface $child */
+        $child = $this->first('Value', 1);
+
+        return $child->unpack();
     }
 }

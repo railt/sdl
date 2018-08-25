@@ -7,14 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Value;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
+use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\Rule;
+use Railt\SDL\Frontend\IR\Value\StringValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Class StringValueNode
  */
-class StringValueNode extends Rule implements ValueInterface
+class StringValueNode extends Rule implements AstValueInterface
 {
     /**
      * @var string
@@ -27,25 +30,17 @@ class StringValueNode extends Rule implements ValueInterface
     private const CHAR_SEQUENCE_PATTERN = '/(?<!\\\\)\\\\(b|f|n|r|t)/u';
 
     /**
-     * @return string
+     * @return ValueInterface
      */
-    public function toString(): string
+    public function unpack(): ValueInterface
     {
-        $result = \addcslashes($this->toPrimitive(), '"\\');
-
-        $result = \str_replace(
-            ["\b", "\f", "\n", "\r", "\t"],
-            ['\u0092', '\u0012', '\u0010', '\u0013', '\u0009'],
-            $result
-        );
-
-        return '(string)' . \sprintf('"%s"', $result);
+        return new StringValue($this->parse(), $this->getOffset());
     }
 
     /**
      * @return string
      */
-    public function toPrimitive(): string
+    public function toPHPString(): string
     {
         return $this->parse();
     }
@@ -55,7 +50,10 @@ class StringValueNode extends Rule implements ValueInterface
      */
     private function getValue(): string
     {
-        return $this->getChild(0)->getValue(1);
+        /** @var LeafInterface $leaf */
+        $leaf = $this->getChild(0);
+
+        return $leaf->getValue(1);
     }
 
     /**

@@ -9,17 +9,19 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR\Value;
 
+use Railt\Reflection\Contracts\TypeInterface;
+
 /**
- * Class ConstantValue
+ * Class TypeValue
  */
-class ConstantValue extends AbstractValue
+class TypeValue extends AbstractValue
 {
     /**
-     * ConstantValue constructor.
-     * @param string $value
+     * TypeValue constructor.
+     * @param TypeInterface $value
      * @param int $offset
      */
-    public function __construct(string $value, int $offset = 0)
+    public function __construct(TypeInterface $value, int $offset = 0)
     {
         parent::__construct($value, $offset);
     }
@@ -29,15 +31,7 @@ class ConstantValue extends AbstractValue
      */
     public function toString(): string
     {
-        return $this->getValue();
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue(): string
-    {
-        return parent::getValue();
+        return $this->getValue()->getName();
     }
 
     /**
@@ -45,6 +39,14 @@ class ConstantValue extends AbstractValue
      */
     public function __toString(): string
     {
-        return '(const)' . parent::__toString();
+        return 'typeof ' . parent::__toString();
+    }
+
+    /**
+     * @return TypeInterface
+     */
+    public function getValue(): TypeInterface
+    {
+        return parent::getValue();
     }
 }

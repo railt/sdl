@@ -14,17 +14,17 @@ use Railt\SDL\Frontend\IR\Opcode;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
- * Create a new definition $0 type of $1
+ * Create an instance of definition $0 type of $1
  */
-class DefineOpcode extends Opcode
+class NewOpcode extends Opcode
 {
     /**
      * DefineOpcode constructor.
-     * @param ValueInterface $name
-     * @param JoinedOpcode|ValueInterface $type
+     * @param JoinedOpcode|ValueInterface $name
+     * @param JoinedOpcode|ValueInterface $context
      */
-    public function __construct(ValueInterface $name, $type)
+    public function __construct($name, $context)
     {
-        parent::__construct(self::RL_DEFINE, $name, $type);
+        parent::__construct(self::RL_NEW, $name, $context);
     }
 }

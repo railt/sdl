@@ -10,16 +10,16 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\IR\Value;
 
 /**
- * Class ConstantValue
+ * Class BooleanValue
  */
-class ConstantValue extends AbstractValue
+class BooleanValue extends AbstractValue
 {
     /**
      * ConstantValue constructor.
-     * @param string $value
+     * @param bool $value
      * @param int $offset
      */
-    public function __construct(string $value, int $offset = 0)
+    public function __construct(bool $value, int $offset = 0)
     {
         parent::__construct($value, $offset);
     }
@@ -29,13 +29,13 @@ class ConstantValue extends AbstractValue
      */
     public function toString(): string
     {
-        return $this->getValue();
+        return $this->getValue() ? 'true' : 'false';
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getValue(): string
+    public function getValue(): bool
     {
         return parent::getValue();
     }
@@ -45,6 +45,6 @@ class ConstantValue extends AbstractValue
      */
     public function __toString(): string
     {
-        return '(const)' . parent::__toString();
+        return '(bool)' . parent::__toString();
     }
 }

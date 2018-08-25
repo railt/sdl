@@ -7,17 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
-use Railt\SDL\Frontend\AST\Value\ValueInterface;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
- * Interface ProvidesValue
+ * Interface AstValueInterface
  */
-interface ProvidesValue
+interface AstValueInterface
 {
     /**
      * @return ValueInterface
      */
-    public function getValue(): ValueInterface;
+    public function unpack(): ValueInterface;
 }

@@ -7,21 +7,20 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Value;
-
-use Railt\Parser\Ast\Rule;
+namespace Railt\SDL\Frontend\IR\Value;
 
 /**
- * Class ValueNode
+ * Class NullValue
  */
-class ValueNode extends Rule implements ValueInterface
+class NullValue extends AbstractValue
 {
     /**
-     * @return ValueInterface
+     * NullValue constructor.
+     * @param int $offset
      */
-    public function getInnerValue(): ValueInterface
+    public function __construct(int $offset = 0)
     {
-        return $this->getChild(0);
+        parent::__construct(null, $offset);
     }
 
     /**
@@ -29,15 +28,15 @@ class ValueNode extends Rule implements ValueInterface
      */
     public function toString(): string
     {
-        return $this->getInnerValue()->toString();
+        return 'null';
     }
 
     /**
-     * @return mixed
+     * @return void
      */
-    public function toPrimitive()
+    public function getValue(): void
     {
-        return $this->getInnerValue()->toPrimitive();
+        return;
     }
 
     /**
@@ -45,6 +44,6 @@ class ValueNode extends Rule implements ValueInterface
      */
     public function __toString(): string
     {
-        return $this->toString();
+        return '(null)' . parent::__toString();
     }
 }

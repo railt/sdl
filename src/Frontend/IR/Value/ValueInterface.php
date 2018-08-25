@@ -23,11 +23,6 @@ interface ValueInterface
     public function getOffset(): int;
 
     /**
-     * @return TypeDefinition
-     */
-    public function getType(): TypeDefinition;
-
-    /**
      * @param TypeDefinition $type
      * @return ValueInterface
      */
@@ -49,6 +44,11 @@ interface ValueInterface
      * @return mixed
      */
     public function getValue();
+
+    /**
+     * @return string
+     */
+    public function toString(): string;
 
     /**
      * @return string

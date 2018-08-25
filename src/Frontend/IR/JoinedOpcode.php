@@ -15,7 +15,7 @@ use Railt\Io\Readable;
 /**
  * Class JoinableOpcode
  */
-class JoinableOpcode extends Opcode implements PositionInterface
+class JoinedOpcode extends Opcode implements PositionInterface
 {
     /**
      * @var int
@@ -39,21 +39,30 @@ class JoinableOpcode extends Opcode implements PositionInterface
 
     /**
      * JoinableOpcode constructor.
-     * @param OpcodeInterface $opcode
+     * @param OpcodeInterface|self $opcode
      * @param int $id
      * @param Readable $file
      * @param int $offset
      */
     public function __construct(OpcodeInterface $opcode, int $id, Readable $file, int $offset = 0)
     {
-        parent::__construct($opcode->getOperation(), ...$opcode->getOperands());
+        parent::__construct($opcode->getOperation(), ...$opcode->operands);
 
-        $this->id = $id;
-        $this->file = $file;
-        $this->offset = $offset;
-        $this->description = function() use ($opcode): string {
+        $this->id          = $id;
+        $this->file        = $file;
+        $this->offset      = $offset;
+
+        $this->description = function () use ($opcode): string {
             return \trim((string)(new \ReflectionObject($opcode))->getDocComment(), " \t\n\r\0\x0B/*");
         };
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffset(): int
+    {
+        return $this->offset;
     }
 
     /**
@@ -61,7 +70,7 @@ class JoinableOpcode extends Opcode implements PositionInterface
      */
     public function getDescription(): string
     {
-        return \preg_replace_callback('/\$(\d+)/iu', function(array $m): string {
+        return \preg_replace_callback('/\$(\d+)/iu', function (array $m): string {
             return $this->operandToString($this->operands[(int)$m[1]] ?? null);
         }, ($this->description)());
     }
@@ -111,12 +120,11 @@ class JoinableOpcode extends Opcode implements PositionInterface
      */
     public function __toString(): string
     {
-        return \vsprintf('%4s %-10s %-3d %-3d %s', [
+        return \vsprintf('%4s | %-80s %s:%d', [
             '#' . $this->getId(),
-            \pathinfo($this->getFile()->getPathname(), \PATHINFO_FILENAME),
+            parent::__toString(),
+            $this->getFile()->getPathname(),
             $this->getLine(),
-            $this->getColumn(),
-            parent::__toString()
         ]);
     }
 }

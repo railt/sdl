@@ -10,9 +10,9 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\IR\Value;
 
 /**
- * Class ConstantValue
+ * Class StringValue
  */
-class ConstantValue extends AbstractValue
+class StringValue extends AbstractValue
 {
     /**
      * ConstantValue constructor.
@@ -29,7 +29,15 @@ class ConstantValue extends AbstractValue
      */
     public function toString(): string
     {
-        return $this->getValue();
+        $result = \addcslashes($this->getValue(), '"\\');
+
+        $result = \str_replace(
+            ["\b", "\f", "\n", "\r", "\t"],
+            ['\u0092', '\u0012', '\u0010', '\u0013', '\u0009'],
+            $result
+        );
+
+        return \sprintf('"%s"', $result);
     }
 
     /**
@@ -45,6 +53,6 @@ class ConstantValue extends AbstractValue
      */
     public function __toString(): string
     {
-        return '(const)' . parent::__toString();
+        return '(string)' . parent::__toString();
     }
 }

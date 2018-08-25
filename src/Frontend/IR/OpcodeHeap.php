@@ -42,9 +42,9 @@ class OpcodeHeap implements \IteratorAggregate
      * @param Opcode $opcode
      * @param Readable $readable
      * @param int $offset
-     * @return JoinableOpcode
+     * @return JoinedOpcode
      */
-    public function add(Opcode $opcode, Readable $readable, int $offset = 0): JoinableOpcode
+    public function add(Opcode $opcode, Readable $readable, int $offset = 0): JoinedOpcode
     {
         $id = $this->opcodes->count();
 
@@ -58,7 +58,7 @@ class OpcodeHeap implements \IteratorAggregate
     }
 
     /**
-     * @return \SplDoublyLinkedList|JoinableOpcode[]|OpcodeInterface[]
+     * @return \SplDoublyLinkedList|JoinedOpcode[]|OpcodeInterface[]
      */
     public function getIterator(): \SplDoublyLinkedList
     {

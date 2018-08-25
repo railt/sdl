@@ -27,27 +27,37 @@ interface OpcodeInterface
     /**
      * @var int
      */
-    public const RL_CALL = 0x02;
+    public const RL_DESCRIPTION = 0x02;
 
     /**
      * @var int
      */
-    public const RL_DESCRIPTION = 0x03;
+    public const RL_DEFINE = 0x03;
 
     /**
      * @var int
      */
-    public const RL_DEFINE = 0x04;
+    public const RL_FETCH = 0x04;
 
     /**
      * @var int
      */
-    public const RL_COMPARE = 0x05;
+    public const RL_FETCH_DEEP = 0x05;
 
     /**
      * @var int
      */
-    public const RL_FETCH = 0x06;
+    public const RL_ATTACH = 0x06;
+
+    /**
+     * @var int
+     */
+    public const RL_ASSERT_COMPARE = 0x07;
+
+    /**
+     * @var int
+     */
+    public const RL_NEW = 0x08;
 
     /**
      * @return string
@@ -60,7 +70,8 @@ interface OpcodeInterface
     public function getOperation(): int;
 
     /**
-     * @return iterable
+     * @param int $id
+     * @return mixed
      */
-    public function getOperands(): iterable;
+    public function getOperand(int $id);
 }

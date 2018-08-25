@@ -10,7 +10,11 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\AST\Support;
 
 use Railt\Parser\Ast\NodeInterface;
+use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\AST\Common\TypeNameNode;
+use Railt\SDL\Frontend\IR\Value\ConstantValue;
+use Railt\SDL\Frontend\IR\Value\NullValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Trait TypeNameProvider
@@ -37,5 +41,19 @@ trait TypeNameProvider
         }
 
         return null;
+    }
+
+    /**
+     * @return ValueInterface|null
+     */
+    protected function getFullNameValue(): ?ValueInterface
+    {
+        $name = $this->getTypeNameNode();
+
+        if ($name instanceof RuleInterface) {
+            return new ConstantValue($this->getFullName(), $name->getOffset());
+        }
+
+        return new NullValue($this->getOffset());
     }
 }

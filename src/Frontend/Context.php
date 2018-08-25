@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend;
 
-use Railt\SDL\Frontend\IR\JoinableOpcode;
+use Railt\SDL\Frontend\IR\JoinedOpcode;
 
 /**
  * Class Context
@@ -17,7 +17,7 @@ use Railt\SDL\Frontend\IR\JoinableOpcode;
 class Context
 {
     /**
-     * @var JoinableOpcode[]
+     * @var JoinedOpcode[]
      */
     private $stack;
 
@@ -32,12 +32,13 @@ class Context
     public function __construct()
     {
         $this->stack = new \SplStack();
+        $this->create();
     }
 
     /**
-     * @return null|JoinableOpcode
+     * @return null|JoinedOpcode
      */
-    public function current(): ?JoinableOpcode
+    public function current(): ?JoinedOpcode
     {
         return $this->stack->count() ? $this->stack->top() : null;
     }
@@ -60,9 +61,9 @@ class Context
     }
 
     /**
-     * @return null|JoinableOpcode
+     * @return null|JoinedOpcode
      */
-    public function create(): ?JoinableOpcode
+    public function create(): ?JoinedOpcode
     {
         $this->await = true;
 
@@ -70,9 +71,9 @@ class Context
     }
 
     /**
-     * @return null|JoinableOpcode
+     * @return null|JoinedOpcode
      */
-    public function close(): ?JoinableOpcode
+    public function close(): ?JoinedOpcode
     {
         $this->await = false;
 
@@ -80,10 +81,10 @@ class Context
     }
 
     /**
-     * @param JoinableOpcode $opcode
-     * @return JoinableOpcode
+     * @param JoinedOpcode $opcode
+     * @return JoinedOpcode
      */
-    public function match(JoinableOpcode $opcode): JoinableOpcode
+    public function match(JoinedOpcode $opcode): JoinedOpcode
     {
         if ($this->await) {
             $this->stack->push($opcode);

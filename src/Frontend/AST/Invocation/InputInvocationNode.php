@@ -14,12 +14,14 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Type;
 use Railt\SDL\Frontend\AST\ProvidesType;
-use Railt\SDL\Frontend\AST\Value\ValueInterface;
+use Railt\SDL\Frontend\IR\Value\InputValue;
+use Railt\SDL\Frontend\IR\Value\StringValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Class InputInvocationNode
  */
-class InputInvocationNode extends Rule implements ProvidesType, ValueInterface
+class InputInvocationNode extends Rule implements ProvidesType, AstValueInterface
 {
     /**
      * @return TypeInterface
@@ -30,27 +32,17 @@ class InputInvocationNode extends Rule implements ProvidesType, ValueInterface
     }
 
     /**
-     * @return string
+     * @return ValueInterface
      */
-    public function toString(): string
+    public function unpack(): ValueInterface
     {
-        $result = [];
-
-        /**
-         * @var string $name
-         * @var ValueInterface $value
-         */
-        foreach ($this->getValues() as [$name, $value]) {
-            $result[] = $name . ': ' . $value->toString();
-        }
-
-        return \sprintf('{%s}', \implode(', ', $result));
+        return new InputValue($this->getInnerValues(), $this->getOffset());
     }
 
     /**
-     * @return iterable|array[]
+     * @return iterable|ValueInterface[]
      */
-    public function getValues(): iterable
+    private function getInnerValues(): iterable
     {
         /** @var RuleInterface $arguments */
         $arguments = $this->first('InputInvocationArguments', 1);
@@ -58,27 +50,8 @@ class InputInvocationNode extends Rule implements ProvidesType, ValueInterface
         if ($arguments) {
             /** @var ArgumentInvocationNode $child */
             foreach ($arguments as $child) {
-                yield $child => [$child->getFullName(), $child->getValue()];
+                yield $child->getKey() => $child->getValue();
             }
         }
-    }
-
-    /**
-     * @return iterable|ValueInterface[]
-     */
-    public function toPrimitive(): iterable
-    {
-        $result = [];
-
-        /**
-         * @var RuleInterface $ast
-         * @var string $name
-         * @var ValueInterface $value
-         */
-        foreach ($this->getValues() as $ast => [$name, $value]) {
-            $result[$name] = $value->toPrimitive();
-        }
-
-        return $result;
     }
 }

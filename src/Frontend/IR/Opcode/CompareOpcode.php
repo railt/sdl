@@ -23,6 +23,6 @@ class CompareOpcode extends Opcode
      */
     public function __construct($haystack, $needle)
     {
-        parent::__construct(self::RL_COMPARE, $haystack, $needle);
+        parent::__construct(self::RL_ASSERT_COMPARE, $haystack, $needle);
     }
 }

@@ -18,19 +18,15 @@ use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\Support\DependentNameProvider;
 use Railt\SDL\Frontend\AST\Support\DescriptionProvider;
 use Railt\SDL\Frontend\Context;
-use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
 use Railt\SDL\Frontend\IR\Opcode\DefineOpcode;
-use Railt\SDL\Frontend\IR\OpcodeHeap;
-use Railt\SDL\Frontend\IR\OpcodeInterface;
+use Railt\SDL\Frontend\IR\Opcode\DescriptionOpcode;
+use Railt\SDL\Frontend\IR\Value\TypeValue;
 
 /**
  * Class DependentTypeDefinitionNode
  */
-abstract class DependentTypeDefinitionNode extends Rule implements
-    ProvidesType,
-    ProvidesName,
-    ProvidesOpcode,
-    ProvidesDescription
+abstract class DependentTypeDefinitionNode extends Rule implements ProvidesType, ProvidesName, ProvidesOpcode, ProvidesDescription
 {
     use DependentNameProvider;
     use DescriptionProvider;
@@ -55,12 +51,13 @@ abstract class DependentTypeDefinitionNode extends Rule implements
      */
     public function getOpcodes(Context $context): iterable
     {
-        $current = $context->create();
+        $parent  = $context->create();
+        $current = yield new DefineOpcode($this->getNameValue(), new TypeValue($this->getType()));
 
-        $joinable = yield new DefineOpcode($this->getFullName(), $this->getType(), $current);
+        yield new AttachOpcode($current, $parent);
 
-        if ($description = $this->getDescriptionNode()) {
-            yield $description => new Opcode(Opcode::RL_DESCRIPTION, $joinable, $this->getDescription());
+        if ($description = $this->getDescriptionValue()) {
+            yield new AttachOpcode(yield new DescriptionOpcode($description), $current);
         }
     }
 }

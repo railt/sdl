@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\IR;
 
 use Railt\Io\Readable;
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\SDL\Frontend\AST\Value\ValueInterface;
+use Railt\Parser\Ast\NodeInterface;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Class Opcode
@@ -53,62 +53,23 @@ class Opcode implements OpcodeInterface
     }
 
     /**
-     * @return array
+     * @param int $id
+     * @return mixed|null
      */
-    public function getOperands(): array
+    public function getOperand(int $id)
     {
-        return $this->operands;
+        return $this->operands[$id] ?? null;
     }
 
     /**
      * @param int $id
      * @param Readable $readable
      * @param int $offset
-     * @return JoinableOpcode
+     * @return JoinedOpcode
      */
-    public function join(int $id, Readable $readable, int $offset = 0): JoinableOpcode
+    public function join(int $id, Readable $readable, int $offset = 0): JoinedOpcode
     {
-        return new JoinableOpcode($this, $id, $readable, $offset);
-    }
-
-    /**
-     * @param mixed $value
-     * @return string
-     */
-    protected function operandToString($value): string
-    {
-        switch (true) {
-            case $value instanceof ValueInterface:
-                return $value->toString();
-
-            case $value instanceof TypeInterface:
-                return '$' . $value->getName();
-
-            case $value instanceof JoinableOpcode:
-                return '!' . $value->getId();
-
-            case $value instanceof OpcodeInterface:
-                return $value->getName();
-
-            case $value instanceof Readable:
-                return 'file:' . $value->getPathname();
-
-            case \is_bool($value):
-                return '(php:bool)' . ($value ? 'true' : 'false');
-
-            case $value === null:
-                return '(php:null)null';
-
-            case \is_scalar($value):
-                $type = \gettype($value);
-                $minified = \preg_replace('/\s+/', ' ', (string)$value);
-                return '(php:' . $type . ')"' . \addcslashes($minified, '"') . '"';
-
-            case \is_object($value):
-                return \get_class($value) . '#' . \spl_object_hash($value);
-        }
-
-        return '';
+        return new JoinedOpcode($this, $id, $readable, $offset);
     }
 
     /**
@@ -120,7 +81,40 @@ class Opcode implements OpcodeInterface
             return $this->operandToString($value);
         }, $this->operands);
 
-        return \sprintf('%-20s %-20s', $this->getName(), '{' . \implode(', ', $operands) . '}');
+        return \sprintf('%-20s %s', $this->getName(), '{ ' . \implode(', ', $operands) . ' }');
+    }
+
+    /**
+     * @param mixed $value
+     * @return string
+     */
+    protected function operandToString($value): string
+    {
+        switch (true) {
+            case $value instanceof NodeInterface:
+                return '<' . $value->getName() . '>';
+
+            case $value instanceof JoinedOpcode:
+                return '#' . $value->getId();
+
+            case $value instanceof ValueInterface:
+                return (string)$value;
+
+            case $value instanceof Readable:
+                return '(file)' . $value->getPathname();
+
+            case \is_scalar($value):
+                $minified = \preg_replace('/\s+/', ' ', (string)$value);
+                return '[INVALID] "' . \addcslashes($minified, '"') . '"';
+
+            case \is_array($value):
+                return '[INVALID] array(' . \implode(', ', \array_map([$this, 'operandToString'], $value)) . ')';
+
+            case \is_object($value):
+                return '[INVALID] ' . \get_class($value) . '#' . \spl_object_hash($value);
+        }
+
+        return '';
     }
 
     /**

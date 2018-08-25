@@ -9,23 +9,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR\Opcode;
 
-use Railt\SDL\Frontend\IR\JoinedOpcode;
 use Railt\SDL\Frontend\IR\Opcode;
 use Railt\SDL\Frontend\IR\OpcodeInterface;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
- * Tries to get a reference to the definition $0 from the $1
+ * Tries to get a reference to the definition $0 from the $1 or the selected context parents (recursive).
  */
-class FetchOpcode extends Opcode
+class FetchDeepOpcode extends Opcode
 {
     /**
-     * FetchOpcode constructor.
+     * FetchDeepOpcode constructor.
      * @param ValueInterface $needle
      * @param OpcodeInterface $haystack
      */
     public function __construct(ValueInterface $needle, OpcodeInterface $haystack)
     {
-        parent::__construct(self::RL_FETCH, $needle, $haystack);
+        parent::__construct(self::RL_FETCH_DEEP, $needle, $haystack);
     }
 }

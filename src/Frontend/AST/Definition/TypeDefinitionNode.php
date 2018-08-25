@@ -21,7 +21,11 @@ use Railt\SDL\Frontend\AST\Support\DirectivesProvider;
 use Railt\SDL\Frontend\AST\Support\TypeNameProvider;
 use Railt\SDL\Frontend\Context;
 use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
 use Railt\SDL\Frontend\IR\Opcode\DefineOpcode;
+use Railt\SDL\Frontend\IR\Opcode\DescriptionOpcode;
+use Railt\SDL\Frontend\IR\Value\StringValue;
+use Railt\SDL\Frontend\IR\Value\TypeValue;
 
 /**
  * Class TypeDefinitionNode
@@ -38,12 +42,13 @@ abstract class TypeDefinitionNode extends Rule implements ProvidesName, Provides
      */
     public function getOpcodes(Context $context): iterable
     {
-        $current = $context->create();
+        $parent  = $context->create();
+        $current = yield new DefineOpcode($this->getFullNameValue(), new TypeValue($this->getType()));
 
-        $joinable = yield new DefineOpcode($this->getFullName(), $this->getType(), $current);
+        yield new AttachOpcode($current, $parent);
 
-        if ($description = $this->getDescriptionNode()) {
-            yield $description => new Opcode(Opcode::RL_DESCRIPTION, $joinable, $this->getDescription());
+        if ($description = $this->getDescriptionValue()) {
+            yield new AttachOpcode(yield new DescriptionOpcode($description), $current);
         }
     }
 

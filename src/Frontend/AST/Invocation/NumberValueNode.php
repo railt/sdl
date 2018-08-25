@@ -7,31 +7,32 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Value;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
 use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\Rule;
+use Railt\SDL\Frontend\IR\Value\FloatValue;
+use Railt\SDL\Frontend\IR\Value\IntValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 use Railt\SDL\Frontend\Parser;
 
 /**
  * Class NumberValueNode
  */
-class NumberValueNode extends Rule implements ValueInterface
+class NumberValueNode extends Rule implements AstValueInterface
 {
     /**
-     * @return string
+     * @return ValueInterface
      */
-    public function toString(): string
+    public function unpack(): ValueInterface
     {
-        return '(number)' . $this->toPrimitive();
-    }
+        $value = $this->parse();
 
-    /**
-     * @return float|int
-     */
-    public function toPrimitive()
-    {
-        return $this->parse();
+        if (\is_int($value)) {
+            return new IntValue($value, $this->getOffset());
+        }
+
+        return new FloatValue((float)$value, $this->getOffset());
     }
 
     /**

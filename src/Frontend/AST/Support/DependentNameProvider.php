@@ -11,6 +11,8 @@ namespace Railt\SDL\Frontend\AST\Support;
 
 use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\RuleInterface;
+use Railt\SDL\Frontend\IR\Value\ConstantValue;
+use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
  * Trait DependentNameProvider
@@ -40,5 +42,13 @@ trait DependentNameProvider
     protected function getNameNode(): ?RuleInterface
     {
         return $this->first('DependentName', 1);
+    }
+
+    /**
+     * @return ValueInterface
+     */
+    protected function getNameValue(): ValueInterface
+    {
+        return new ConstantValue($this->getFullName(), $this->getOffset());
     }
 }

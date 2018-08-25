@@ -7,28 +7,26 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Value;
-
-use Railt\Parser\Ast\Rule;
+namespace Railt\SDL\Frontend\IR\Value;
 
 /**
- * Class NullValueNode
+ * Class AnyValue
  */
-class NullValueNode extends Rule implements ValueInterface
+class AnyValue extends AbstractValue
 {
     /**
      * @return string
      */
     public function toString(): string
     {
-        return '(null)null';
+        return '?';
     }
 
     /**
-     * @return mixed|null
+     * @return string
      */
-    public function toPrimitive()
+    public function __toString(): string
     {
-        return null;
+        return '(any)' . parent::__toString();
     }
 }

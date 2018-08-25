@@ -16,7 +16,7 @@ use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Reflection;
-use Railt\SDL\Backend\Builder;
+use Railt\SDL\Backend\Vm;
 use Railt\SDL\Compiler\Dictionary;
 use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
@@ -47,7 +47,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
     private $front;
 
     /**
-     * @var Builder
+     * @var Vm
      */
     private $back;
 
@@ -62,7 +62,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
         $this->store      = new Store();
         $this->front      = new Frontend();
         $this->dictionary = new Dictionary($this);
-        $this->back       = new Builder(new Reflection($this->dictionary));
+        $this->back       = new Vm(new Reflection($this->dictionary));
 
         if ($logger) {
             $this->setLogger($logger);
@@ -78,6 +78,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
         $this->logger = $logger;
 
         $this->front->setLogger($logger);
+        $this->back->setLogger($logger);
 
         return $this;
     }
