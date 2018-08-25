@@ -52,7 +52,7 @@ class Runtime
     public function __construct(Reflection $root, Readable $input)
     {
         $this->input = $input;
-        $this->root = $root;
+        $this->root  = $root;
     }
 
     /**

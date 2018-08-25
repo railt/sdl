@@ -20,7 +20,7 @@ class PrioritizeAnalyzer implements AnalyzerInterface
      * @var int[]
      */
     protected const PRIORITIES = [
-        OpcodeInterface::RL_OPEN => -1,
+        OpcodeInterface::RL_OPEN   => -1,
         OpcodeInterface::RL_DEFINE => -1,
     ];
 

@@ -53,7 +53,7 @@ class Analyzer implements AnalyzerInterface, LoggerAwareInterface
     private function bootDefaults(): void
     {
         foreach (self::DEFAULTS as $analyzer) {
-            $this->addAnalyzer(new $analyzer);
+            $this->addAnalyzer(new $analyzer());
         }
     }
 
@@ -61,7 +61,7 @@ class Analyzer implements AnalyzerInterface, LoggerAwareInterface
      * @param AnalyzerInterface $analyzer
      * @return Analyzer
      */
-    public function addAnalyzer(AnalyzerInterface $analyzer): Analyzer
+    public function addAnalyzer(AnalyzerInterface $analyzer): self
     {
         $this->instances[] = $analyzer;
 
@@ -76,7 +76,7 @@ class Analyzer implements AnalyzerInterface, LoggerAwareInterface
      * @param LoggerInterface $logger
      * @return Analyzer
      */
-    public function setLogger(LoggerInterface $logger): Analyzer
+    public function setLogger(LoggerInterface $logger): self
     {
         $this->logger = $logger;
 

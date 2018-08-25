@@ -63,7 +63,7 @@ abstract class State implements StateInterface
     final public function resolve(OpcodeInterface $opcode)
     {
         if ($this->resolved === false) {
-            $this->result = $this->execute($opcode);
+            $this->result   = $this->execute($opcode);
             $this->resolved = true;
         }
 

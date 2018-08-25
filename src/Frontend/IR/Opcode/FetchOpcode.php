@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR\Opcode;
 
-use Railt\SDL\Frontend\IR\JoinedOpcode;
 use Railt\SDL\Frontend\IR\Opcode;
 use Railt\SDL\Frontend\IR\OpcodeInterface;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;

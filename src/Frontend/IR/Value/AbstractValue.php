@@ -40,7 +40,7 @@ abstract class AbstractValue implements ValueInterface
      */
     public function __construct($value, int $offset = 0)
     {
-        $this->value = $value;
+        $this->value  = $value;
         $this->offset = $offset;
     }
 

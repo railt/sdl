@@ -19,7 +19,6 @@ use Railt\SDL\Frontend\AST\Support\TypeNameProvider;
 use Railt\SDL\Frontend\Context;
 use Railt\SDL\Frontend\IR\JoinedOpcode;
 use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
-use Railt\SDL\Frontend\IR\Opcode\CallOpcode;
 use Railt\SDL\Frontend\IR\Opcode\CompareOpcode;
 use Railt\SDL\Frontend\IR\Opcode\FetchDeepOpcode;
 use Railt\SDL\Frontend\IR\Opcode\NewOpcode;

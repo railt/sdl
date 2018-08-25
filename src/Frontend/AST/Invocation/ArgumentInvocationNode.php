@@ -15,11 +15,8 @@ use Railt\SDL\Frontend\AST\ProvidesOpcode;
 use Railt\SDL\Frontend\AST\Support\DependentNameProvider;
 use Railt\SDL\Frontend\Context;
 use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
-use Railt\SDL\Frontend\IR\Opcode\CallOpcode;
 use Railt\SDL\Frontend\IR\Opcode\CompareOpcode;
 use Railt\SDL\Frontend\IR\Opcode\FetchOpcode;
-use Railt\SDL\Frontend\IR\Value\ConstantValue;
-use Railt\SDL\Frontend\IR\Value\StringValue;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**

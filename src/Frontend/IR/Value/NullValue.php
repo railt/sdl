@@ -36,7 +36,6 @@ class NullValue extends AbstractValue
      */
     public function getValue(): void
     {
-        return;
     }
 
     /**

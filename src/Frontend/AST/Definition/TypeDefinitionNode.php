@@ -20,11 +20,9 @@ use Railt\SDL\Frontend\AST\Support\DescriptionProvider;
 use Railt\SDL\Frontend\AST\Support\DirectivesProvider;
 use Railt\SDL\Frontend\AST\Support\TypeNameProvider;
 use Railt\SDL\Frontend\Context;
-use Railt\SDL\Frontend\IR\Opcode;
 use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
 use Railt\SDL\Frontend\IR\Opcode\DefineOpcode;
 use Railt\SDL\Frontend\IR\Opcode\DescriptionOpcode;
-use Railt\SDL\Frontend\IR\Value\StringValue;
 use Railt\SDL\Frontend\IR\Value\TypeValue;
 
 /**

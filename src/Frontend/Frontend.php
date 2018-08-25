@@ -46,7 +46,7 @@ class Frontend implements LoggerAwareInterface
      */
     public function __construct()
     {
-        $this->parser  = new Parser();
+        $this->parser   = new Parser();
         $this->analyzer = new Analyzer();
     }
 
@@ -69,7 +69,7 @@ class Frontend implements LoggerAwareInterface
      * @param LoggerInterface $logger
      * @return Frontend
      */
-    public function setLogger(LoggerInterface $logger): Frontend
+    public function setLogger(LoggerInterface $logger): self
     {
         $this->logger = $logger;
         $this->analyzer->setLogger($logger);

@@ -41,7 +41,7 @@ class Opcode implements OpcodeInterface
     public function __construct(int $operation, ...$operands)
     {
         $this->operation = $operation;
-        $this->operands = $operands;
+        $this->operands  = $operands;
     }
 
     /**

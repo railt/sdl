@@ -15,7 +15,6 @@ use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Type;
 use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\IR\Value\InputValue;
-use Railt\SDL\Frontend\IR\Value\StringValue;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**

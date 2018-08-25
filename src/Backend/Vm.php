@@ -55,7 +55,7 @@ class Vm implements LoggerAwareInterface
          */
         foreach ($runtime->execute($opcodes) as $opcode => $result) {
             if ($this->logger) {
-                $value = \get_class($result) . '#' . \spl_object_hash($result);
+                $value   = \get_class($result) . '#' . \spl_object_hash($result);
                 $message = \sprintf('%4s = %s', '#' . $opcode->getId(), $value);
 
                 $this->logger->debug($message);
