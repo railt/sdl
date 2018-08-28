@@ -24,7 +24,6 @@ use Railt\SDL\Frontend\IR\Deferred;
 use Railt\SDL\Frontend\IR\Opcode\OpenOpcode;
 use Railt\SDL\Frontend\IR\OpcodeInterface;
 use Railt\SDL\Frontend\IR\Prototype;
-use Railt\SDL\Frontend\IR\UnmountedOpcodeInterface;
 
 /**
  * Class Frontend
@@ -132,7 +131,7 @@ class Frontend implements LoggerAwareInterface
             if ($child instanceof ProvidesOpcode) {
                 $iterator = $this->extract($child, $child->getOpcodes($context));
 
-                yield from \iterator_reverse_each($iterator, function($response) use (&$deferred) {
+                yield from \iterator_reverse_each($iterator, function ($response) use (&$deferred): void {
                     // In the event that the parent sends a deferred callback
                     // back, we memorize the reference to him in order
                     // to fulfill in the future.

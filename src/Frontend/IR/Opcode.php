@@ -55,14 +55,14 @@ class Opcode implements OpcodeInterface
     public function __construct(int $operation, ...$operands)
     {
         $this->operation = $operation;
-        $this->operands = $operands;
+        $this->operands  = $operands;
     }
 
     /**
      * @param int $operation
      * @return Opcode
      */
-    public function rebind(int $operation): Opcode
+    public function rebind(int $operation): self
     {
         $this->operation = $operation;
 
@@ -75,10 +75,10 @@ class Opcode implements OpcodeInterface
      * @param int $offset
      * @return Opcode
      */
-    public function mount(int $id, Readable $file, int $offset = 0): Opcode
+    public function mount(int $id, Readable $file, int $offset = 0): self
     {
-        $this->id = $id;
-        $this->file = $file;
+        $this->id     = $id;
+        $this->file   = $file;
         $this->offset = $offset;
 
         return $this;
