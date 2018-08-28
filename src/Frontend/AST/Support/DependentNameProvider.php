@@ -12,6 +12,7 @@ namespace Railt\SDL\Frontend\AST\Support;
 use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\IR\Value\ConstantValue;
+use Railt\SDL\Frontend\IR\Value\NullValue;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
@@ -49,6 +50,12 @@ trait DependentNameProvider
      */
     protected function getNameValue(): ValueInterface
     {
-        return new ConstantValue($this->getFullName(), $this->getOffset());
+        $name = $this->getFullName();
+
+        if ($name) {
+            return new ConstantValue($name, $this->getOffset());
+        }
+
+        return new NullValue($this->getOffset());
     }
 }
