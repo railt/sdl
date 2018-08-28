@@ -18,9 +18,10 @@ use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\Support\DependentNameProvider;
 use Railt\SDL\Frontend\AST\Support\DescriptionProvider;
 use Railt\SDL\Frontend\Context;
-use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
+use Railt\SDL\Frontend\IR\Opcode\AddDefinitionOpcode;
+use Railt\SDL\Frontend\IR\Opcode\AddDescriptionOpcode;
 use Railt\SDL\Frontend\IR\Opcode\DefineOpcode;
-use Railt\SDL\Frontend\IR\Opcode\DescriptionOpcode;
+use Railt\SDL\Frontend\IR\Value\NullValue;
 use Railt\SDL\Frontend\IR\Value\TypeValue;
 
 /**
@@ -51,13 +52,15 @@ abstract class DependentTypeDefinitionNode extends Rule implements ProvidesType,
      */
     public function getOpcodes(Context $context): iterable
     {
-        $parent  = $context->create();
+        $parent = $context->create();
         $current = yield new DefineOpcode($this->getNameValue(), new TypeValue($this->getType()));
 
-        yield new AttachOpcode($current, $parent);
+        yield function () use ($current, $parent) {
+            yield new AddDefinitionOpcode($current, $parent);
+        };
 
-        if ($description = $this->getDescriptionValue()) {
-            yield new AttachOpcode(yield new DescriptionOpcode($description), $current);
+        if (! ($description = $this->getDescriptionValue()) instanceof NullValue) {
+            yield new AddDescriptionOpcode($current, $description);
         }
     }
 }

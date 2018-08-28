@@ -25,61 +25,123 @@ if (! \function_exists('\\sdl')) {
 }
 
 
-if (! \function_exists('trait_uses_recursive')) {
+if (! \function_exists('\\iterator_to_generator')) {
     /**
-     * Returns all traits used by a trait and its traits.
-     *
-     * @param string $trait
-     * @return array
+     * @param iterable $iterator
+     * @return Generator
      */
-    function trait_uses_recursive($trait): array
+    function iterator_to_generator(iterable $iterator): \Generator
     {
-        $traits = \class_uses($trait);
-
-        foreach ($traits as $trait) {
-            $traits += \trait_uses_recursive($trait);
-        }
-
-        return $traits;
+        yield from $iterator;
     }
 }
 
 
-if (! \function_exists('class_uses_recursive')) {
+if (! \function_exists('\\iterator_map')) {
     /**
-     * Returns all traits used by a class, its parent classes and trait of their traits.
-     *
-     * @param object|string $class
-     * @return array
+     * @param iterable $iterator
+     * @param Closure $map
+     * @return Generator
      */
-    function class_uses_recursive($class): array
+    function iterator_map(iterable $iterator, \Closure $map): \Generator
     {
-        if (\is_object($class)) {
-            $class = \get_class($class);
+        $generator = \iterator_to_generator($iterator);
+
+        while ($generator->valid()) {
+            $generator->send(yield $generator->key() => $map($generator->current()));
         }
-
-        $results = [];
-
-        foreach (\array_reverse(\class_parents($class)) + [$class => $class] as $class) {
-            $results += \trait_uses_recursive($class);
-        }
-
-        return \array_unique($results);
     }
 }
 
 
-if (! \function_exists('class_basename')) {
+if (! \function_exists('\\iterator_reverse_map')) {
     /**
-     * Get the class "basename" of the given object / class.
-     *
-     * @param string|object $class
-     * @return string
+     * @param iterable $iterator
+     * @param Closure $map
+     * @return Generator
      */
-    function class_basename($class): string
+    function iterator_reverse_map(iterable $iterator, \Closure $map): \Generator
     {
-        $class = \is_object($class) ? \get_class($class) : $class;
+        $generator = \iterator_to_generator($iterator);
 
-        return \basename(\str_replace('\\', '/', $class));
+        while ($generator->valid()) {
+            $generator->send($map(yield $generator->key() => $generator->current()));
+        }
+    }
+}
+
+
+if (! \function_exists('\\iterator_each')) {
+    /**
+     * @param iterable $iterator
+     * @param Closure $each
+     * @return Generator
+     */
+    function iterator_each(iterable $iterator, \Closure $each): \Generator
+    {
+        $generator = \iterator_to_generator($iterator);
+
+        while ($generator->valid()) {
+            $each($value = $generator->current());
+
+            $generator->send(yield $generator->key() => $value);
+        }
+    }
+}
+
+
+if (! \function_exists('\\iterator_reverse_each')) {
+    /**
+     * @param iterable $iterator
+     * @param Closure $each
+     * @return Generator
+     */
+    function iterator_reverse_each(iterable $iterator, \Closure $each): \Generator
+    {
+        $generator = \iterator_to_generator($iterator);
+
+        while ($generator->valid()) {
+            $each($result = yield $generator->key() => $generator->current());
+
+            $generator->send($result);
+        }
+    }
+}
+
+
+if (! \function_exists('\\iterator_filter')) {
+    /**
+     * @param iterable $iterator
+     * @param Closure $filter
+     * @return Generator
+     */
+    function iterator_reverse_filter(iterable $iterator, \Closure $filter): \Generator
+    {
+        $generator = \iterator_to_generator($iterator);
+
+        while ($generator->valid()) {
+            $next = $filter($result = $generator->current());
+
+            $generator->send($next ? (yield $generator->key() => $result) : null);
+        }
+    }
+}
+
+
+if (! \function_exists('\\iterator_reverse_filter')) {
+    /**
+     * @param iterable $iterator
+     * @param Closure $filter
+     * @return Generator
+     */
+    function iterator_reverse_filter(iterable $iterator, \Closure $filter): \Generator
+    {
+        $generator = \iterator_to_generator($iterator);
+
+        while ($generator->valid()) {
+            $next = $filter($result = yield $generator->key() => $generator->current());
+
+            $generator->send($next ? $result : null);
+        }
     }
 }

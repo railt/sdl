@@ -14,7 +14,7 @@ use Railt\SDL\Frontend\AST\ProvidesName;
 use Railt\SDL\Frontend\AST\ProvidesOpcode;
 use Railt\SDL\Frontend\AST\Support\DependentNameProvider;
 use Railt\SDL\Frontend\Context;
-use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
+use Railt\SDL\Frontend\IR\Opcode\AddDefinitionOpcode;
 use Railt\SDL\Frontend\IR\Opcode\CompareOpcode;
 use Railt\SDL\Frontend\IR\Opcode\FetchOpcode;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
@@ -37,7 +37,7 @@ class ArgumentInvocationNode extends Rule implements ProvidesName, ProvidesOpcod
         $definition = yield new FetchOpcode($this->getNameValue(), $current);
 
         yield new CompareOpcode($this->getValue(), $definition);
-        yield new AttachOpcode($this->getValue(), $definition);
+        yield new AddDefinitionOpcode($this->getValue(), $definition);
     }
 
     /**

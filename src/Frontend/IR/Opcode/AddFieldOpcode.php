@@ -9,22 +9,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR\Opcode;
 
-use Railt\SDL\Frontend\IR\JoinedOpcode;
 use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\OpcodeInterface;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
- * Class AttachOpcode
+ * Class AddFieldOpcode
  */
-class AttachOpcode extends Opcode
+class AddFieldOpcode extends Opcode
 {
     /**
-     * AttachOpcode constructor.
-     * @param JoinedOpcode|ValueInterface $value
-     * @param JoinedOpcode $context
+     * AddFieldOpcode constructor.
+     * @param Opcode|ValueInterface $value
+     * @param Opcode $context
      */
-    public function __construct($value, JoinedOpcode $context)
+    public function __construct($value, Opcode $context)
     {
-        parent::__construct(self::RL_ATTACH, $value, $context);
+        parent::__construct(self::RL_ADD_FIELD, $value, $context);
     }
 }

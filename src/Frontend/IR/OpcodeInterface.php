@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR;
 
+use Railt\Io\Readable;
+
 /**
  * Interface OpcodeInterface
  */
@@ -27,37 +29,57 @@ interface OpcodeInterface
     /**
      * @var int
      */
-    public const RL_DESCRIPTION = 0x02;
+    public const RL_DEFINE = 0x02;
 
     /**
      * @var int
      */
-    public const RL_DEFINE = 0x03;
+    public const RL_FETCH = 0x03;
 
     /**
      * @var int
      */
-    public const RL_FETCH = 0x04;
+    public const RL_FETCH_DEEP = 0x04;
 
     /**
      * @var int
      */
-    public const RL_FETCH_DEEP = 0x05;
+    public const RL_NEW = 0x05;
 
     /**
      * @var int
      */
-    public const RL_ATTACH = 0x06;
+    public const RL_ASSERT_COMPARE = 0x10;
 
     /**
      * @var int
      */
-    public const RL_ASSERT_COMPARE = 0x07;
+    public const RL_ADD_DESCRIPTION = 0x20;
 
     /**
      * @var int
      */
-    public const RL_NEW = 0x08;
+    public const RL_ADD_DEFINITION = 0x21;
+
+    /**
+     * @var int
+     */
+    public const RL_ADD_FIELD = 0x22;
+
+    /**
+     * @var int
+     */
+    public const RL_ADD_ARGUMENT = 0x22;
+
+    /**
+     * @return int
+     */
+    public function getId(): int;
+
+    /**
+     * @return int
+     */
+    public function getOffset(): int;
 
     /**
      * @return string
@@ -74,4 +96,19 @@ interface OpcodeInterface
      * @return mixed
      */
     public function getOperand(int $id);
+
+    /**
+     * @return iterable|mixed[]
+     */
+    public function getOperands(): iterable;
+
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable;
+
+    /**
+     * @return string
+     */
+    public function __toString(): string;
 }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend;
 
-use Railt\SDL\Frontend\IR\JoinedOpcode;
+use Railt\SDL\Frontend\IR\Opcode;
 
 /**
  * Class Context
@@ -17,7 +17,7 @@ use Railt\SDL\Frontend\IR\JoinedOpcode;
 class Context
 {
     /**
-     * @var JoinedOpcode[]
+     * @var Opcode[]
      */
     private $stack;
 
@@ -36,34 +36,17 @@ class Context
     }
 
     /**
-     * @return null|JoinedOpcode
+     * @return null|Opcode
      */
-    public function current(): ?JoinedOpcode
+    public function current(): ?Opcode
     {
         return $this->stack->count() ? $this->stack->top() : null;
     }
 
     /**
-     * @param \Closure $then
-     * @return \Generator
+     * @return null|Opcode
      */
-    public function transaction(\Closure $then): \Generator
-    {
-        $current = $this->current();
-
-        $result = $then($current);
-
-        if ($current !== $this->current()) {
-            $this->close();
-        }
-
-        return $result;
-    }
-
-    /**
-     * @return null|JoinedOpcode
-     */
-    public function create(): ?JoinedOpcode
+    public function create(): ?Opcode
     {
         $this->await = true;
 
@@ -71,9 +54,9 @@ class Context
     }
 
     /**
-     * @return null|JoinedOpcode
+     * @return null|Opcode
      */
-    public function close(): ?JoinedOpcode
+    public function close(): ?Opcode
     {
         $this->await = false;
 
@@ -81,10 +64,10 @@ class Context
     }
 
     /**
-     * @param JoinedOpcode $opcode
-     * @return JoinedOpcode
+     * @param Opcode $opcode
+     * @return Opcode
      */
-    public function match(JoinedOpcode $opcode): JoinedOpcode
+    public function match(Opcode $opcode): Opcode
     {
         if ($this->await) {
             $this->stack->push($opcode);

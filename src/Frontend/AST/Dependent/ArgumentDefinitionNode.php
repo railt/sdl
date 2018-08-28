@@ -13,6 +13,9 @@ use Railt\Reflection\Contracts\TypeInterface;
 use Railt\Reflection\Type;
 use Railt\SDL\Frontend\AST\ProvidesTypeHint;
 use Railt\SDL\Frontend\AST\Support\TypeHintProvider;
+use Railt\SDL\Frontend\Context;
+use Railt\SDL\Frontend\IR\Opcode\AddDefinitionOpcode;
+use Railt\SDL\Frontend\IR\OpcodeInterface;
 use Railt\SDL\Frontend\IR\Value\StringValue;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
@@ -37,5 +40,18 @@ class ArgumentDefinitionNode extends DependentTypeDefinitionNode implements Prov
     public function getKey(): ValueInterface
     {
         return new StringValue($this->getFullName(), $this->getOffset());
+    }
+
+    /**
+     * @param Context $context
+     * @return iterable|OpcodeInterface[]
+     */
+    public function getOpcodes(Context $context): iterable
+    {
+        yield from \iterator_each(parent::getOpcodes($context), function($result) {
+            if ($result instanceof AddDefinitionOpcode) {
+                $result->rebind(OpcodeInterface::RL_ADD_ARGUMENT);
+            }
+        });
     }
 }

@@ -16,7 +16,8 @@ use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Reflection;
 use Railt\Reflection\Document;
 use Railt\SDL\Exception\VmException;
-use Railt\SDL\Frontend\IR\JoinedOpcode;
+use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\OpcodeInterface;
 
 /**
  * Class Vm
@@ -47,28 +48,37 @@ class Vm implements LoggerAwareInterface
      */
     public function run(Readable $file, iterable $opcodes): Document
     {
-        $runtime = new Runtime($this->root, $file);
-
-        /**
-         * @var JoinedOpcode $opcode
-         * @var mixed $result
-         */
-        foreach ($runtime->execute($opcodes) as $opcode => $result) {
-            if ($this->logger) {
-                $value   = \get_class($result) . '#' . \spl_object_hash($result);
-                $message = \sprintf('%4s = %s', '#' . $opcode->getId(), $value);
-
-                $this->logger->debug($message);
-            }
+        foreach ($opcodes as $opcode) {
+            //$opcode->exec();
         }
-
-        $result = $runtime->get(0);
+        die(42);
 
         if ($result instanceof DocumentInterface) {
             return $result;
         }
 
-        throw new VmException($opcode, 'Zero VM Stack index contains a non-compatible with %s value',
-            DocumentInterface::class);
+        $message = 'Zero VM Stack index contains a non-compatible with %s value';
+        throw new VmException($opcode, $message, DocumentInterface::class);
+    }
+
+    /**
+     * @param OpcodeInterface $opcode
+     * @param mixed $result
+     */
+    private function log(OpcodeInterface $opcode, $result): void
+    {
+        $value = \gettype($result);
+
+        if (\is_object($result)) {
+            $value = \get_class($result) . '#' . \spl_object_hash($result);
+
+            if (\method_exists($result, '__toString')) {
+                $value = (string)$result;
+            }
+        }
+
+        $message = \sprintf('%4s = %s', '#' . $opcode->getId(), $value);
+
+        $this->logger->debug($message);
     }
 }

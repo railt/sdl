@@ -10,19 +10,21 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\IR\Opcode;
 
 use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\OpcodeInterface;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
- * Class DescriptionOpcode
+ * Class AddDescriptionOpcode
  */
-class DescriptionOpcode extends Opcode
+class AddDescriptionOpcode extends Opcode
 {
     /**
-     * DescriptionOpcode constructor.
+     * AddDescriptionOpcode constructor.
+     * @param OpcodeInterface $context
      * @param ValueInterface $description
      */
-    public function __construct(ValueInterface $description)
+    public function __construct(OpcodeInterface $context, ValueInterface $description)
     {
-        parent::__construct(self::RL_DESCRIPTION, $description);
+        parent::__construct(self::RL_ADD_DESCRIPTION, $context, $description);
     }
 }

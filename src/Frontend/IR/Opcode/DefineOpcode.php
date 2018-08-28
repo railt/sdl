@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\IR\Opcode;
 
-use Railt\SDL\Frontend\IR\JoinedOpcode;
 use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\Value\ConstantValue;
+use Railt\SDL\Frontend\IR\Value\NullValue;
+use Railt\SDL\Frontend\IR\Value\TypeValue;
 use Railt\SDL\Frontend\IR\Value\ValueInterface;
 
 /**
@@ -21,10 +23,12 @@ class DefineOpcode extends Opcode
     /**
      * DefineOpcode constructor.
      * @param ValueInterface $name
-     * @param JoinedOpcode|ValueInterface $type
+     * @param TypeValue $type
      */
-    public function __construct(ValueInterface $name, $type)
+    public function __construct(ValueInterface $name, TypeValue $type)
     {
+        \assert($name instanceof ConstantValue || $name instanceof NullValue);
+
         parent::__construct(self::RL_DEFINE, $name, $type);
     }
 }

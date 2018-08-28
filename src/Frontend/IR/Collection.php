@@ -13,14 +13,19 @@ use Railt\Io\Readable;
 use Railt\SDL\Frontend\Context;
 
 /**
- * Class Heap
+ * Class Collection
  */
-class OpcodeHeap implements \IteratorAggregate
+class Collection implements \IteratorAggregate
 {
     /**
-     * @var \SplDoublyLinkedList
+     * @var int
      */
-    private $opcodes;
+    private static $lastId = 0;
+
+    /**
+     * @var array|OpcodeInterface[]
+     */
+    private $opcodes = [];
 
     /**
      * @var Context
@@ -33,24 +38,22 @@ class OpcodeHeap implements \IteratorAggregate
      */
     public function __construct(Context $ctx)
     {
-        $this->opcodes = new \SplDoublyLinkedList();
-        $this->opcodes->setIteratorMode(\SplDoublyLinkedList::IT_MODE_FIFO);
         $this->ctx = $ctx;
     }
 
     /**
-     * @param Opcode $opcode
+     * @param OpcodeInterface|Opcode $opcode
      * @param Readable $readable
      * @param int $offset
-     * @return JoinedOpcode
+     * @return Opcode|OpcodeInterface
      */
-    public function add(Opcode $opcode, Readable $readable, int $offset = 0): JoinedOpcode
+    public function add(OpcodeInterface $opcode, Readable $readable, int $offset = 0): OpcodeInterface
     {
-        $id = $this->opcodes->count();
+        $id = self::$lastId++;
 
-        $joinable = $opcode->join($id, $readable, $offset);
+        $joinable = $opcode->mount($id, $readable, $offset);
 
-        $this->opcodes->push($joinable);
+        $this->opcodes[$id] = $joinable;
 
         $this->ctx->match($joinable);
 
@@ -58,10 +61,10 @@ class OpcodeHeap implements \IteratorAggregate
     }
 
     /**
-     * @return \SplDoublyLinkedList|JoinedOpcode[]|OpcodeInterface[]
+     * @return \SplDoublyLinkedList|Opcode[]|OpcodeInterface[]
      */
-    public function getIterator(): \SplDoublyLinkedList
+    public function getIterator(): iterable
     {
-        return $this->opcodes;
+        yield from $this->opcodes;
     }
 }

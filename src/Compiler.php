@@ -143,7 +143,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
 
     /**
      * @param Readable $readable
-     * @return iterable
+     * @return iterable|OpcodeInterface[]
      * @throws CompilerException
      * @throws InternalException
      * @throws \Railt\Io\Exception\NotReadableException

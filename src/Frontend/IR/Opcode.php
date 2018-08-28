@@ -10,8 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\IR;
 
 use Railt\Io\Readable;
-use Railt\Parser\Ast\NodeInterface;
-use Railt\SDL\Frontend\IR\Value\ValueInterface;
+use Railt\SDL\Renderer;
 
 /**
  * Class Opcode
@@ -26,12 +25,27 @@ class Opcode implements OpcodeInterface
     /**
      * @var int
      */
-    protected $operation;
+    private $operation;
 
     /**
      * @var array
      */
-    protected $operands;
+    private $operands;
+
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var Readable
+     */
+    private $file;
+
+    /**
+     * @var int|null
+     */
+    private $offset;
 
     /**
      * Opcode constructor.
@@ -41,7 +55,53 @@ class Opcode implements OpcodeInterface
     public function __construct(int $operation, ...$operands)
     {
         $this->operation = $operation;
-        $this->operands  = $operands;
+        $this->operands = $operands;
+    }
+
+    /**
+     * @param int $operation
+     * @return Opcode
+     */
+    public function rebind(int $operation): Opcode
+    {
+        $this->operation = $operation;
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @param Readable $file
+     * @param int $offset
+     * @return Opcode
+     */
+    public function mount(int $id, Readable $file, int $offset = 0): Opcode
+    {
+        $this->id = $id;
+        $this->file = $file;
+        $this->offset = $offset;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        \assert($this->id !== null, 'Opcode is unmounted');
+
+        return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffset(): int
+    {
+        \assert($this->offset !== null, 'Opcode is unmounted');
+
+        return $this->offset;
     }
 
     /**
@@ -62,14 +122,21 @@ class Opcode implements OpcodeInterface
     }
 
     /**
-     * @param int $id
-     * @param Readable $readable
-     * @param int $offset
-     * @return JoinedOpcode
+     * @return iterable
      */
-    public function join(int $id, Readable $readable, int $offset = 0): JoinedOpcode
+    public function getOperands(): iterable
     {
-        return new JoinedOpcode($this, $id, $readable, $offset);
+        return $this->operands;
+    }
+
+    /**
+     * @return Readable
+     */
+    public function getFile(): Readable
+    {
+        \assert($this->file !== null, 'Opcode is unmounted');
+
+        return $this->file;
     }
 
     /**
@@ -77,44 +144,17 @@ class Opcode implements OpcodeInterface
      */
     public function __toString(): string
     {
-        $operands = \array_map(function ($value): string {
-            return $this->operandToString($value);
-        }, $this->operands);
+        $operands = [];
 
-        return \sprintf('%-20s %s', $this->getName(), '{ ' . \implode(', ', $operands) . ' }');
-    }
-
-    /**
-     * @param mixed $value
-     * @return string
-     */
-    protected function operandToString($value): string
-    {
-        switch (true) {
-            case $value instanceof NodeInterface:
-                return '<' . $value->getName() . '>';
-
-            case $value instanceof JoinedOpcode:
-                return '#' . $value->getId();
-
-            case $value instanceof ValueInterface:
-                return (string)$value;
-
-            case $value instanceof Readable:
-                return '(file)' . $value->getPathname();
-
-            case \is_scalar($value):
-                $minified = \preg_replace('/\s+/', ' ', (string)$value);
-                return '[INVALID] "' . \addcslashes($minified, '"') . '"';
-
-            case \is_array($value):
-                return '[INVALID] array(' . \implode(', ', \array_map([$this, 'operandToString'], $value)) . ')';
-
-            case \is_object($value):
-                return '[INVALID] ' . \get_class($value) . '#' . \spl_object_hash($value);
+        foreach ($this->operands as $i => $operand) {
+            $operands[] = \sprintf('%d => %s', $i, Renderer::render($operand));
         }
 
-        return '';
+        return \vsprintf('#%s %s {%s}', [
+            $this->id ?? '?',
+            $this->getName(),
+            \implode(', ', $operands),
+        ]);
     }
 
     /**
@@ -140,7 +180,7 @@ class Opcode implements OpcodeInterface
                     static::$opcodes[$value] = $name;
                 }
             } catch (\ReflectionException $e) {
-                return 'RL_NOP';
+                return '';
             }
         }
 

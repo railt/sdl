@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Exception;
 
-use Railt\SDL\Frontend\IR\JoinedOpcode;
+use Railt\SDL\Frontend\IR\Opcode;
 use Railt\SDL\Frontend\IR\OpcodeInterface;
 
 /**
@@ -19,7 +19,7 @@ class VmException extends CompilerException
 {
     /**
      * RuntimeException constructor.
-     * @param JoinedOpcode|OpcodeInterface $opcode
+     * @param Opcode|OpcodeInterface $opcode
      * @param string $message
      * @param mixed ...$args
      */
@@ -27,7 +27,7 @@ class VmException extends CompilerException
     {
         parent::__construct(\sprintf($message, ...$args), 0);
 
-        if ($opcode instanceof JoinedOpcode) {
+        if ($opcode instanceof Opcode) {
             $this->throwsIn($opcode->getFile(), $opcode->getOffset());
         }
     }

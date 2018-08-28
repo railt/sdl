@@ -17,8 +17,8 @@ use Railt\SDL\Frontend\AST\ProvidesOpcode;
 use Railt\SDL\Frontend\AST\ProvidesType;
 use Railt\SDL\Frontend\AST\Support\TypeNameProvider;
 use Railt\SDL\Frontend\Context;
-use Railt\SDL\Frontend\IR\JoinedOpcode;
-use Railt\SDL\Frontend\IR\Opcode\AttachOpcode;
+use Railt\SDL\Frontend\IR\Opcode;
+use Railt\SDL\Frontend\IR\Opcode\AddDefinitionOpcode;
 use Railt\SDL\Frontend\IR\Opcode\CompareOpcode;
 use Railt\SDL\Frontend\IR\Opcode\FetchDeepOpcode;
 use Railt\SDL\Frontend\IR\Opcode\NewOpcode;
@@ -37,14 +37,16 @@ class DirectiveInvocationNode extends Rule implements ProvidesType, ProvidesName
      */
     public function getOpcodes(Context $context): iterable
     {
-        /** @var JoinedOpcode $definition */
+        /** @var Opcode $definition */
         $definition = yield new FetchDeepOpcode($this->getFullNameValue(), $context->current());
+
         yield new CompareOpcode($definition, new TypeValue($this->getType(), $definition->getOffset()));
 
         $parent = $context->create();
 
         $invocation = yield new NewOpcode($definition, $parent);
-        yield new AttachOpcode($invocation, $parent);
+
+        yield new AddDefinitionOpcode($invocation, $parent);
     }
 
     /**
