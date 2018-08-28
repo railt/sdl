@@ -33,7 +33,7 @@ class Deferred
      */
     public function __construct(RuleInterface $rule, callable $callback)
     {
-        $this->rule = $rule;
+        $this->rule     = $rule;
         $this->callback = $callback;
     }
 

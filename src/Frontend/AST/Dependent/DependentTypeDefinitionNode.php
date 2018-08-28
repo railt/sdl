@@ -52,7 +52,7 @@ abstract class DependentTypeDefinitionNode extends Rule implements ProvidesType,
      */
     public function getOpcodes(Context $context): iterable
     {
-        $parent = $context->create();
+        $parent  = $context->create();
         $current = yield new DefineOpcode($this->getNameValue(), new TypeValue($this->getType()));
 
         yield function () use ($current, $parent) {

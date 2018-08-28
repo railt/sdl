@@ -41,7 +41,7 @@ abstract class TypeDefinitionNode extends Rule implements ProvidesName, Provides
      */
     public function getOpcodes(Context $context): iterable
     {
-        $parent = $context->create();
+        $parent  = $context->create();
         $current = yield new DefineOpcode($this->getFullNameValue(), new TypeValue($this->getType()));
 
         yield function () use ($current, $parent) {

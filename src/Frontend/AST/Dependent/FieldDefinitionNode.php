@@ -41,7 +41,7 @@ class FieldDefinitionNode extends DependentTypeDefinitionNode implements Provide
      */
     public function getOpcodes(Context $context): iterable
     {
-        yield from \iterator_each(parent::getOpcodes($context), function($result) {
+        yield from \iterator_each(parent::getOpcodes($context), function ($result): void {
             if ($result instanceof AddDefinitionOpcode) {
                 $result->rebind(OpcodeInterface::RL_ADD_FIELD);
             }

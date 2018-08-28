@@ -16,7 +16,6 @@ use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Reflection;
 use Railt\Reflection\Document;
 use Railt\SDL\Exception\VmException;
-use Railt\SDL\Frontend\IR\Opcode;
 use Railt\SDL\Frontend\IR\OpcodeInterface;
 
 /**
