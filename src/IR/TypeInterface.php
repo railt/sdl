@@ -109,7 +109,7 @@ interface TypeInterface
         self::ARGUMENT,
         self::INPUT_FIELD_DEFINITION,
         self::DOCUMENT,
-        self::DIRECTIVE_LOCATION
+        self::DIRECTIVE_LOCATION,
     ];
 
     /**
@@ -138,7 +138,7 @@ interface TypeInterface
         self::INPUT_OBJECT,
         self::INPUT_FIELD_DEFINITION,
         self::INPUT_UNION,
-        self::ANY
+        self::ANY,
     ];
 
     /**
@@ -166,15 +166,15 @@ interface TypeInterface
     public const INHERITANCE_TREE = [
         self::INTERFACE => [
             self::OBJECT => [
-                self::INPUT_OBJECT
+                self::INPUT_OBJECT,
             ],
         ],
         self::UNION => [
-            self::INPUT_UNION
+            self::INPUT_UNION,
         ],
         self::SCALAR => [
-            self::ENUM
-        ]
+            self::ENUM,
+        ],
     ];
 
     /**
@@ -216,7 +216,7 @@ interface TypeInterface
      * @param TypeInterface $type
      * @return bool
      */
-    public function instanceOf(TypeInterface $type): bool;
+    public function instanceOf(self $type): bool;
 
     /**
      * Returns true if the type is the same as the current type.

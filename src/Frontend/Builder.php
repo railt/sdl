@@ -83,7 +83,7 @@ class Builder
     private function forEach(Readable $readable, RuleInterface $ast): \Generator
     {
         $builder = $this->factory->resolve($readable, $ast);
-        $result = $builder->build($readable, $ast);
+        $result  = $builder->build($readable, $ast);
 
         if (\is_iterable($result)) {
             yield from $result;

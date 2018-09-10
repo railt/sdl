@@ -31,7 +31,7 @@ class ObjectBuilder extends DefinitionBuilder
         $object = new TypeDefinition($ast->getFullName());
         $object->in($file, $ast->getOffset());
 
-        $object->type = Type::OBJECT;
+        $object->type        = Type::OBJECT;
         $object->description = $ast->getDescription();
 
         $this->loadInterfaces($ast, $object);

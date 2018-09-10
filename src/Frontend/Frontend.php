@@ -18,7 +18,6 @@ use Railt\Parser\Exception\UnexpectedTokenException;
 use Railt\Parser\Exception\UnrecognizedTokenException;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\SyntaxException;
-use Railt\SDL\IR\Definition;
 
 /**
  * Class Frontend
@@ -42,7 +41,7 @@ class Frontend implements LoggerAwareInterface
      */
     public function __construct()
     {
-        $this->parser = new Parser();
+        $this->parser  = new Parser();
         $this->builder = new Builder();
     }
 

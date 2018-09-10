@@ -66,9 +66,9 @@ class Definition extends ValueObject implements DefinitionInterface
      * @param int $offset
      * @return Definition
      */
-    public function in(Readable $file, int $offset = 0): Definition
+    public function in(Readable $file, int $offset = 0): self
     {
-        $this->file = $file;
+        $this->file   = $file;
         $this->offset = $offset;
 
         return $this;

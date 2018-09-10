@@ -69,6 +69,6 @@ class Factory
             throw (new InternalException(\sprintf($error, $ast->getName())))->throwsIn($file, $ast->getOffset());
         }
 
-        return new $builder;
+        return new $builder();
     }
 }

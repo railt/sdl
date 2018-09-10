@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\Ast\Definition\Provider;
 
 use Railt\SDL\Frontend\Ast\Definition\ArgumentDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\FieldDefinitionNode;
 
 /**
  * Trait ArgumentNodesProvider

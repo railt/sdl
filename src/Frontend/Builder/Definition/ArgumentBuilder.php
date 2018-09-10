@@ -31,11 +31,11 @@ class ArgumentBuilder extends DefinitionBuilder
         $argument = new TypeDefinition($ast->getFullName());
         $argument->in($file, $ast->getOffset());
 
-        $argument->type = Type::ARGUMENT;
+        $argument->type        = Type::ARGUMENT;
         $argument->description = $ast->getDescription();
 
         $argument->modifiers = $ast->getHintModifiers();
-        $argument->hint = $ast->getHintTypeName();
+        $argument->hint      = $ast->getHintTypeName();
 
         return $argument;
     }

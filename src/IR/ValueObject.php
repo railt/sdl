@@ -61,7 +61,7 @@ class ValueObject implements \ArrayAccess, \JsonSerializable
             $key = \count($this->attributes);
         }
 
-        $this->attributes[$key] = \is_iterable($value) ? new ValueObject($value) : $value;
+        $this->attributes[$key] = \is_iterable($value) ? new self($value) : $value;
 
         return $this;
     }

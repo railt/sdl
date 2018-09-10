@@ -31,7 +31,7 @@ class InterfaceBuilder extends DefinitionBuilder
         $interface = new TypeDefinition($ast->getFullName());
         $interface->in($file, $ast->getOffset());
 
-        $interface->type = Type::INTERFACE;
+        $interface->type        = Type::INTERFACE;
         $interface->description = $ast->getDescription();
 
         $this->loadInterfaces($ast, $interface);
@@ -40,7 +40,6 @@ class InterfaceBuilder extends DefinitionBuilder
 
         return $interface;
     }
-
 
     /**
      * @param InterfaceDefinitionNode $ast

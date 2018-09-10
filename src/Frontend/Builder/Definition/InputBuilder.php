@@ -31,7 +31,7 @@ class InputBuilder extends DefinitionBuilder
         $input = new TypeDefinition($ast->getFullName());
         $input->in($file, $ast->getOffset());
 
-        $input->type = Type::INPUT_OBJECT;
+        $input->type        = Type::INPUT_OBJECT;
         $input->description = $ast->getDescription();
 
         yield from $this->loadInputFields($ast, $input);

@@ -12,7 +12,6 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\Contracts\Definition\SchemaDefinition;
-use Railt\SDL\Frontend\Ast\Definition\ObjectDefinitionNode;
 use Railt\SDL\Frontend\Ast\Definition\SchemaDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
@@ -34,7 +33,7 @@ class SchemaBuilder extends DefinitionBuilder
         $schema = new TypeDefinition($ast->getFullName() ?: SchemaDefinition::DEFAULT_SCHEMA_NAME);
         $schema->in($file, $ast->getOffset());
 
-        $schema->type = Type::SCHEMA;
+        $schema->type        = Type::SCHEMA;
         $schema->description = $ast->getDescription();
 
         yield from $this->loadSchemaFields($ast, $schema);

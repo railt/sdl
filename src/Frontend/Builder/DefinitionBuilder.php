@@ -14,5 +14,4 @@ namespace Railt\SDL\Frontend\Builder;
  */
 abstract class DefinitionBuilder implements BuilderInterface
 {
-
 }
