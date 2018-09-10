@@ -1,5 +1,5 @@
 
-#TypeHint -> Railt\SDL\Frontend\AST\Common\TypeHintNode:
+#TypeHint -> Railt\SDL\Frontend\Ast\Definition\Common\TypeHintNode:
     __typeHintList() | __typeHintSingular()
 
 __typeHintList:

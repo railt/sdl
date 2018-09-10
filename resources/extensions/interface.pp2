@@ -4,7 +4,7 @@
 //
 
 #InterfaceExtension:
-    Documentation()?
+    Description()?
     ::T_EXTEND:: __interfaceExtensionVariants()
 
 __interfaceExtensionVariants:

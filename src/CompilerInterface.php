@@ -11,7 +11,8 @@ namespace Railt\SDL;
 
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document;
-use Railt\SDL\Frontend\IR\OpcodeInterface;
+use Railt\SDL\IR\Definition;
+use Railt\SDL\IR\DocumentDefinition;
 
 /**
  * Interface CompilerInterface
@@ -32,14 +33,14 @@ interface CompilerInterface
 
     /**
      * @param Readable $readable
-     * @return iterable|OpcodeInterface[]
+     * @return mixed|Definition|DocumentDefinition
      */
-    public function ir(Readable $readable): iterable;
+    public function ir(Readable $readable);
 
     /**
      * @param Readable $file
-     * @param iterable|OpcodeInterface[] $opcodes
+     * @param iterable $opcodes
      * @return Document
      */
-    public function generate(Readable $file, iterable $opcodes): Document;
+    public function generate(Readable $file, $opcodes): Document;
 }

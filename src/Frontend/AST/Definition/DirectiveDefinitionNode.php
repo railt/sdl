@@ -7,21 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Definition;
-
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Type;
+namespace Railt\SDL\Frontend\Ast\Definition;
 
 /**
  * Class DirectiveDefinitionNode
  */
 class DirectiveDefinitionNode extends TypeDefinitionNode
 {
-    /**
-     * @return TypeInterface
-     */
-    public function getType(): TypeInterface
-    {
-        return Type::of(Type::DIRECTIVE);
-    }
 }

@@ -7,10 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Definition;
-
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Type;
+namespace Railt\SDL\Frontend\Ast\Definition;
 
 /**
  * Class UnionDefinitionNode
@@ -18,10 +15,14 @@ use Railt\Reflection\Type;
 class UnionDefinitionNode extends TypeDefinitionNode
 {
     /**
-     * @return TypeInterface
+     * @return iterable|string[]
      */
-    public function getType(): TypeInterface
+    public function getUnionDefinitions(): iterable
     {
-        return Type::of(Type::UNION);
+        if ($targets = $this->first('UnionDefinitionTargets', 1)) {
+            foreach ($targets as $target) {
+                yield $target->getChild(0)->getValue();
+            }
+        }
     }
 }

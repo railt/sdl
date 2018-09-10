@@ -4,7 +4,7 @@
 //
 
 #SchemaExtension:
-    Documentation()?
+    Description()?
     ::T_EXTEND:: __schemaExtensionVariants()
 
 __schemaExtensionVariants:

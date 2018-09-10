@@ -7,10 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Definition;
-
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Type;
+namespace Railt\SDL\Frontend\Ast\Definition;
 
 /**
  * Class ScalarDefinitionNode
@@ -18,10 +15,14 @@ use Railt\Reflection\Type;
 class ScalarDefinitionNode extends TypeDefinitionNode
 {
     /**
-     * @return TypeInterface
+     * @return null|string
      */
-    public function getType(): TypeInterface
+    public function getExtends(): ?string
     {
-        return Type::of(Type::SCALAR);
+        if ($extends = $this->first('TypeDefinitionExtends', 1)) {
+            return $extends->getChild(0)->getChild(0)->getValue();
+        }
+
+        return null;
     }
 }

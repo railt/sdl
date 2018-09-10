@@ -1,43 +1,42 @@
 //
 // Boolean value (true or false)
 //
-#BooleanValue -> Railt\SDL\Frontend\AST\Invocation\BooleanValueNode:
-    <T_FALSE> | <T_TRUE>
+#BooleanValue -> Railt\SDL\Frontend\Ast\Invocation\BooleanValue = <T_FALSE> | <T_TRUE> ;
 
 //
 // Number value
 //
-#NumberValue -> Railt\SDL\Frontend\AST\Invocation\NumberValueNode:
-    <T_NUMBER> | <T_HEX_NUMBER> | <T_BIN_NUMBER>
+#NumberValue -> Railt\SDL\Frontend\Ast\Invocation\NumberValue = <T_NUMBER> | <T_HEX_NUMBER> | <T_BIN_NUMBER> ;
 
 //
 // String value
 //
-#StringValue -> Railt\SDL\Frontend\AST\Invocation\StringValueNode:
-    <T_BLOCK_STRING> | <T_STRING>
+#StringValue -> Railt\SDL\Frontend\Ast\Invocation\StringValue = <T_BLOCK_STRING> | <T_STRING> ;
+
+//
+// Types description/documentation
+//
+#Description -> Railt\SDL\Frontend\Ast\Invocation\DescriptionValue: StringValue()
 
 //
 // Null value
 //
-#NullValue -> Railt\SDL\Frontend\AST\Invocation\NullValueNode:
-    <T_NULL>
+#NullValue -> Railt\SDL\Frontend\Ast\Invocation\NullValue = <T_NULL> ;
+
+//
+// Enum values
+//
+#ConstantValue -> Railt\SDL\Frontend\Ast\Invocation\ConstantValue = NameExceptValues() ;
 
 //
 // The list of values
 //
-#ListValue -> Railt\SDL\Frontend\AST\Invocation\ListValueNode:
-    ::T_BRACKET_OPEN::
-        Value()*
-    ::T_BRACKET_CLOSE::
-
-// Enum values
-#ConstantValue -> Railt\SDL\Frontend\AST\Invocation\ConstantValueNode:
-    NameExceptValues()
+#ListValue -> Railt\SDL\Frontend\Ast\Invocation\ListValue = ::T_BRACKET_OPEN:: Value()* ::T_BRACKET_CLOSE:: ;
 
 //
 // Value
 //
-#Value -> Railt\SDL\Frontend\AST\Invocation\ValueNode
+Value
     : ConstantValue()
     | BooleanValue()
     | NumberValue()
@@ -45,4 +44,4 @@
     | NullValue()
     | InputInvocation()
     | ListValue()
-
+    ;

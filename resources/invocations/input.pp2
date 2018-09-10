@@ -1,5 +1,5 @@
 
-#InputInvocation -> Railt\SDL\Frontend\AST\Invocation\InputInvocationNode:
+#InputInvocation:
     ::T_BRACE_OPEN::
         InputInvocationArguments()?
     ::T_BRACE_CLOSE::

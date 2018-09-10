@@ -3,8 +3,8 @@
 // Object definition
 //
 
-#ObjectDefinition -> Railt\SDL\Frontend\AST\Definition\ObjectDefinitionNode:
-    Documentation()?
+#ObjectDefinition -> Railt\SDL\Frontend\Ast\Definition\ObjectDefinitionNode:
+    Description()?
     ObjectDefinitionHead()
     ObjectDefinitionBody()
 

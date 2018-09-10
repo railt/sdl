@@ -2,7 +2,6 @@
 //
 // Common definitions and partials
 //
-%include definitions/common/documentation
 %include definitions/common/implements
 %include definitions/common/extends
 %include definitions/common/type-hint

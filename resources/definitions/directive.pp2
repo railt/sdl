@@ -3,8 +3,8 @@
 // Directive definition
 //
 
-#DirectiveDefinition -> Railt\SDL\Frontend\AST\Definition\DirectiveDefinitionNode:
-    Documentation()?
+#DirectiveDefinition -> Railt\SDL\Frontend\Ast\Definition\DirectiveDefinitionNode:
+    Description()?
     DirectiveDefinitionHead()
     DirectiveDefinitionBody()
 

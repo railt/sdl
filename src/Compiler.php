@@ -22,7 +22,6 @@ use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
 use Railt\SDL\Frontend\Frontend;
-use Railt\SDL\Frontend\IR\OpcodeInterface;
 
 /**
  * Class Compiler
@@ -107,13 +106,13 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
 
     /**
      * @param Readable $file
-     * @param iterable|OpcodeInterface[] $opcodes
+     * @param iterable $opcodes
      * @return DocumentInterface
      * @throws CompilerException
      * @throws InternalException
      * @throws \Railt\Io\Exception\NotReadableException
      */
-    public function generate(Readable $file, iterable $opcodes): DocumentInterface
+    public function generate(Readable $file, $opcodes): DocumentInterface
     {
         return $this->wrap(function () use ($file, $opcodes) {
             return $this->back->run($file, $opcodes);
@@ -134,7 +133,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
         } catch (CompilerException $e) {
             throw $e;
         } catch (\Throwable $e) {
-            $error = new InternalException($e->getMessage(), $e->getCode());
+            $error = new InternalException($e->getMessage(), $e->getCode(), $e);
             $error->throwsIn(File::fromPathname($e->getFile()), $e->getLine(), 0);
 
             throw $error;
@@ -143,12 +142,12 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
 
     /**
      * @param Readable $readable
-     * @return iterable|OpcodeInterface[]
+     * @return iterable
      * @throws CompilerException
      * @throws InternalException
      * @throws \Railt\Io\Exception\NotReadableException
      */
-    public function ir(Readable $readable): iterable
+    public function ir(Readable $readable)
     {
         return $this->wrap(function () use ($readable) {
             return $this->front->load($readable);

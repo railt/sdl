@@ -2,7 +2,7 @@
 #Directives:
     DirectiveInvocation()+
 
-#DirectiveInvocation -> Railt\SDL\Frontend\AST\Invocation\DirectiveInvocationNode:
+#DirectiveInvocation:
     ::T_DIRECTIVE_AT:: TypeName()
         __directiveInvocationArgumentsGroup()?
 

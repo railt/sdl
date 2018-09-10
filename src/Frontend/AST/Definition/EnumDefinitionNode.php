@@ -7,10 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Definition;
-
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Type;
+namespace Railt\SDL\Frontend\Ast\Definition;
 
 /**
  * Class EnumDefinitionNode
@@ -18,10 +15,12 @@ use Railt\Reflection\Type;
 class EnumDefinitionNode extends TypeDefinitionNode
 {
     /**
-     * @return TypeInterface
+     * @return iterable|EnumValueDefinitionNode[]
      */
-    public function getType(): TypeInterface
+    public function getEnumValueNodes(): iterable
     {
-        return Type::of(Type::ENUM);
+        if ($values = $this->first('EnumValueDefinitions', 1)) {
+            yield from $values;
+        }
     }
 }

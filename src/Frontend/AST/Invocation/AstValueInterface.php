@@ -7,9 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Invocation;
-
-use Railt\SDL\Frontend\IR\Value\ValueInterface;
+namespace Railt\SDL\Frontend\Ast\Invocation;
 
 /**
  * Interface AstValueInterface
@@ -17,7 +15,7 @@ use Railt\SDL\Frontend\IR\Value\ValueInterface;
 interface AstValueInterface
 {
     /**
-     * @return ValueInterface
+     * @return mixed
      */
-    public function unpack(): ValueInterface;
+    public function toPrimitive();
 }

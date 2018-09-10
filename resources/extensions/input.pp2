@@ -4,7 +4,7 @@
 //
 
 #InputExtension:
-    Documentation()?
+    Description()?
     ::T_EXTEND:: __inputExtensionVariants()
 
 __inputExtensionVariants:

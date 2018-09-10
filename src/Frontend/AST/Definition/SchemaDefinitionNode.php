@@ -7,10 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Definition;
-
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Type;
+namespace Railt\SDL\Frontend\Ast\Definition;
 
 /**
  * Class SchemaDefinitionNode
@@ -18,10 +15,12 @@ use Railt\Reflection\Type;
 class SchemaDefinitionNode extends TypeDefinitionNode
 {
     /**
-     * @return TypeInterface
+     * @return iterable|SchemaFieldDefinitionNode[]
      */
-    public function getType(): TypeInterface
+    public function getSchemaFields(): iterable
     {
-        return Type::of(Type::SCHEMA);
+        if ($fields = $this->first('SchemaFieldDefinitions', 1)) {
+            yield from $fields;
+        }
     }
 }

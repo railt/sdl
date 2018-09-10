@@ -7,28 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Definition;
+namespace Railt\SDL\Frontend\Ast\Definition;
 
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Type;
-use Railt\SDL\Frontend\AST\ProvidesFieldNodes;
-use Railt\SDL\Frontend\AST\ProvidesInterfaceNodes;
-use Railt\SDL\Frontend\AST\Support\FieldsProvider;
-use Railt\SDL\Frontend\AST\Support\InterfacesProvider;
+use Railt\SDL\Frontend\Ast\Definition\Provider\FieldNodesProvider;
+use Railt\SDL\Frontend\Ast\Definition\Provider\InterfacesProvider;
 
 /**
  * Class InterfaceDefinitionNode
  */
-class InterfaceDefinitionNode extends TypeDefinitionNode implements ProvidesFieldNodes, ProvidesInterfaceNodes
+class InterfaceDefinitionNode extends TypeDefinitionNode
 {
-    use FieldsProvider;
     use InterfacesProvider;
-
-    /**
-     * @return TypeInterface
-     */
-    public function getType(): TypeInterface
-    {
-        return Type::of(Type::INTERFACE);
-    }
+    use FieldNodesProvider;
 }

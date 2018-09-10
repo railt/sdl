@@ -38,7 +38,7 @@ NameExceptValues:
 // which object, function, or variable a call refers to without
 // regard to the context of the call.
 //
-#TypeName -> Railt\SDL\Frontend\AST\Common\TypeNameNode: NameWithReserved()
+#TypeName: NameWithReserved()
 
 //
 // An auxiliary name, which is only available for

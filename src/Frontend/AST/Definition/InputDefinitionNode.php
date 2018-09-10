@@ -7,10 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Definition;
-
-use Railt\Reflection\Contracts\TypeInterface;
-use Railt\Reflection\Type;
+namespace Railt\SDL\Frontend\Ast\Definition;
 
 /**
  * Class InputDefinitionNode
@@ -18,10 +15,12 @@ use Railt\Reflection\Type;
 class InputDefinitionNode extends TypeDefinitionNode
 {
     /**
-     * @return TypeInterface
+     * @return iterable|InputFieldDefinitionNode[]
      */
-    public function getType(): TypeInterface
+    public function getInputFieldNodes(): iterable
     {
-        return Type::of(Type::INPUT_OBJECT);
+        if ($fields = $this->first('InputFieldDefinitions', 1)) {
+            yield from $fields;
+        }
     }
 }
