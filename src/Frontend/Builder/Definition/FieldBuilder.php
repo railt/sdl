@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Ast\Definition\FieldDefinitionNode;
+use Railt\SDL\Frontend\AST\Definition\FieldDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\TypeDefinition;
@@ -31,12 +31,13 @@ class FieldBuilder extends DefinitionBuilder
         $field = new TypeDefinition($ast->getFullName());
         $field->in($file, $ast->getOffset());
 
-        $field->type        = Type::FIELD;
+        $field->type = Type::of(Type::FIELD);
         $field->description = $ast->getDescription();
 
         $field->modifiers = $ast->getHintModifiers();
-        $field->hint      = $ast->getHintTypeName();
+        $field->hint = $ast->getHintTypeName();
 
+        yield from $this->loadDirectives($ast, $field);
         yield from $this->loadArguments($ast, $field);
 
         return $field;

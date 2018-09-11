@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Ast\Definition\EnumDefinitionNode;
+use Railt\SDL\Frontend\AST\Definition\EnumDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\TypeDefinition;
@@ -31,8 +31,10 @@ class EnumValueBuilder extends DefinitionBuilder
         $value = new TypeDefinition($ast->getFullName());
         $value->in($file, $ast->getOffset());
 
-        $value->type        = Type::ENUM_VALUE;
+        $value->type = Type::of(Type::ENUM_VALUE);
         $value->description = $ast->getDescription();
+
+        yield from $this->loadDirectives($ast, $value);
 
         return $value;
     }

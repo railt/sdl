@@ -7,7 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Invocation;
+namespace Railt\SDL\Frontend\AST\Invocation;
+
+use Railt\Io\Readable;
+use Railt\SDL\IR\ValueInterface;
 
 /**
  * Interface AstValueInterface
@@ -15,7 +18,26 @@ namespace Railt\SDL\Frontend\Ast\Invocation;
 interface AstValueInterface
 {
     /**
+     * @var string[]
+     */
+    public const VALUE_NODE_NAMES = [
+        'ConstantValue',
+        'BooleanValue',
+        'NumberValue',
+        'StringValue',
+        'NullValue',
+        'InputValue',
+        'ListValue',
+    ];
+
+    /**
      * @return mixed
      */
     public function toPrimitive();
+
+    /**
+     * @param Readable $file
+     * @return ValueInterface
+     */
+    public function toValue(Readable $file): ValueInterface;
 }

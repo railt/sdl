@@ -25,6 +25,15 @@ use Railt\SDL\Frontend\Builder\Definition\ScalarBuilder;
 use Railt\SDL\Frontend\Builder\Definition\SchemaBuilder;
 use Railt\SDL\Frontend\Builder\Definition\SchemaFieldBuilder;
 use Railt\SDL\Frontend\Builder\Definition\UnionBuilder;
+use Railt\SDL\Frontend\Builder\Extension\EnumExtensionBuilder;
+use Railt\SDL\Frontend\Builder\Extension\InputExtensionBuilder;
+use Railt\SDL\Frontend\Builder\Extension\InterfaceExtensionBuilder;
+use Railt\SDL\Frontend\Builder\Extension\ObjectExtensionBuilder;
+use Railt\SDL\Frontend\Builder\Extension\ScalarExtensionBuilder;
+use Railt\SDL\Frontend\Builder\Extension\SchemaExtensionBuilder;
+use Railt\SDL\Frontend\Builder\Extension\UnionExtensionBuilder;
+use Railt\SDL\Frontend\Builder\Invocation\DirectiveInvocationBuilder;
+use Railt\SDL\Frontend\Builder\Invocation\ValueBuilder;
 
 /**
  * Class Factory
@@ -52,6 +61,24 @@ class Factory
         'FieldDefinition'       => FieldBuilder::class,
         'InputFieldDefinition'  => InputFieldBuilder::class,
         'SchemaFieldDefinition' => SchemaFieldBuilder::class,
+        // Invocations
+        'DirectiveInvocation'   => DirectiveInvocationBuilder::class,
+        'ConstantValue'         => ValueBuilder::class,
+        'BooleanValue'          => ValueBuilder::class,
+        'NumberValue'           => ValueBuilder::class,
+        'StringValue'           => ValueBuilder::class,
+        'NullValue'             => ValueBuilder::class,
+        'InputValue'            => ValueBuilder::class,
+        'ListValue'             => ValueBuilder::class,
+        'ArgumentValue'         => ValueBuilder::class,
+        // Extensions
+        'EnumExtension'         => EnumExtensionBuilder::class,
+        'InputExtension'        => InputExtensionBuilder::class,
+        'InterfaceExtension'    => InterfaceExtensionBuilder::class,
+        'ObjectExtension'       => ObjectExtensionBuilder::class,
+        'ScalarExtension'       => ScalarExtensionBuilder::class,
+        'SchemaExtension'       => SchemaExtensionBuilder::class,
+        'UnionExtension'        => UnionExtensionBuilder::class,
     ];
 
     /**
@@ -65,7 +92,7 @@ class Factory
         $builder = self::AST_MAPPINGS[$ast->getName()] ?? null;
 
         if ($builder === null) {
-            $error = 'Unrecognized abstract syntax tree production node "%s"';
+            $error = 'Unrecognized AST node "%s"';
             throw (new InternalException(\sprintf($error, $ast->getName())))->throwsIn($file, $ast->getOffset());
         }
 

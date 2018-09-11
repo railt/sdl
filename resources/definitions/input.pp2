@@ -3,18 +3,27 @@
 // Input definition
 //
 
-#InputDefinition -> Railt\SDL\Frontend\Ast\Definition\InputDefinitionNode:
-    Description()?
+#InputDefinition -> Railt\SDL\Frontend\AST\Definition\InputDefinitionNode
+  : Description()?
     InputDefinitionHead()
-    InputDefinitionBody()
+    InputDefinitionBody()?
+  ;
 
-InputDefinitionHead:
-    ::T_INPUT:: TypeName() Directives()?
+#InputExtension
+  : Description()?
+    ::T_EXTEND:: InputDefinition()
+  ;
 
-InputDefinitionBody:
-    ::T_BRACE_OPEN::
-        InputFieldDefinitions()?
+InputDefinitionHead
+  : ::T_INPUT:: TypeName()
+    Directives()?
+  ;
+
+InputDefinitionBody
+  : ::T_BRACE_OPEN::
+      InputFieldDefinitions()?
     ::T_BRACE_CLOSE::
+  ;
 
 
 //
@@ -24,7 +33,7 @@ InputDefinitionBody:
 #InputFieldDefinitions:
     InputFieldDefinition()+
 
-#InputFieldDefinition -> Railt\SDL\Frontend\Ast\Definition\InputFieldDefinitionNode:
+#InputFieldDefinition -> Railt\SDL\Frontend\AST\Definition\InputFieldDefinitionNode:
     Description()?
     __inputFieldDefinitionBody()
     __inputFieldDefinitionDefaultValue()?

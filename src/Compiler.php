@@ -16,12 +16,13 @@ use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Reflection;
-use Railt\SDL\Backend\Vm;
+use Railt\SDL\Backend\Generator;
 use Railt\SDL\Compiler\Dictionary;
 use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
 use Railt\SDL\Frontend\Frontend;
+use Railt\SDL\IR\DefinitionInterface;
 
 /**
  * Class Compiler
@@ -46,7 +47,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
     private $front;
 
     /**
-     * @var Vm
+     * @var Generator
      */
     private $back;
 
@@ -61,7 +62,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
         $this->store      = new Store();
         $this->front      = new Frontend();
         $this->dictionary = new Dictionary($this);
-        $this->back       = new Vm(new Reflection($this->dictionary));
+        $this->back       = new Generator(new Reflection($this->dictionary));
 
         if ($logger) {
             $this->setLogger($logger);
@@ -106,16 +107,14 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
 
     /**
      * @param Readable $file
-     * @param iterable $opcodes
+     * @param iterable|DefinitionInterface[] $ir
      * @return DocumentInterface
-     * @throws CompilerException
-     * @throws InternalException
      * @throws \Railt\Io\Exception\NotReadableException
      */
-    public function generate(Readable $file, $opcodes): DocumentInterface
+    public function generate(Readable $file, iterable $ir): DocumentInterface
     {
-        return $this->wrap(function () use ($file, $opcodes) {
-            return $this->back->run($file, $opcodes);
+        return $this->wrap(function () use ($file, $ir) {
+            return $this->back->run($file, $ir);
         });
     }
 
@@ -142,12 +141,12 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
 
     /**
      * @param Readable $readable
-     * @return iterable
+     * @return iterable|DefinitionInterface[]
      * @throws CompilerException
      * @throws InternalException
      * @throws \Railt\Io\Exception\NotReadableException
      */
-    public function ir(Readable $readable)
+    public function ir(Readable $readable): iterable
     {
         return $this->wrap(function () use ($readable) {
             return $this->front->load($readable);

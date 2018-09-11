@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Ast\Definition\UnionDefinitionNode;
+use Railt\SDL\Frontend\AST\Definition\UnionDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\TypeDefinition;
@@ -31,10 +31,12 @@ class UnionBuilder extends DefinitionBuilder
         $union = new TypeDefinition($ast->getFullName());
         $union->in($file, $ast->getOffset());
 
-        $union->type        = Type::UNION;
+        $union->type = Type::of(Type::UNION);
         $union->description = $ast->getDescription();
 
         $this->loadUnionDefinitions($ast, $union);
+
+        yield from $this->loadDirectives($ast, $union);
 
         return $union;
     }

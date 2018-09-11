@@ -7,11 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Definition;
+namespace Railt\SDL\Frontend\AST\Definition;
 
 use Railt\Parser\Ast\Rule;
-use Railt\SDL\Frontend\Ast\Definition\Provider\DescriptionProvider;
-use Railt\SDL\Frontend\Ast\Definition\Provider\TypeNameProvider;
+use Railt\SDL\Frontend\AST\Definition\Provider\DescriptionProvider;
+use Railt\SDL\Frontend\AST\Definition\Provider\DirectivesProvider;
+use Railt\SDL\Frontend\AST\Definition\Provider\TypeNameProvider;
 
 /**
  * Class TypeDefinitionNode
@@ -19,5 +20,6 @@ use Railt\SDL\Frontend\Ast\Definition\Provider\TypeNameProvider;
 abstract class TypeDefinitionNode extends Rule
 {
     use TypeNameProvider;
+    use DirectivesProvider;
     use DescriptionProvider;
 }

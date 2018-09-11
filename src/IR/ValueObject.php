@@ -15,11 +15,31 @@ namespace Railt\SDL\IR;
 class ValueObject implements \ArrayAccess, \JsonSerializable
 {
     /**
+     * @var int
+     */
+    public const KEEP_ALL = 0x00;
+
+    /**
+     * @var int
+     */
+    public const SKIP_NULL = 0x01;
+
+    /**
+     * @var int
+     */
+    public const SKIP_EMPTY = 0x02;
+
+    /**
      * All of the attributes set on the container.
      *
      * @var array
      */
     protected $attributes = [];
+
+    /**
+     * @var bool
+     */
+    protected $skip = self::KEEP_ALL;
 
     /**
      * Create a new ValueObject container instance.
@@ -57,11 +77,14 @@ class ValueObject implements \ArrayAccess, \JsonSerializable
      */
     public function set($key, $value): self
     {
-        if ($key === null) {
-            $key = \count($this->attributes);
-        }
+        $skipNullable = $this->skip === static::SKIP_NULL && $value === null;
 
-        $this->attributes[$key] = \is_iterable($value) ? new self($value) : $value;
+        $skipEmpty = $this->skip === static::SKIP_EMPTY && ! $value;
+
+        if (! $skipEmpty && ! $skipNullable) {
+            $this->attributes[$key ?? \count($this->attributes)] =
+                \is_iterable($value) ? new self($value) : $value;
+        }
 
         return $this;
     }
@@ -104,9 +127,9 @@ class ValueObject implements \ArrayAccess, \JsonSerializable
     /**
      * Convert the object into something JSON serializable.
      *
-     * @return array
+     * @return array|mixed
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize()
     {
         $applicator = function ($value) {
             if (\is_object($value) && \method_exists($value, '__toString')) {
@@ -237,7 +260,7 @@ class ValueObject implements \ArrayAccess, \JsonSerializable
     /**
      * @return array
      */
-    public function __debugInfo(): array
+    public function __debugInfo()
     {
         return $this->attributes;
     }

@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Definition\Provider;
+namespace Railt\SDL\Frontend\AST\Definition\Provider;
 
-use Railt\SDL\Frontend\Ast\Invocation\StringValue;
+use Railt\SDL\Frontend\AST\Invocation\StringValueNode;
 
 /**
  * Trait DescriptionProvider
@@ -22,7 +22,7 @@ trait DescriptionProvider
     public function getDescription(): ?string
     {
         if ($description = $this->first('Description', 1)) {
-            /** @var StringValue $string */
+            /** @var StringValueNode $string */
             $string = $description->getChild(0);
 
             return $string->toPrimitive();

@@ -7,14 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Invocation;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
+use Railt\Io\Readable;
 use Railt\Parser\Ast\Rule;
+use Railt\SDL\IR\Value;
+use Railt\SDL\IR\ValueInterface;
 
 /**
- * Class Value
+ * Class AbstractValue
  */
-abstract class Value extends Rule implements AstValueInterface
+abstract class AbstractValueNode extends Rule implements AstValueInterface
 {
     /**
      * @var mixed
@@ -36,5 +39,14 @@ abstract class Value extends Rule implements AstValueInterface
         }
 
         return $this->value;
+    }
+
+    /**
+     * @param Readable $file
+     * @return ValueInterface
+     */
+    public function toValue(Readable $file): ValueInterface
+    {
+        return (new Value($this->toPrimitive()))->in($file, $this->getOffset());
     }
 }

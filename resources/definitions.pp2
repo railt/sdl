@@ -35,3 +35,15 @@ Definition
     | ObjectDefinition()
     | ScalarDefinition()
     | UnionDefinition()
+    ;
+
+
+Extension
+    : EnumExtension()
+    | InputExtension()
+    | InterfaceExtension()
+    | ObjectExtension()
+    | ScalarExtension()
+    | SchemaExtension()
+    | UnionExtension()
+    ;

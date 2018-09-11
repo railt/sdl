@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Definition\Common;
+namespace Railt\SDL\Frontend\AST\Definition\Common;
 
 use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\Rule;

@@ -9,9 +9,25 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\Builder;
 
+use Railt\SDL\Frontend\AST\Definition\TypeDefinitionNode;
+use Railt\SDL\IR\TypeDefinition;
+
 /**
  * Class DefinitionBuilder
  */
 abstract class DefinitionBuilder implements BuilderInterface
 {
+    /**
+     * @param TypeDefinitionNode $ast
+     * @param TypeDefinition $type
+     * @return \Generator
+     */
+    protected function loadDirectives(TypeDefinitionNode $ast, TypeDefinition $type): \Generator
+    {
+        $type->directives = [];
+
+        foreach ($ast->getDirectiveNodes() as $directive) {
+            $type->directives[] = yield $directive;
+        }
+    }
 }

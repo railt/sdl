@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Invocation;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
 use Railt\Parser\Ast\LeafInterface;
 
 /**
  * Class BooleanValue
  */
-class BooleanValue extends Value
+class BooleanValueNode extends AbstractValueNode
 {
     /**
      * @return bool|mixed

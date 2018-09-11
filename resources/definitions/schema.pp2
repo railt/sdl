@@ -3,25 +3,36 @@
 // Schema definition
 //
 
-#SchemaDefinition -> Railt\SDL\Frontend\Ast\Definition\SchemaDefinitionNode:
-    Description()?
+#SchemaDefinition -> Railt\SDL\Frontend\AST\Definition\SchemaDefinitionNode
+  : Description()?
     SchemaDefinitionHead()
-    SchemaDefinitionBody()
+    SchemaDefinitionBody()?
+  ;
 
-SchemaDefinitionHead:
-    ::T_SCHEMA:: TypeName()? Directives()?
+#SchemaExtension
+  : Description()?
+    ::T_EXTEND:: SchemaDefinition()
+  ;
 
-SchemaDefinitionBody:
-    ::T_BRACE_OPEN::
-        SchemaFieldDefinitions()?
+SchemaDefinitionHead
+  : ::T_SCHEMA:: TypeName()?
+    Directives()?
+  ;
+
+SchemaDefinitionBody
+  : ::T_BRACE_OPEN::
+      SchemaFieldDefinitions()?
     ::T_BRACE_CLOSE::
+  ;
 
 //
 // SchemaField definition
 //
 
-#SchemaFieldDefinitions:
-    SchemaFieldDefinition()+
+#SchemaFieldDefinitions
+  : SchemaFieldDefinition()+
+  ;
 
-#SchemaFieldDefinition -> Railt\SDL\Frontend\Ast\Definition\SchemaFieldDefinitionNode:
-    DependentName() ::T_COLON:: TypeHint()
+#SchemaFieldDefinition -> Railt\SDL\Frontend\AST\Definition\SchemaFieldDefinitionNode
+  : DependentName() ::T_COLON:: TypeHint()
+  ;

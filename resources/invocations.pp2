@@ -1,4 +1,3 @@
 
 %include invocations/directive
-%include invocations/argument
-%include invocations/input
+%include invocations/values

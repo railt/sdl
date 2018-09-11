@@ -1,13 +1,18 @@
 
-#FieldDefinitions:
-    FieldDefinition()+
 
-#FieldDefinition -> Railt\SDL\Frontend\Ast\Definition\FieldDefinitionNode:
-    Description()?
+
+#FieldDefinitions
+  : FieldDefinition()+
+  ;
+
+#FieldDefinition -> Railt\SDL\Frontend\AST\Definition\FieldDefinitionNode
+  : Description()?
     DependentName() __fieldDefinitionArguments()? ::T_COLON:: TypeHint()
-        Directives()?
+    Directives()?
+  ;
 
-__fieldDefinitionArguments:
-    ::T_PARENTHESIS_OPEN::
-        ArgumentDefinitions()?
+__fieldDefinitionArguments
+  : ::T_PARENTHESIS_OPEN::
+      ArgumentDefinitions()?
     ::T_PARENTHESIS_CLOSE::
+  ;

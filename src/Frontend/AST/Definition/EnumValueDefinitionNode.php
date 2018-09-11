@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Definition;
+namespace Railt\SDL\Frontend\AST\Definition;
 
-use Railt\SDL\Frontend\Ast\Definition\Provider\ProvidesTypeHint;
-use Railt\SDL\Frontend\Ast\Definition\Provider\ValueNameProvider;
+use Railt\SDL\Frontend\AST\Definition\Provider\ProvidesTypeHint;
+use Railt\SDL\Frontend\AST\Definition\Provider\ValueNameProvider;
 
 /**
  * Class EnumValueDefinitionNode

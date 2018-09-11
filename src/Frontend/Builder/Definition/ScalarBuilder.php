@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Ast\Definition\ScalarDefinitionNode;
+use Railt\SDL\Frontend\AST\Definition\ScalarDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\TypeDefinition;
@@ -31,10 +31,12 @@ class ScalarBuilder extends DefinitionBuilder
         $scalar = new TypeDefinition($ast->getFullName());
         $scalar->in($file, $ast->getOffset());
 
-        $scalar->type        = Type::SCALAR;
+        $scalar->type = Type::of(Type::SCALAR);
         $scalar->description = $ast->getDescription();
 
         $scalar->extends = $ast->getExtends();
+
+        yield from $this->loadDirectives($ast, $scalar);
 
         return $scalar;
     }

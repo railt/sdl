@@ -89,6 +89,42 @@ interface TypeInterface
      */
     public const INPUT_FIELD_DEFINITION = 'InputField';
 
+
+    /**
+     * @var string
+     */
+    public const ENUM_EXTENSION = 'EnumExtension';
+
+    /**
+     * @var string
+     */
+    public const INPUT_OBJECT_EXTENSION = 'InputExtension';
+
+    /**
+     * @var string
+     */
+    public const INTERFACE_EXTENSION = 'InterfaceExtension';
+
+    /**
+     * @var string
+     */
+    public const OBJECT_EXTENSION = 'ObjectExtension';
+
+    /**
+     * @var string
+     */
+    public const SCALAR_EXTENSION = 'ScalarExtension';
+
+    /**
+     * @var string
+     */
+    public const SCHEMA_EXTENSION = 'SchemaExtension';
+
+    /**
+     * @var string
+     */
+    public const UNION_EXTENSION = 'UnionExtension';
+
     /**
      * @var string
      */
@@ -115,7 +151,7 @@ interface TypeInterface
     /**
      * @var string[]
      */
-    public const ROOT_TYPES = [
+    public const INDEPENDENT_TYPES = [
         self::SCHEMA,
         self::SCALAR,
         self::OBJECT,
@@ -126,6 +162,26 @@ interface TypeInterface
         self::INPUT_UNION,
         self::DIRECTIVE,
         self::ANY,
+    ];
+
+    /**
+     * @var string[]
+     */
+    public const INTERNAL_TYPES = [
+        self::SCHEMA_FIELD,
+    ];
+
+    /**
+     * @var string[]
+     */
+    public const EXTENSION_TYPES = [
+        self::ENUM_EXTENSION,
+        self::INPUT_OBJECT_EXTENSION,
+        self::INTERFACE_EXTENSION,
+        self::OBJECT_EXTENSION,
+        self::SCALAR_EXTENSION,
+        self::SCHEMA_EXTENSION,
+        self::UNION_EXTENSION
     ];
 
     /**
@@ -178,6 +234,11 @@ interface TypeInterface
     ];
 
     /**
+     * @return bool
+     */
+    public function isIndependent(): bool;
+
+    /**
      * Returns true if the type is dependent on another
      * independent type definition and false instead.
      *
@@ -216,7 +277,7 @@ interface TypeInterface
      * @param TypeInterface $type
      * @return bool
      */
-    public function instanceOf(self $type): bool;
+    public function instanceOf(TypeInterface $type): bool;
 
     /**
      * Returns true if the type is the same as the current type.
@@ -227,15 +288,24 @@ interface TypeInterface
     public function is(string $type): bool;
 
     /**
+     * @return bool
+     */
+    public function isValid(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isInternal(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isExtension(): bool;
+
+    /**
      * Returns the type name available for output.
      *
      * @return string
      */
     public function __toString(): string;
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public static function isValid(string $name): bool;
 }

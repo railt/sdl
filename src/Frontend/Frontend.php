@@ -50,12 +50,13 @@ class Frontend implements LoggerAwareInterface
      * @return mixed|null
      * @throws SyntaxException
      * @throws CompilerException
+     * @throws \LogicException
      */
-    public function load(Readable $readable)
+    public function load(Readable $readable): iterable
     {
         $ast = $this->parse($readable);
 
-        return $this->builder->reduce($readable, $ast);
+        yield $this->builder->reduce($readable, $ast);
     }
 
     /**

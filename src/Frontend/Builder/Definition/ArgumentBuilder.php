@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Ast\Definition\ArgumentDefinitionNode;
+use Railt\SDL\Frontend\AST\Definition\ArgumentDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\TypeDefinition;
@@ -31,11 +31,15 @@ class ArgumentBuilder extends DefinitionBuilder
         $argument = new TypeDefinition($ast->getFullName());
         $argument->in($file, $ast->getOffset());
 
-        $argument->type        = Type::ARGUMENT;
+        $argument->type = Type::of(Type::ARGUMENT);
         $argument->description = $ast->getDescription();
 
         $argument->modifiers = $ast->getHintModifiers();
-        $argument->hint      = $ast->getHintTypeName();
+        $argument->hint = $ast->getHintTypeName();
+
+        $argument->default = yield $ast->getDefaultValue();
+
+        yield from $this->loadDirectives($ast, $argument);
 
         return $argument;
     }

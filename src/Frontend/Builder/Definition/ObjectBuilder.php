@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Ast\Definition\ObjectDefinitionNode;
+use Railt\SDL\Frontend\AST\Definition\ObjectDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\TypeDefinition;
@@ -31,14 +31,28 @@ class ObjectBuilder extends DefinitionBuilder
         $object = new TypeDefinition($ast->getFullName());
         $object->in($file, $ast->getOffset());
 
-        $object->type        = Type::OBJECT;
+        $object->type = Type::of(Type::OBJECT);
         $object->description = $ast->getDescription();
 
         $this->loadInterfaces($ast, $object);
 
+        yield from $this->loadDirectives($ast, $object);
         yield from $this->loadFields($ast, $object);
 
         return $object;
+    }
+
+    /**
+     * @param ObjectDefinitionNode $ast
+     * @param TypeDefinition $object
+     */
+    protected function loadInterfaces(ObjectDefinitionNode $ast, TypeDefinition $object): void
+    {
+        $object->implements = [];
+
+        foreach ($ast->getInterfaces() as $interface) {
+            $object->implements[] = $interface;
+        }
     }
 
     /**
@@ -52,19 +66,6 @@ class ObjectBuilder extends DefinitionBuilder
 
         foreach ($ast->getFieldNodes() as $field) {
             $object->fields[] = yield $field;
-        }
-    }
-
-    /**
-     * @param ObjectDefinitionNode $ast
-     * @param TypeDefinition $object
-     */
-    protected function loadInterfaces(ObjectDefinitionNode $ast, TypeDefinition $object): void
-    {
-        $object->implements = [];
-
-        foreach ($ast->getInterfaces() as $interface) {
-            $object->implements[] = $interface;
         }
     }
 }

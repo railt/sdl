@@ -55,9 +55,7 @@ class Type implements TypeInterface
      */
     private function __construct(string $name)
     {
-        \assert(self::isValid($name), 'Invalid type ' . $name);
-
-        $this->name   = $name;
+        $this->name = $name;
         $this->parent = $this->getInheritanceSequence($name);
     }
 
@@ -81,7 +79,7 @@ class Type implements TypeInterface
     private function bootInheritance(\SplStack $stack, array $children = []): void
     {
         $push = function (string $type) use ($stack): void {
-            self::$inheritance[$type]   = \array_values(\iterator_to_array($stack));
+            self::$inheritance[$type] = \array_values(\iterator_to_array($stack));
             self::$inheritance[$type][] = static::ROOT_TYPE;
 
             $stack->push($type);
@@ -105,7 +103,23 @@ class Type implements TypeInterface
     }
 
     /**
-     * @param string|ProvidesType $type
+     * @param string $name
+     * @param array $arguments
+     * @return TypeInterface
+     */
+    public static function __callStatic(string $name, array $arguments = [])
+    {
+        foreach (static::all() as $type) {
+            if (\strtolower($type) === \strtolower($name)) {
+                return static::of($type);
+            }
+        }
+
+        return static::of(static::ANY);
+    }
+
+    /**
+     * @param string $type
      * @return TypeInterface
      */
     public static function of($type): TypeInterface
@@ -116,9 +130,6 @@ class Type implements TypeInterface
 
             case $type instanceof TypeInterface:
                 return $type;
-
-            case $type instanceof ProvidesType:
-                return $type->getType();
         }
 
         return static::of(static::ANY);
@@ -138,6 +149,14 @@ class Type implements TypeInterface
     public function isReturnable(): bool
     {
         return \in_array($this->name, static::ALLOWS_TO_OUTPUT, true);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIndependent(): bool
+    {
+        return \in_array($this->name, static::INDEPENDENT_TYPES, true);
     }
 
     /**
@@ -177,33 +196,25 @@ class Type implements TypeInterface
     /**
      * {@inheritDoc}
      */
-    public function __toString(): string
+    public function isValid(): bool
     {
-        return $this->getName();
+        return \in_array($this->name, static::all(), true);
     }
 
     /**
      * {@inheritDoc}
      */
-    public static function isValid(string $name): bool
+    public function isInternal(): bool
     {
-        return \in_array($name, static::all(), true);
+        return \in_array($this->name, static::INTERNAL_TYPES, true);
     }
 
     /**
-     * @param string $name
-     * @param array $arguments
-     * @return TypeInterface
+     * {@inheritDoc}
      */
-    public static function __callStatic(string $name, array $arguments = [])
+    public function isExtension(): bool
     {
-        foreach (static::all() as $type) {
-            if (\strtolower($type) === \strtolower($name)) {
-                return static::of($type);
-            }
-        }
-
-        return static::of(static::ANY);
+        return \in_array($this->name, static::EXTENSION_TYPES, true);
     }
 
     /**
@@ -211,6 +222,21 @@ class Type implements TypeInterface
      */
     public static function all(): array
     {
-        return \array_merge(static::DEPENDENT_TYPES, static::ROOT_TYPES);
+        $types = [
+            static::INDEPENDENT_TYPES,
+            static::DEPENDENT_TYPES,
+            static::INTERNAL_TYPES,
+            static::EXTENSION_TYPES,
+        ];
+
+        return \array_merge(...$types);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

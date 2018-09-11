@@ -1,3 +1,8 @@
 
-#TypeDefinitionImplementations:
-    ::T_IMPLEMENTS:: TypeName() (::T_AND:: TypeName())*
+
+
+#TypeDefinitionImplementations
+  : ::T_IMPLEMENTS::
+    ::T_AND::? TypeName()
+    ( ::T_AND:: TypeName() )*
+  ;

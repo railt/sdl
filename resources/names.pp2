@@ -1,53 +1,63 @@
 //
 // Any name without reserved keywords.
 //
-NameWithoutReserved:
-    <T_NAME>
+NameWithoutReserved
+  : <T_NAME>
+  ;
 
 //
 // Any name includes reserved keywords.
 //
-NameWithReserved:
-    (NameExceptValues() | <T_TRUE> | <T_FALSE> | <T_NULL>)
+NameWithReserved
+  : NameExceptValues()
+  | <T_TRUE>
+  | <T_FALSE>
+  | <T_NULL>
+  ;
 
 //
 // Any name includes reserved keywords but except values: NULL, TRUE and FALSE.
 //
-NameExceptValues:
-    (
-        NameWithoutReserved() |
-        <T_NAMESPACE>         |
-        <T_EXTENDS>           |
-        <T_IMPLEMENTS>        |
-        <T_ON>                |
-        <T_TYPE>              |
-        <T_ENUM>              |
-        <T_UNION>             |
-        <T_INPUT_UNION>       |
-        <T_INTERFACE>         |
-        <T_SCHEMA>            |
-        <T_SCALAR>            |
-        <T_DIRECTIVE>         |
-        <T_INPUT>             |
-        <T_EXTEND>            |
-        <T_FRAGMENT>
-    )
+NameExceptValues
+  : NameWithoutReserved()
+  | <T_NAMESPACE>
+  | <T_EXTENDS>
+  | <T_IMPLEMENTS>
+  | <T_ON>
+  | <T_TYPE>
+  | <T_ENUM>
+  | <T_UNION>
+  | <T_INPUT_UNION>
+  | <T_INTERFACE>
+  | <T_SCHEMA>
+  | <T_SCALAR>
+  | <T_DIRECTIVE>
+  | <T_INPUT>
+  | <T_EXTEND>
+  | <T_FRAGMENT>
+  ;
 
 //
 // Fully qualified name is an unambiguous name that specifies
 // which object, function, or variable a call refers to without
 // regard to the context of the call.
 //
-#TypeName: NameWithReserved()
+#TypeName
+  : NameWithReserved()
+  ;
 
 //
 // An auxiliary name, which is only available for
 // fields, arguments and etc. dependencies of type definitions.
 //
-#DependentName: NameWithReserved()
+#DependentName
+  : NameWithReserved()
+  ;
 
 //
 // An auxiliary name available for constant value fields,
 // such as Enum values.
 //
-#ValueName: NameExceptValues()
+#ValueName
+  : NameExceptValues()
+  ;

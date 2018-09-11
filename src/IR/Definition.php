@@ -41,7 +41,10 @@ use Railt\Io\Readable;
  * -- Unions and Documents
  * @property array|Definition[] $definitions
  *
- * -- Scalars
+ * -- Documents
+ * @property array|Definition[] $extensions
+ *
+ * -- Scalars and Extensions
  * @property string $extends
  */
 class Definition extends ValueObject implements DefinitionInterface
@@ -62,9 +65,14 @@ class Definition extends ValueObject implements DefinitionInterface
     private $position;
 
     /**
+     * @var int
+     */
+    protected $skip = self::SKIP_NULL;
+
+    /**
      * @param Readable $file
      * @param int $offset
-     * @return Definition
+     * @return Definition|$this
      */
     public function in(Readable $file, int $offset = 0): self
     {

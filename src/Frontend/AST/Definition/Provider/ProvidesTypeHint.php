@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Definition\Provider;
+namespace Railt\SDL\Frontend\AST\Definition\Provider;
 
-use Railt\SDL\Frontend\Ast\Definition\Common\TypeHintNode;
+use Railt\SDL\Frontend\AST\Definition\Common\TypeHintNode;
 
 /**
  * Trait ProvidesTypeHint

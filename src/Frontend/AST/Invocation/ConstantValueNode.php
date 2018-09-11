@@ -7,20 +7,20 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Invocation;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
 use Railt\Parser\Ast\Rule;
 
 /**
- * Class DescriptionValue
+ * Class ConstantValue
  */
-class DescriptionValue extends Rule implements AstValueInterface
+class ConstantValueNode extends Rule implements AstValueInterface
 {
     /**
-     * @return string
+     * @return mixed|null
      */
-    public function toPrimitive(): string
+    public function toPrimitive()
     {
-        return $this->getChild(0)->toPrimitive();
+        throw new \LogicException('Not implemented yet');
     }
 }

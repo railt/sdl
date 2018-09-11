@@ -1,0 +1,79 @@
+//
+// Boolean value (true or false)
+//
+#BooleanValue -> Railt\SDL\Frontend\AST\Invocation\BooleanValueNode
+  : <T_FALSE>
+  | <T_TRUE>
+  ;
+
+//
+// Number value
+//
+#NumberValue -> Railt\SDL\Frontend\AST\Invocation\NumberValueNode
+  : <T_NUMBER>
+  | <T_HEX_NUMBER>
+  | <T_BIN_NUMBER>
+  ;
+
+//
+// String value
+//
+#StringValue -> Railt\SDL\Frontend\AST\Invocation\StringValueNode
+  : <T_BLOCK_STRING>
+  | <T_STRING>
+  ;
+
+//
+// Types description/documentation
+//
+#Description -> Railt\SDL\Frontend\AST\Invocation\DescriptionValueNode
+  : StringValue()
+  ;
+
+//
+// Null value
+//
+#NullValue -> Railt\SDL\Frontend\AST\Invocation\NullValueNode
+  : <T_NULL>
+  ;
+
+//
+// Enum values
+//
+#ConstantValue -> Railt\SDL\Frontend\AST\Invocation\ConstantValueNode
+  : NameExceptValues()
+  ;
+
+//
+// The list of values
+//
+#ListValue -> Railt\SDL\Frontend\AST\Invocation\ListValueNode
+  : ::T_BRACKET_OPEN:: Value()* ::T_BRACKET_CLOSE::
+  ;
+
+//
+// Input value
+//
+#InputValue -> Railt\SDL\Frontend\AST\Invocation\InputValueNode
+  : ::T_BRACE_OPEN:: ArgumentValue()* ::T_BRACE_CLOSE::
+  ;
+
+//
+// Argument value
+//
+#ArgumentValue -> Railt\SDL\Frontend\AST\Invocation\ArgumentValueNode
+  : DependentName() ::T_COLON:: Value()
+  ;
+
+//
+// Value
+//
+Value
+  : ConstantValue()
+  | BooleanValue()
+  | NumberValue()
+  | StringValue()
+  | NullValue()
+  | InputValue()
+  | ListValue()
+  ;

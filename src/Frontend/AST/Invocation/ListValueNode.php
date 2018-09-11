@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Invocation;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
 /**
  * Class ListValue
  */
-class ListValue extends Value
+class ListValueNode extends AbstractValueNode
 {
     /**
      * @return array|mixed

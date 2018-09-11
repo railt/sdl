@@ -1,3 +1,6 @@
 
-#TypeDefinitionExtends:
-    ::T_EXTENDS:: TypeName()
+
+
+#TypeDefinitionExtends
+  : ::T_EXTENDS:: TypeName()
+  ;

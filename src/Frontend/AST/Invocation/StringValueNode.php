@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Invocation;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
 use Railt\Parser\Ast\LeafInterface;
 
 /**
  * Class StringValue
  */
-class StringValue extends Value
+class StringValueNode extends AbstractValueNode
 {
     /**
      * @var string

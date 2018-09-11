@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Ast\Invocation;
+namespace Railt\SDL\Frontend\AST\Invocation;
 
 use Railt\Parser\Ast\LeafInterface;
 use Railt\SDL\Frontend\Parser;
@@ -15,7 +15,7 @@ use Railt\SDL\Frontend\Parser;
 /**
  * Class NumberValue
  */
-class NumberValue extends Value
+class NumberValueNode extends AbstractValueNode
 {
     /**
      * @return int|float

@@ -21,26 +21,23 @@
 //                                  DOCUMENT
 // ==========================================================================
 
-#Document:
-    DocumentHead()
+#Document
+  : DocumentHead()
     DocumentBody()
+  ;
 
-DocumentHead:
-    DirectiveInvocation()*
+DocumentHead
+  : DirectiveInvocation()*
+  ;
 
-DocumentBody:
-    (Extension() | Definition())*
+DocumentBody
+  : (
+        Extension() |
+        Definition()
+    )*
+  ;
 
-
-/**
- * Common grammar rules
- */
 %include names
-%include values
 
-/**
- * Type definitions and other
- */
 %include definitions
-%include extensions
 %include invocations

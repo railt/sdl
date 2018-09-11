@@ -3,10 +3,18 @@
 // Scalar definition
 //
 
-#ScalarDefinition -> Railt\SDL\Frontend\Ast\Definition\ScalarDefinitionNode:
-    Description()?
+#ScalarDefinition -> Railt\SDL\Frontend\AST\Definition\ScalarDefinitionNode
+  : Description()?
     ScalarDefinitionBody()
+  ;
 
-ScalarDefinitionBody:
-    ::T_SCALAR:: TypeName() TypeDefinitionExtends()? Directives()?
+#ScalarExtension
+  : Description()?
+    ::T_EXTEND:: ScalarDefinition()
+  ;
+
+ScalarDefinitionBody
+  : ::T_SCALAR:: TypeName()
+    TypeDefinitionExtends()?
+    Directives()?
 

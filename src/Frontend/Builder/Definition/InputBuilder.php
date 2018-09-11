@@ -11,7 +11,7 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Ast\Definition\InputDefinitionNode;
+use Railt\SDL\Frontend\AST\Definition\InputDefinitionNode;
 use Railt\SDL\Frontend\Builder\DefinitionBuilder;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\TypeDefinition;
@@ -31,9 +31,10 @@ class InputBuilder extends DefinitionBuilder
         $input = new TypeDefinition($ast->getFullName());
         $input->in($file, $ast->getOffset());
 
-        $input->type        = Type::INPUT_OBJECT;
+        $input->type = Type::of(Type::INPUT_OBJECT);
         $input->description = $ast->getDescription();
 
+        yield from $this->loadDirectives($ast, $input);
         yield from $this->loadInputFields($ast, $input);
 
         return $input;
