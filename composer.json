@@ -31,7 +31,8 @@
         "railt/io": "1.2.*|dev-master",
         "railt/lexer": "1.2.*|dev-master",
         "railt/parser": "1.2.*|dev-master",
-        "railt/reflection": "1.2.*|dev-master"
+        "railt/reflection": "1.2.*|dev-master",
+        "justinrainbow/json-schema": "^3.0 || ^4.0 || ^5.0"
     },
     "autoload": {
         "psr-4": {

@@ -125,6 +125,14 @@ class ValueObject implements \ArrayAccess, \JsonSerializable
     }
 
     /**
+     * @return mixed|object
+     */
+    public function toObject()
+    {
+        return \json_decode(\json_encode($this));
+    }
+
+    /**
      * Convert the object into something JSON serializable.
      *
      * @return array|mixed

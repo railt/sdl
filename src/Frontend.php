@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend;
+namespace Railt\SDL;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -18,6 +18,8 @@ use Railt\Parser\Exception\UnexpectedTokenException;
 use Railt\Parser\Exception\UnrecognizedTokenException;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\SyntaxException;
+use Railt\SDL\Frontend\Builder;
+use Railt\SDL\Frontend\Parser;
 
 /**
  * Class Frontend

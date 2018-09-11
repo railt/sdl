@@ -21,7 +21,7 @@ class SDLGrammarCompileCommand extends Command
     /**
      * @var string
      */
-    private const SCHEMA_SDL_GRAMMAR = __DIR__ . '/../../resources/grammar.pp2';
+    private const SCHEMA_SDL_GRAMMAR = __DIR__ . '/../../resources/sdl/grammar.pp2';
 
     /**
      * @var string

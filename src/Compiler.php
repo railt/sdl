@@ -21,7 +21,6 @@ use Railt\SDL\Compiler\Dictionary;
 use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
-use Railt\SDL\Frontend\Frontend;
 use Railt\SDL\IR\DefinitionInterface;
 
 /**
@@ -47,7 +46,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
     private $front;
 
     /**
-     * @var Generator
+     * @var Backend
      */
     private $back;
 
@@ -62,7 +61,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
         $this->store      = new Store();
         $this->front      = new Frontend();
         $this->dictionary = new Dictionary($this);
-        $this->back       = new Generator(new Reflection($this->dictionary));
+        $this->back       = new Backend(new Reflection($this->dictionary));
 
         if ($logger) {
             $this->setLogger($logger);
@@ -109,7 +108,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      * @param Readable $file
      * @param iterable|DefinitionInterface[] $ir
      * @return DocumentInterface
-     * @throws \Railt\Io\Exception\NotReadableException
+     * @throws CompilerException
      */
     public function generate(Readable $file, iterable $ir): DocumentInterface
     {
@@ -123,7 +122,6 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      * @return mixed
      * @throws CompilerException
      * @throws InternalException
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     private function wrap(\Closure $runner)
     {
@@ -144,7 +142,6 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      * @return iterable|DefinitionInterface[]
      * @throws CompilerException
      * @throws InternalException
-     * @throws \Railt\Io\Exception\NotReadableException
      */
     public function ir(Readable $readable): iterable
     {

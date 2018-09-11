@@ -12,7 +12,7 @@ namespace Railt\SDL\Backend;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Railt\Io\Readable;
-use Railt\Reflection\Contracts\Document;
+use Railt\Reflection\Document;
 use Railt\Reflection\Contracts\Reflection;
 
 /**
@@ -41,8 +41,14 @@ class Generator implements LoggerAwareInterface
      * @param iterable $ir
      * @return Document
      */
-    public function run(Readable $file, iterable $ir): Document
+    public function generate(Readable $file, iterable $ir): Document
     {
+        foreach ($ir as $documents) {
+            ///
+        }
 
+        $document = new Document($this->reflection, $file);
+
+        return $document;
     }
 }
