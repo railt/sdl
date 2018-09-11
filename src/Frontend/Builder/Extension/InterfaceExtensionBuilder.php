@@ -27,8 +27,8 @@ class InterfaceExtensionBuilder extends ExtensionBuilder
      */
     public function build(Readable $file, RuleInterface $ast)
     {
-        $extension = new Definition();
-        $extension->type = Type::of(Type::INTERFACE_EXTENSION);
+        $extension          = new Definition();
+        $extension->type    = Type::of(Type::INTERFACE_EXTENSION);
         $extension->extends = yield $ast->first('InterfaceDefinition', 1);
 
         return $extension;

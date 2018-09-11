@@ -33,7 +33,7 @@ class SchemaBuilder extends DefinitionBuilder
         $schema = new TypeDefinition($ast->getFullName() ?: SchemaDefinition::DEFAULT_SCHEMA_NAME);
         $schema->in($file, $ast->getOffset());
 
-        $schema->type = Type::of(Type::SCHEMA);
+        $schema->type        = Type::of(Type::SCHEMA);
         $schema->description = $ast->getDescription();
 
         yield from $this->loadDirectives($ast, $schema);

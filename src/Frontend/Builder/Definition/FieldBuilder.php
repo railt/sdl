@@ -31,11 +31,11 @@ class FieldBuilder extends DefinitionBuilder
         $field = new TypeDefinition($ast->getFullName());
         $field->in($file, $ast->getOffset());
 
-        $field->type = Type::of(Type::FIELD);
+        $field->type        = Type::of(Type::FIELD);
         $field->description = $ast->getDescription();
 
         $field->modifiers = $ast->getHintModifiers();
-        $field->hint = $ast->getHintTypeName();
+        $field->hint      = $ast->getHintTypeName();
 
         yield from $this->loadDirectives($ast, $field);
         yield from $this->loadArguments($ast, $field);

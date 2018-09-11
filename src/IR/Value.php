@@ -32,7 +32,7 @@ class Value extends Definition implements ValueInterface
     {
         if (\is_scalar($value)) {
             $this->isScalar = true;
-            $value = [self::DEFAULT_VALUE_KEY => $value];
+            $value          = [self::DEFAULT_VALUE_KEY => $value];
         }
 
         parent::__construct($value);

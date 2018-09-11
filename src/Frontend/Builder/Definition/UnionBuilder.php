@@ -31,7 +31,7 @@ class UnionBuilder extends DefinitionBuilder
         $union = new TypeDefinition($ast->getFullName());
         $union->in($file, $ast->getOffset());
 
-        $union->type = Type::of(Type::UNION);
+        $union->type        = Type::of(Type::UNION);
         $union->description = $ast->getDescription();
 
         $this->loadUnionDefinitions($ast, $union);

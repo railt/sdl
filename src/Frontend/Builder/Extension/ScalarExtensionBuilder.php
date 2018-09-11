@@ -27,8 +27,8 @@ class ScalarExtensionBuilder extends ExtensionBuilder
      */
     public function build(Readable $file, RuleInterface $ast)
     {
-        $extension = new Definition();
-        $extension->type = Type::of(Type::SCALAR_EXTENSION);
+        $extension          = new Definition();
+        $extension->type    = Type::of(Type::SCALAR_EXTENSION);
         $extension->extends = yield $ast->first('ScalarDefinition', 1);
 
         return $extension;

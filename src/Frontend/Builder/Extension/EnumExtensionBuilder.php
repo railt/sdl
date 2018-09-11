@@ -27,8 +27,8 @@ class EnumExtensionBuilder extends ExtensionBuilder
      */
     public function build(Readable $file, RuleInterface $ast)
     {
-        $extension = new Definition();
-        $extension->type = Type::of(Type::ENUM_EXTENSION);
+        $extension          = new Definition();
+        $extension->type    = Type::of(Type::ENUM_EXTENSION);
         $extension->extends = yield $ast->first('EnumDefinition', 1);
 
         return $extension;

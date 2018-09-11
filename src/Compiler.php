@@ -16,7 +16,6 @@ use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Reflection;
-use Railt\SDL\Backend\Generator;
 use Railt\SDL\Compiler\Dictionary;
 use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;

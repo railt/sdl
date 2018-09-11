@@ -31,7 +31,7 @@ class DirectiveBuilder extends DefinitionBuilder
         $directive = new TypeDefinition($ast->getFullName());
         $directive->in($file, $ast->getOffset());
 
-        $directive->type = Type::of(Type::DIRECTIVE);
+        $directive->type        = Type::of(Type::DIRECTIVE);
         $directive->description = $ast->getDescription();
 
         return $directive;

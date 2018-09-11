@@ -31,7 +31,7 @@ class EnumBuilder extends DefinitionBuilder
         $enum = new TypeDefinition($ast->getFullName());
         $enum->in($file, $ast->getOffset());
 
-        $enum->type = Type::of(Type::ENUM);
+        $enum->type        = Type::of(Type::ENUM);
         $enum->description = $ast->getDescription();
 
         yield from $this->loadDirectives($ast, $enum);

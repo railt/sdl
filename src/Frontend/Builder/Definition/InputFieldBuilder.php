@@ -31,11 +31,11 @@ class InputFieldBuilder extends DefinitionBuilder
         $field = new TypeDefinition($ast->getFullName());
         $field->in($file, $ast->getOffset());
 
-        $field->type = Type::of(Type::INPUT_FIELD_DEFINITION);
+        $field->type        = Type::of(Type::INPUT_FIELD_DEFINITION);
         $field->description = $ast->getDescription();
 
         $field->modifiers = $ast->getHintModifiers();
-        $field->hint = $ast->getHintTypeName();
+        $field->hint      = $ast->getHintTypeName();
 
         $field->default = yield $ast->getDefaultValue();
 

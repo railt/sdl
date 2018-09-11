@@ -55,7 +55,7 @@ class Type implements TypeInterface
      */
     private function __construct(string $name)
     {
-        $this->name = $name;
+        $this->name   = $name;
         $this->parent = $this->getInheritanceSequence($name);
     }
 
@@ -79,7 +79,7 @@ class Type implements TypeInterface
     private function bootInheritance(\SplStack $stack, array $children = []): void
     {
         $push = function (string $type) use ($stack): void {
-            self::$inheritance[$type] = \array_values(\iterator_to_array($stack));
+            self::$inheritance[$type]   = \array_values(\iterator_to_array($stack));
             self::$inheritance[$type][] = static::ROOT_TYPE;
 
             $stack->push($type);

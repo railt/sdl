@@ -14,7 +14,6 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\ExtensionBuilder;
 use Railt\SDL\IR\Definition;
 use Railt\SDL\IR\Type;
-use Railt\SDL\IR\TypeDefinition;
 
 /**
  * Class UnionExtensionBuilder
@@ -28,8 +27,8 @@ class UnionExtensionBuilder extends ExtensionBuilder
      */
     public function build(Readable $file, RuleInterface $ast)
     {
-        $extension = new Definition();
-        $extension->type = Type::of(Type::UNION_EXTENSION);
+        $extension          = new Definition();
+        $extension->type    = Type::of(Type::UNION_EXTENSION);
         $extension->extends = yield $ast->first('UnionDefinition', 1);
 
         return $extension;

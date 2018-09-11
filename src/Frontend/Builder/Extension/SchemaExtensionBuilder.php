@@ -27,8 +27,8 @@ class SchemaExtensionBuilder extends ExtensionBuilder
      */
     public function build(Readable $file, RuleInterface $ast)
     {
-        $extension = new Definition();
-        $extension->type = Type::of(Type::SCHEMA_EXTENSION);
+        $extension          = new Definition();
+        $extension->type    = Type::of(Type::SCHEMA_EXTENSION);
         $extension->extends = yield $ast->first('SchemaDefinition', 1);
 
         return $extension;

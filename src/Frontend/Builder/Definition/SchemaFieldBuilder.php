@@ -31,11 +31,11 @@ class SchemaFieldBuilder extends DefinitionBuilder
         $field = new TypeDefinition($ast->getFullName());
         $field->in($file, $ast->getOffset());
 
-        $field->type = Type::of(Type::SCHEMA_FIELD);
+        $field->type        = Type::of(Type::SCHEMA_FIELD);
         $field->description = $ast->getDescription();
 
         $field->modifiers = $ast->getHintModifiers();
-        $field->hint = $ast->getHintTypeName();
+        $field->hint      = $ast->getHintTypeName();
 
         yield from $this->loadDirectives($ast, $field);
 

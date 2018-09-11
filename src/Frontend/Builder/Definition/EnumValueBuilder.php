@@ -31,7 +31,7 @@ class EnumValueBuilder extends DefinitionBuilder
         $value = new TypeDefinition($ast->getFullName());
         $value->in($file, $ast->getOffset());
 
-        $value->type = Type::of(Type::ENUM_VALUE);
+        $value->type        = Type::of(Type::ENUM_VALUE);
         $value->description = $ast->getDescription();
 
         yield from $this->loadDirectives($ast, $value);

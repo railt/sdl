@@ -181,7 +181,7 @@ interface TypeInterface
         self::OBJECT_EXTENSION,
         self::SCALAR_EXTENSION,
         self::SCHEMA_EXTENSION,
-        self::UNION_EXTENSION
+        self::UNION_EXTENSION,
     ];
 
     /**
@@ -277,7 +277,7 @@ interface TypeInterface
      * @param TypeInterface $type
      * @return bool
      */
-    public function instanceOf(TypeInterface $type): bool;
+    public function instanceOf(self $type): bool;
 
     /**
      * Returns true if the type is the same as the current type.

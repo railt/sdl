@@ -27,8 +27,8 @@ class InputExtensionBuilder extends ExtensionBuilder
      */
     public function build(Readable $file, RuleInterface $ast)
     {
-        $extension = new Definition();
-        $extension->type = Type::of(Type::INPUT_OBJECT_EXTENSION);
+        $extension          = new Definition();
+        $extension->type    = Type::of(Type::INPUT_OBJECT_EXTENSION);
         $extension->extends = yield $ast->first('InputDefinition', 1);
 
         return $extension;

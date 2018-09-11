@@ -27,8 +27,8 @@ class ObjectExtensionBuilder extends ExtensionBuilder
      */
     public function build(Readable $file, RuleInterface $ast)
     {
-        $extension = new Definition();
-        $extension->type = Type::of(Type::OBJECT_EXTENSION);
+        $extension          = new Definition();
+        $extension->type    = Type::of(Type::OBJECT_EXTENSION);
         $extension->extends = yield $ast->first('ObjectDefinition', 1);
 
         return $extension;

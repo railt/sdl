@@ -31,7 +31,7 @@ class ScalarBuilder extends DefinitionBuilder
         $scalar = new TypeDefinition($ast->getFullName());
         $scalar->in($file, $ast->getOffset());
 
-        $scalar->type = Type::of(Type::SCALAR);
+        $scalar->type        = Type::of(Type::SCALAR);
         $scalar->description = $ast->getDescription();
 
         $scalar->extends = $ast->getExtends();
