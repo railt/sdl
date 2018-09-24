@@ -14,5 +14,4 @@ namespace Railt\SDL\Frontend;
  */
 class SymbolTable
 {
-
 }

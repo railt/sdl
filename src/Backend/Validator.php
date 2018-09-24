@@ -10,11 +10,11 @@ declare(strict_types=1);
 namespace Railt\SDL\Backend;
 
 use JsonSchema\Constraints\Constraint;
+use JsonSchema\Validator as JsonSchema;
 use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\SDL\Exception\InternalException;
 use Railt\SDL\IR\Definition;
-use JsonSchema\Validator as JsonSchema;
 
 /**
  * Class Validator
@@ -48,7 +48,7 @@ class Validator
     public function __construct(Readable $schema = null)
     {
         $this->validator = new JsonSchema();
-        $this->schema = $this->loadJsonSchema($schema);
+        $this->schema    = $this->loadJsonSchema($schema);
     }
 
     /**
@@ -77,7 +77,7 @@ class Validator
         if (! $this->validator->isValid()) {
             $error = \implode(\PHP_EOL, [
                 'An internal representation code errors was found: ',
-                $this->errorsToString($this->validator->getErrors())
+                $this->errorsToString($this->validator->getErrors()),
             ]);
 
             throw new InternalException($error);

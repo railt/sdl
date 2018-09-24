@@ -12,8 +12,8 @@ namespace Railt\SDL\Backend;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Railt\Io\Readable;
-use Railt\Reflection\Document;
 use Railt\Reflection\Contracts\Reflection;
+use Railt\Reflection\Document;
 
 /**
  * Class Generator
