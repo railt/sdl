@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\Builder;
 
-use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
 
 /**
@@ -18,9 +17,8 @@ use Railt\Parser\Ast\RuleInterface;
 interface BuilderInterface
 {
     /**
-     * @param Readable $file
      * @param RuleInterface $ast
      * @return mixed|\Generator
      */
-    public function build(Readable $file, RuleInterface $ast);
+    public function reduce(RuleInterface $ast);
 }

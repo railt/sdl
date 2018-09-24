@@ -7,15 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\IR;
+namespace Railt\SDL\Frontend\Type;
 
 /**
- * Interface ValueInterface
+ * Class AnyType
  */
-interface ValueInterface extends DefinitionInterface
+class AnyType extends BaseType
 {
     /**
-     * @return mixed|string|int|null|float|bool|array
+     * AnyType constructor.
      */
-    public function getValue();
+    public function __construct()
+    {
+        parent::__construct('Any', $this);
+    }
 }

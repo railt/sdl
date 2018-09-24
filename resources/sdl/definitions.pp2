@@ -1,12 +1,3 @@
-
-//
-// Common definitions and partials
-//
-%include definitions/common/implements
-%include definitions/common/extends
-%include definitions/common/type-hint
-
-
 //
 // TypeDefinitions
 //

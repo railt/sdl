@@ -1,8 +1,0 @@
-
-
-
-#TypeDefinitionImplementations
-  : ::T_IMPLEMENTS::
-    ::T_AND::? TypeName()
-    ( ::T_AND:: TypeName() )*
-  ;

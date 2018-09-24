@@ -7,15 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\IR;
+namespace Railt\SDL\Frontend;
 
 /**
- * Interface TypeInvocationInterface
+ * Class SymbolTable
  */
-interface TypeInvocationInterface extends DefinitionInterface
+class SymbolTable
 {
-    /**
-     * @return string
-     */
-    public function getName(): string;
+
 }

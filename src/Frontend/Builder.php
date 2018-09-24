@@ -10,9 +10,12 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend;
 
 use Railt\Io\Readable;
+use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Builder\Factory;
-use Railt\SDL\IR\Definition;
+use Railt\SDL\Exception\InternalException;
+use Railt\SDL\Frontend\Builder\BuilderInterface;
+use Railt\SDL\Frontend\Interceptor\InterceptorInterface;
+use Railt\SDL\Frontend\Interceptor\RuleInterceptor;
 
 /**
  * Class Builder
@@ -20,75 +23,145 @@ use Railt\SDL\IR\Definition;
 class Builder
 {
     /**
-     * @var Factory
+     * @var string[]|BuilderInterface[]
      */
-    private $factory;
+    private const DEFAULT_BUILDER_DEFINITIONS = [
+
+    ];
+
+    /**
+     * string[]|InterceptorInterface[]
+     */
+    private const DEFAULT_INTERCEPTORS = [
+        RuleInterceptor::class,
+    ];
+
+    /**
+     * @var array|BuilderInterface[]
+     */
+    private $builders = [];
+
+    /**
+     * @var SymbolTable
+     */
+    private $table;
+
+    /**
+     * @var array|InterceptorInterface[]
+     */
+    private $interceptors = [];
 
     /**
      * Builder constructor.
      */
     public function __construct()
     {
-        $this->factory = new Factory();
+        $this->table = new SymbolTable();
+        $this->bootDefaults();
     }
 
     /**
-     * @param Readable $readable
-     * @param RuleInterface $ast
-     * @return \Generator|RuleInterface[]|Definition[]
-     * @throws \LogicException
+     * @return void
      */
-    public function build(Readable $readable, RuleInterface $ast)
+    private function bootDefaults(): void
     {
-        $iterator = $this->forEach($readable, $ast);
+        $this->bootDefaultBuilders();
+        $this->bootDefaultInterceptors();
+    }
 
-        while ($iterator->valid()) {
-            [$key, $value] = [$iterator->key(), $iterator->current()];
+    /**
+     * @return void
+     */
+    private function bootDefaultBuilders(): void
+    {
+        foreach (self::DEFAULT_BUILDER_DEFINITIONS as $rule => $builder) {
+            $this->builders[$rule] = new $builder($this, $this->table);
+        }
+    }
 
-            if ($value instanceof RuleInterface) {
-                yield from $children = $this->build($readable, $value);
-                $iterator->send($children->getReturn());
-                continue;
+    /**
+     * @return void
+     */
+    private function bootDefaultInterceptors(): void
+    {
+        foreach (self::DEFAULT_INTERCEPTORS as $interceptor) {
+            $this->interceptors[] = new $interceptor($this, $this->table);
+        }
+    }
+
+    /**
+     * @param Readable $file
+     * @param RuleInterface $ast
+     * @return ValueObject
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    public function build(Readable $file, RuleInterface $ast): ValueObject
+    {
+        $document = new ValueObject();
+        $document->definitions = [];
+
+        foreach ($ast->getChildren() as $child) {
+            $document->definitions[] = $this->reduce($file, $child);
+        }
+
+        return $document;
+    }
+
+    /**
+     * @param Readable $file
+     * @param RuleInterface $ast
+     * @return mixed
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    public function reduce(Readable $file, RuleInterface $ast)
+    {
+        $process = $this->get($file, $ast)->reduce($ast);
+
+        if ($process instanceof \Generator) {
+            return $this->run($file, $process);
+        }
+
+        return $process;
+    }
+
+    /**
+     * @param Readable $file
+     * @param \Generator $process
+     * @return mixed
+     */
+    private function run(Readable $file, \Generator $process)
+    {
+        while ($process->valid()) {
+            $value = $process->current();
+
+            foreach ($this->interceptors as $interceptor) {
+                if ($interceptor->match($value)) {
+                    $value = $interceptor->apply($file, $value);
+                    break;
+                }
             }
 
-            $iterator->send(yield $key => $value);
+            $process->send($value);
         }
 
-        return $iterator->getReturn();
+        return $process->getReturn();
     }
 
     /**
-     * @param Readable $readable
+     * @param Readable $file
      * @param RuleInterface $ast
-     * @return mixed|null
-     * @throws \LogicException
+     * @return BuilderInterface
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function reduce(Readable $readable, RuleInterface $ast)
+    private function get(Readable $file, RuleInterface $ast): BuilderInterface
     {
-        $iterator = $this->build($readable, $ast);
+        $builder = $this->builders[$ast->getName()] ?? null;
 
-        while ($iterator->valid()) {
-            $iterator->send($iterator->current());
+        if ($builder === null) {
+            $error = 'Unrecognized AST rule %s';
+            throw (new InternalException(\sprintf($error, $ast->getName())))->throwsIn($file, $ast->getOffset());
         }
 
-        return $iterator->getReturn();
-    }
-
-    /**
-     * @param Readable $readable
-     * @param RuleInterface $ast
-     * @return \Generator
-     * @throws \LogicException
-     */
-    private function forEach(Readable $readable, RuleInterface $ast): \Generator
-    {
-        $builder = $this->factory->resolve($readable, $ast);
-        $result  = $builder->build($readable, $ast);
-
-        if (\is_iterable($result)) {
-            yield from $result;
-        }
-
-        return $result instanceof \Generator ? $result->getReturn() : $result;
+        return $builder;
     }
 }

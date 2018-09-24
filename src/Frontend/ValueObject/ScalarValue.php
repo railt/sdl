@@ -7,18 +7,19 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\IR;
-
-use Railt\Io\PositionInterface;
-use Railt\Io\Readable;
+namespace Railt\SDL\Frontend\ValueObject;
 
 /**
- * Interface DefinitionInterface
+ * Class ScalarValue
  */
-interface DefinitionInterface extends PositionInterface
+class ScalarValue extends BaseStruct
 {
     /**
-     * @return Readable
+     * ScalarValue constructor.
+     * @param $value
      */
-    public function getFile(): Readable;
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 }

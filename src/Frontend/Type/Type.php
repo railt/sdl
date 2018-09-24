@@ -7,15 +7,19 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\IR;
+namespace Railt\SDL\Frontend\Type;
 
 /**
- * Interface DefinitionInterface
+ * Class Type
  */
-interface TypeDefinitionInterface extends DefinitionInterface
+class Type extends BaseType
 {
     /**
-     * @return string
+     * @param string $name
+     * @return Type
      */
-    public function getName(): string;
+    public static function new(string $name): Type
+    {
+        return new static($name, new AnyType());
+    }
 }

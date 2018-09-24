@@ -58,7 +58,7 @@ class Frontend implements LoggerAwareInterface
     {
         $ast = $this->parse($readable);
 
-        yield $this->builder->reduce($readable, $ast);
+        yield $this->builder->build($readable, $ast);
     }
 
     /**

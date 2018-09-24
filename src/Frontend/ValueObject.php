@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\IR;
+namespace Railt\SDL\Frontend;
 
 /**
  * Class ValueObject
@@ -39,17 +39,18 @@ class ValueObject implements \ArrayAccess, \JsonSerializable
     /**
      * @var bool
      */
-    protected $skip = self::KEEP_ALL;
+    protected $skip;
 
     /**
      * Create a new ValueObject container instance.
      *
      * @param iterable $attributes
-     * @return void
+     * @param int $skip
      */
-    public function __construct(iterable $attributes = [])
+    public function __construct(iterable $attributes = [], int $skip = self::KEEP_ALL)
     {
         $this->setAttributes($attributes);
+        $this->skip = $skip;
     }
 
     /**
