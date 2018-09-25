@@ -3,17 +3,7 @@
   : DirectiveInvocation()+
   ;
 
-#DirectiveInvocation -> Railt\SDL\Frontend\AST\Invocation\DirectiveValueNode
-  : ::T_DIRECTIVE_AT:: TypeName()
-    __directiveInvocationArgumentsGroup()?
-  ;
-
-__directiveInvocationArgumentsGroup
-    : ::T_PARENTHESIS_OPEN::
-        __directiveInvocationArguments()?
-      ::T_PARENTHESIS_CLOSE::
-    ;
-
-__directiveInvocationArguments
-  : ArgumentValue()+
+#DirectiveInvocation
+  : ::T_DIRECTIVE_AT:: TypeInvocationHeader()
+    ArgumentInvocations()?
   ;

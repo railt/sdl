@@ -3,7 +3,7 @@
 // Schema definition
 //
 
-#SchemaDefinition -> Railt\SDL\Frontend\AST\Definition\SchemaDefinitionNode
+#SchemaDefinition
   : Description()?
     SchemaDefinitionHead()
     SchemaDefinitionBody()?
@@ -15,13 +15,13 @@
   ;
 
 SchemaDefinitionHead
-  : ::T_SCHEMA:: TypeName()?
+  : ::T_SCHEMA:: TypeDefinitionHeader()?
     Directives()?
   ;
 
 SchemaDefinitionBody
   : ::T_BRACE_OPEN::
-      SchemaFieldDefinitions()?
+      SchemaFieldDefinition()*
     ::T_BRACE_CLOSE::
   ;
 
@@ -29,10 +29,6 @@ SchemaDefinitionBody
 // SchemaField definition
 //
 
-#SchemaFieldDefinitions
-  : SchemaFieldDefinition()+
-  ;
-
-#SchemaFieldDefinition -> Railt\SDL\Frontend\AST\Definition\SchemaFieldDefinitionNode
-  : DependentName() ::T_COLON:: TypeHint()
+#SchemaFieldDefinition
+  : Name() ::T_COLON:: TypeHint()
   ;

@@ -1,0 +1,10 @@
+
+
+//
+// Implements
+//
+#TypeDefinitionImplements
+  : ::T_IMPLEMENTS::
+    ::T_AND::? TypeInvocationHeader()
+    ( ::T_AND:: TypeInvocationHeader() )*
+  ;

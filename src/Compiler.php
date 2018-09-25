@@ -15,12 +15,14 @@ use Psr\Log\LoggerInterface;
 use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document as DocumentInterface;
+use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Reflection;
 use Railt\SDL\Compiler\Dictionary;
 use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
-use Railt\SDL\IR\DefinitionInterface;
+use Railt\SDL\Frontend\Context\LocalContext;
+use Railt\SDL\Frontend\Record\RecordInterface;
 
 /**
  * Class Compiler
@@ -57,10 +59,10 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      */
     public function __construct(LoggerInterface $logger = null)
     {
-        $this->store      = new Store();
-        $this->front      = new Frontend();
+        $this->store = new Store();
+        $this->front = new Frontend();
         $this->dictionary = new Dictionary($this);
-        $this->back       = new Backend(new Reflection($this->dictionary));
+        $this->back = new Backend($this->front, new Reflection($this->dictionary));
 
         if ($logger) {
             $this->setLogger($logger);
@@ -104,15 +106,27 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
     }
 
     /**
-     * @param Readable $file
-     * @param iterable|DefinitionInterface[] $ir
-     * @return DocumentInterface
-     * @throws CompilerException
+     * @param Readable $readable
+     * @param iterable $records
+     * @return Document
+     * @throws \Railt\Io\Exception\NotReadableException
      */
-    public function generate(Readable $file, iterable $ir): DocumentInterface
+    private function generate(Readable $readable, iterable $records): Document
     {
-        return $this->wrap(function () use ($file, $ir) {
-            return $this->back->run($file, $ir);
+        return $this->wrap(function () use ($readable, $records) {
+            return $this->back->run($readable, $records);
+        });
+    }
+
+    /**
+     * @param Readable $readable
+     * @return iterable|RecordInterface[]
+     * @throws \Railt\Io\Exception\NotReadableException
+     */
+    private function ir(Readable $readable): iterable
+    {
+        return $this->wrap(function () use ($readable) {
+            return $this->front->load($readable);
         });
     }
 
@@ -121,6 +135,7 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      * @return mixed
      * @throws CompilerException
      * @throws InternalException
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     private function wrap(\Closure $runner)
     {
@@ -134,18 +149,5 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
 
             throw $error;
         }
-    }
-
-    /**
-     * @param Readable $readable
-     * @return iterable|DefinitionInterface[]
-     * @throws CompilerException
-     * @throws InternalException
-     */
-    public function ir(Readable $readable): iterable
-    {
-        return $this->wrap(function () use ($readable) {
-            return $this->front->load($readable);
-        });
     }
 }

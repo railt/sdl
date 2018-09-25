@@ -1,0 +1,26 @@
+
+ArgumentDefinitions
+  : ::T_PARENTHESIS_OPEN::
+      __argumentDefinitions()?
+    ::T_PARENTHESIS_CLOSE::
+  ;
+
+__argumentDefinitions
+  : ArgumentDefinition()+
+  ;
+
+#ArgumentDefinition
+  : Description()?
+    __argumentDefinitionBody()
+    __argumentDefinitionDefaultValue()?
+    Directives()?
+  ;
+
+__argumentDefinitionBody
+  : Name() ::T_COLON:: TypeHint()
+  ;
+
+__argumentDefinitionDefaultValue
+  : ::T_EQUAL:: Value()
+    #DefaultValue
+  ;

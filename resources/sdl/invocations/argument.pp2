@@ -1,0 +1,14 @@
+
+
+ArgumentInvocations
+  : ::T_PARENTHESIS_OPEN::
+      ArgumentInvocation()*
+    ::T_PARENTHESIS_CLOSE::
+  ;
+
+//
+// Argument value
+//
+#ArgumentInvocation
+  : Name() ::T_COLON:: Value()
+  ;

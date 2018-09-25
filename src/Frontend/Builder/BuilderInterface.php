@@ -10,6 +10,9 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\Builder;
 
 use Railt\Parser\Ast\RuleInterface;
+use Railt\SDL\Frontend\Context\ContextInterface;
+use Railt\SDL\Frontend\Record\RecordInterface;
+use Railt\SDL\Frontend\Type\TypeNameInterface;
 
 /**
  * Interface BuilderInterface
@@ -17,8 +20,15 @@ use Railt\Parser\Ast\RuleInterface;
 interface BuilderInterface
 {
     /**
-     * @param RuleInterface $ast
-     * @return mixed|\Generator
+     * @param RuleInterface $rule
+     * @return bool
      */
-    public function reduce(RuleInterface $ast);
+    public function match(RuleInterface $rule): bool;
+
+    /**
+     * @param ContextInterface $ctx
+     * @param RuleInterface $rule
+     * @return RecordInterface|TypeNameInterface|\Generator|void
+     */
+    public function reduce(ContextInterface $ctx, RuleInterface $rule);
 }

@@ -3,7 +3,7 @@
 // Union definition
 //
 
-#UnionDefinition -> Railt\SDL\Frontend\AST\Definition\UnionDefinitionNode
+#UnionDefinition
   : Description()?
     UnionDefinitionHead()
     UnionDefinitionBody()?
@@ -15,7 +15,7 @@
   ;
 
 UnionDefinitionHead
-  : ::T_UNION:: TypeName()
+  : ::T_UNION:: TypeDefinitionHeader()
     Directives()?
   ;
 
@@ -24,7 +24,7 @@ UnionDefinitionBody
   ;
 
 __unionDefinitionTargets
-  : ::T_OR::? TypeName()
-    ( ::T_OR:: TypeName() )*
+  : ::T_OR::? TypeInvocationHeader()
+    ( ::T_OR:: TypeInvocationHeader() )*
     #UnionDefinitionTargets
   ;

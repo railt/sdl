@@ -11,7 +11,6 @@ namespace Railt\SDL;
 
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document;
-use Railt\SDL\IR\Definition;
 
 /**
  * Interface CompilerInterface
@@ -29,17 +28,4 @@ interface CompilerInterface
      * @return Document
      */
     public function compile(Readable $readable): Document;
-
-    /**
-     * @param Readable $readable
-     * @return mixed|Definition[]|iterable
-     */
-    public function ir(Readable $readable);
-
-    /**
-     * @param Readable $file
-     * @param iterable $ir
-     * @return Document
-     */
-    public function generate(Readable $file, iterable $ir): Document;
 }

@@ -1,0 +1,7 @@
+
+
+#FieldDefinition
+  : Description()?
+    Name() ArgumentDefinitions()? ::T_COLON:: TypeHint()
+    Directives()?
+  ;

@@ -1,54 +1,15 @@
 
 
-#TypeHint -> Railt\SDL\Frontend\AST\Definition\Common\TypeHintNode
-  : __typeHintList()
-  | __typeHintSingular()
-  ;
-
-__typeHintList
-  : __typeHintNonNullList()
-  | __typeHintNullableList()
-  ;
-
-__typeHintNullableList
-  : ::T_BRACKET_OPEN:: __typeHintSingular() ::T_BRACKET_CLOSE::
-    #List
-  ;
-
-__typeHintNonNullList
-  : __typeHintNullableList() ::T_NON_NULL::
-    #NonNull
-  ;
-
-__typeHintSingular
-  : __typeHintNonNullSingular()
-  | __typeHintNullableSingular()
-  ;
-
-__typeHintNullableSingular
-  : TypeName()
-  ;
-
-__typeHintNonNullSingular
-  : TypeName() ::T_NON_NULL::
-    #NonNull
-  ;
-
-
-
-#TypeDefinitionExtends
-  : ::T_EXTENDS:: TypeName()
-  ;
-
-
-
-#TypeDefinitionImplementations
-  : ::T_IMPLEMENTS::
-    ::T_AND::? TypeName()
-    ( ::T_AND:: TypeName() )*
-  ;
-
-
-
+%include invocations/argument
 %include invocations/directive
+%include invocations/input
+%include invocations/type-argument
 %include invocations/values
+
+
+//
+// Type invocation header
+//
+#TypeInvocationHeader
+  : TypeName() TypeArgumentInvocations()?
+  ;

@@ -24,6 +24,8 @@
 %token T_COLON                  :
 %token T_EQUAL                  =
 %token T_DIRECTIVE_AT           @
+%token T_ANGLE_OPEN             <
+%token T_ANGLE_CLOSE            >
 
 /**
  * Values
@@ -37,12 +39,22 @@
 %token T_BLOCK_STRING           """((?:\\"""|(?!""").)*)"""
 %token T_STRING                 "([^"\\]*(?:\\.[^"\\]*)*)"
 
+
+/**
+ * Instructions
+ */
+%token T_NAMESPACE              (?<=\b)namespace\b
+%token T_NAMESPACE_SEPARATOR    /
+%token T_IMPORT                 (?<=\b)import\b
+
+
 /**
  * Common
  */
 %token T_EXTENDS                (?<=\b)extends\b
 %token T_IMPLEMENTS             (?<=\b)implements\b
 %token T_ON                     (?<=\b)on\b
+%token T_EXTEND                 (?<=\b)extend\b
 
 /**
  * Type definitions
@@ -55,7 +67,6 @@
 %token T_SCALAR                 (?<=\b)scalar\b
 %token T_DIRECTIVE              (?<=\b)directive\b
 %token T_INPUT                  (?<=\b)input\b
-%token T_EXTEND                 (?<=\b)extend\b
 %token T_FRAGMENT               (?<=\b)fragment\b
 
 /**

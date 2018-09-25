@@ -1,20 +1,24 @@
 //
 // TypeDefinitions
 //
+%include definitions/argument
 %include definitions/directive
 %include definitions/enum
+%include definitions/field
 %include definitions/input
 %include definitions/interface
 %include definitions/object
 %include definitions/scalar
 %include definitions/schema
+%include definitions/type-argument
 %include definitions/union
 
 //
-// Dependent
+// Type definition header
 //
-%include definitions/dependent/argument
-%include definitions/dependent/field
+#TypeDefinitionHeader
+  : TypeName() TypeArgumentDefinitions()?
+  ;
 
 
 Definition
@@ -38,3 +42,4 @@ Extension
     | SchemaExtension()
     | UnionExtension()
     ;
+

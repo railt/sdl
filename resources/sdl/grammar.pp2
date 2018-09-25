@@ -27,17 +27,25 @@
   ;
 
 DocumentHead
-  : DirectiveInvocation()*
+  : (
+      Instruction() |
+      DirectiveInvocation()
+    )*
   ;
 
 DocumentBody
   : (
-        Extension() |
-        Definition()
+      Instruction() |
+      Extension() |
+      Definition()
     )*
   ;
 
-%include names
-
 %include definitions
 %include invocations
+%include instructions
+
+%include common/names
+%include common/extends
+%include common/implements
+%include common/type-hint

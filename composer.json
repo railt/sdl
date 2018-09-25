@@ -28,11 +28,10 @@
         "ext-mbstring": "*",
         "ext-json": "*",
         "psr/log": "~1.0",
-        "railt/io": "1.2.*|dev-master",
-        "railt/lexer": "1.2.*|dev-master",
-        "railt/parser": "1.2.*|dev-master",
-        "railt/reflection": "1.2.*|dev-master",
-        "justinrainbow/json-schema": "^3.0 || ^4.0 || ^5.0"
+        "railt/io": "2.*|dev-master",
+        "railt/lexer": "2.*|dev-master",
+        "railt/parser": "2.*|dev-master",
+        "railt/reflection": "2.*|dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -46,9 +45,9 @@
         "monolog/monolog": "~1.9",
         "phpunit/phpunit": "^6.5",
         "symfony/finder": "3.*|4.*",
-        "illuminate/support": "~5.5",
-        "railt/compiler": "1.2.*|dev-master",
-        "railt/console": "1.2.*|dev-master"
+        "symfony/var-dumper": "~4.1",
+        "railt/compiler": "2.*|dev-master",
+        "railt/console": "2.*|dev-master"
     },
     "autoload-dev": {
         "psr-4": {

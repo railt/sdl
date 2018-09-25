@@ -15,11 +15,9 @@ use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Contracts\Reflection;
 use Railt\SDL\Backend\Generator;
-use Railt\SDL\Backend\Validator;
-use Railt\SDL\IR\Definition;
 
 /**
- * Class Generator
+ * Class Backend
  */
 class Backend implements LoggerAwareInterface
 {
@@ -31,40 +29,22 @@ class Backend implements LoggerAwareInterface
     private $generator;
 
     /**
-     * @var Validator
-     */
-    private $validator;
-
-    /**
      * Generator constructor.
+     * @param Frontend $frontend
      * @param Reflection $reflection
      */
-    public function __construct(Reflection $reflection)
+    public function __construct(Frontend $frontend, Reflection $reflection)
     {
         $this->generator = new Generator($reflection);
-        $this->validator = new Validator();
     }
 
     /**
      * @param Readable $file
-     * @param iterable|Definition[] $ir
+     * @param iterable $records
      * @return Document
-     * @throws Exception\InternalException
      */
-    public function run(Readable $file, iterable $ir): Document
+    public function run(Readable $file, iterable $records): Document
     {
-        return $this->generator->generate($file, $this->validate($ir));
-    }
-
-    /**
-     * @param iterable|Definition[] $ir
-     * @return iterable|Definition[]
-     * @throws Exception\InternalException
-     */
-    private function validate(iterable $ir): iterable
-    {
-        foreach ($ir as $definition) {
-            yield $this->validator->validate($definition);
-        }
+        return $this->generator->generate($file, $records);
     }
 }

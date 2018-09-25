@@ -1,0 +1,5 @@
+
+
+#ImportDefinition
+  : ::T_IMPORT:: StringValue()
+  ;

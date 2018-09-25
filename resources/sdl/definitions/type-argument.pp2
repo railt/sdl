@@ -1,0 +1,25 @@
+
+
+TypeArgumentDefinitions
+  : ::T_ANGLE_OPEN::
+      __typeArgumentDefinitions()?
+    ::T_ANGLE_CLOSE::
+  ;
+
+__typeArgumentDefinitions
+  : TypeArgumentDefinition()+
+  ;
+
+#TypeArgumentDefinition
+  : __typeArgumentDefinitionBody()
+    __typeArgumentDefinitionDefaultValue()?
+  ;
+
+__typeArgumentDefinitionBody
+  : Name() ::T_COLON:: TypeName()
+  ;
+
+__typeArgumentDefinitionDefaultValue
+  : ::T_EQUAL:: TypeInvocationHeader()
+    #DefaultValue
+  ;

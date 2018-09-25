@@ -3,7 +3,7 @@
 // Enum definition
 //
 
-#EnumDefinition -> Railt\SDL\Frontend\AST\Definition\EnumDefinitionNode
+#EnumDefinition
   : Description()?
     EnumDefinitionHead()
     EnumDefinitionBody()?
@@ -15,13 +15,13 @@
   ;
 
 EnumDefinitionHead
-  : ::T_ENUM:: TypeName()
+  : ::T_ENUM:: TypeDefinitionHeader()
     Directives()?
   ;
 
 EnumDefinitionBody
   : ::T_BRACE_OPEN::
-      EnumValueDefinitions()?
+      EnumValueDefinition()*
     ::T_BRACE_CLOSE::
   ;
 
@@ -30,13 +30,12 @@ EnumDefinitionBody
 // EnumValue definition
 //
 
-#EnumValueDefinitions:
-    EnumValueDefinition()+
-
-#EnumValueDefinition -> Railt\SDL\Frontend\AST\Definition\EnumValueDefinitionNode:
-    Description()?
+#EnumValueDefinition
+  : Description()?
     ValueName() __enumDefinitionValue()?
-        Directives()?
+    Directives()?
+  ;
 
-__enumDefinitionValue:
-    ::T_COLON:: TypeHint() ::T_EQUAL:: Value()
+__enumDefinitionValue
+  : ::T_COLON:: TypeHint() ::T_EQUAL:: Value()
+  ;

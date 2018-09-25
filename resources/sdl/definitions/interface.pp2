@@ -3,7 +3,7 @@
 // Interface definition
 //
 
-#InterfaceDefinition -> Railt\SDL\Frontend\AST\Definition\InterfaceDefinitionNode
+#InterfaceDefinition
   : Description()?
     InterfaceDefinitionHead()
     InterfaceDefinitionBody()?
@@ -15,13 +15,13 @@
   ;
 
 InterfaceDefinitionHead
-  : ::T_INTERFACE:: TypeName()
-    TypeDefinitionImplementations()?
+  : ::T_INTERFACE:: TypeDefinitionHeader()
+    TypeDefinitionImplements()?
     Directives()?
   ;
 
 InterfaceDefinitionBody
   : ::T_BRACE_OPEN::
-      FieldDefinitions()?
+      FieldDefinition()*
     ::T_BRACE_CLOSE::
   ;

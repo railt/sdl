@@ -10,12 +10,19 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend;
 
 use Railt\Io\Readable;
-use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Exception\InternalException;
+use Railt\SDL\Frontend;
 use Railt\SDL\Frontend\Builder\BuilderInterface;
-use Railt\SDL\Frontend\Interceptor\InterceptorInterface;
-use Railt\SDL\Frontend\Interceptor\RuleInterceptor;
+use Railt\SDL\Frontend\Builder\DefinitionBuilder;
+use Railt\SDL\Frontend\Builder\ImportBuilder;
+use Railt\SDL\Frontend\Builder\NamespaceBuilder;
+use Railt\SDL\Frontend\Context\Context;
+use Railt\SDL\Frontend\Context\ContextInterface;
+use Railt\SDL\Frontend\Record\RecordInterface;
+use Railt\SDL\Frontend\Record\Store;
+use Railt\SDL\Frontend\Type\TypeName;
+use Railt\SDL\Frontend\Type\TypeNameInterface;
 
 /**
  * Class Builder
@@ -26,14 +33,9 @@ class Builder
      * @var string[]|BuilderInterface[]
      */
     private const DEFAULT_BUILDER_DEFINITIONS = [
-
-    ];
-
-    /**
-     * string[]|InterceptorInterface[]
-     */
-    private const DEFAULT_INTERCEPTORS = [
-        RuleInterceptor::class,
+        NamespaceBuilder::class,
+        ImportBuilder::class,
+        DefinitionBuilder::class,
     ];
 
     /**
@@ -42,22 +44,33 @@ class Builder
     private $builders = [];
 
     /**
-     * @var SymbolTable
+     * @var Store
      */
-    private $table;
+    private $store;
 
     /**
-     * @var array|InterceptorInterface[]
+     * @var Frontend
      */
-    private $interceptors = [];
+    private $frontend;
 
     /**
      * Builder constructor.
+     * @param Frontend $frontend
      */
-    public function __construct()
+    public function __construct(Frontend $frontend)
     {
-        $this->table = new SymbolTable();
+        $this->frontend = $frontend;
+        $this->store = new Store();
         $this->bootDefaults();
+    }
+
+    /**
+     * @param Readable $readable
+     * @return RecordInterface[]|\Traversable
+     */
+    public function load(Readable $readable): iterable
+    {
+        return $this->frontend->load($readable);
     }
 
     /**
@@ -65,103 +78,84 @@ class Builder
      */
     private function bootDefaults(): void
     {
-        $this->bootDefaultBuilders();
-        $this->bootDefaultInterceptors();
-    }
-
-    /**
-     * @return void
-     */
-    private function bootDefaultBuilders(): void
-    {
-        foreach (self::DEFAULT_BUILDER_DEFINITIONS as $rule => $builder) {
-            $this->builders[$rule] = new $builder($this, $this->table);
-        }
-    }
-
-    /**
-     * @return void
-     */
-    private function bootDefaultInterceptors(): void
-    {
-        foreach (self::DEFAULT_INTERCEPTORS as $interceptor) {
-            $this->interceptors[] = new $interceptor($this, $this->table);
+        foreach (self::DEFAULT_BUILDER_DEFINITIONS as $builder) {
+            $this->builders[] = new $builder($this);
         }
     }
 
     /**
      * @param Readable $file
      * @param RuleInterface $ast
-     * @return ValueObject
-     * @throws \Railt\Io\Exception\ExternalFileException
+     * @return iterable|RecordInterface[]
      */
-    public function build(Readable $file, RuleInterface $ast): ValueObject
+    public function build(Readable $file, RuleInterface $ast): iterable
     {
-        $document = new ValueObject();
-        $document->definitions = [];
+        $context = new Context($file);
 
         foreach ($ast->getChildren() as $child) {
-            $document->definitions[] = $this->reduce($file, $child);
+            if ($result = $this->reduce($context, $child)) {
+                yield $result;
+            }
         }
-
-        return $document;
     }
 
     /**
-     * @param Readable $file
+     * @param ContextInterface $context
      * @param RuleInterface $ast
-     * @return mixed
+     * @return null|RecordInterface
+     */
+    private function reduce(ContextInterface $context, RuleInterface $ast): ?RecordInterface
+    {
+        $process = $this->resolve($context, $ast);
+
+        return $process instanceof \Generator ? $this->run($context, $process) : $process;
+    }
+
+    /**
+     * @param ContextInterface $context
+     * @param RuleInterface $ast
+     * @return mixed|\Traversable|void
      * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function reduce(Readable $file, RuleInterface $ast)
+    private function resolve(ContextInterface $context, RuleInterface $ast)
     {
-        $process = $this->get($file, $ast)->reduce($ast);
-
-        if ($process instanceof \Generator) {
-            return $this->run($file, $process);
+        foreach ($this->builders as $builder) {
+            if ($builder->match($ast)) {
+                return $builder->reduce($context, $ast);
+            }
         }
 
-        return $process;
+        $error = \sprintf('Unrecognized rule %s in (%s)', $ast->getName(), $ast);
+        throw (new InternalException($error))->throwsIn($context->getFile(), $ast->getOffset());
     }
 
     /**
-     * @param Readable $file
+     * @param ContextInterface $ctx
      * @param \Generator $process
-     * @return mixed
+     * @return mixed|null
      */
-    private function run(Readable $file, \Generator $process)
+    private function run(ContextInterface $ctx, \Generator $process)
     {
         while ($process->valid()) {
             $value = $process->current();
 
-            foreach ($this->interceptors as $interceptor) {
-                if ($interceptor->match($value)) {
-                    $value = $interceptor->apply($file, $value);
+            switch (true) {
+                case $value instanceof RuleInterface:
+                    $value = $this->reduce($ctx, $value);
                     break;
-                }
+
+                case $value instanceof TypeNameInterface:
+                    $value = $ctx->create($value);
+                    break;
+
+                case \is_string($value):
+                    $value = $ctx->create(TypeName::fromString($value));
+                    break;
             }
 
             $process->send($value);
         }
 
         return $process->getReturn();
-    }
-
-    /**
-     * @param Readable $file
-     * @param RuleInterface $ast
-     * @return BuilderInterface
-     * @throws \Railt\Io\Exception\ExternalFileException
-     */
-    private function get(Readable $file, RuleInterface $ast): BuilderInterface
-    {
-        $builder = $this->builders[$ast->getName()] ?? null;
-
-        if ($builder === null) {
-            $error = 'Unrecognized AST rule %s';
-            throw (new InternalException(\sprintf($error, $ast->getName())))->throwsIn($file, $ast->getOffset());
-        }
-
-        return $builder;
     }
 }

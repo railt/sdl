@@ -16,10 +16,12 @@ use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Parser\Exception\UnexpectedTokenException;
 use Railt\Parser\Exception\UnrecognizedTokenException;
-use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\SyntaxException;
 use Railt\SDL\Frontend\Builder;
+use Railt\SDL\Frontend\Context\LocalContext;
+use Railt\SDL\Frontend\Context\Store;
 use Railt\SDL\Frontend\Parser;
+use Railt\SDL\Frontend\Record\RecordInterface;
 
 /**
  * Class Frontend
@@ -43,22 +45,19 @@ class Frontend implements LoggerAwareInterface
      */
     public function __construct()
     {
-        $this->parser  = new Parser();
-        $this->builder = new Builder();
+        $this->parser = new Parser();
+        $this->builder = new Builder($this);
     }
 
     /**
      * @param Readable $readable
-     * @return mixed|null
-     * @throws SyntaxException
-     * @throws CompilerException
-     * @throws \LogicException
+     * @return \Traversable|RecordInterface[]
      */
-    public function load(Readable $readable): iterable
+    public function load(Readable $readable): \Traversable
     {
         $ast = $this->parse($readable);
 
-        yield $this->builder->build($readable, $ast);
+        return $this->builder->build($readable, $ast);
     }
 
     /**

@@ -1,0 +1,10 @@
+
+
+%include instructions/import
+%include instructions/namespace
+
+
+Instruction
+  : NamespaceDefinition()
+  | ImportDefinition()
+  ;

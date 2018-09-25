@@ -1,0 +1,24 @@
+
+
+TypeArgumentInvocations
+  : ::T_PARENTHESIS_OPEN::
+      __typeArgumentInvocations()?
+    ::T_PARENTHESIS_CLOSE::
+  ;
+
+__typeArgumentInvocations
+  : TypeArgumentInvocation()+
+  ;
+
+#TypeArgumentInvocation
+  : __typeArgumentInvocationBody()
+    __typeArgumentInvocationDefaultValue()?
+  ;
+
+__typeArgumentInvocationBody
+  : Name() ::T_COLON:: TypeInvocationHeader()
+  ;
+
+__typeArgumentInvocationDefaultValue
+  : ::T_EQUAL:: TypeInvocationHeader()
+  ;

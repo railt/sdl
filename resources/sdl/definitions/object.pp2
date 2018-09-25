@@ -3,7 +3,7 @@
 // Object definition
 //
 
-#ObjectDefinition -> Railt\SDL\Frontend\AST\Definition\ObjectDefinitionNode
+#ObjectDefinition
   : Description()?
     ObjectDefinitionHead()
     ObjectDefinitionBody()?
@@ -15,13 +15,13 @@
   ;
 
 ObjectDefinitionHead
-  : ::T_TYPE:: TypeName()
-    TypeDefinitionImplementations()?
+  : ::T_TYPE:: TypeDefinitionHeader()
+    TypeDefinitionImplements()?
     Directives()?
   ;
 
 ObjectDefinitionBody
   : ::T_BRACE_OPEN::
-      FieldDefinitions()?
+      FieldDefinition()*
     ::T_BRACE_CLOSE::
   ;
