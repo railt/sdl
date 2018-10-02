@@ -21,7 +21,6 @@ use Railt\SDL\Compiler\Dictionary;
 use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
-use Railt\SDL\Frontend\Record\RecordInterface;
 
 /**
  * Class Compiler

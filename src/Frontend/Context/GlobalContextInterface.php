@@ -9,12 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\Context;
 
-use Railt\Io\Readable;
-
 /**
  * Interface GlobalContextInterface
  */
 interface GlobalContextInterface extends ContextInterface
 {
-
 }

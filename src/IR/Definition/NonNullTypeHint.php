@@ -18,6 +18,6 @@ class NonNullTypeHint extends TypeHintValueObject
      * @var array
      */
     protected $attributes = [
-        'type' => 'NON_NULL'
+        'type' => 'NON_NULL',
     ];
 }

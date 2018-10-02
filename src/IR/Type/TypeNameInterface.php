@@ -33,13 +33,13 @@ interface TypeNameInterface extends \IteratorAggregate
      * @param string|iterable|TypeNameInterface|null $prefix
      * @return TypeNameInterface|self
      */
-    public function in($prefix): TypeNameInterface;
+    public function in($prefix): self;
 
     /**
      * @param string|iterable|TypeNameInterface|null $suffix
      * @return TypeNameInterface
      */
-    public function append($suffix): TypeNameInterface;
+    public function append($suffix): self;
 
     /**
      * @return bool
@@ -49,12 +49,12 @@ interface TypeNameInterface extends \IteratorAggregate
     /**
      * @return TypeNameInterface
      */
-    public function lock(): TypeNameInterface;
+    public function lock(): self;
 
     /**
      * @return TypeNameInterface
      */
-    public function unlock(): TypeNameInterface;
+    public function unlock(): self;
 
     /**
      * @return array|string[]

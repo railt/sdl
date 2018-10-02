@@ -18,5 +18,4 @@ use Railt\SDL\IR\ValueObject;
  */
 abstract class DefinitionValueObject extends ValueObject
 {
-
 }

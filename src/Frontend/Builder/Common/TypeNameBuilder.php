@@ -13,10 +13,6 @@ use Railt\Parser\Ast\LeafInterface;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\IR\SymbolTable\TypeNamePrimitive;
-use Railt\SDL\IR\SymbolTable\Value;
-use Railt\SDL\IR\SymbolTable\ValueInterface;
-use Railt\SDL\IR\Type;
 use Railt\SDL\IR\Type\Name;
 use Railt\SDL\IR\Type\TypeNameInterface;
 

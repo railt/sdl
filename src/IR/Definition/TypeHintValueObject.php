@@ -11,9 +11,8 @@ namespace Railt\SDL\IR\Definition;
 
 /**
  * @property DefinitionValueObject|string $of
- * @property-read string $type
+ * @property string $type
  */
 abstract class TypeHintValueObject extends DefinitionValueObject
 {
-
 }

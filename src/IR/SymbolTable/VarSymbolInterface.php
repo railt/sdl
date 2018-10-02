@@ -35,17 +35,17 @@ interface VarSymbolInterface
      * @param null|ValueInterface $value
      * @return VarSymbolInterface
      */
-    public function set(?ValueInterface $value): VarSymbolInterface;
+    public function set(?ValueInterface $value): self;
 
     /**
      * @return VarSymbolInterface
      */
-    public function lock(): VarSymbolInterface;
+    public function lock(): self;
 
     /**
      * @return VarSymbolInterface
      */
-    public function unlock(): VarSymbolInterface;
+    public function unlock(): self;
 
     /**
      * @return bool

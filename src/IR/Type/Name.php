@@ -45,7 +45,7 @@ class Name implements TypeNameInterface, \JsonSerializable, \Countable
     {
         $this->chunks = $chunks;
         $this->global = $global;
-        $this->size = \count($chunks);
+        $this->size   = \count($chunks);
     }
 
     /**
@@ -56,7 +56,7 @@ class Name implements TypeNameInterface, \JsonSerializable, \Countable
     public static function new($name, bool $global = null): TypeNameInterface
     {
         switch (true) {
-            case $name === null || !$name:
+            case $name === null || ! $name:
                 return static::empty((bool)$global);
 
             case $name instanceof TypeNameInterface:
@@ -105,7 +105,7 @@ class Name implements TypeNameInterface, \JsonSerializable, \Countable
      */
     public static function fromString(string $fqn, bool $global = null): TypeNameInterface
     {
-        $name = \ltrim($fqn, self::NAMESPACE_SEPARATOR);
+        $name   = \ltrim($fqn, self::NAMESPACE_SEPARATOR);
         $chunks = \explode(self::NAMESPACE_SEPARATOR, $name);
 
         return new static($chunks, \is_bool($global) ? $global : $name !== $fqn);
@@ -209,7 +209,7 @@ class Name implements TypeNameInterface, \JsonSerializable, \Countable
     {
         return [
             'name' => $this->getFullyQualifiedName(),
-            'root' => $this->global
+            'root' => $this->global,
         ];
     }
 

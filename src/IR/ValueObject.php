@@ -44,7 +44,7 @@ class ValueObject implements
      */
     public function set(string $name, $value): void
     {
-        $this->attributes[$name] = \is_array($value) ? new ValueObject($value) : $value;
+        $this->attributes[$name] = \is_array($value) ? new self($value) : $value;
     }
 
     /**

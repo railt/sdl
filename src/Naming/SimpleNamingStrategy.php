@@ -61,7 +61,7 @@ class SimpleNamingStrategy extends Strategy
      */
     protected function formatArgument(ArgumentInterface $argument): string
     {
-        $value = $argument->getValue();
+        $value  = $argument->getValue();
         $suffix = $value instanceof TypeInvocation ? $this->formatType($value) : $this->formatArgument($value);
 
         return \ucfirst($argument->getName()) . $suffix;
