@@ -47,6 +47,6 @@ class DefinitionBuilder extends BaseBuilder
         /** @var Definition $def */
         $def = yield $rule->first('> #TypeDefinition');
 
-        dd($def);
+        //
     }
 }

@@ -12,7 +12,9 @@ namespace Railt\SDL\Frontend\Builder\Value;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
+use Railt\SDL\IR\SymbolTable\Value;
 use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\Type;
 
 /**
  * Class VariableValueBuilder
@@ -36,7 +38,8 @@ class VariableValueBuilder extends BaseBuilder
     public function reduce(ContextInterface $ctx, RuleInterface $rule): ValueInterface
     {
         $name = $rule->first(':T_VARIABLE')->getValue(1);
+        $value = $ctx->fetch($name)->getValue();
 
-        return $ctx->fetch($name);
+        return $value ?? new Value(null, Type::null());
     }
 }
