@@ -11,14 +11,9 @@ namespace Railt\SDL\Frontend\Builder;
 
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Exception\InvalidArgumentException;
-use Railt\SDL\Frontend\AST\TypeNameNode;
 use Railt\SDL\Frontend\Builder\Definition\Definition;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\Frontend\Matcher;
-use Railt\SDL\Frontend\Parser;
 use Railt\SDL\IR\SymbolTable\ValueInterface;
-use Railt\SDL\IR\Type;
-use Railt\SDL\IR\Type\Name;
 use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
@@ -49,7 +44,7 @@ class TypeDefinitionBuilder extends BaseBuilder
         $definition = new Definition($ctx, $name);
 
         foreach ($rule->find('> #GenericDefinitionArgument') as $argument) {
-            yield from $name = $this->getArgumentName($argument);
+            yield from $name  = $this->getArgumentName($argument);
             yield from $value = $this->getArgumentValue($argument);
 
             $definition->addArgument((string)$name->getReturn(), $value->getReturn());

@@ -16,11 +16,9 @@ use Railt\SDL\Exception\InternalException;
 use Railt\SDL\Frontend;
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\Frontend\Context\GlobalContext;
-use Railt\SDL\Frontend\Context\GlobalContextInterface;
 use Railt\SDL\IR\SymbolTable;
 use Railt\SDL\IR\SymbolTable\ValueInterface;
 use Railt\SDL\IR\SymbolTableInterface;
-use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Class Builder
@@ -36,7 +34,7 @@ class Builder
         Builder\Instruction\VariableBuilder::class,
         Builder\Instruction\VariableReassigmentBuilder::class,
 
-        //
+
         Builder\DefinitionBuilder::class,
 
         // Values
@@ -46,7 +44,7 @@ class Builder
         Builder\Value\ConstantValueBuilder::class,
         Builder\Value\BooleanValueBuilder::class,
 
-        //
+
         Builder\Common\TypeNameBuilder::class,
         Builder\TypeDefinitionBuilder::class,
     ];

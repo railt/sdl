@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\IR;
 
-use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\NotFoundException;
 use Railt\SDL\IR\SymbolTable\VarSymbol;
 use Railt\SDL\IR\SymbolTable\VarSymbolInterface;
@@ -79,7 +78,7 @@ class SymbolTable implements SymbolTableInterface
 
         return [
             'size'      => $this->count(),
-            'variables' => $variables
+            'variables' => $variables,
         ];
     }
 

@@ -10,10 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\AST\Value;
 
 use Railt\Parser\Ast\Rule;
-use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\IR\SymbolTable\Value;
-use Railt\SDL\IR\SymbolTable\ValueInterface;
-use Railt\SDL\IR\Type;
 
 /**
  * Class NullValue

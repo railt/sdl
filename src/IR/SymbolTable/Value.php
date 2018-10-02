@@ -35,7 +35,7 @@ class Value implements ValueInterface
     {
         \assert(\is_scalar($value) || $value instanceof PrimitiveInterface);
 
-        $this->type = $type;
+        $this->type  = $type;
         $this->value = $value;
     }
 

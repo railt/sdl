@@ -49,11 +49,10 @@ class Frontend implements LoggerAwareInterface
      */
     public function __construct()
     {
-        $this->table = new SymbolTable();
+        $this->table   = new SymbolTable();
         $this->parser  = new Parser();
         $this->builder = new Builder($this, $this->table);
     }
-
 
     /**
      * @param Readable $readable

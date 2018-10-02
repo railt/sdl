@@ -26,8 +26,8 @@ class RuntimeTypesTestCase extends TypeSystemTestCase
         $result = [];
 
         foreach (Type::RUNTIME_TYPES as $type) {
-            $result[$type] = [Type::new($type)];
-            $result['ListOf' . $type] = [Type::listOf(Type::new($type))];
+            $result[$type]               = [Type::new($type)];
+            $result['ListOf' . $type]    = [Type::listOf(Type::new($type))];
             $result['NonNullOf' . $type] = [Type::nonNull(Type::new($type))];
         }
 
@@ -63,6 +63,6 @@ class RuntimeTypesTestCase extends TypeSystemTestCase
     {
         $fqn = $type->getName()->getFullyQualifiedName();
 
-        $this->assertEquals($fqn, $type->getName()->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame($fqn, $type->getName()->in(Name::new('Example'))->getFullyQualifiedName());
     }
 }

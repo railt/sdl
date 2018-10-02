@@ -13,9 +13,6 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;
-use Railt\SDL\IR\Value\TypeNameValue;
-use Railt\SDL\IR\SymbolTable\ValueInterface;
-use Railt\SDL\IR\Type\Name;
 
 /**
  * Class NamespaceBuilder

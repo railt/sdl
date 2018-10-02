@@ -18,6 +18,6 @@ class ListTypeHint extends TypeHintValueObject
      * @var array
      */
     protected $attributes = [
-        'type' => 'LIST'
+        'type' => 'LIST',
     ];
 }

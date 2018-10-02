@@ -34,7 +34,7 @@ class TypeInvocationPrimitive implements PrimitiveInterface
      */
     public function __construct(TypeNameInterface $name, ContextInterface $context)
     {
-        $this->name = $name;
+        $this->name    = $name;
         $this->context = $context;
     }
 

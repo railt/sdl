@@ -12,7 +12,6 @@ namespace Railt\SDL\Frontend\Context;
 use Railt\Io\Readable;
 use Railt\SDL\IR\SymbolTable\VarSymbol;
 use Railt\SDL\IR\SymbolTable\VarSymbolInterface;
-use Railt\SDL\IR\SymbolTable\ValueInterface;
 use Railt\SDL\IR\SymbolTableInterface;
 use Railt\SDL\IR\Type\TypeInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;

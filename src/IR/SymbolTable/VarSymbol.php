@@ -132,4 +132,3 @@ class VarSymbol implements VarSymbolInterface
         return \sprintf('<%s:%s> = %s', $this->getName(), $this->getType() ?? '?', $this->value ?? 'Null');
     }
 }
-

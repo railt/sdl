@@ -14,5 +14,4 @@ namespace Railt\SDL\IR\Definition;
  */
 class ArgumentInvocationValueObject extends TypeInvocationValueObject
 {
-
 }

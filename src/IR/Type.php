@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL\IR;
 
+use Railt\SDL\IR\Type\InternalTypes;
 use Railt\SDL\IR\Type\Name;
 use Railt\SDL\IR\Type\TypeConstructors;
-use Railt\SDL\IR\Type\InternalTypes;
 use Railt\SDL\IR\Type\TypeInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;
 
@@ -61,7 +61,7 @@ class Type implements TypeInterface
     protected function __construct($name, TypeInterface $of = null)
     {
         $this->type = Name::new($name);
-        $this->of = $this->resolveTypeOf($this->type, $of);
+        $this->of   = $this->resolveTypeOf($this->type, $of);
     }
 
     /**

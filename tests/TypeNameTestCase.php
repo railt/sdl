@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\Tests\SDL;
 
 use Railt\SDL\IR\Type\Name;
-use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Class TypeNameTestCase
@@ -25,9 +24,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new('Example');
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example')));
         $this->assertTrue($name->is(Name::new('/Example')));
     }
@@ -40,9 +39,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new('/Example');
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example')));
         $this->assertTrue($name->is(Name::new('/Example')));
     }
@@ -55,9 +54,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new('Example/Example');
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example/Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example/Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example/Example')));
         $this->assertTrue($name->is(Name::new('/Example/Example')));
     }
@@ -70,9 +69,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new('/Example/Example');
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example/Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example/Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example/Example')));
         $this->assertTrue($name->is(Name::new('/Example/Example')));
     }
@@ -85,9 +84,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new('');
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('', $name->getName());
-        $this->assertEquals('', $name->getFullyQualifiedName());
-        $this->assertEquals('Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('', $name->getName());
+        $this->assertSame('', $name->getFullyQualifiedName());
+        $this->assertSame('Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('')));
         $this->assertTrue($name->is(Name::new('/')));
     }
@@ -100,9 +99,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new('/');
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('', $name->getName());
-        $this->assertEquals('', $name->getFullyQualifiedName());
-        $this->assertEquals('', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('', $name->getName());
+        $this->assertSame('', $name->getFullyQualifiedName());
+        $this->assertSame('', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::empty()));
         $this->assertTrue($name->is(Name::empty(true)));
     }
@@ -115,9 +114,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new(Name::new('Example'));
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example')));
         $this->assertTrue($name->is(Name::new('/Example')));
     }
@@ -130,9 +129,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new(Name::new('/Example'));
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example')));
         $this->assertTrue($name->is(Name::new('/Example')));
     }
@@ -145,9 +144,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new(['Example', 'Example']);
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example/Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example/Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example/Example')));
         $this->assertTrue($name->is(Name::new('/Example/Example')));
     }
@@ -160,9 +159,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new(['Example', 'Example'], true);
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example/Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example/Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example/Example')));
         $this->assertTrue($name->is(Name::new('/Example/Example')));
     }
@@ -178,9 +177,9 @@ class TypeNameTestCase extends TestCase
             yield 'Example';
         })());
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example/Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example/Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example/Example')));
         $this->assertTrue($name->is(Name::new('/Example/Example')));
     }
@@ -196,9 +195,9 @@ class TypeNameTestCase extends TestCase
             yield 'Example';
         })(), true);
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('Example', $name->getName());
-        $this->assertEquals('Example/Example', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('Example', $name->getName());
+        $this->assertSame('Example/Example', $name->getFullyQualifiedName());
+        $this->assertSame('Example/Example', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('Example/Example')));
         $this->assertTrue($name->is(Name::new('/Example/Example')));
     }
@@ -211,9 +210,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new(42);
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('42', $name->getName());
-        $this->assertEquals('42', $name->getFullyQualifiedName());
-        $this->assertEquals('Example/42', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('42', $name->getName());
+        $this->assertSame('42', $name->getFullyQualifiedName());
+        $this->assertSame('Example/42', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('42')));
         $this->assertTrue($name->is(Name::new('/42')));
     }
@@ -226,9 +225,9 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new(42, true);
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('42', $name->getName());
-        $this->assertEquals('42', $name->getFullyQualifiedName());
-        $this->assertEquals('42', $name->in(Name::new('Example'))->getFullyQualifiedName());
+        $this->assertSame('42', $name->getName());
+        $this->assertSame('42', $name->getFullyQualifiedName());
+        $this->assertSame('42', $name->in(Name::new('Example'))->getFullyQualifiedName());
         $this->assertTrue($name->is(Name::new('42')));
         $this->assertTrue($name->is(Name::new('/42')));
     }
@@ -254,7 +253,8 @@ class TypeNameTestCase extends TestCase
         $this->assertTrue(Name::isValid(null));
         $this->assertTrue(Name::isValid(42));
         $this->assertFalse(Name::isValid(new \stdClass()));
-        $this->assertFalse(Name::isValid(function () {}));
+        $this->assertFalse(Name::isValid(function (): void {
+        }));
     }
 
     /**
@@ -263,10 +263,10 @@ class TypeNameTestCase extends TestCase
     public function testNameIterator(): void
     {
         $chunks = ['A', 'B', 'C'];
-        $name = Name::new('A/B/C');
+        $name   = Name::new('A/B/C');
 
-        $this->assertEquals($chunks, \iterator_to_array($name));
-        $this->assertEquals($chunks, \iterator_to_array($name, false));
+        $this->assertSame($chunks, \iterator_to_array($name));
+        $this->assertSame($chunks, \iterator_to_array($name, false));
     }
 
     /**
@@ -276,21 +276,21 @@ class TypeNameTestCase extends TestCase
     {
         $name = Name::new('A');
 
-        $this->assertEquals($name, $name->lock());
+        $this->assertSame($name, $name->lock());
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('A', (string)$name->in('Prefix'));
+        $this->assertSame('A', (string)$name->in('Prefix'));
 
-        $this->assertEquals($name, $name->lock());
+        $this->assertSame($name, $name->lock());
         $this->assertTrue($name->isGlobal());
-        $this->assertEquals('A/Suffix', (string)$name->append('Suffix'));
+        $this->assertSame('A/Suffix', (string)$name->append('Suffix'));
 
-        $this->assertEquals($name, $name->unlock());
+        $this->assertSame($name, $name->unlock());
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('Prefix/A', (string)$name->in('Prefix'));
+        $this->assertSame('Prefix/A', (string)$name->in('Prefix'));
 
-        $this->assertEquals($name, $name->unlock());
+        $this->assertSame($name, $name->unlock());
         $this->assertFalse($name->isGlobal());
-        $this->assertEquals('A/Suffix', (string)$name->append('Suffix'));
+        $this->assertSame('A/Suffix', (string)$name->append('Suffix'));
     }
 
     /**
@@ -298,7 +298,7 @@ class TypeNameTestCase extends TestCase
      */
     public function testJsonable(): void
     {
-        $this->assertEquals('"Example"', \json_encode(Name::new('/Example')));
+        $this->assertSame('"Example"', \json_encode(Name::new('/Example')));
     }
 
     /**

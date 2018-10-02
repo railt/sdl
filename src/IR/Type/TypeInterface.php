@@ -179,7 +179,7 @@ interface TypeInterface
         self::INPUT_FIELD,
         self::NON_NULL,
         self::LIST,
-        self::ANY
+        self::ANY,
     ];
 
     /**
@@ -219,7 +219,7 @@ interface TypeInterface
     /**
      * @return TypeInterface
      */
-    public function getParent(): TypeInterface;
+    public function getParent(): self;
 
     /**
      * Returns true if the selection type is the one of
@@ -228,7 +228,7 @@ interface TypeInterface
      * @param TypeInterface $type
      * @return bool
      */
-    public function typeOf(TypeInterface $type): bool;
+    public function typeOf(self $type): bool;
 
     /**
      * Returns true if the type is the same as the current type.
@@ -236,7 +236,7 @@ interface TypeInterface
      * @param TypeInterface $type
      * @return bool
      */
-    public function is(TypeInterface $type): bool;
+    public function is(self $type): bool;
 
     /**
      * Returns true in case if the type is builtin.

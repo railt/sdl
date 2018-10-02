@@ -31,10 +31,10 @@ interface ContextInterface extends ContextVariablesInterface, ContextInheritance
      * @param TypeNameInterface $name
      * @return ContextInterface
      */
-    public function create(TypeNameInterface $name): ContextInterface;
+    public function create(TypeNameInterface $name): self;
 
     /**
      * @return ContextInterface
      */
-    public function close(): ContextInterface;
+    public function close(): self;
 }
