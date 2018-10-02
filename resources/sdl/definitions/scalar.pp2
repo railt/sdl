@@ -14,7 +14,7 @@
   ;
 
 ScalarDefinitionBody
-  : ::T_SCALAR:: TypeDefinitionHeader()
+  : ::T_SCALAR:: TypeDefinition()
     TypeDefinitionExtends()?
-    Directives()?
+    Directive()*
 

@@ -11,7 +11,6 @@ namespace Railt\SDL\Frontend\Builder;
 
 use Railt\Io\Readable;
 use Railt\SDL\Frontend\Builder;
-use Railt\SDL\Frontend\Record\RecordInterface;
 
 /**
  * Class BaseBuilder
@@ -34,7 +33,7 @@ abstract class BaseBuilder implements BuilderInterface
 
     /**
      * @param Readable $readable
-     * @return iterable|RecordInterface[]|\Traversable
+     * @return iterable|\Traversable
      */
     protected function load(Readable $readable)
     {

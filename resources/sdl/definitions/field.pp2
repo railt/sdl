@@ -2,6 +2,8 @@
 
 #FieldDefinition
   : Description()?
-    Name() ArgumentDefinitions()? ::T_COLON:: TypeHint()
-    Directives()?
+    ConstantName() ArgumentDefinitions()? ::T_COLON:: TypeHint()
+    ::T_COMMA::?
+    Directive()*
+    ::T_COMMA::?
   ;

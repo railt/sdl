@@ -1,0 +1,8 @@
+
+
+//
+// The list of values
+//
+#ListValue
+  : ::T_BRACKET_OPEN:: Value()* ::T_BRACKET_CLOSE::
+  ;

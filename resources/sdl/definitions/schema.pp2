@@ -15,8 +15,8 @@
   ;
 
 SchemaDefinitionHead
-  : ::T_SCHEMA:: TypeDefinitionHeader()?
-    Directives()?
+  : ::T_SCHEMA:: TypeDefinition()?
+    Directive()*
   ;
 
 SchemaDefinitionBody
@@ -30,5 +30,8 @@ SchemaDefinitionBody
 //
 
 #SchemaFieldDefinition
-  : Name() ::T_COLON:: TypeHint()
+  : ConstantName() ::T_COLON:: TypeHint()
+    ::T_COMMA::?
+    Directive()*
+    ::T_COMMA::?
   ;

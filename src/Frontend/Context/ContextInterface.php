@@ -10,31 +10,31 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\Context;
 
 use Railt\Io\Readable;
-use Railt\SDL\Frontend\Type\TypeNameInterface;
+use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
- * Interface ContextInterface
+ * Interface LocalContextInterface
  */
-interface ContextInterface
+interface ContextInterface extends ContextVariablesInterface, ContextInheritanceInterface
 {
+    /**
+     * @return TypeNameInterface
+     */
+    public function getName(): TypeNameInterface;
+
     /**
      * @return Readable
      */
     public function getFile(): Readable;
 
     /**
-     * @return TypeNameInterface
-     */
-    public function current(): TypeNameInterface;
-
-    /**
      * @param TypeNameInterface $name
-     * @return TypeNameInterface
+     * @return ContextInterface
      */
-    public function create(TypeNameInterface $name): TypeNameInterface;
+    public function create(TypeNameInterface $name): ContextInterface;
 
     /**
-     * @return TypeNameInterface
+     * @return ContextInterface
      */
-    public function close(): TypeNameInterface;
+    public function close(): ContextInterface;
 }

@@ -11,8 +11,6 @@ namespace Railt\SDL\Frontend\Builder;
 
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\Frontend\Record\RecordInterface;
-use Railt\SDL\Frontend\Type\TypeNameInterface;
 
 /**
  * Interface BuilderInterface
@@ -28,7 +26,7 @@ interface BuilderInterface
     /**
      * @param ContextInterface $ctx
      * @param RuleInterface $rule
-     * @return RecordInterface|TypeNameInterface|\Generator|void
+     * @return mixed
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule);
 }

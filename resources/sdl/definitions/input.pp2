@@ -15,8 +15,8 @@
   ;
 
 InputDefinitionHead
-  : ::T_INPUT:: TypeDefinitionHeader()
-    Directives()?
+  : ::T_INPUT:: TypeDefinition()
+    Directive()*
   ;
 
 InputDefinitionBody
@@ -34,11 +34,13 @@ InputDefinitionBody
   : Description()?
     __inputFieldDefinitionBody()
     __inputFieldDefinitionDefaultValue()?
-    Directives()?
+    ::T_COMMA::?
+    Directive()*
+    ::T_COMMA::?
   ;
 
 __inputFieldDefinitionBody
-  : Name() ::T_COLON:: TypeHint()
+  : ConstantName() ::T_COLON:: TypeHint()
   ;
 
 __inputFieldDefinitionDefaultValue

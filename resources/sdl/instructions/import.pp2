@@ -1,5 +1,5 @@
 
 
 #ImportDefinition
-  : ::T_IMPORT:: StringValue()
+  : ::T_IMPORT:: (Value() | VariableName())
   ;

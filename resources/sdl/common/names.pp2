@@ -20,10 +20,19 @@ NameWithReserved
 //
 NameExceptValues
   : NameWithoutReserved()
+  // Instructions
   | <T_NAMESPACE>
+  | <T_IMPORT>
+  | <T_LET>
+  | <T_CONST>
+  // Common
+  | <T_EXTEND>
   | <T_EXTENDS>
   | <T_IMPLEMENTS>
   | <T_ON>
+  // GraphQL Partitions
+  | <T_FRAGMENT>
+  // SDL Definitions
   | <T_TYPE>
   | <T_ENUM>
   | <T_UNION>
@@ -33,8 +42,6 @@ NameExceptValues
   | <T_SCALAR>
   | <T_DIRECTIVE>
   | <T_INPUT>
-  | <T_EXTEND>
-  | <T_FRAGMENT>
   ;
 
 
@@ -43,29 +50,25 @@ NameExceptValues
 // which object, function, or variable a call refers to without
 // regard to the context of the call.
 //
-#TypeName -> Railt\SDL\Frontend\AST\TypeNameNode
-  : AtRoot()? NameWithReserved()
+#TypeName
+  : __typeNameAtRoot()? NameWithReserved()
     (::T_NAMESPACE_SEPARATOR:: NameWithReserved())*
   ;
 
-#AtRoot
+__typeNameAtRoot
   : ::T_NAMESPACE_SEPARATOR::
+    #AtRoot
   ;
 
+//
+#VariableName
+  : <T_VARIABLE>
+  ;
 
 //
 // An auxiliary name, which is only available for
 // fields, arguments and etc. dependencies of type definitions.
 //
-#Name
-  : NameWithReserved()
-  ;
-
-
-//
-// An auxiliary name available for constant value fields,
-// such as Enum values.
-//
-#ValueName
-  : NameExceptValues()
+ConstantName
+  : ConstantValue()
   ;

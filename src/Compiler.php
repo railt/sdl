@@ -14,14 +14,13 @@ use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Railt\Io\File;
 use Railt\Io\Readable;
-use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Contracts\Document;
+use Railt\Reflection\Contracts\Document as DocumentInterface;
 use Railt\Reflection\Reflection;
 use Railt\SDL\Compiler\Dictionary;
 use Railt\SDL\Compiler\Store;
 use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
-use Railt\SDL\Frontend\Context\LocalContext;
 use Railt\SDL\Frontend\Record\RecordInterface;
 
 /**
@@ -59,10 +58,10 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      */
     public function __construct(LoggerInterface $logger = null)
     {
-        $this->store = new Store();
-        $this->front = new Frontend();
+        $this->store      = new Store();
+        $this->front      = new Frontend();
         $this->dictionary = new Dictionary($this);
-        $this->back = new Backend($this->front, new Reflection($this->dictionary));
+        $this->back       = new Backend($this->front, new Reflection($this->dictionary));
 
         if ($logger) {
             $this->setLogger($logger);
@@ -109,6 +108,8 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
      * @param Readable $readable
      * @param iterable $records
      * @return Document
+     * @throws CompilerException
+     * @throws InternalException
      * @throws \Railt\Io\Exception\NotReadableException
      */
     private function generate(Readable $readable, iterable $records): Document
@@ -120,7 +121,9 @@ class Compiler implements LoggerAwareInterface, CompilerInterface
 
     /**
      * @param Readable $readable
-     * @return iterable|RecordInterface[]
+     * @return iterable
+     * @throws CompilerException
+     * @throws InternalException
      * @throws \Railt\Io\Exception\NotReadableException
      */
     private function ir(Readable $readable): iterable

@@ -10,38 +10,152 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\Context;
 
 use Railt\Io\Readable;
-use Railt\SDL\Frontend\Type\TypeName;
-use Railt\SDL\Frontend\Type\TypeNameInterface;
+use Railt\SDL\IR\SymbolTable\VarSymbol;
+use Railt\SDL\IR\SymbolTable\VarSymbolInterface;
+use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\SymbolTableInterface;
+use Railt\SDL\IR\Type\TypeInterface;
+use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Class Context
  */
-class Context implements ContextInterface, \Countable
+class Context implements ContextInterface
 {
+    /**
+     * @var ContextInterface
+     */
+    protected $parent;
+
     /**
      * @var TypeNameInterface
      */
-    private $current;
+    protected $name;
 
     /**
-     * @var \SplStack|TypeNameInterface[]
+     * @var SymbolTableInterface
      */
-    private $stack;
+    protected $table;
 
     /**
-     * @var Readable
+     * @var array|int[]
      */
-    private $file;
+    protected $names = [];
 
     /**
      * Context constructor.
-     * @param Readable $file
+     * @param SymbolTableInterface $table
+     * @param ContextInterface $parent
+     * @param TypeNameInterface $name
      */
-    public function __construct(Readable $file)
+    public function __construct(ContextInterface $parent, SymbolTableInterface $table, TypeNameInterface $name)
     {
-        $this->file = $file;
-        $this->stack = new \SplStack();
-        $this->current = TypeName::global();
+        $this->name   = $name;
+        $this->table  = $table;
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return VarSymbolInterface[]|\Traversable<int,VarSymbolInterface>
+     */
+    public function getIterator(): \Traversable
+    {
+        foreach ($this->names as $name => $id) {
+            yield $id => $this->table->fetch($id);
+        }
+
+        yield from $this->parent;
+    }
+
+    /**
+     * @return TypeNameInterface
+     */
+    public function getName(): TypeNameInterface
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param TypeNameInterface $name
+     * @return ContextInterface
+     */
+    public function create(TypeNameInterface $name): ContextInterface
+    {
+        return new self($this, $this->table, $name);
+    }
+
+    /**
+     * @return ContextInterface
+     */
+    public function close(): ContextInterface
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param string $var
+     * @return VarSymbolInterface
+     */
+    public function fetch(string $var): VarSymbolInterface
+    {
+        if ($this->has($var)) {
+            return $this->table->fetch($this->addr($var));
+        }
+
+        return $this->parent->fetch($var);
+    }
+
+    /**
+     * @param string $var
+     * @return bool
+     */
+    protected function has(string $var): bool
+    {
+        return isset($this->names[$var]) || \array_key_exists($var, $this->names);
+    }
+
+    /**
+     * @param string $var
+     * @return int
+     */
+    protected function addr(string $var): int
+    {
+        return $this->names[$var];
+    }
+
+    /**
+     * @param string $var
+     * @param TypeInterface|null $type
+     * @return VarSymbolInterface
+     */
+    public function declare(string $var, TypeInterface $type = null): VarSymbolInterface
+    {
+        $record = new VarSymbol($var, $type);
+
+        $this->names[$var] = $this->table->declare($record);
+
+        return $record;
+    }
+
+    /**
+     * @return ContextInterface
+     */
+    public function getParent(): ContextInterface
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return [
+            'name'  => $this->name->getFullyQualifiedName(),
+            'file'  => $this->getFile()->getPathname(),
+            'scope' => $this->names,
+            'table' => $this->table,
+        ];
     }
 
     /**
@@ -49,47 +163,6 @@ class Context implements ContextInterface, \Countable
      */
     public function getFile(): Readable
     {
-        return $this->file;
-    }
-
-    /**
-     * @return TypeNameInterface
-     */
-    public function current(): TypeNameInterface
-    {
-        return $this->current;
-    }
-
-    /**
-     * @return int
-     */
-    public function count(): int
-    {
-        return $this->stack->count();
-    }
-
-    /**
-     * @param TypeNameInterface $name
-     * @return TypeNameInterface
-     */
-    public function create(TypeNameInterface $name): TypeNameInterface
-    {
-        $this->current = $name->in($this->current);
-
-        $this->stack->push($this->current);
-
-        return $this->current;
-    }
-
-    /**
-     * @return TypeNameInterface
-     */
-    public function close(): TypeNameInterface
-    {
-        $current = $this->stack->pop();
-
-        $this->current = $this->stack->count() ? $this->stack->top() : TypeName::global();
-
-        return $current;
+        return $this->parent->getFile();
     }
 }

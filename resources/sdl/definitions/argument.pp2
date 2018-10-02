@@ -13,11 +13,13 @@ __argumentDefinitions
   : Description()?
     __argumentDefinitionBody()
     __argumentDefinitionDefaultValue()?
-    Directives()?
+    ::T_COMMA::?
+    Directive()*
+    ::T_COMMA::?
   ;
 
 __argumentDefinitionBody
-  : Name() ::T_COLON:: TypeHint()
+  : ConstantName() ::T_COLON:: TypeHint()
   ;
 
 __argumentDefinitionDefaultValue

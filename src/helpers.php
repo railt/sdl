@@ -7,141 +7,59 @@
  */
 declare(strict_types=1);
 
-if (! \function_exists('\\sdl')) {
+namespace Railt\SDL;
+
+use Railt\Io\Exception\NotReadableException;
+use Railt\Io\File;
+use Railt\Reflection\Contracts\Document;
+use Railt\SDL\Exception\CompilerException;
+
+
+if (! \function_exists('sdl')) {
     /**
      * @param string $fileOrSources
      * @param bool $filename
-     * @return \Railt\Reflection\Contracts\Document
-     * @throws \Railt\Io\Exception\ExternalFileException
-     * @throws \Railt\Io\Exception\NotReadableException
-     * @throws \Railt\Reflection\Exception\TypeConflictException
+     * @return Document
+     * @throws CompilerException
+     * @throws NotReadableException
      */
-    function sdl(string $fileOrSources, bool $filename = false): \Railt\Reflection\Contracts\Document
+    function sdl(string $fileOrSources, bool $filename = false): Document
     {
-        $file = $filename ? \Railt\Io\File::fromPathname($fileOrSources) : \Railt\Io\File::fromSources($fileOrSources);
+        $file = $filename ? File::fromPathname($fileOrSources) : File::fromSources($fileOrSources);
 
-        return (new \Railt\SDL\Compiler())->compile($file);
+        return (new Compiler())->compile($file);
     }
 }
 
-
-if (! \function_exists('\\iterator_to_generator')) {
+if (! \function_exists('object_to_string')) {
     /**
-     * @param iterable $iterator
-     * @return Generator
+     * @param object $object
+     * @return string
      */
-    function iterator_to_generator(iterable $iterator): \Generator
+    function object_to_string($object): string
     {
-        yield from $iterator;
-    }
-}
+        \assert(\is_object($object));
 
+        $hash = \function_exists('\\spl_object_id')
+            ? \spl_object_id($object)
+            : \spl_object_hash($object);
 
-if (! \function_exists('\\iterator_map')) {
-    /**
-     * @param iterable $iterator
-     * @param Closure $map
-     * @return Generator
-     */
-    function iterator_map(iterable $iterator, \Closure $map): \Generator
-    {
-        $generator = \iterator_to_generator($iterator);
-
-        while ($generator->valid()) {
-            $generator->send(yield $generator->key() => $map($generator->current()));
+        if (is_renderable($object)) {
+            return \sprintf('%s(%s)#%s', \get_class($object), (string)$object, $hash);
         }
+
+        return \sprintf('%s#%s', \get_class($object), $hash);
     }
 }
 
 
-if (! \function_exists('\\iterator_reverse_map')) {
+if (! \function_exists('is_renderable')) {
     /**
-     * @param iterable $iterator
-     * @param Closure $map
-     * @return Generator
+     * @param mixed $value
+     * @return bool
      */
-    function iterator_reverse_map(iterable $iterator, \Closure $map): \Generator
+    function is_renderable($value): bool
     {
-        $generator = \iterator_to_generator($iterator);
-
-        while ($generator->valid()) {
-            $generator->send($map(yield $generator->key() => $generator->current()));
-        }
-    }
-}
-
-
-if (! \function_exists('\\iterator_each')) {
-    /**
-     * @param iterable $iterator
-     * @param Closure $each
-     * @return Generator
-     */
-    function iterator_each(iterable $iterator, \Closure $each): \Generator
-    {
-        $generator = \iterator_to_generator($iterator);
-
-        while ($generator->valid()) {
-            $each($value = $generator->current());
-
-            $generator->send(yield $generator->key() => $value);
-        }
-    }
-}
-
-
-if (! \function_exists('\\iterator_reverse_each')) {
-    /**
-     * @param iterable $iterator
-     * @param Closure $each
-     * @return Generator
-     */
-    function iterator_reverse_each(iterable $iterator, \Closure $each): \Generator
-    {
-        $generator = \iterator_to_generator($iterator);
-
-        while ($generator->valid()) {
-            $each($result = yield $generator->key() => $generator->current());
-
-            $generator->send($result);
-        }
-    }
-}
-
-
-if (! \function_exists('\\iterator_filter')) {
-    /**
-     * @param iterable $iterator
-     * @param Closure $filter
-     * @return Generator
-     */
-    function iterator_reverse_filter(iterable $iterator, \Closure $filter): \Generator
-    {
-        $generator = \iterator_to_generator($iterator);
-
-        while ($generator->valid()) {
-            $next = $filter($result = $generator->current());
-
-            $generator->send($next ? (yield $generator->key() => $result) : null);
-        }
-    }
-}
-
-
-if (! \function_exists('\\iterator_reverse_filter')) {
-    /**
-     * @param iterable $iterator
-     * @param Closure $filter
-     * @return Generator
-     */
-    function iterator_reverse_filter(iterable $iterator, \Closure $filter): \Generator
-    {
-        $generator = \iterator_to_generator($iterator);
-
-        while ($generator->valid()) {
-            $next = $filter($result = yield $generator->key() => $generator->current());
-
-            $generator->send($next ? $result : null);
-        }
+        return \is_scalar($value) || (\is_object($value) && \method_exists($value, '__toString'));
     }
 }

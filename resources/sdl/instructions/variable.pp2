@@ -1,0 +1,38 @@
+
+
+//
+// Reassigment
+//
+
+#VariableReassigment
+  : __variableDefinitionBody()
+  ;
+
+//
+// Definition
+//
+
+#VariableDefinition
+  : ::T_LET:: __variableDefinitionBody()
+  ;
+
+//
+// Constant
+//
+
+#ConstantDefinition
+  : ::T_CONST:: __variableDefinitionBody()
+  ;
+
+//
+// Common
+//
+
+__variableDefinitionBody
+  : (VariableName() ::T_EQUAL::)+ VariableValue()
+  ;
+
+#VariableValue
+  : VariableName()
+  | Value()
+  ;

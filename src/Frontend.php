@@ -18,10 +18,9 @@ use Railt\Parser\Exception\UnexpectedTokenException;
 use Railt\Parser\Exception\UnrecognizedTokenException;
 use Railt\SDL\Exception\SyntaxException;
 use Railt\SDL\Frontend\Builder;
-use Railt\SDL\Frontend\Context\LocalContext;
-use Railt\SDL\Frontend\Context\Store;
 use Railt\SDL\Frontend\Parser;
-use Railt\SDL\Frontend\Record\RecordInterface;
+use Railt\SDL\IR\SymbolTable;
+use Railt\SDL\IR\SymbolTableInterface;
 
 /**
  * Class Frontend
@@ -41,23 +40,30 @@ class Frontend implements LoggerAwareInterface
     private $builder;
 
     /**
+     * @var SymbolTableInterface
+     */
+    private $table;
+
+    /**
      * Frontend constructor.
      */
     public function __construct()
     {
-        $this->parser = new Parser();
-        $this->builder = new Builder($this);
+        $this->table = new SymbolTable();
+        $this->parser  = new Parser();
+        $this->builder = new Builder($this, $this->table);
     }
+
 
     /**
      * @param Readable $readable
-     * @return \Traversable|RecordInterface[]
+     * @return iterable
+     * @throws SyntaxException
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function load(Readable $readable): \Traversable
+    public function load(Readable $readable)
     {
-        $ast = $this->parse($readable);
-
-        return $this->builder->build($readable, $ast);
+        return $this->builder->build($readable, $this->parse($readable));
     }
 
     /**

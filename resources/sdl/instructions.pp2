@@ -2,9 +2,13 @@
 
 %include instructions/import
 %include instructions/namespace
+%include instructions/variable
 
 
 Instruction
   : NamespaceDefinition()
   | ImportDefinition()
+  | ConstantDefinition()
+  | VariableDefinition()
+  | VariableReassigment()
   ;

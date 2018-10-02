@@ -15,9 +15,9 @@
   ;
 
 ObjectDefinitionHead
-  : ::T_TYPE:: TypeDefinitionHeader()
+  : ::T_TYPE:: TypeDefinition()
     TypeDefinitionImplements()?
-    Directives()?
+    Directive()*
   ;
 
 ObjectDefinitionBody

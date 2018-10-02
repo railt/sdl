@@ -11,18 +11,16 @@ namespace Railt\SDL\Frontend;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
+use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
 use Railt\SDL\Frontend;
-use Railt\SDL\Frontend\Builder\BuilderInterface;
-use Railt\SDL\Frontend\Builder\DefinitionBuilder;
-use Railt\SDL\Frontend\Builder\ImportBuilder;
-use Railt\SDL\Frontend\Builder\NamespaceBuilder;
-use Railt\SDL\Frontend\Context\Context;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\Frontend\Record\RecordInterface;
-use Railt\SDL\Frontend\Record\Store;
-use Railt\SDL\Frontend\Type\TypeName;
-use Railt\SDL\Frontend\Type\TypeNameInterface;
+use Railt\SDL\Frontend\Context\GlobalContext;
+use Railt\SDL\Frontend\Context\GlobalContextInterface;
+use Railt\SDL\IR\SymbolTable;
+use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\SymbolTableInterface;
+use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Class Builder
@@ -30,23 +28,33 @@ use Railt\SDL\Frontend\Type\TypeNameInterface;
 class Builder
 {
     /**
-     * @var string[]|BuilderInterface[]
+     * @var string[]|Builder\BuilderInterface[]
      */
     private const DEFAULT_BUILDER_DEFINITIONS = [
-        NamespaceBuilder::class,
-        ImportBuilder::class,
-        DefinitionBuilder::class,
+        Builder\Instruction\ImportBuilder::class,
+        Builder\Instruction\NamespaceBuilder::class,
+        Builder\Instruction\VariableBuilder::class,
+        Builder\Instruction\VariableReassigmentBuilder::class,
+
+        //
+        Builder\DefinitionBuilder::class,
+
+        // Values
+        Builder\Value\ScalarValueBuilder::class,
+        Builder\Value\VariableValueBuilder::class,
+        Builder\Value\TypeInvocationBuilder::class,
+        Builder\Value\ConstantValueBuilder::class,
+        Builder\Value\BooleanValueBuilder::class,
+
+        //
+        Builder\Common\TypeNameBuilder::class,
+        Builder\TypeDefinitionBuilder::class,
     ];
 
     /**
-     * @var array|BuilderInterface[]
+     * @var array|Builder\BuilderInterface[]
      */
     private $builders = [];
-
-    /**
-     * @var Store
-     */
-    private $store;
 
     /**
      * @var Frontend
@@ -54,23 +62,20 @@ class Builder
     private $frontend;
 
     /**
-     * Builder constructor.
-     * @param Frontend $frontend
+     * @var SymbolTableInterface
      */
-    public function __construct(Frontend $frontend)
-    {
-        $this->frontend = $frontend;
-        $this->store = new Store();
-        $this->bootDefaults();
-    }
+    private $table;
 
     /**
-     * @param Readable $readable
-     * @return RecordInterface[]|\Traversable
+     * Builder constructor.
+     * @param Frontend $frontend
+     * @param SymbolTable $table
      */
-    public function load(Readable $readable): iterable
+    public function __construct(Frontend $frontend, SymbolTable $table)
     {
-        return $this->frontend->load($readable);
+        $this->table    = $table;
+        $this->frontend = $frontend;
+        $this->bootDefaults();
     }
 
     /**
@@ -84,31 +89,70 @@ class Builder
     }
 
     /**
-     * @param Readable $file
-     * @param RuleInterface $ast
-     * @return iterable|RecordInterface[]
+     * @param Readable $readable
+     * @return \Traversable
+     * @throws \Railt\Io\Exception\ExternalFileException
+     * @throws \Railt\SDL\Exception\SyntaxException
      */
-    public function build(Readable $file, RuleInterface $ast): iterable
+    public function load(Readable $readable): iterable
     {
-        $context = new Context($file);
+        return $this->frontend->load($readable);
+    }
 
-        foreach ($ast->getChildren() as $child) {
-            if ($result = $this->reduce($context, $child)) {
+    /**
+     * @param Readable $file
+     * @param iterable $ast
+     * @return iterable
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    public function build(Readable $file, iterable $ast): iterable
+    {
+        $context = new GlobalContext($file, $this->table);
+
+        foreach ($ast as $child) {
+            if ($this->filter([$context, $result] = $this->reduce($context, $child))) {
                 yield $result;
             }
         }
+
+
+        echo \str_repeat('=', 60) . "\n";
+        echo \sprintf('| %5s | %-48s |', 'ID', 'VARIABLE') . "\n";
+        echo \str_repeat('-', 60) . "\n";
+        foreach ($this->table as $id => $var) {
+            echo \sprintf('| %5d | %-48s |', $id, $var) . "\n";
+        }
+        echo \str_repeat('=', 60) . "\n";
+    }
+
+    /**
+     * @param mixed $result
+     * @return bool
+     */
+    private function filter($result): bool
+    {
+        return false;
     }
 
     /**
      * @param ContextInterface $context
      * @param RuleInterface $ast
-     * @return null|RecordInterface
+     * @return array|iterable<int,ContextInterface|mixed>
+     * @throws \Railt\Io\Exception\ExternalFileException
      */
-    private function reduce(ContextInterface $context, RuleInterface $ast): ?RecordInterface
+    private function reduce(ContextInterface $context, RuleInterface $ast): array
     {
-        $process = $this->resolve($context, $ast);
+        try {
+            $process = $this->resolve($context, $ast);
 
-        return $process instanceof \Generator ? $this->run($context, $process) : $process;
+            if ($process instanceof \Generator) {
+                return $this->run($context, $process);
+            }
+
+            return [$context, $process];
+        } catch (CompilerException $e) {
+            throw $e->throwsIn($context->getFile(), $ast->getOffset());
+        }
     }
 
     /**
@@ -132,30 +176,38 @@ class Builder
     /**
      * @param ContextInterface $ctx
      * @param \Generator $process
-     * @return mixed|null
+     * @return array|iterable<int, ContextInterface|mixed>
      */
-    private function run(ContextInterface $ctx, \Generator $process)
+    private function run(ContextInterface $ctx, \Generator $process): array
     {
         while ($process->valid()) {
-            $value = $process->current();
+            try {
+                $value = $process->current();
 
-            switch (true) {
-                case $value instanceof RuleInterface:
-                    $value = $this->reduce($ctx, $value);
-                    break;
+                switch (true) {
+                    case $value instanceof ContextInterface:
+                        $ctx = $value;
+                        break;
 
-                case $value instanceof TypeNameInterface:
-                    $value = $ctx->create($value);
-                    break;
+                    case $value instanceof RuleInterface:
+                        [$ctx, $value] = $this->reduce($ctx, $value);
+                        break;
 
-                case \is_string($value):
-                    $value = $ctx->create(TypeName::fromString($value));
-                    break;
+                    case $value instanceof ValueInterface:
+                        $value = $ctx->declare($process->key(), $value);
+                        break;
+
+                    case \is_string($value):
+                        $value = $ctx->fetch($value);
+                        break;
+                }
+
+                $process->send($value);
+            } catch (\Throwable $e) {
+                $process->throw($e);
             }
-
-            $process->send($value);
         }
 
-        return $process->getReturn();
+        return [$ctx, $process->getReturn()];
     }
 }

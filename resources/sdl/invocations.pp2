@@ -2,14 +2,56 @@
 
 %include invocations/argument
 %include invocations/directive
+
+%include invocations/boolean
+%include invocations/number
+%include invocations/string
+%include invocations/null
 %include invocations/input
-%include invocations/type-argument
-%include invocations/values
+%include invocations/list
+%include invocations/constant
+
+
+Value
+  : BooleanValue()
+  | NullValue()
+  | NumberValue()
+  | StringValue()
+  | InputValue()
+  | ListValue()
+  ;
 
 
 //
-// Type invocation header
+// Invocation
 //
-#TypeInvocationHeader
-  : TypeName() TypeArgumentInvocations()?
+
+#TypeInvocation
+  : GenericInvocationName() __genericInvocationArguments()?
+  ;
+
+#GenericInvocationName
+  : TypeName()
+  | VariableName()
+  ;
+
+__genericInvocationArguments
+  : ::T_ANGLE_OPEN::
+     GenericInvocationArgument()*
+   ::T_ANGLE_CLOSE::
+ ;
+
+GenericInvocationArgument
+  : GenericInvocationArgumentName() ::T_COLON:: GenericInvocationArgumentValue()
+    ::T_COMMA::?
+  ;
+
+#GenericInvocationArgumentName
+  : ConstantName()
+  | VariableName()
+  ;
+
+#GenericInvocationArgumentValue
+  : TypeInvocation()
+  | VariableName()
   ;

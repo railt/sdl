@@ -1,0 +1,7 @@
+
+
+%include common/description
+%include common/extends
+%include common/hint
+%include common/implements
+%include common/names

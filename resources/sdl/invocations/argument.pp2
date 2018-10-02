@@ -1,14 +1,14 @@
 
 
-ArgumentInvocations
+ArgumentValues
   : ::T_PARENTHESIS_OPEN::
-      ArgumentInvocation()*
+      ArgumentValue()*
     ::T_PARENTHESIS_CLOSE::
   ;
 
 //
 // Argument value
 //
-#ArgumentInvocation
-  : Name() ::T_COLON:: Value()
+#ArgumentValue
+  : ConstantName() ::T_COLON:: Value() ::T_COMMA::?
   ;

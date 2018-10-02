@@ -10,15 +10,7 @@
 %include definitions/object
 %include definitions/scalar
 %include definitions/schema
-%include definitions/type-argument
 %include definitions/union
-
-//
-// Type definition header
-//
-#TypeDefinitionHeader
-  : TypeName() TypeArgumentDefinitions()?
-  ;
 
 
 Definition
@@ -32,7 +24,6 @@ Definition
     | UnionDefinition()
     ;
 
-
 Extension
     : EnumExtension()
     | InputExtension()
@@ -43,3 +34,36 @@ Extension
     | UnionExtension()
     ;
 
+
+//
+// Type definition header
+//
+
+#TypeDefinition
+  : TypeName()
+    __genericDefinitionArguments()?
+  ;
+
+__genericDefinitionArguments
+  : ::T_ANGLE_OPEN::
+      GenericDefinitionArgument()*
+    ::T_ANGLE_CLOSE::
+  ;
+
+#GenericDefinitionArgument
+  : GenericDefinitionArgumentName() ::T_COLON:: GenericDefinitionArgumentValue()
+    GenericDefinitionArgumentDefaultValue()?
+    ::T_COMMA::?
+  ;
+
+#GenericDefinitionArgumentName
+  : ConstantName()
+  ;
+
+#GenericDefinitionArgumentValue
+  : TypeName()
+  ;
+
+#GenericDefinitionArgumentDefaultValue
+  : ::T_EQUAL:: TypeInvocation()
+  ;

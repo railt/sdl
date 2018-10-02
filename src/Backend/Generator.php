@@ -14,8 +14,6 @@ use Psr\Log\LoggerAwareTrait;
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Reflection;
 use Railt\Reflection\Document;
-use Railt\SDL\Frontend\Context\LocalContext;
-use Railt\SDL\Frontend\Record\RecordInterface;
 
 /**
  * Class Generator
@@ -47,10 +45,10 @@ class Generator implements LoggerAwareInterface
     {
         foreach ($records as $record) {
             echo __FILE__ . ':' . __LINE__ . "\n";
-            echo \json_encode($record, \JSON_PRETTY_PRINT);
+            echo \get_class($record) . ' => ' . \json_encode($record, \JSON_PRETTY_PRINT);
         }
 
-        die;
+        //die;
 
         $document = new Document($this->reflection, $file);
 

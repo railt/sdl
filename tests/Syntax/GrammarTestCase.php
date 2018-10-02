@@ -9,10 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Syntax;
 
-use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Parser\Exception\UnexpectedTokenException;
-use Railt\SDL\Compiler\Parser;
+use Railt\SDL\Frontend\Parser;
 use Railt\Tests\SDL\TestCase;
 
 /**
@@ -23,6 +22,7 @@ class GrammarTestCase extends TestCase
     /**
      * @return array
      * @throws \Railt\Io\Exception\NotReadableException
+     * @throws \InvalidArgumentException
      */
     public function dataProvider(): array
     {

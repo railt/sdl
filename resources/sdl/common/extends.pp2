@@ -3,5 +3,5 @@
 // Extends
 //
 #TypeDefinitionExtends
-  : ::T_EXTENDS:: TypeDefinitionHeader()
+  : ::T_EXTENDS:: TypeInvocation()
   ;

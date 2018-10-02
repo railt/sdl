@@ -29,7 +29,7 @@
 DocumentHead
   : (
       Instruction() |
-      DirectiveInvocation()
+      Directive()
     )*
   ;
 
@@ -41,11 +41,8 @@ DocumentBody
     )*
   ;
 
+%include common
 %include definitions
 %include invocations
 %include instructions
 
-%include common/names
-%include common/extends
-%include common/implements
-%include common/type-hint

@@ -1,6 +1,6 @@
 //
 // Input value
 //
-#InputInvocation
-  : ::T_BRACE_OPEN:: ArgumentInvocation()* ::T_BRACE_CLOSE::
+#InputValue
+  : ::T_BRACE_OPEN:: ArgumentValue()* ::T_BRACE_CLOSE::
   ;

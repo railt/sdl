@@ -10,7 +10,7 @@
   ;
 
 DirectiveDefinitionHead
-  : ::T_DIRECTIVE:: ::T_DIRECTIVE_AT:: TypeDefinitionHeader()
+  : ::T_DIRECTIVE:: ::T_DIRECTIVE_AT:: TypeDefinition()
     ArgumentDefinitions()?
   ;
 
@@ -29,5 +29,5 @@ DirectiveDefinitionBody
   ;
 
 #DirectiveLocation
-  : ValueName()
+  : ConstantName()
   ;

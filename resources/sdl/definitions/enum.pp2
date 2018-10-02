@@ -15,8 +15,8 @@
   ;
 
 EnumDefinitionHead
-  : ::T_ENUM:: TypeDefinitionHeader()
-    Directives()?
+  : ::T_ENUM:: TypeDefinition()
+    Directive()*
   ;
 
 EnumDefinitionBody
@@ -32,8 +32,10 @@ EnumDefinitionBody
 
 #EnumValueDefinition
   : Description()?
-    ValueName() __enumDefinitionValue()?
-    Directives()?
+    ConstantName() __enumDefinitionValue()?
+    ::T_COMMA::?
+    Directive()*
+    ::T_COMMA::?
   ;
 
 __enumDefinitionValue

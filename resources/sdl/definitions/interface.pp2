@@ -15,9 +15,9 @@
   ;
 
 InterfaceDefinitionHead
-  : ::T_INTERFACE:: TypeDefinitionHeader()
+  : ::T_INTERFACE:: TypeDefinition()
     TypeDefinitionImplements()?
-    Directives()?
+    Directive()*
   ;
 
 InterfaceDefinitionBody

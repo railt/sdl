@@ -1,9 +1,8 @@
 
-#Directives
-  : DirectiveInvocation()+
+
+#Directive
+  : ::T_DIRECTIVE_AT:: TypeInvocation()
+    ArgumentValues()?
   ;
 
-#DirectiveInvocation
-  : ::T_DIRECTIVE_AT:: TypeInvocationHeader()
-    ArgumentInvocations()?
-  ;
+

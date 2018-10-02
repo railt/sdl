@@ -15,16 +15,16 @@
   ;
 
 UnionDefinitionHead
-  : ::T_UNION:: TypeDefinitionHeader()
-    Directives()?
+  : ::T_UNION:: TypeDefinition()
+    Directive()*
   ;
 
 UnionDefinitionBody
-  : ::T_EQUAL:: __unionDefinitionTargets()?
+  : ::T_EQUAL:: UnionDefinitionTargets()?
   ;
 
-__unionDefinitionTargets
-  : ::T_OR::? TypeInvocationHeader()
-    ( ::T_OR:: TypeInvocationHeader() )*
-    #UnionDefinitionTargets
+#UnionDefinitionTargets
+  : ::T_OR::? TypeInvocation() (
+      ::T_OR:: TypeInvocation()
+    )*
   ;

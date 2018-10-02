@@ -5,6 +5,11 @@
 //
 #TypeDefinitionImplements
   : ::T_IMPLEMENTS::
-    ::T_AND::? TypeInvocationHeader()
-    ( ::T_AND:: TypeInvocationHeader() )*
+    __implementsDelimiter()? TypeInvocation()
+    ( __implementsDelimiter() TypeInvocation() )*
+  ;
+
+__implementsDelimiter
+  : ::T_COMMA::
+  | ::T_AND::
   ;

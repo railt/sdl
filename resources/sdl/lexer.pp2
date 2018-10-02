@@ -26,6 +26,7 @@
 %token T_DIRECTIVE_AT           @
 %token T_ANGLE_OPEN             <
 %token T_ANGLE_CLOSE            >
+%token T_COMMA                  ,
 
 /**
  * Values
@@ -40,21 +41,29 @@
 %token T_STRING                 "([^"\\]*(?:\\.[^"\\]*)*)"
 
 
+
 /**
  * Instructions
  */
+%token T_DEBUG                  (?<=\b)__dump\b
 %token T_NAMESPACE              (?<=\b)namespace\b
 %token T_NAMESPACE_SEPARATOR    /
 %token T_IMPORT                 (?<=\b)import\b
-
+%token T_LET                    (?<=\b)let\b
+%token T_CONST                  (?<=\b)const\b
 
 /**
  * Common
  */
+%token T_EXTEND                 (?<=\b)extend\b
 %token T_EXTENDS                (?<=\b)extends\b
 %token T_IMPLEMENTS             (?<=\b)implements\b
 %token T_ON                     (?<=\b)on\b
-%token T_EXTEND                 (?<=\b)extend\b
+
+/**
+ * GraphQL Query Partitions
+ */
+%token T_FRAGMENT               (?<=\b)fragment\b
 
 /**
  * Type definitions
@@ -67,12 +76,19 @@
 %token T_SCALAR                 (?<=\b)scalar\b
 %token T_DIRECTIVE              (?<=\b)directive\b
 %token T_INPUT                  (?<=\b)input\b
-%token T_FRAGMENT               (?<=\b)fragment\b
+
+/**
+ * Math
+ */
+%token T_PLUS                   \\+
+%token T_MINUS                  \\-
+%token T_DIV                    \\/
+%token T_MUL                    \\*
 
 /**
  * Common
  */
-%token T_VARIABLE               \$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*
+%token T_VARIABLE               \$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)
 %token T_NAME                   [a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*
 
 /**
@@ -94,10 +110,14 @@
  */
 
 %skip T_COMMENT                #[^\n]*
-%skip T_COMMA                  ,
 
 %skip T_HTAB                   \x09
-%skip T_LF                     \x0a
-%skip T_CR                     \x0d
+%skip T_LF                     \x0A
+%skip T_CR                     \x0D
 %skip T_WHITESPACE             \x20
-%skip T_BOM                    \xfe\xff
+%skip T_UTF32BE_BOM            ^\x00\x00\xFE\xFF
+%skip T_UTF32LE_BOM            ^\xFE\xFF\x00\x00
+%skip T_UTF16BE_BOM            ^\xFE\xFF
+%skip T_UTF16LE_BOM            ^\xFF\xFE
+%skip T_UTF8_BOM               ^\xEF\xBB\xBF
+%skip T_UTF7_BOM               ^\x2B\x2F\x76\x38\x2B\x2F\x76\x39\x2B\x2F\x76\x2B\x2B\x2F\x76\x2F
