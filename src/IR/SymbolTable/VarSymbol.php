@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\IR\SymbolTable;
 
 use Railt\SDL\Exception\TypeConflictException;
+use Railt\SDL\IR\Type;
 use Railt\SDL\IR\Type\TypeInterface;
 
 /**
@@ -28,7 +29,7 @@ class VarSymbol implements VarSymbolInterface
     private $name;
 
     /**
-     * @var null|TypeInterface
+     * @var TypeInterface
      */
     private $type;
 
@@ -45,7 +46,7 @@ class VarSymbol implements VarSymbolInterface
     public function __construct(string $name, TypeInterface $type = null)
     {
         $this->name = $name;
-        $this->type = $type;
+        $this->type = $type ?? Type::any();
     }
 
     /**
@@ -59,25 +60,56 @@ class VarSymbol implements VarSymbolInterface
     /**
      * @param null|ValueInterface $value
      * @return VarSymbolInterface
+     */
+    private function setValue(?ValueInterface $value): VarSymbolInterface
+    {
+        $this->value = $value;
+
+        if ($value) {
+            $this->type = $value->getType();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param null|ValueInterface $value
+     * @return VarSymbolInterface
      * @throws TypeConflictException
      */
     public function set(?ValueInterface $value): VarSymbolInterface
     {
-        $allowed =
-            // Not initialized variable or removing value
-            $value === null ||
-            $this->type === null ||
-            // Or same type
-            $value->getType()->typeOf($this->type);
+        if ($this->value === null) {
+            return $this->setValue($value);
+        }
 
-        if ($allowed) {
+        if ($this->isConstant()) {
+            $error = 'Can not redefine a %s';
+            throw new TypeConflictException(\sprintf($error, $this));
+        }
+
+        if ($value === null) {
+            return $this->setValue($value);
+        }
+
+        if ($this->isSameType($value)) {
+            $this->type = $value->getType();
             $this->value = $value;
 
             return $this;
         }
 
-        $error = 'Can not set a new value of type %s into %s $%s';
-        throw new TypeConflictException(\sprintf($error, $value->getType(), $this->type, $this->getName()));
+        $error = 'Can not set a new value of type %s into %s';
+        throw new TypeConflictException(\sprintf($error, $value->getType(), $this));
+    }
+
+    /**
+     * @param ValueInterface $value
+     * @return bool
+     */
+    private function isSameType(ValueInterface $value): bool
+    {
+        return $value->getType()->typeOf($this->type);
     }
 
     /**
@@ -119,7 +151,7 @@ class VarSymbol implements VarSymbolInterface
     /**
      * @return TypeInterface
      */
-    public function getType(): ?TypeInterface
+    public function getType(): TypeInterface
     {
         return $this->type;
     }
@@ -129,6 +161,10 @@ class VarSymbol implements VarSymbolInterface
      */
     public function __toString(): string
     {
-        return \sprintf('<%s:%s> = %s', $this->getName(), $this->getType() ?? '?', $this->value ?? 'Null');
+        $type = $this->getType() ?? '?';
+        $value = $this->value ?? 'Null';
+        $prefix = $this->isConstant() ? 'const' : 'var';
+
+        return \sprintf('%s %s: $%s = %s', $prefix, $type, $this->getName(), $value);
     }
 }

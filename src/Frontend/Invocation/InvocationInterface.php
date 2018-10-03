@@ -7,22 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Builder\Definition;
+namespace Railt\SDL\Frontend\Invocation;
 
+use Railt\SDL\IR\SymbolTable\PrimitiveInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
- * Interface DefinitionArgumentInterface
+ * Interface InvocationInterface
  */
-interface DefinitionArgumentInterface
+interface InvocationInterface extends PrimitiveInterface
 {
-    /**
-     * @return string
-     */
-    public function getName(): string;
-
     /**
      * @return TypeNameInterface
      */
-    public function getHint(): TypeNameInterface;
+    public function getName(): TypeNameInterface;
 }

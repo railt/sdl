@@ -22,6 +22,10 @@
 // ==========================================================================
 
 #Document
+  : __documentBody()
+  ;
+
+__documentBody
   : DocumentHead()
     DocumentBody()
   ;

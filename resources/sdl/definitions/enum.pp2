@@ -32,7 +32,7 @@ EnumDefinitionBody
 
 #EnumValueDefinition
   : Description()?
-    ConstantName() __enumDefinitionValue()?
+    EnumValueConstantName() __enumDefinitionValue()?
     ::T_COMMA::?
     Directive()*
     ::T_COMMA::?

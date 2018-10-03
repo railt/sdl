@@ -10,19 +10,19 @@ declare(strict_types=1);
 namespace Railt\SDL\IR;
 
 /**
- * Interface DefinitionInterface
+ * Interface DefinitionValueObject
  */
-interface DefinitionInterface
+interface DefinitionValueObject
 {
     /**
      * @param string $name
-     * @param mixed|DefinitionInterface $value
+     * @param mixed|DefinitionValueObject $value
      */
     public function set(string $name, $value): void;
 
     /**
      * @param string $name
-     * @return mixed|DefinitionInterface
+     * @return mixed|DefinitionValueObject
      */
     public function get(string $name);
 }

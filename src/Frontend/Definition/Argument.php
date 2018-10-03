@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Builder\Definition;
+namespace Railt\SDL\Frontend\Definition;
 
 use Railt\SDL\IR\Type\TypeNameInterface;
 

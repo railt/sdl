@@ -40,6 +40,8 @@ trait RuntimeTypes
             self::NULL      => $null = self::createInternalType(self::NULL, Type::scalar()),
             self::ID        => $id = self::createInternalType(self::ID, $string),
             self::DATE_TIME => $date = self::createInternalType(self::DATE_TIME, $string),
+            self::CONST     => $const = self::createInternalType(self::CONST, $string),
+            self::TYPE      => $type = self::createInternalType(self::TYPE, Type::any()),
         ];
     }
 }

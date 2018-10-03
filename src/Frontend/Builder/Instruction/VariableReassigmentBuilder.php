@@ -31,17 +31,19 @@ class VariableReassigmentBuilder extends BaseBuilder
     /**
      * @param ContextInterface $ctx
      * @param RuleInterface $rule
-     * @return \Generator|mixed|void
+     * @return \Generator|\Closure
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule)
     {
-        /** @var ValueInterface $value */
-        $value = yield $rule->first('> #VariableValue')->getChild(0);
+        yield function() use ($ctx, $rule): \Generator {
+            /** @var ValueInterface $value */
+            $value = yield $rule->first('> #VariableValue')->getChild(0);
 
-        foreach ($rule->find('> #VariableName') as $child) {
-            $name = $child->first('> :T_VARIABLE')->getValue(1);
+            foreach ($rule->find('> #VariableName') as $child) {
+                $name = $child->first('> :T_VARIABLE')->getValue(1);
 
-            $ctx->fetch($name)->set($value);
-        }
+                $ctx->fetch($name)->set($value);
+            }
+        };
     }
 }

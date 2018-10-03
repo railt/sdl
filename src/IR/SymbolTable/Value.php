@@ -60,6 +60,6 @@ class Value implements ValueInterface
      */
     public function __toString(): string
     {
-        return \sprintf('<%s:%s>', $this->type, $this->value);
+        return \sprintf('%s of %s', $this->value, $this->type);
     }
 }

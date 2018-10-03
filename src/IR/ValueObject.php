@@ -16,7 +16,7 @@ class ValueObject implements
     \ArrayAccess,
     \Serializable,
     \JsonSerializable,
-    DefinitionInterface
+    DefinitionValueObject
 {
     /**
      * @var array|mixed[]
@@ -122,7 +122,22 @@ class ValueObject implements
      */
     public function jsonSerialize(): array
     {
-        return $this->attributes;
+        $result = [];
+
+        foreach ($this->attributes as $key => $value) {
+            switch (true) {
+                case \is_scalar($value):
+                case \is_array($value):
+                case $value instanceof \JsonSerializable:
+                    break;
+                case \is_object($value) && \method_exists($value, '__toString'):
+                    $value = (string)$value;
+            }
+
+            $result[$key] = $value;
+        }
+
+        return $result;
     }
 
     /**
@@ -167,6 +182,10 @@ class ValueObject implements
      */
     public function offsetSet($offset, $value): void
     {
+        if ($offset === null) {
+            $offset = \count($this->attributes);
+        }
+
         $this->set((string)$offset, $value);
     }
 

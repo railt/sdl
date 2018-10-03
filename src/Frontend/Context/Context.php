@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\Context;
 
 use Railt\Io\Readable;
+use Railt\SDL\Exception\SemanticException;
 use Railt\SDL\IR\SymbolTable\VarSymbol;
 use Railt\SDL\IR\SymbolTable\VarSymbolInterface;
 use Railt\SDL\IR\SymbolTableInterface;
@@ -129,6 +130,11 @@ class Context implements ContextInterface
      */
     public function declare(string $var, TypeInterface $type = null): VarSymbolInterface
     {
+        if ($this->has($var)) {
+            $error = 'Can not define var $%s, because %s already has been defined';
+            throw new SemanticException(\sprintf($error, $var, $this->fetch($var)));
+        }
+
         $record = new VarSymbol($var, $type);
 
         $this->names[$var] = $this->table->declare($record);

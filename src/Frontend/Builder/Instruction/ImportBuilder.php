@@ -44,12 +44,12 @@ class ImportBuilder extends BaseBuilder
         /** @var ValueInterface $value */
         $value = yield $rule->getChild(0);
 
-        if ($value->getType()->typeOf(Type::string())) {
-            yield from $this->load($this->include($ctx, (string)$value->getValue()));
+        if (! $value->getType()->typeOf(Type::string())) {
+            $error = 'Argument of include should be a string, but %s given';
+            throw new InvalidArgumentException(\sprintf($error, $value->getType()));
         }
 
-        $error = 'Argument of include should be a string, but %s given';
-        throw new InvalidArgumentException(\sprintf($error, $value->getType()));
+        yield from $this->loadFile($this->include($ctx, (string)$value->getValue()));
     }
 
     /**

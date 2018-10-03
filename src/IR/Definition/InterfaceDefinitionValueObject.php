@@ -9,12 +9,14 @@ declare(strict_types=1);
 
 namespace Railt\SDL\IR\Definition;
 
+use Railt\SDL\IR\Type;
+
 /**
  * @property array|FieldDefinitionValueObject[] $fields
  * @property array|string[] $implements
  * @property array|ArgumentInvocationValueObject[] $directives
  */
-class ObjectDefinitionValueObject extends TypeDefinitionValueObject
+class InterfaceDefinitionValueObject extends TypeDefinitionValueObject
 {
     /**
      * @var array

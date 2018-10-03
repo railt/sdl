@@ -45,7 +45,7 @@ class Generator implements LoggerAwareInterface
     {
         foreach ($records as $record) {
             echo __FILE__ . ':' . __LINE__ . "\n";
-            echo \get_class($record) . ' => ' . \json_encode($record, \JSON_PRETTY_PRINT);
+            echo \json_encode($record, \JSON_PRETTY_PRINT);
         }
 
         //die;

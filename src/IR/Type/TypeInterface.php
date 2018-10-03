@@ -135,6 +135,16 @@ interface TypeInterface
     public const NULL = 'Null';
 
     /**
+     * @var string
+     */
+    public const CONST = 'Const';
+
+    /**
+     * @var string
+     */
+    public const TYPE = 'Type';
+
+    /**
      * @var string[]
      */
     public const INDEPENDENT_TYPES = [
@@ -207,6 +217,7 @@ interface TypeInterface
         self::ID,
         self::DATE_TIME,
         self::NULL,
+        self::CONST,
     ];
 
     /**

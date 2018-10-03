@@ -37,7 +37,7 @@ class VariableValueBuilder extends BaseBuilder
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule): ValueInterface
     {
-        $name = $rule->first(':T_VARIABLE')->getValue(1);
+        $name  = $rule->first(':T_VARIABLE')->getValue(1);
         $value = $ctx->fetch($name)->getValue();
 
         return $value ?? new Value(null, Type::null());

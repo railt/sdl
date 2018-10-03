@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Builder\Definition;
+namespace Railt\SDL\Frontend\Definition;
 
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;
@@ -40,7 +40,7 @@ class Definition implements DefinitionInterface
     public function __construct(ContextInterface $context, TypeNameInterface $name)
     {
         $this->context = $context;
-        $this->name    = $name->in($context->getName());
+        $this->name = $name->in($context->getName());
     }
 
     /**
@@ -93,5 +93,13 @@ class Definition implements DefinitionInterface
     public function getContext(): ContextInterface
     {
         return $this->context;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGeneric(): bool
+    {
+        return \count($this->arguments) > 0;
     }
 }

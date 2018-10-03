@@ -41,7 +41,7 @@ class SDLGrammarCompileCommand extends Command
     public function handle(): void
     {
         Compiler::load(File::fromPathname(self::SCHEMA_SDL_GRAMMAR))
-            ->setClassName('Parser')
+            ->setClassName('BaseParser')
             ->setNamespace('Railt\\SDL\\Frontend')
             ->saveTo(__DIR__ . '/../Frontend');
 

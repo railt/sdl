@@ -7,11 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Builder;
+namespace Railt\SDL\Frontend\Builder\Common;
 
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Exception\InvalidArgumentException;
-use Railt\SDL\Frontend\Builder\Definition\Definition;
+use Railt\SDL\Frontend\Builder\BaseBuilder;
+use Railt\SDL\Frontend\Definition\Definition;
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\IR\SymbolTable\ValueInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;

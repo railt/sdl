@@ -15,7 +15,7 @@
   ;
 
 SchemaDefinitionHead
-  : ::T_SCHEMA:: TypeDefinition()?
+  : ::T_SCHEMA:: TypeName()?
     Directive()*
   ;
 

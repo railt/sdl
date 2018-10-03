@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Builder\Definition;
+namespace Railt\SDL\Frontend\Definition;
 
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;
@@ -50,4 +50,9 @@ interface DefinitionInterface
      * @return DefinitionArgumentInterface
      */
     public function getArgument(string $name): DefinitionArgumentInterface;
+
+    /**
+     * @return bool
+     */
+    public function isGeneric(): bool;
 }

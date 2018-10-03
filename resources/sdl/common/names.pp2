@@ -69,6 +69,11 @@ __typeNameAtRoot
 // An auxiliary name, which is only available for
 // fields, arguments and etc. dependencies of type definitions.
 //
-ConstantName
-  : ConstantValue()
+#ConstantName
+  : NameWithReserved()
+  ;
+
+EnumValueConstantName
+  : NameExceptValues()
+    #ConstantName
   ;

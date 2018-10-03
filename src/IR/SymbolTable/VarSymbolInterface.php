@@ -22,9 +22,9 @@ interface VarSymbolInterface
     public function getName(): string;
 
     /**
-     * @return TypeInterface|null
+     * @return TypeInterface
      */
-    public function getType(): ?TypeInterface;
+    public function getType(): TypeInterface;
 
     /**
      * @return null|ValueInterface

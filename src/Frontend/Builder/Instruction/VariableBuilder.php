@@ -12,6 +12,7 @@ namespace Railt\SDL\Frontend\Builder\Instruction;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
+use Railt\SDL\IR\SymbolTable\ValueInterface;
 
 /**
  * Class VariableBuilder
@@ -38,30 +39,29 @@ class VariableBuilder extends BaseBuilder
     /**
      * @param ContextInterface $ctx
      * @param RuleInterface $rule
-     * @return \Generator|mixed|void
+     * @return \Generator|\Closure
      */
-    public function reduce(ContextInterface $ctx, RuleInterface $rule)
+    public function reduce(ContextInterface $ctx, RuleInterface $rule): \Generator
     {
-        /**
-         * @var bool $isConstant
-         * @var mixed $value
-         */
-        [$isConstant, $value] = [$this->isConstant($rule), yield $this->getValue($rule)];
+        yield function() use ($ctx, $rule): \Generator {
+            /** @var ValueInterface $value */
+            [$isConstant, $value] = [$this->isConstant($rule), yield $this->getValueNode($rule)];
 
-        foreach ($rule->find('> #VariableName') as $name) {
-            $variable = $name->first('> :T_VARIABLE')->getValue(1);
+            foreach ($rule->find('> #VariableName') as $name) {
+                $variable = $name->first('> :T_VARIABLE')->getValue(1);
 
-            $record = $ctx->declare($variable)->set($value);
+                $record = $ctx->declare($variable)->set($value);
 
-            $isConstant ? $record->lock() : $record->unlock();
-        }
+                $isConstant ? $record->lock() : $record->unlock();
+            }
+        };
     }
 
     /**
      * @param RuleInterface $rule
-     * @return mixed
+     * @return RuleInterface
      */
-    private function getValue(RuleInterface $rule)
+    private function getValueNode(RuleInterface $rule): RuleInterface
     {
         return $rule->first('> #VariableValue')->getChild(0);
     }

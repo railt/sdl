@@ -19,6 +19,7 @@ Value
   | StringValue()
   | InputValue()
   | ListValue()
+  | ConstantValue()
   ;
 
 
@@ -44,6 +45,7 @@ __genericInvocationArguments
 GenericInvocationArgument
   : GenericInvocationArgumentName() ::T_COLON:: GenericInvocationArgumentValue()
     ::T_COMMA::?
+    #GenericInvocationArgument
   ;
 
 #GenericInvocationArgumentName

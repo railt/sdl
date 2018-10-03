@@ -18,9 +18,11 @@ use Railt\Parser\Exception\UnexpectedTokenException;
 use Railt\Parser\Exception\UnrecognizedTokenException;
 use Railt\SDL\Exception\SyntaxException;
 use Railt\SDL\Frontend\Builder;
+use Railt\SDL\Frontend\Context\ContextInterface;
+use Railt\SDL\Frontend\Context\GlobalContext;
 use Railt\SDL\Frontend\Parser;
+use Railt\SDL\IR\DefinitionValueObject;
 use Railt\SDL\IR\SymbolTable;
-use Railt\SDL\IR\SymbolTableInterface;
 
 /**
  * Class Frontend
@@ -30,28 +32,27 @@ class Frontend implements LoggerAwareInterface
     use LoggerAwareTrait;
 
     /**
-     * @var Parser
-     */
-    private $parser;
-
-    /**
      * @var Builder
      */
     private $builder;
-
-    /**
-     * @var SymbolTableInterface
-     */
-    private $table;
 
     /**
      * Frontend constructor.
      */
     public function __construct()
     {
-        $this->table   = new SymbolTable();
-        $this->parser  = new Parser();
-        $this->builder = new Builder($this, $this->table);
+        $this->builder = new Builder();
+    }
+
+    /**
+     * @param Readable $file
+     * @return iterable
+     * @throws SyntaxException
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    public function load(Readable $file)
+    {
+        return $this->buildFile($file);
     }
 
     /**
@@ -60,29 +61,29 @@ class Frontend implements LoggerAwareInterface
      * @throws SyntaxException
      * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function load(Readable $readable)
+    public function buildFile(Readable $readable)
     {
-        return $this->builder->build($readable, $this->parse($readable));
+        $process = $this->builder->buildFile($readable);
+
+        /**
+         * @var ContextInterface $context
+         * @var mixed $result
+         */
+        foreach ($process as [$context, $result]) {
+            if ($this->filter($context, $result)) {
+                yield $result;
+            }
+        }
     }
 
     /**
-     * Parse the file using top-down parser and
-     * return the Abstract Syntax Tree.
-     *
-     * @param Readable $file
-     * @return RuleInterface
-     * @throws SyntaxException
+     * @param ContextInterface $ctx
+     * @param mixed $result
+     * @return bool
      */
-    private function parse(Readable $file): RuleInterface
+    private function filter(ContextInterface $ctx, $result): bool
     {
-        try {
-            return $this->parser->parse($file);
-        } catch (UnexpectedTokenException | UnrecognizedTokenException $e) {
-            $error = new SyntaxException($e->getMessage(), $e->getCode());
-            $error->throwsIn($file, $e->getLine(), $e->getColumn());
-
-            throw $error;
-        }
+        return $result !== null;
     }
 
     /**

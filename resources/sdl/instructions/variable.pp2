@@ -35,4 +35,5 @@ __variableDefinitionBody
 #VariableValue
   : VariableName()
   | Value()
+  | TypeInvocation()
   ;

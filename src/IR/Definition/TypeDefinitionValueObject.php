@@ -9,10 +9,12 @@ declare(strict_types=1);
 
 namespace Railt\SDL\IR\Definition;
 
+use Railt\SDL\IR\Type;
+
 /**
  * @property string $name
  * @property string $description
- * @property TypeHintValueObject|string $of
+ * @property Type $type
  */
 abstract class TypeDefinitionValueObject extends DefinitionValueObject
 {

@@ -71,4 +71,20 @@ trait RuntimeTypeConstructors
     {
         return static::new(static::NULL);
     }
+
+    /**
+     * @return TypeInterface
+     */
+    public static function const(): TypeInterface
+    {
+        return static::new(static::CONST);
+    }
+
+    /**
+     * @return TypeInterface
+     */
+    public static function type(): TypeInterface
+    {
+        return static::new(static::TYPE);
+    }
 }

@@ -7,19 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Builder\Value;
+namespace Railt\SDL\Frontend\Builder\Common;
 
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\IR\SymbolTable\Value;
-use Railt\SDL\IR\SymbolTable\ValueInterface;
-use Railt\SDL\IR\Type;
+use Railt\SDL\IR\Type\Name;
+use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
- * Class ConstantValueBuilder
+ * Class ConstantNameBuilder
  */
-class ConstantValueBuilder extends BaseBuilder
+class ConstantNameBuilder extends BaseBuilder
 {
     /**
      * @param RuleInterface $rule
@@ -27,16 +26,18 @@ class ConstantValueBuilder extends BaseBuilder
      */
     public function match(RuleInterface $rule): bool
     {
-        return $rule->getName() === 'ConstantValue';
+        return $rule->getName() === 'ConstantName';
     }
 
     /**
      * @param ContextInterface $ctx
      * @param RuleInterface $rule
-     * @return ValueInterface
+     * @return TypeNameInterface
      */
-    public function reduce(ContextInterface $ctx, RuleInterface $rule): ValueInterface
+    public function reduce(ContextInterface $ctx, RuleInterface $rule): TypeNameInterface
     {
-        return new Value($rule->getChild(0)->getValue(), Type::const());
+        $value = $rule->first('> #ConstantName > :T_NAME')->getValue();
+
+        return Name::fromString($value);
     }
 }
