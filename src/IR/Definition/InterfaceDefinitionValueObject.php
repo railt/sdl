@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\IR\Definition;
 
-use Railt\SDL\IR\Type;
-
 /**
  * @property array|FieldDefinitionValueObject[] $fields
  * @property array|string[] $implements

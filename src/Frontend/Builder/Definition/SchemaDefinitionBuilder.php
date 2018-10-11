@@ -45,7 +45,7 @@ class SchemaDefinitionBuilder extends BaseBuilder
         $name = yield $rule->first('> #TypeName');
 
         yield $this->deferred($ctx, yield $rule->first('> #TypeName'))
-            ->then(function(ContextInterface $context) use ($name, $rule) {
+            ->then(function (ContextInterface $context) use ($name, $rule) {
                 return $this->then($context, $rule, $name);
             });
     }
@@ -55,7 +55,7 @@ class SchemaDefinitionBuilder extends BaseBuilder
      * @param RuleInterface $rule
      * @param null|TypeNameInterface $name
      */
-    private function then(ContextInterface $ctx, RuleInterface $rule, ?TypeNameInterface $name)
+    private function then(ContextInterface $ctx, RuleInterface $rule, ?TypeNameInterface $name): void
     {
         /** @var VarSymbolInterface $a */
         // $a = yield 'a';

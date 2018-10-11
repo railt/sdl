@@ -13,6 +13,7 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\SymbolTable\VarSymbol;
 
 /**
  * Class VariableBuilder
@@ -43,18 +44,35 @@ class VariableBuilder extends BaseBuilder
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule): \Generator
     {
-        yield function() use ($ctx, $rule): \Generator {
+        $isConstant = $this->isConstant($rule);
+        $variables = [];
+
+        foreach ($this->getVariableNames($rule) as $variable) {
+            $record = $variables[] = $ctx->declare($variable);
+
+            $isConstant ? $record->lock() : $record->unlock();
+        }
+
+        yield function () use ($rule, $variables) {
             /** @var ValueInterface $value */
-            [$isConstant, $value] = [$this->isConstant($rule), yield $this->getValueNode($rule)];
+            $value = yield $this->getValueNode($rule);
 
-            foreach ($rule->find('> #VariableName') as $name) {
-                $variable = $name->first('> :T_VARIABLE')->getValue(1);
-
-                $record = $ctx->declare($variable)->set($value);
-
-                $isConstant ? $record->lock() : $record->unlock();
+            /** @var VarSymbol $variable */
+            foreach ($variables as $variable) {
+                $variable->set($value);
             }
         };
+    }
+
+    /**
+     * @param RuleInterface $rule
+     * @return iterable|string[]
+     */
+    private function getVariableNames(RuleInterface $rule): iterable
+    {
+        foreach ($rule->find('> #VariableName') as $name) {
+            yield $name->first('> :T_VARIABLE')->getValue(1);
+        }
     }
 
     /**

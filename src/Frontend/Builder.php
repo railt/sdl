@@ -13,18 +13,20 @@ use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Parser\Exception\UnexpectedTokenException;
 use Railt\Parser\Exception\UnrecognizedTokenException;
-use Railt\SDL\Exception\CompilerException;
 use Railt\SDL\Exception\InternalException;
 use Railt\SDL\Exception\SyntaxException;
+use Railt\SDL\Frontend\Builder\BuilderInterface;
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\Frontend\Context\GlobalContext;
-use Railt\SDL\Frontend\Deferred\Deferred;
-use Railt\SDL\Frontend\Deferred\DeferredInterface;
-use Railt\SDL\Frontend\Deferred\Identifiable;
-use Railt\SDL\Frontend\Deferred\Storage;
+use Railt\SDL\Frontend\Deferred\DeferredCollection as DeferredStorage;
+use Railt\SDL\Frontend\Definition\DefinitionInterface;
+use Railt\SDL\Frontend\Definition\Invocation;
+use Railt\SDL\Frontend\Definition\Storage as TypesStorage;
+use Railt\SDL\Frontend\Interceptor;
+use Railt\SDL\Frontend\Interceptor\Factory;
 use Railt\SDL\IR\SymbolTable;
-use Railt\SDL\IR\SymbolTable\ValueInterface;
 use Railt\SDL\IR\SymbolTableInterface;
+use Railt\SDL\Naming\StrategyInterface;
 
 /**
  * Class Builder
@@ -55,11 +57,13 @@ class Builder
         // Value builders.
         // Provides: \Railt\SDL\IR\SymbolTable\ValueInterface
         //
-        Builder\Value\ScalarValueBuilder::class,
+        Builder\Value\NullValueBuilder::class,
         Builder\Value\VariableValueBuilder::class,
         Builder\Value\TypeInvocationBuilder::class,
         Builder\Value\ConstantValueBuilder::class,
         Builder\Value\BooleanValueBuilder::class,
+        Builder\Value\NumberValueBuilder::class,
+        Builder\Value\StringValueBuilder::class,
 
         //
         // Common builders.
@@ -76,12 +80,12 @@ class Builder
     /**
      * @var array|Builder\BuilderInterface[]
      */
-    private $builders = [];
+    private $builders;
 
     /**
-     * @var Storage
+     * @var DeferredStorage
      */
-    private $store;
+    private $deferred;
 
     /**
      * @var SymbolTableInterface
@@ -94,25 +98,114 @@ class Builder
     private $parser;
 
     /**
-     * Builder constructor.
+     * @var Process
      */
-    public function __construct()
+    private $process;
+
+    /**
+     * @var TypesStorage
+     */
+    private $types;
+
+    /**
+     * Builder constructor.
+     * @param StrategyInterface $naming
+     */
+    public function __construct(StrategyInterface $naming)
     {
         $this->parser = new Parser();
-        $this->store = new Storage();
         $this->table = new SymbolTable();
+        $this->types = new TypesStorage($naming);
+        $this->deferred = new DeferredStorage();
 
-        $this->bootDefaults();
+        $factory = $this->bootInterceptors($this->deferred, $this->types);
+
+        $this->process = $this->bootProcess($factory);
+        $this->builders = $this->bootBuilders();
     }
 
     /**
-     * @return void
+     * @param Factory $interceptors
+     * @return Process
      */
-    private function bootDefaults(): void
+    private function bootProcess(Factory $interceptors): Process
     {
-        foreach (self::DEFAULT_BUILDER_DEFINITIONS as $builder) {
-            $this->builders[] = new $builder($this, $this->store);
+        return new Process($interceptors);
+    }
+
+    /**
+     * @param DeferredStorage $deferred
+     * @param TypesStorage $types
+     * @return Factory
+     */
+    private function bootInterceptors(DeferredStorage $deferred, TypesStorage $types): Factory
+    {
+        $wantsBuild = function (ContextInterface $ctx, RuleInterface $ast) {
+            return $this->buildNode($ctx, $ast);
+        };
+
+        return new Factory([
+            new Interceptor\ContextInterceptor(),
+            new Interceptor\InvocationInterceptor($types),
+            new Interceptor\DefinitionInterceptor($types),
+            new Interceptor\RuleInterceptor($wantsBuild),
+            new Interceptor\CallbackInterceptor($deferred),
+            new Interceptor\DeferredInterceptor($deferred),
+        ]);
+    }
+
+    /**
+     * @param ContextInterface $ctx
+     * @param RuleInterface $rule
+     * @return array
+     */
+    public function buildNode(ContextInterface $ctx, RuleInterface $rule): array
+    {
+        $result = $this->runBuilder($ctx, $rule);
+
+        return $this->process->run($ctx, $result);
+    }
+
+    /**
+     * @param ContextInterface $context
+     * @param RuleInterface $ast
+     * @return mixed|\Traversable
+     * @throws \Railt\Io\Exception\ExternalFileException
+     */
+    private function runBuilder(ContextInterface $context, RuleInterface $ast)
+    {
+        return $this->getBuilder($context, $ast)->reduce($context, $ast);
+    }
+
+    /**
+     * @param ContextInterface $context
+     * @param RuleInterface $ast
+     * @return BuilderInterface
+     */
+    private function getBuilder(ContextInterface $context, RuleInterface $ast): BuilderInterface
+    {
+        foreach ($this->builders as $builder) {
+            if ($builder->match($ast)) {
+                return $builder;
+            }
         }
+
+        $error = \sprintf('Unrecognized rule %s in (%s)', $ast->getName(), $ast);
+        throw (new InternalException($error))->throwsIn($context->getFile(), $ast->getOffset());
+    }
+
+    /**
+     * @return array
+     */
+    private function bootBuilders(): array
+    {
+        $builders = [];
+
+        foreach (self::DEFAULT_BUILDER_DEFINITIONS as $builder) {
+            $builders[] = new $builder();
+        }
+
+        return $builders;
     }
 
     /**
@@ -150,134 +243,49 @@ class Builder
 
     /**
      * @param Readable $readable
-     * @param iterable $ast
+     * @param iterable|RuleInterface[] $rules
      * @return iterable|array[]
      * @throws \Railt\Io\Exception\ExternalFileException
      */
-    public function buildAst(Readable $readable, iterable $ast): iterable
+    public function buildAst(Readable $readable, iterable $rules): iterable
     {
         $context = new GlobalContext($readable, $this->table);
 
-        foreach ($ast as $child) {
-            [$context, $result] = $this->buildNode($context, $child);
+        $context = $this->run($context, $rules);
 
-            yield [$context, $result];
-        }
+        $context = $this->deferred($context);
 
-        yield from $this->after($context);
+        return [];
     }
 
     /**
      * @param ContextInterface $context
-     * @param RuleInterface $ast
-     * @return array|iterable<int,ContextInterface|mixed>
-     * @throws \Railt\Io\Exception\ExternalFileException
+     * @param iterable|RuleInterface[] $rules
+     * @return ContextInterface
      */
-    public function buildNode(ContextInterface $context, RuleInterface $ast): array
+    private function run(ContextInterface $context, iterable $rules): ContextInterface
     {
-        try {
-            $process = $this->resolve($context, $ast);
-
-            if ($process instanceof \Generator) {
-                return $this->coroutine($context, $process, $ast->getOffset());
-            }
-
-            return [$context, $process];
-        } catch (CompilerException $e) {
-            throw $e->throwsIn($context->getFile(), $ast->getOffset());
+        foreach ($rules as $child) {
+            [$context] = $this->buildNode($context, $child);
         }
+
+        return $context;
     }
 
     /**
      * @param ContextInterface $context
-     * @param RuleInterface $ast
-     * @return mixed|\Traversable|void
-     * @throws \Railt\Io\Exception\ExternalFileException
+     * @return ContextInterface
      */
-    private function resolve(ContextInterface $context, RuleInterface $ast)
+    private function deferred(ContextInterface $context): ContextInterface
     {
-        foreach ($this->builders as $builder) {
-            if ($builder->match($ast)) {
-                return $builder->reduce($context, $ast);
-            }
-        }
+        $this->deferred->attach($this->types->export(function (DefinitionInterface $definition): bool {
+            $invocation = new Invocation($definition->getName(), $definition->getContext());
 
-        $error = \sprintf('Unrecognized rule %s in (%s)', $ast->getName(), $ast);
-        throw (new InternalException($error))->throwsIn($context->getFile(), $ast->getOffset());
-    }
+            return ! $definition->isGeneric() && ! $this->types->resolved($invocation);
+        }));
 
-    /**
-     * @param ContextInterface $ctx
-     * @param \Generator $process
-     * @param int $offset
-     * @return array|iterable<int, ContextInterface|mixed>
-     */
-    private function coroutine(ContextInterface $ctx, \Generator $process, int $offset = 0): array
-    {
-        while ($process->valid()) {
-            try {
-                $value = $process->current();
+        [$context] = $this->process->run($context, $this->deferred->getIterator());
 
-                switch (true) {
-                    case $value instanceof ContextInterface:
-                        $ctx = $value;
-                        break;
-
-                    case $value instanceof RuleInterface:
-                        [$ctx, $value] = $this->buildNode($ctx, $value);
-                        break;
-
-                    case $value instanceof ValueInterface:
-                        $value = $ctx->declare($process->key(), $value);
-                        break;
-
-                    case \is_string($value):
-                        $value = $ctx->fetch($value);
-                        break;
-
-                    /** @noinspection PhpMissingBreakStatementInspection */
-                    case $value instanceof \Closure:
-                        $value = new Deferred($ctx, $value);
-
-                    case $value instanceof DeferredInterface:
-                        /** @noinspection SuspiciousAssignmentsInspection */
-                        $value = $this->store->add($value);
-
-                        if (! $value->getOffset()) {
-                            $value->definedIn($offset);
-                        }
-
-                        break;
-                }
-
-                $process->send($value);
-            } catch (CompilerException $e) {
-                $process->throw($e->throwsIn($ctx->getFile(), $offset));
-            } catch (\Throwable $e) {
-                $process->throw($e);
-            }
-        }
-
-        return [$ctx, $process->getReturn()];
-    }
-
-    /**
-     * @param ContextInterface $context
-     * @return \Generator
-     * @throws CompilerException
-     */
-    private function after(ContextInterface $context): \Generator
-    {
-        $after = $this->store->extract(function (DeferredInterface $deferred): bool {
-            return ! $deferred instanceof Identifiable || ! $deferred->getDefinition()->isGeneric();
-        });
-
-        foreach ($after as $deferred) {
-            try {
-                yield $this->coroutine($context, $deferred->invoke());
-            } catch (CompilerException $e) {
-                throw $e->throwsIn($context->getFile(), $deferred->getOffset());
-            }
-        }
+        return $context;
     }
 }

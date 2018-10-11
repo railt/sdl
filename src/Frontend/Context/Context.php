@@ -170,4 +170,12 @@ class Context implements ContextInterface
     {
         return $this->parent->getFile();
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getName()->getFullyQualifiedName() . ' (' . $this->getFile()->getPathname() .')';
+    }
 }

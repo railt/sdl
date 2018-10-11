@@ -2,6 +2,6 @@
 //
 // Constant value
 //
-#ConstantValue -> Railt\SDL\Frontend\AST\Value\ConstantValueNode
+#ConstantValue
   : NameExceptValues()
   ;

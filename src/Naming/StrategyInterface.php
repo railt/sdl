@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Naming;
 
-use Railt\Reflection\Invocation\ArgumentInterface;
-use Railt\SDL\IR\TypeNameInterface;
+use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Interface StrategyInterface
@@ -19,8 +19,8 @@ interface StrategyInterface
 {
     /**
      * @param TypeNameInterface $name
-     * @param iterable|ArgumentInterface[] $arguments
+     * @param iterable|ValueInterface[] $arguments
      * @return string
      */
-    public function reduce(TypeNameInterface $name, iterable $arguments): string;
+    public function resolve(TypeNameInterface $name, iterable $arguments): string;
 }

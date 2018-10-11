@@ -22,54 +22,14 @@ class Deferred implements DeferredInterface
     private $then = [];
 
     /**
-     * @var ContextInterface
-     */
-    private $ctx;
-
-    /**
-     * @var int
-     */
-    private $offset = 0;
-
-    /**
      * Deferred constructor.
-     * @param ContextInterface $ctx
      * @param \Closure $then
      */
-    public function __construct(ContextInterface $ctx, \Closure $then = null)
+    public function __construct(\Closure $then = null)
     {
-        $this->ctx = $ctx;
-
         if ($then) {
             $this->then($then);
         }
-    }
-
-    /**
-     * @return int
-     */
-    public function getOffset(): int
-    {
-        return $this->offset;
-    }
-
-    /**
-     * @param int $offset
-     * @return DeferredInterface
-     */
-    public function definedIn(int $offset): DeferredInterface
-    {
-        $this->offset = $offset;
-
-        return $this;
-    }
-
-    /**
-     * @return ContextInterface
-     */
-    public function getContext(): ContextInterface
-    {
-        return $this->ctx;
     }
 
     /**
@@ -84,12 +44,12 @@ class Deferred implements DeferredInterface
     }
 
     /**
-     * @param mixed $value
-     * @return \Generator|mixed|null
+     * @param mixed ...$args
+     * @return \Generator|mixed
      */
-    public function __invoke($value)
+    public function __invoke(...$args)
     {
-        return $this->invoke($value);
+        return $this->invoke(...$args);
     }
 
     /**
@@ -101,7 +61,7 @@ class Deferred implements DeferredInterface
         $result = $args[0] ?? null;
 
         foreach ($this->then as $callback) {
-            yield from $output = $this->response($callback($this->ctx, ...$args));
+            yield from $output = $this->response($callback(...$args));
 
             $args[0] = $result = $output->getReturn();
         }

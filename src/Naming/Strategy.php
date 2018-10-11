@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Naming;
 
-use Railt\Reflection\Invocation\ArgumentInterface;
 use Railt\SDL\Exception\SemanticException;
-use Railt\SDL\IR\TypeNameInterface;
+use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Class Strategy
@@ -34,10 +34,10 @@ class Strategy implements StrategyInterface
 
     /**
      * @param TypeNameInterface $name
-     * @param iterable|ArgumentInterface[] $arguments
+     * @param iterable|ValueInterface[] $arguments
      * @return string
      */
-    public function reduce(TypeNameInterface $name, iterable $arguments): string
+    public function resolve(TypeNameInterface $name, iterable $arguments): string
     {
         return $this->verified(($this->callback)($name, $arguments));
     }

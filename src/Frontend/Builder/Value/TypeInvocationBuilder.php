@@ -13,8 +13,8 @@ use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Exception\TypeConflictException;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\Frontend\Invocation\InvocationPrimitive;
-use Railt\SDL\IR\SymbolTable\Value;
+use Railt\SDL\Frontend\Definition\Invocation;
+use Railt\SDL\Frontend\Definition\InvocationInterface;
 use Railt\SDL\IR\SymbolTable\ValueInterface;
 use Railt\SDL\IR\Type;
 use Railt\SDL\IR\Type\Name;
@@ -37,7 +37,7 @@ class TypeInvocationBuilder extends BaseBuilder
     /**
      * @param ContextInterface $ctx
      * @param RuleInterface $rule
-     * @return \Generator|ValueInterface
+     * @return \Generator|InvocationInterface
      * @throws TypeConflictException
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule): \Generator
@@ -45,7 +45,7 @@ class TypeInvocationBuilder extends BaseBuilder
         /** @var ValueInterface $value */
         $value = yield $rule->first('> #GenericInvocationName')->getChild(0);
 
-        $primitive = clone $this->resolveName($value);
+        $primitive = clone $this->resolveName($ctx, $value);
 
         foreach ($rule->find('> #GenericInvocationArgument') as $argument) {
             yield from $n = $this->fetchArgumentName($ctx, $argument);
@@ -57,10 +57,39 @@ class TypeInvocationBuilder extends BaseBuilder
             /** @var ValueInterface $argumentValue */
             $argumentValue = $v->getReturn();
 
+            \var_dump(__METHOD__, $argumentName, $argumentValue);
+
             $primitive->addArgument($argumentName->getFullyQualifiedName(), $argumentValue->getValue());
         }
 
-        return new Value($primitive, Type::type());
+        return $primitive;
+    }
+
+    /**
+     * @param ContextInterface $ctx
+     * @param TypeNameInterface|ValueInterface $name
+     * @return InvocationInterface
+     */
+    private function resolveName(ContextInterface $ctx, $name): InvocationInterface
+    {
+        if ($name instanceof TypeNameInterface) {
+            return new Invocation($name, $ctx);
+        }
+
+        $isConst = $name->getType()->typeOf(Type::const());
+        $isType = $name->getType()->typeOf(Type::type());
+
+        switch (true) {
+            case $isConst:
+                return new Invocation(Name::fromString((string)$name->getValue()), $ctx);
+
+            case $isType:
+                /** @var Invocation $value */
+                return $name->getValue();
+        }
+
+        $error = 'Type name should be valid type name, but %s given';
+        throw new TypeConflictException(\sprintf($error, $name));
     }
 
     /**
@@ -110,32 +139,5 @@ class TypeInvocationBuilder extends BaseBuilder
         }
 
         return $value;
-    }
-
-    /**
-     * @param TypeNameInterface|ValueInterface $name
-     * @return InvocationPrimitive
-     * @throws TypeConflictException
-     */
-    private function resolveName($name): InvocationPrimitive
-    {
-        if ($name instanceof TypeNameInterface) {
-            return new InvocationPrimitive($name);
-        }
-
-        $isConst = $name->getType()->typeOf(Type::const());
-        $isType = $name->getType()->typeOf(Type::type());
-
-        switch (true) {
-            case $isConst:
-                return new InvocationPrimitive(Name::fromString((string)$name->getValue()));
-
-            case $isType:
-                /** @var InvocationPrimitive $value */
-                return $name->getValue();
-        }
-
-        $error = 'Type name should be valid type name, but %s given';
-        throw new TypeConflictException(\sprintf($error, $name));
     }
 }

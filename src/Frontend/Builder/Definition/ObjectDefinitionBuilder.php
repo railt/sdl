@@ -12,14 +12,13 @@ namespace Railt\SDL\Frontend\Builder\Definition;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Builder\BaseBuilder;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\Frontend\Deferred\NamedDeferred;
+use Railt\SDL\Frontend\Deferred\DeferredInterface;
 use Railt\SDL\Frontend\Definition\DefinitionInterface;
+use Railt\SDL\Frontend\Definition\InvocationInterface;
 use Railt\SDL\IR\Definition\InterfaceDefinitionValueObject;
 use Railt\SDL\IR\Definition\ObjectDefinitionValueObject;
 use Railt\SDL\IR\DefinitionValueObject;
 use Railt\SDL\IR\SymbolTable\ValueInterface;
-use Railt\SDL\IR\Type;
-use Railt\SDL\IR\ValueObject;
 
 /**
  * Class ObjectDefinitionBuilder
@@ -42,19 +41,19 @@ class ObjectDefinitionBuilder extends BaseBuilder
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule)
     {
-        /** @var DefinitionInterface $definition */
+        /** @var DeferredInterface $definition */
         $definition = yield $rule->first('> #TypeDefinition');
 
-        yield new NamedDeferred($definition, $ctx, function (ContextInterface $local) use ($definition, $rule) {
-            $struct = new ObjectDefinitionValueObject();
+        $definition->then(function (DefinitionInterface $definition, InvocationInterface $from) {
+            /** @var ContextInterface $local */
+            $local = yield $definition->getLocalContext(); // Open local context
 
-            $struct->type = Type::object($definition->getName()->getFullyQualifiedName());
-            $struct->name = $definition->getName();
-            $struct->file = $local->getFile();
+            // $message = "Call type '%s'\n - Defined in %s\n - From %s";
+            // $message = \sprintf($message, $definition->getName(), $local, $from->getContext());
 
-            yield from $this->loadInterfaces($local, $struct, $rule);
+            //echo $message;die;
 
-            return $struct;
+            //yield $definition->getContext(); // Close
         });
     }
 
@@ -65,8 +64,11 @@ class ObjectDefinitionBuilder extends BaseBuilder
      * @return \Generator
      * @throws \Railt\SDL\Exception\NotFoundException
      */
-    private function loadInterfaces(ContextInterface $local, ObjectDefinitionValueObject $vo, RuleInterface $rule): \Generator
-    {
+    private function loadInterfaces(
+        ContextInterface $local,
+        ObjectDefinitionValueObject $vo,
+        RuleInterface $rule
+    ): \Generator {
         foreach ($rule->find('> #TypeDefinitionImplements') as $impl) {
             /** @var ValueInterface $result */
             $result = yield $impl->getChild(0);

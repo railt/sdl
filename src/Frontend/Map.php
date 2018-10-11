@@ -43,11 +43,11 @@ class Map implements \IteratorAggregate, \Countable, \ArrayAccess
      * @param mixed $value
      * @return Map
      */
-    public function set($key, $value): Map
+    public function set($key, $value): self
     {
         $id = $this->key($key);
 
-        $this->keys[$id] = $key;
+        $this->keys[$id]   = $key;
         $this->values[$id] = $value;
 
         return $this;

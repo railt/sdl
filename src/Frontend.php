@@ -13,16 +13,10 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Railt\Io\Readable;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\Parser\Exception\UnexpectedTokenException;
-use Railt\Parser\Exception\UnrecognizedTokenException;
 use Railt\SDL\Exception\SyntaxException;
 use Railt\SDL\Frontend\Builder;
 use Railt\SDL\Frontend\Context\ContextInterface;
-use Railt\SDL\Frontend\Context\GlobalContext;
-use Railt\SDL\Frontend\Parser;
-use Railt\SDL\IR\DefinitionValueObject;
-use Railt\SDL\IR\SymbolTable;
+use Railt\SDL\Naming\SimpleNamingStrategy;
 
 /**
  * Class Frontend
@@ -41,7 +35,7 @@ class Frontend implements LoggerAwareInterface
      */
     public function __construct()
     {
-        $this->builder = new Builder();
+        $this->builder = new Builder(new SimpleNamingStrategy());
     }
 
     /**

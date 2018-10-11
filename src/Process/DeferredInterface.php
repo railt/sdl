@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Deferred;
+namespace Railt\SDL\Process;
 
 /**
  * Interface DeferredInterface
@@ -15,14 +15,14 @@ namespace Railt\SDL\Frontend\Deferred;
 interface DeferredInterface
 {
     /**
-     * @param \Closure $then
+     * @param callable $then
      * @return DeferredInterface
      */
-    public function then(\Closure $then): self;
+    public function then(callable $then): DeferredInterface;
 
     /**
-     * @param mixed ...$args
-     * @return \Generator
+     * @param mixed $value
+     * @return mixed
      */
-    public function invoke(...$args): \Generator;
+    public function invoke($value);
 }

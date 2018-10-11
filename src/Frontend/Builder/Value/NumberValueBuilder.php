@@ -7,23 +7,51 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Value;
+namespace Railt\SDL\Frontend\Builder\Value;
 
 use Railt\Parser\Ast\LeafInterface;
+use Railt\Parser\Ast\RuleInterface;
+use Railt\SDL\Frontend\Builder\BaseBuilder;
+use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\Frontend\Parser;
+use Railt\SDL\IR\SymbolTable\Value;
+use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\Type;
 
 /**
- * Class NumberValue
+ * Class NumberValueBuilder
  */
-class NumberValueNode extends AbstractAstValueNode
+class NumberValueBuilder extends BaseBuilder
 {
     /**
-     * @return int|float
+     * @param RuleInterface $rule
+     * @return bool
      */
-    public function parse()
+    public function match(RuleInterface $rule): bool
+    {
+        return $rule->getName() === 'NumberValue';
+    }
+
+    /**
+     * @param ContextInterface $ctx
+     * @param RuleInterface $rule
+     * @return ValueInterface
+     */
+    public function reduce(ContextInterface $ctx, RuleInterface $rule): ValueInterface
+    {
+        $value = $this->parse($rule);
+
+        return new Value($value, \is_int($value) ? Type::int() : Type::float());
+    }
+
+    /**
+     * @param RuleInterface $rule
+     * @return float|int
+     */
+    private function parse(RuleInterface $rule)
     {
         /** @var LeafInterface $value */
-        $value = $this->getChild(0);
+        $value = $rule->getChild(0);
 
         switch (true) {
             case $this->isHex($value):

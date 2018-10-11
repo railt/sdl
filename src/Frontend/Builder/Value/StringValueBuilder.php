@@ -7,14 +7,19 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\AST\Value;
+namespace Railt\SDL\Frontend\Builder\Value;
 
-use Railt\Parser\Ast\LeafInterface;
+use Railt\Parser\Ast\RuleInterface;
+use Railt\SDL\Frontend\Builder\BaseBuilder;
+use Railt\SDL\Frontend\Context\ContextInterface;
+use Railt\SDL\IR\SymbolTable\Value;
+use Railt\SDL\IR\SymbolTable\ValueInterface;
+use Railt\SDL\IR\Type;
 
 /**
- * Class StringValue
+ * Class StringValueBuilder
  */
-class StringValueNode extends AbstractAstValueNode
+class StringValueBuilder extends BaseBuilder
 {
     /**
      * @var string
@@ -27,37 +32,45 @@ class StringValueNode extends AbstractAstValueNode
     private const CHAR_SEQUENCE_PATTERN = '/(?<!\\\\)\\\\(b|f|n|r|t)/u';
 
     /**
-     * @return string
+     * @param RuleInterface $rule
+     * @return bool
      */
-    private function getStringValue(): string
+    public function match(RuleInterface $rule): bool
     {
-        /** @var LeafInterface $leaf */
-        $leaf = $this->getChild(0);
-
-        return $leaf->getValue(1);
+        return $rule->getName() === 'StringValue';
     }
 
     /**
+     * @param ContextInterface $ctx
+     * @param RuleInterface $rule
+     * @return mixed|Value
+     */
+    public function reduce(ContextInterface $ctx, RuleInterface $rule): ValueInterface
+    {
+        $value = $this->parse($this->getNativeValue($rule));
+
+        return new Value($value, Type::string());
+    }
+
+    /**
+     * @param string $value
      * @return string
      */
-    public function parse(): string
+    public function parse(string $value): string
     {
-        // "..."
-        $result = $this->getStringValue();
-
         // Encode slashes to special "pattern" chars
-        $result = $this->encodeSlashes($result);
+        $value = $this->encodeSlashes($value);
 
         // Transform utf char \uXXXX -> X
-        $result = $this->renderUtfSequences($result);
+        $value = $this->renderUtfSequences($value);
 
         // Transform special chars
-        $result = $this->renderSpecialCharacters($result);
+        $value = $this->renderSpecialCharacters($value);
 
         // Decode special patterns to source chars (rollback)
-        $result = $this->decodeSlashes($result);
+        $value = $this->decodeSlashes($value);
 
-        return $result;
+        return $value;
     }
 
     /**
@@ -158,5 +171,25 @@ class StringValueNode extends AbstractAstValueNode
     private function decodeSlashes(string $value): string
     {
         return \str_replace("\0", '\\', $value);
+    }
+
+    /**
+     * @param RuleInterface $rule
+     * @return string
+     */
+    private function getNativeValue(RuleInterface $rule): string
+    {
+        return $rule->getChild(0)->getValue(1);
+    }
+
+    /**
+     * @return string
+     */
+    private function getStringValue(): string
+    {
+        /** @var LeafInterface $leaf */
+        $leaf = $this->getChild(0);
+
+        return $leaf->getValue(1);
     }
 }

@@ -93,7 +93,7 @@ class VarSymbol implements VarSymbolInterface
         }
 
         if ($this->isSameType($value)) {
-            $this->type = $value->getType();
+            $this->type  = $value->getType();
             $this->value = $value;
 
             return $this;
@@ -161,8 +161,8 @@ class VarSymbol implements VarSymbolInterface
      */
     public function __toString(): string
     {
-        $type = $this->getType() ?? '?';
-        $value = $this->value ?? 'Null';
+        $type   = $this->getType() ?? '?';
+        $value  = $this->value ?? 'Null';
         $prefix = $this->isConstant() ? 'const' : 'var';
 
         return \sprintf('%s %s: $%s = %s', $prefix, $type, $this->getName(), $value);

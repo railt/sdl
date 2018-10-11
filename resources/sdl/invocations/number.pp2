@@ -2,7 +2,7 @@
 //
 // Number value
 //
-#NumberValue -> Railt\SDL\Frontend\AST\Value\NumberValueNode
+#NumberValue
   : <T_NUMBER>
   | <T_HEX_NUMBER>
   | <T_BIN_NUMBER>

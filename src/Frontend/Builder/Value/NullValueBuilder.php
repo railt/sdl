@@ -17,26 +17,17 @@ use Railt\SDL\IR\SymbolTable\Value;
 use Railt\SDL\IR\Type;
 
 /**
- * Class ScalarValueBuilder
+ * Class NullValueBuilder
  */
-class ScalarValueBuilder extends BaseBuilder
+class NullValueBuilder extends BaseBuilder
 {
-    /**
-     * @var string[]
-     */
-    private const SCALARS = [
-        'NumberValue',
-        'StringValue',
-        'NullValue',
-    ];
-
     /**
      * @param RuleInterface $rule
      * @return bool
      */
     public function match(RuleInterface $rule): bool
     {
-        return \in_array($rule->getName(), self::SCALARS, true);
+        return $rule->getName() === 'NullValue';
     }
 
     /**
@@ -46,18 +37,6 @@ class ScalarValueBuilder extends BaseBuilder
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule)
     {
-        \assert($rule instanceof AstValueInterface);
-
-        switch ($rule->getName()) {
-            case 'NumberValue':
-                $value = $rule->toPrimitive();
-                return new Value($value, \is_int($value) ? Type::int() : Type::float());
-
-            case 'StringValue':
-                return new Value($rule->toPrimitive(), Type::string());
-
-            case 'NullValue':
-                return new Value(null, Type::null());
-        }
+        return new Value(null, Type::null());
     }
 }

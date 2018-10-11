@@ -2,7 +2,7 @@
 //
 // String value
 //
-#StringValue -> Railt\SDL\Frontend\AST\Value\StringValueNode
+#StringValue
   : <T_BLOCK_STRING>
   | <T_STRING>
   ;

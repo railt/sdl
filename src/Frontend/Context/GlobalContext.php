@@ -18,7 +18,7 @@ use Railt\SDL\IR\Type\Name;
 /**
  * Class GlobalContext
  */
-class GlobalContext extends Context implements GlobalContextInterface
+class GlobalContext extends Context
 {
     /**
      * @var Readable

@@ -9,9 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Naming;
 
-use Railt\SDL\Frontend\Invocation\ArgumentInterface;
-use Railt\SDL\Frontend\Invocation\TypeInvocation;
-use Railt\SDL\IR\TypeNameInterface;
+use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Class SimpleNamingStrategy
@@ -19,68 +17,34 @@ use Railt\SDL\IR\TypeNameInterface;
 class SimpleNamingStrategy extends Strategy
 {
     /**
-     * PrettyNamingStrategy constructor.
+     * SimpleNamingStrategy constructor.
      */
     public function __construct()
     {
-        parent::__construct(\Closure::fromCallable([$this, 'format']));
+        parent::__construct(function (TypeNameInterface $name, iterable $arguments) {
+            return $this->format($name, $arguments);
+        });
     }
 
     /**
      * @param TypeNameInterface $name
-     * @param iterable|ArgumentInterface[] $arguments
+     * @param iterable $arguments
      * @return string
      */
-    protected function format(TypeNameInterface $name, iterable $arguments): string
+    private function format(TypeNameInterface $name, iterable $arguments): string
     {
-        return $this->formatName($name) . $this->formatArguments($arguments);
-    }
+        echo \str_repeat('-', 100) . "\n";
+        echo $name . " ";
+        \dump($arguments);
 
-    /**
-     * @param iterable|ArgumentInterface[] $arguments
-     * @return string
-     */
-    protected function formatArguments(iterable $arguments): string
-    {
-        $result = [];
-
-        foreach ($arguments as $argument) {
-            $result[] = $this->formatArgument($argument);
-        }
-
-        if (\count($result)) {
-            return 'Of' . \implode('And', $result);
-        }
-
-        return '';
-    }
-
-    /**
-     * @param ArgumentInterface $argument
-     * @return string
-     */
-    protected function formatArgument(ArgumentInterface $argument): string
-    {
-        $value  = $argument->getValue();
-        $suffix = $value instanceof TypeInvocation ? $this->formatType($value) : $this->formatArgument($value);
-
-        return \ucfirst($argument->getName()) . $suffix;
-    }
-
-    /**
-     * @param TypeInvocation $type
-     * @return string
-     */
-    protected function formatType(TypeInvocation $type): string
-    {
-        return $this->formatName($type->getTypeName()) . $this->formatArguments($type->getArguments());
+        return $this->formatName($name);
     }
 
     /**
      * @param TypeNameInterface $name
      * @return string
      */
-    protected function formatName(TypeNameInterface $name): string
+    private function formatName(TypeNameInterface $name): string
     {
         $from = TypeNameInterface::NAMESPACE_SEPARATOR;
 

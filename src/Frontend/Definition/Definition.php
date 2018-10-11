@@ -28,6 +28,11 @@ class Definition implements DefinitionInterface
     private $context;
 
     /**
+     * @var ContextInterface
+     */
+    private $local;
+
+    /**
      * @var array
      */
     private $arguments = [];
@@ -41,6 +46,7 @@ class Definition implements DefinitionInterface
     {
         $this->context = $context;
         $this->name = $name->in($context->getName());
+        $this->local = $context->create($this->name);
     }
 
     /**
@@ -93,6 +99,14 @@ class Definition implements DefinitionInterface
     public function getContext(): ContextInterface
     {
         return $this->context;
+    }
+
+    /**
+     * @return ContextInterface
+     */
+    public function getLocalContext(): ContextInterface
+    {
+        return $this->local;
     }
 
     /**

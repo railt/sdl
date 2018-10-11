@@ -7,15 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Frontend\Invocation;
+namespace Railt\SDL\Frontend\Definition;
 
+use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\IR\SymbolTable\PrimitiveInterface;
 use Railt\SDL\IR\Type\TypeNameInterface;
 
 /**
  * Class InvocationPrimitive
  */
-class InvocationPrimitive implements InvocationInterface
+class Invocation implements InvocationInterface
 {
     /**
      * @var TypeNameInterface
@@ -28,40 +29,47 @@ class InvocationPrimitive implements InvocationInterface
     private $arguments = [];
 
     /**
+     * @var ContextInterface
+     */
+    private $from;
+
+    /**
      * InvocationPrimitive constructor.
      * @param TypeNameInterface $name
+     * @param ContextInterface $from
      */
-    public function __construct(TypeNameInterface $name)
+    public function __construct(TypeNameInterface $name, ContextInterface $from)
     {
         $this->name = $name;
+        $this->from = $from;
     }
 
     /**
-     * @return array|InvocationPrimitive[]
+     * @return ContextInterface
      */
-    public function getArguments(): array
+    public function getContext(): ContextInterface
+    {
+        return $this->from;
+    }
+
+    /**
+     * @return iterable|InvocationInterface[]
+     */
+    public function getArguments(): iterable
     {
         return $this->arguments;
     }
 
     /**
      * @param string $name
-     * @param InvocationPrimitive|PrimitiveInterface $value
-     * @return InvocationPrimitive
+     * @param Invocation|PrimitiveInterface $value
+     * @return InvocationInterface
      */
-    public function addArgument(string $name, $value): InvocationPrimitive
+    public function addArgument(string $name, $value): InvocationInterface
     {
         $this->arguments[$name] = $value;
 
         return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasArguments(): bool
-    {
-        return \count($this->arguments) > 0;
     }
 
     /**
@@ -88,5 +96,13 @@ class InvocationPrimitive implements InvocationInterface
         }
 
         return $this->name->getFullyQualifiedName();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasArguments(): bool
+    {
+        return \count($this->arguments) > 0;
     }
 }

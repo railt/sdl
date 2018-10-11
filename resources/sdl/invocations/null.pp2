@@ -2,6 +2,6 @@
 //
 // Null value
 //
-#NullValue -> Railt\SDL\Frontend\AST\Value\NullValueNode
+#NullValue
   : ::T_NULL::
   ;

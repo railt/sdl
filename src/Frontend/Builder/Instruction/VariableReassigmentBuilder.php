@@ -35,7 +35,7 @@ class VariableReassigmentBuilder extends BaseBuilder
      */
     public function reduce(ContextInterface $ctx, RuleInterface $rule)
     {
-        yield function() use ($ctx, $rule): \Generator {
+        yield function () use ($ctx, $rule): \Generator {
             /** @var ValueInterface $value */
             $value = yield $rule->first('> #VariableValue')->getChild(0);
 

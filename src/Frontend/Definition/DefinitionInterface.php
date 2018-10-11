@@ -28,6 +28,11 @@ interface DefinitionInterface
     public function getContext(): ContextInterface;
 
     /**
+     * @return ContextInterface
+     */
+    public function getLocalContext(): ContextInterface;
+
+    /**
      * @param string $name
      * @param TypeNameInterface $hint
      * @return DefinitionArgumentInterface
