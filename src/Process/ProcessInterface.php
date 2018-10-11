@@ -24,7 +24,7 @@ interface ProcessInterface
      * @param callable $handler
      * @return ProcessInterface
      */
-    public function tick(callable $handler): ProcessInterface;
+    public function tick(callable $handler): self;
 
     /**
      * @param callable $callable
@@ -36,5 +36,5 @@ interface ProcessInterface
      * @param InterceptorInterface $interceptor
      * @return ProcessInterface
      */
-    public function intercept(InterceptorInterface $interceptor): ProcessInterface;
+    public function intercept(InterceptorInterface $interceptor): self;
 }

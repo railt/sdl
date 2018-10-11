@@ -34,7 +34,7 @@ class SimpleNamingStrategy extends Strategy
     private function format(TypeNameInterface $name, iterable $arguments): string
     {
         echo \str_repeat('-', 100) . "\n";
-        echo $name . " ";
+        echo $name . ' ';
         \dump($arguments);
 
         return $this->formatName($name);

@@ -34,7 +34,7 @@ class Factory
      * @param array|InterceptorInterface $interceptors
      * @return Factory
      */
-    public static function create(array $interceptors = []): Factory
+    public static function create(array $interceptors = []): self
     {
         return new static($interceptors);
     }
@@ -43,7 +43,7 @@ class Factory
      * @param InterceptorInterface ...$interceptors
      * @return Factory
      */
-    public function add(InterceptorInterface ...$interceptors): Factory
+    public function add(InterceptorInterface ...$interceptors): self
     {
         foreach ($interceptors as $interceptor) {
             $this->interceptors[] = $interceptor;

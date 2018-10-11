@@ -9,9 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\Definition;
 
-use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\SDL\Exception\NotFoundException;
-use Railt\SDL\Exception\TypeConflictException;
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\Frontend\Deferred\Deferred;
 use Railt\SDL\Frontend\Deferred\DeferredInterface;
@@ -67,9 +65,9 @@ class Storage
      * @param DeferredInterface $deferred
      * @return $this|Storage
      */
-    public function remember(DefinitionInterface $definition, DeferredInterface $deferred): Storage
+    public function remember(DefinitionInterface $definition, DeferredInterface $deferred): self
     {
-        $this->resolvers[$definition] = $deferred;
+        $this->resolvers[$definition]              = $deferred;
         $this->definitions[$definition->getName()] = $definition;
 
         return $this;

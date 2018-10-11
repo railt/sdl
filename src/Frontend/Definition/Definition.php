@@ -45,8 +45,8 @@ class Definition implements DefinitionInterface
     public function __construct(ContextInterface $context, TypeNameInterface $name)
     {
         $this->context = $context;
-        $this->name = $name->in($context->getName());
-        $this->local = $context->create($this->name);
+        $this->name    = $name->in($context->getName());
+        $this->local   = $context->create($this->name);
     }
 
     /**

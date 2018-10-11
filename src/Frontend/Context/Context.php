@@ -176,6 +176,6 @@ class Context implements ContextInterface
      */
     public function __toString(): string
     {
-        return $this->getName()->getFullyQualifiedName() . ' (' . $this->getFile()->getPathname() .')';
+        return $this->getName()->getFullyQualifiedName() . ' (' . $this->getFile()->getPathname() . ')';
     }
 }

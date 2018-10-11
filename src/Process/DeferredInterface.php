@@ -18,7 +18,7 @@ interface DeferredInterface
      * @param callable $then
      * @return DeferredInterface
      */
-    public function then(callable $then): DeferredInterface;
+    public function then(callable $then): self;
 
     /**
      * @param mixed $value

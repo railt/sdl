@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\Interceptor;
 
 use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Frontend\Builder;
 use Railt\SDL\Frontend\Context\ContextInterface;
 
 /**

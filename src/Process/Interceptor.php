@@ -31,7 +31,7 @@ class Interceptor implements InterceptorInterface
      */
     public function __construct(callable $matcher, callable $resolver)
     {
-        $this->matcher = $matcher;
+        $this->matcher  = $matcher;
         $this->resolver = $resolver;
     }
 

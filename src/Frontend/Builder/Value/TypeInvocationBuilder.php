@@ -77,7 +77,7 @@ class TypeInvocationBuilder extends BaseBuilder
         }
 
         $isConst = $name->getType()->typeOf(Type::const());
-        $isType = $name->getType()->typeOf(Type::type());
+        $isType  = $name->getType()->typeOf(Type::type());
 
         switch (true) {
             case $isConst:
@@ -110,7 +110,7 @@ class TypeInvocationBuilder extends BaseBuilder
         $isConst = $name->getType()->typeOf(Type::const());
 
         if (! $isConst) {
-            $error = 'Generic argument name must be a const but %s given';
+            $error     = 'Generic argument name must be a const but %s given';
             $exception = new TypeConflictException(\sprintf($error, $name));
             $exception->throwsIn($ctx->getFile(), $rule->getOffset());
 
@@ -133,7 +133,7 @@ class TypeInvocationBuilder extends BaseBuilder
         $isType = $value->getType()->typeOf(Type::type());
 
         if (! $isType) {
-            $error = 'Generic argument value must be a valid type, but %s given';
+            $error     = 'Generic argument value must be a valid type, but %s given';
             $exception = new TypeConflictException(\sprintf($error, $value));
             $exception->throwsIn($ctx->getFile(), $rule->getOffset());
         }

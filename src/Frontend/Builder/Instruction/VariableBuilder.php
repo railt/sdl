@@ -45,7 +45,7 @@ class VariableBuilder extends BaseBuilder
     public function reduce(ContextInterface $ctx, RuleInterface $rule): \Generator
     {
         $isConstant = $this->isConstant($rule);
-        $variables = [];
+        $variables  = [];
 
         foreach ($this->getVariableNames($rule) as $variable) {
             $record = $variables[] = $ctx->declare($variable);

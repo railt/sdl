@@ -32,7 +32,7 @@ class Container
     public function __construct(ContextInterface $context, $value = null)
     {
         $this->context = $context;
-        $this->value = $value;
+        $this->value   = $value;
     }
 
     /**

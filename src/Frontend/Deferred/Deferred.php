@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Frontend\Deferred;
 
-use Railt\SDL\Frontend\Context\ContextInterface;
-
 /**
  * Class Deferred
  */

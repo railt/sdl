@@ -38,5 +38,5 @@ interface InvocationInterface extends PrimitiveInterface
      * @param mixed $value
      * @return InvocationInterface
      */
-    public function addArgument(string $name, $value): InvocationInterface;
+    public function addArgument(string $name, $value): self;
 }

@@ -12,7 +12,6 @@ namespace Railt\SDL\Frontend\Interceptor;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Frontend\Context\ContextInterface;
 use Railt\SDL\Frontend\Deferred\Deferred;
-use Railt\SDL\Frontend\Deferred\DeferredInterface;
 use Railt\SDL\Frontend\Deferred\DeferredCollection;
 
 /**

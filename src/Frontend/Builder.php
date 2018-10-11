@@ -22,7 +22,6 @@ use Railt\SDL\Frontend\Deferred\DeferredCollection as DeferredStorage;
 use Railt\SDL\Frontend\Definition\DefinitionInterface;
 use Railt\SDL\Frontend\Definition\Invocation;
 use Railt\SDL\Frontend\Definition\Storage as TypesStorage;
-use Railt\SDL\Frontend\Interceptor;
 use Railt\SDL\Frontend\Interceptor\Factory;
 use Railt\SDL\IR\SymbolTable;
 use Railt\SDL\IR\SymbolTableInterface;
@@ -113,14 +112,14 @@ class Builder
      */
     public function __construct(StrategyInterface $naming)
     {
-        $this->parser = new Parser();
-        $this->table = new SymbolTable();
-        $this->types = new TypesStorage($naming);
+        $this->parser   = new Parser();
+        $this->table    = new SymbolTable();
+        $this->types    = new TypesStorage($naming);
         $this->deferred = new DeferredStorage();
 
         $factory = $this->bootInterceptors($this->deferred, $this->types);
 
-        $this->process = $this->bootProcess($factory);
+        $this->process  = $this->bootProcess($factory);
         $this->builders = $this->bootBuilders();
     }
 
