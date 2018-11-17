@@ -1,7 +1,0 @@
-
-//
-// Constant value
-//
-#ConstantValue
-  : NameExceptValues()
-  ;

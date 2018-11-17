@@ -1,6 +1,0 @@
-//
-// Input value
-//
-#InputValue
-  : ::T_BRACE_OPEN:: ArgumentValue()* ::T_BRACE_CLOSE::
-  ;

@@ -1,2 +1,0 @@
-
-directive @example1(a: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT

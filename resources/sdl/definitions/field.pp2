@@ -1,9 +1,0 @@
-
-
-#FieldDefinition
-  : Description()?
-    ConstantName() ArgumentDefinitions()? ::T_COLON:: TypeHint()
-    ::T_COMMA::?
-    Directive()*
-    ::T_COMMA::?
-  ;

@@ -1,6 +1,0 @@
-
-"Description of \"input AnnotatedInput\" type"
-input AnnotatedInput @onInputObjectType {
-    "Description of \"annotatedField\" field"
-    annotatedField: Type @onField
-}

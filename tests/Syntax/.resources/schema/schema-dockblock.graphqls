@@ -1,7 +1,0 @@
-
-"""
-Dockblock
-"""
-schema {
-    query: Example
-}

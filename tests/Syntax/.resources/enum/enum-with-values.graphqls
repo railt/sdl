@@ -1,4 +1,0 @@
-enum Example {
-    A: String = "Red"
-    B: Int = 23
-}

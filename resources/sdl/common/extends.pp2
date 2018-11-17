@@ -1,7 +1,0 @@
-
-//
-// Extends
-//
-#TypeDefinitionExtends
-  : ::T_EXTENDS:: TypeInvocation()
-  ;

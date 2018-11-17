@@ -1,7 +1,8 @@
 .idea/
 vendor/
-test/
+composer.phar
 .DS_Store
 Thumbs.db
-composer.phar
-composer.lock
+*.phpt.out
+*.phpt.exp
+*.phpt.diff

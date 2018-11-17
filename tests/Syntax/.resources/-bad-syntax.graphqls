@@ -1,6 +1,0 @@
-type A {
-    field: Example!
-}
-
-broken
-test

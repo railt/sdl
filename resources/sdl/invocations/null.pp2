@@ -1,7 +1,0 @@
-
-//
-// Null value
-//
-#NullValue
-  : ::T_NULL::
-  ;

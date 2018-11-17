@@ -1,5 +1,0 @@
-
-
-#ImportDefinition
-  : ::T_IMPORT:: (Value() | VariableName())
-  ;

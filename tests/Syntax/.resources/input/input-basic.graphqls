@@ -1,7 +1,0 @@
-
-input InputType {
-    key: Float! = 0.2
-    answer: Int = 42
-    field: String = "Default"
-    field2: String = ""
-}

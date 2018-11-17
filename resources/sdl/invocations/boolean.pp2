@@ -1,7 +1,0 @@
-//
-// Boolean value (true or false)
-//
-#BooleanValue
-  : <T_FALSE>
-  | <T_TRUE>
-  ;

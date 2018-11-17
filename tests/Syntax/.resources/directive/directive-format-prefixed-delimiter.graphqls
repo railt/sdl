@@ -1,7 +1,0 @@
-
-directive @example2(a: Boolean! = true) on
-    | FIELD
-    | FRAGMENT_SPREAD
-    | INLINE_FRAGMENT
-
-directive @example3(a: Boolean! = true) on | FIELD | FRAGMENT_SPREAD

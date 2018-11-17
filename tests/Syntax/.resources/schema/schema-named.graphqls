@@ -1,8 +1,0 @@
-
-schema Example {
-    query: Example
-}
-
-schema {
-    query: Example
-}
