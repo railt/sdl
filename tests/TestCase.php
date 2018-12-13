@@ -10,10 +10,26 @@ declare(strict_types=1);
 namespace Railt\Tests\SDL;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Class TestCase
  */
 abstract class TestCase extends BaseTestCase
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
+    public function tearDown(): void
+    {
+        $files = (new Finder())->files()->in(__DIR__ . '/Helpers/temp');
+
+        /** @var SplFileInfo $file */
+        foreach ($files as $file) {
+            @\unlink($file->getRealPath());
+        }
+
+        parent::tearDown();
+    }
 }
