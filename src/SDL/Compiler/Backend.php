@@ -75,6 +75,14 @@ class Backend
     }
 
     /**
+     * @param \Closure $deferred
+     */
+    public function async(\Closure $deferred): void
+    {
+        $this->process->async($deferred);
+    }
+
+    /**
      * @param Document $document
      * @return Context
      */
@@ -112,7 +120,7 @@ class Backend
     public function exec(Context $context, RuleInterface $ast): DefinitionInterface
     {
         if ($builder = self::BUILDERS[$ast->getName()] ?? null) {
-            return $this->execBuilder(new $builder($context, $ast, $this->process));
+            return $this->execBuilder(new $builder($context, $ast, $this));
         }
 
         if ($unsupported = self::UNSUPPORTED_BUILDERS[$ast->getName()] ?? null) {

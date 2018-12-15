@@ -16,6 +16,7 @@ use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Exception\TypeNotFoundException;
+use Railt\SDL\Compiler\Backend;
 use Railt\SDL\Compiler\Process;
 use Railt\SDL\Exception\TypeNotFoundException as SDLTypeNotFoundException;
 
@@ -45,20 +46,20 @@ abstract class Builder implements BuilderInterface
     protected $ast;
 
     /**
-     * @var Process
+     * @var Backend
      */
-    private $process;
+    private $backend;
 
     /**
      * Builder constructor.
      * @param Context $ctx
      * @param RuleInterface $ast
-     * @param Process $process
+     * @param Backend $backend
      */
-    public function __construct(Context $ctx, RuleInterface $ast, Process $process)
+    public function __construct(Context $ctx, RuleInterface $ast, Backend $backend)
     {
         $this->ast = $ast;
-        $this->process = $process;
+        $this->backend = $backend;
         $this->file = $ctx->getFile();
         $this->definition = $ctx->getDefinition();
         $this->document = $this->definition->getDocument();
@@ -88,7 +89,18 @@ abstract class Builder implements BuilderInterface
      */
     protected function async(\Closure $then): void
     {
-        $this->process->async($then);
+        $this->backend->async($then);
+    }
+
+    /**
+     * @param Definition $context
+     * @param RuleInterface $ast
+     * @return Definition
+     * @throws \Railt\SDL\Exception\TypeException
+     */
+    protected function make(Definition $context, RuleInterface $ast): Definition
+    {
+        return $this->backend->exec(new Context($this->file, $context), $ast);
     }
 
     /**
