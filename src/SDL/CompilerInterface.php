@@ -12,6 +12,7 @@ namespace Railt\SDL;
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Contracts\Reflection;
+use Railt\SDL\TypeLoader\TypeLoaderInterface;
 
 /**
  * Interface CompilerInterface
@@ -22,6 +23,11 @@ interface CompilerInterface
      * @var string
      */
     public const VERSION = '1.3.0';
+
+    /**
+     * @param TypeLoaderInterface $loader
+     */
+    public function autoload(TypeLoaderInterface $loader): void;
 
     /**
      * @param Readable $schema

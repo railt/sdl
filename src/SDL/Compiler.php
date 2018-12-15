@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL;
 
+use Railt\Io\Exception\ExternalFileException;
 use Railt\Io\File;
 use Railt\Io\Readable;
 use Railt\Reflection\Contracts\Definition;
@@ -23,6 +24,7 @@ use Railt\SDL\Compiler\Process;
 use Railt\SDL\Exception\InternalErrorException;
 use Railt\SDL\Exception\SyntaxException;
 use Railt\SDL\Exception\TypeException;
+use Railt\SDL\TypeLoader\TypeLoaderInterface;
 
 /**
  * Class Compiler
@@ -50,6 +52,11 @@ class Compiler implements CompilerInterface
     private $process;
 
     /**
+     * @var array|TypeLoaderInterface[]
+     */
+    private $loaders = [];
+
+    /**
      * Compiler constructor.
      */
     public function __construct()
@@ -61,29 +68,52 @@ class Compiler implements CompilerInterface
     }
 
     /**
+     * @param TypeLoaderInterface $loader
+     */
+    public function autoload(TypeLoaderInterface $loader): void
+    {
+        $this->loaders[] = $loader;
+    }
+
+    /**
      * @return \Closure
      */
     private function typeLoader(): \Closure
     {
-        return function (string $type, Definition $from = null) {
-            $this->compile(File::fromPathname($type . '.graphqls'));
+        return function (string $type, Definition $from = null): ?DocumentInterface {
+            foreach ($this->loaders as $loader) {
+                if ($file = $loader->load($type, $from)) {
+                    return $this->compile($file);
+                }
+            }
+
+            return null;
         };
     }
 
     /**
      * @param Readable $schema
      * @return DocumentInterface
+     * @throws ExternalFileException
      * @throws InternalErrorException
-     * @throws SyntaxException
-     * @throws TypeException
      */
     public function compile(Readable $schema): DocumentInterface
     {
-        $document = $this->runCompiler($schema);
+        try {
+            $document = $this->runCompiler($schema);
 
-        $this->process->run();
+            $this->process->run();
 
-        return $document;
+            return $document;
+        } catch (ExternalFileException $e) {
+            $class = \get_class($e);
+
+            /** @var ExternalFileException $exception */
+            $exception = new $class($e->getMessage());
+            $exception->throwsIn($schema, $e->getLine(), $e->getColumn());
+
+            throw $exception;
+        }
     }
 
     /**

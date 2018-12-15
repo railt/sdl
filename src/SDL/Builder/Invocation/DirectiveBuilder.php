@@ -11,7 +11,6 @@ namespace Railt\SDL\Builder\Invocation;
 
 use Railt\Reflection\Contracts\Definition;
 use Railt\Reflection\Invocation\DirectiveInvocation;
-use Railt\SDL\Builder\Utils;
 
 /**
  * Class DirectiveBuilder

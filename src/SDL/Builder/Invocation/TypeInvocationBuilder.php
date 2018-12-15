@@ -16,5 +16,4 @@ use Railt\SDL\Builder\Builder;
  */
 abstract class TypeInvocationBuilder extends Builder
 {
-
 }

@@ -11,7 +11,6 @@ namespace Railt\SDL\Builder\Definition;
 
 use Railt\Reflection\AbstractTypeDefinition;
 use Railt\Reflection\Contracts\Definition;
-use Railt\Reflection\Contracts\Invocation\Behaviour\ProvidesDirectives;
 use Railt\SDL\Builder\Builder;
 use Railt\SDL\Builder\Utils;
 
@@ -29,10 +28,6 @@ abstract class TypeDefinitionBuilder extends Builder
         if ($definition instanceof Definition\TypeDefinition) {
             $definition->withDescription(Utils::findDescription($this->ast));
         }
-
-        //if ($definition instanceof ProvidesDirectives) {
-
-        //}
 
         return parent::bind($definition);
     }

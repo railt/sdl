@@ -25,7 +25,7 @@ class UnionBuilder extends TypeDefinitionBuilder
     {
         $union = $this->bind(new UnionDefinition($this->document, $this->getName()));
 
-        //
+
 
         return $union;
     }

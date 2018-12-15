@@ -13,8 +13,11 @@ use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\Reflection\AbstractDefinition;
 use Railt\Reflection\Contracts\Definition;
+use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document;
+use Railt\Reflection\Exception\TypeNotFoundException;
 use Railt\SDL\Compiler\Process;
+use Railt\SDL\Exception\TypeNotFoundException as SDLTypeNotFoundException;
 
 /**
  * Class Builder
@@ -62,9 +65,28 @@ abstract class Builder implements BuilderInterface
     }
 
     /**
+     * @param string $type
+     * @param Definition $from
+     * @param int $offset
+     * @return TypeDefinition
+     * @throws SDLTypeNotFoundException
+     */
+    protected function load(string $type, Definition $from, int $offset): TypeDefinition
+    {
+        try {
+            return $from->getDictionary()->get($type, $from);
+        } catch (TypeNotFoundException $e) {
+            $exception = new SDLTypeNotFoundException($e->getMessage());
+            $exception->throwsIn($from->getFile(), $offset);
+
+            throw $exception;
+        }
+    }
+
+    /**
      * @param \Closure $then
      */
-    public function async(\Closure $then): void
+    protected function async(\Closure $then): void
     {
         $this->process->async($then);
     }

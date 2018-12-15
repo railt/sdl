@@ -25,7 +25,7 @@ class InputBuilder extends TypeDefinitionBuilder
     {
         $input = $this->bind(new InputDefinition($this->document, $this->getName()));
 
-        //
+
 
         return $input;
     }

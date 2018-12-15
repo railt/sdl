@@ -25,7 +25,7 @@ class ScalarBuilder extends TypeDefinitionBuilder
     {
         $scalar = $this->bind(new ScalarDefinition($this->document, $this->getName()));
 
-        //
+
 
         return $scalar;
     }

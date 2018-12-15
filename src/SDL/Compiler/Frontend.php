@@ -45,13 +45,11 @@ class Frontend
     {
         try {
             return $this->parser->parse($schema);
-
         } catch (ExternalFileException $e) {
             $exception = new SyntaxException($e->getMessage());
             $exception->throwsIn($schema, $e->getLine(), $e->getColumn());
 
             throw $exception;
-
         } catch (\Throwable $e) {
             throw new InternalErrorException($e->getMessage());
         }

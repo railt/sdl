@@ -16,5 +16,4 @@ use Railt\Io\Exception\ExternalFileException;
  */
 class SyntaxException extends ExternalFileException
 {
-
 }

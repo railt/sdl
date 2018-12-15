@@ -25,7 +25,7 @@ class DirectiveBuilder extends TypeDefinitionBuilder
     {
         $directive = $this->bind(new DirectiveDefinition($this->document, $this->getName()));
 
-        //
+
 
         return $directive;
     }

@@ -25,7 +25,7 @@ class ObjectBuilder extends TypeDefinitionBuilder
     {
         $object = $this->bind(new ObjectDefinition($this->document, $this->getName()));
 
-        //
+
 
         return $object;
     }

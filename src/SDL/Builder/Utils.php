@@ -11,9 +11,6 @@ namespace Railt\SDL\Builder;
 
 use Railt\Io\Readable;
 use Railt\Parser\Ast\RuleInterface;
-use Railt\Reflection\AbstractDefinition;
-use Railt\Reflection\Contracts\Definition as DefinitionInterface;
-use Railt\Reflection\Contracts\Document;
 use Railt\SDL\Exception\SyntaxException;
 
 /**
@@ -60,9 +57,34 @@ class Utils
      */
     public static function findDescription(RuleInterface $rule): ?string
     {
+        return static::leaf($rule, 'Description');
+    }
+
+    /**
+     * @param RuleInterface $rule
+     * @param string $name
+     * @param int $group
+     * @return string|null
+     */
+    public static function leaf(RuleInterface $rule, string $name, int $group = 0): ?string
+    {
+        if ($rule = static::rule($rule, $name)) {
+            return $rule->getValue($group);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param RuleInterface $rule
+     * @param string $name
+     * @return RuleInterface|null
+     */
+    public static function rule(RuleInterface $rule, string $name): ?RuleInterface
+    {
         foreach ($rule->getChildren() as $child) {
-            if ($child->getName() === 'Description') {
-                return $child->getChild(0)->getValue(1);
+            if ($child->getName() === $name) {
+                return $child;
             }
         }
 

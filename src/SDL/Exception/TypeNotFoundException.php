@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Railt\SDL\Exception;
 
 /**
- * Class InternalErrorException
+ * Class TypeNotFoundException
  */
-class InternalErrorException extends \RuntimeException
+class TypeNotFoundException extends TypeException
 {
 }

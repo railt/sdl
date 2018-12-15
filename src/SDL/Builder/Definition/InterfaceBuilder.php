@@ -25,7 +25,7 @@ class InterfaceBuilder extends TypeDefinitionBuilder
     {
         $interface = $this->bind(new InterfaceDefinition($this->document, $this->getName()));
 
-        //
+
 
         return $interface;
     }

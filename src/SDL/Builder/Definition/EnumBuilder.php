@@ -25,7 +25,7 @@ class EnumBuilder extends TypeDefinitionBuilder
     {
         $enum = $this->bind(new EnumDefinition($this->document, $this->getName()));
 
-        //
+
 
         return $enum;
     }
