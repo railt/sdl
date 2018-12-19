@@ -138,6 +138,9 @@ class Compiler implements CompilerInterface
      */
     private function run(ReflectionInterface $reflection, Readable $schema): DocumentInterface
     {
+        // TODO
+        return $this->document($reflection, $schema);
+
         return $this->backend->each(
             $this->backend->context($this->document($reflection, $schema)),
             $this->frontend->exec($schema)

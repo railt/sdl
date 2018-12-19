@@ -24,15 +24,19 @@ class SchemaBuilder extends TypeDefinitionBuilder
 {
     /**
      * @return Definition
+     * @throws TypeException
      */
     public function build(): Definition
     {
         /** @var SchemaDefinition $schema */
         $schema = $this->bind(new SchemaDefinition($this->document, $this->findName()));
 
+        /** @var RuleInterface $child */
         foreach ($this->ast as $child) {
             $this->async(function () use ($child, $schema): void {
-                $this->buildField($child, $schema);
+                if ($child->is('SchemaFieldDefinition')) {
+                    $this->buildField($child, $schema);
+                }
             });
         }
 
@@ -107,7 +111,7 @@ class SchemaBuilder extends TypeDefinitionBuilder
 
         $result = $this->load($name, $definition, $type->getOffset());
 
-        if (! Type::of($result::getType())->is(Type::OBJECT)) {
+        if (! $result::getType()->is(Type::OBJECT)) {
             $error = 'Schema %s field type should be an %s, but %s given';
             $error = \sprintf($error, $field, Type::OBJECT, $result);
 

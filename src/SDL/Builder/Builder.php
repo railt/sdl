@@ -17,7 +17,6 @@ use Railt\Reflection\Contracts\Definition\TypeDefinition;
 use Railt\Reflection\Contracts\Document;
 use Railt\Reflection\Exception\TypeNotFoundException;
 use Railt\SDL\Compiler\Backend;
-use Railt\SDL\Compiler\Process;
 use Railt\SDL\Exception\TypeNotFoundException as SDLTypeNotFoundException;
 
 /**
@@ -72,13 +71,13 @@ abstract class Builder implements BuilderInterface
      * @return TypeDefinition
      * @throws SDLTypeNotFoundException
      */
-    protected function load(string $type, Definition $from, int $offset): TypeDefinition
+    protected function load(string $type, Definition $from, int $offset = null): TypeDefinition
     {
         try {
             return $from->getDictionary()->get($type, $from);
         } catch (TypeNotFoundException $e) {
             $exception = new SDLTypeNotFoundException($e->getMessage());
-            $exception->throwsIn($from->getFile(), $offset);
+            $exception->throwsIn($from->getFile(), $offset ?? $this->ast->getOffset());
 
             throw $exception;
         }
