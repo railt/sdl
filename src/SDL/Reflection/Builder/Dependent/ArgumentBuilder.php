@@ -32,10 +32,11 @@ class ArgumentBuilder extends BaseArgument implements Compilable
 
     /**
      * ArgumentBuilder constructor.
+     *
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
      * @param TypeDefinition $parent
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \OutOfBoundsException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document, TypeDefinition $parent)
     {
@@ -51,7 +52,7 @@ class ArgumentBuilder extends BaseArgument implements Compilable
     {
         if ($ast->is('Value')) {
             $this->hasDefaultValue = true;
-            $this->defaultValue    = $this->parseValue(
+            $this->defaultValue = $this->parseValue(
                 $ast->getChild(0),
                 $this->getTypeDefinition()->getName()
             );

@@ -30,6 +30,7 @@ abstract class BaseSchemaException extends \DomainException implements SchemaExc
 
     /**
      * BaseSchemaException constructor.
+     *
      * @param string $message
      * @param CallStackInterface $stack
      * @param \Throwable|null $previous
@@ -42,8 +43,8 @@ abstract class BaseSchemaException extends \DomainException implements SchemaExc
 
         $latest = $this->renderer->getLastRenderer();
 
-        $this->file   = $latest->getFile();
-        $this->line   = $latest->getLine();
+        $this->file = $latest->getFile();
+        $this->line = $latest->getLine();
         $this->column = $latest->getColumn();
     }
 

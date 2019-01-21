@@ -39,10 +39,10 @@ class ExtendBuilder extends BaseExtend implements Compilable
 
     /**
      * ExtendBuilder constructor.
+     *
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
-     * @throws TypeConflictException
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document)
     {
@@ -162,7 +162,7 @@ class ExtendBuilder extends BaseExtend implements Compilable
             $this->description = $field->description ?: $this->description;
 
             // NonNull overriding
-            $this->isNonNull        = $field->isNonNull();
+            $this->isNonNull = $field->isNonNull();
             $this->isListOfNonNulls = $field->isListOfNonNulls();
         };
     }
@@ -219,7 +219,7 @@ class ExtendBuilder extends BaseExtend implements Compilable
             $this->description = $argument->description ?: $this->description;
 
             // NonNull overriding
-            $this->isNonNull        = $argument->isNonNull();
+            $this->isNonNull = $argument->isNonNull();
             $this->isListOfNonNulls = $argument->isListOfNonNulls();
         };
     }

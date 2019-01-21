@@ -62,7 +62,7 @@ class PassedArgumentsValidator extends BaseDefinitionValidator
      */
     private function validateArgumentTypes(HasPassedArguments $invocation, ArgumentDefinition $argument): void
     {
-        $type  = $argument->getTypeDefinition();
+        $type = $argument->getTypeDefinition();
         $value = $invocation->getPassedArgument($argument->getName());
 
         if ($value === null) {
@@ -88,8 +88,8 @@ class PassedArgumentsValidator extends BaseDefinitionValidator
     /**
      * @param ArgumentDefinition $arg
      * @param Inputable $type
-     * @param $value
-     * @return void
+     * @param mixed $value
+     * @throws TypeConflictException
      */
     private function validateSingleArgument(ArgumentDefinition $arg, Inputable $type, $value): void
     {

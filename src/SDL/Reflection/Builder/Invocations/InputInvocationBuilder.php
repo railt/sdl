@@ -39,14 +39,16 @@ class InputInvocationBuilder extends BaseInputInvocation implements Compilable
 
     /**
      * InputInvocationBuilder constructor.
+     *
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
      * @param string $parentType
      * @param array $path
+     * @throws \OutOfBoundsException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document, string $parentType, array $path)
     {
-        $this->path       = $path;
+        $this->path = $path;
         $this->parentType = $parentType;
         $this->boot($ast, $document);
     }
@@ -65,7 +67,7 @@ class InputInvocationBuilder extends BaseInputInvocation implements Compilable
      */
     protected function onCompile(NodeInterface $ast): bool
     {
-        $key   = (string)$ast->getChild(0)->getChild(0)->getValue();
+        $key = (string)$ast->getChild(0)->getChild(0)->getValue();
         $value = $ast->getChild(1)->getChild(0);
 
         $this->arguments[$key] = $this->parseValue($value, $this->parentType, \array_merge($this->path, [$key]));
