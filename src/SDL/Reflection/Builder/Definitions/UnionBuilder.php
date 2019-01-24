@@ -12,6 +12,7 @@ namespace Railt\SDL\Reflection\Builder\Definitions;
 use Railt\Parser\Ast\NodeInterface;
 use Railt\Parser\Ast\RuleInterface;
 use Railt\SDL\Base\Definitions\BaseUnion;
+use Railt\SDL\Exceptions\TypeConflictException;
 use Railt\SDL\Reflection\Builder\DocumentBuilder;
 use Railt\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
 use Railt\SDL\Reflection\Builder\Process\Compilable;
@@ -27,10 +28,9 @@ class UnionBuilder extends BaseUnion implements Compilable
 
     /**
      * UnionBuilder constructor.
-     *
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
-     * @throws \OutOfBoundsException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document)
     {
@@ -41,7 +41,7 @@ class UnionBuilder extends BaseUnion implements Compilable
     /**
      * @param NodeInterface|RuleInterface $ast
      * @return bool
-     * @throws \OutOfBoundsException
+     * @throws TypeConflictException
      */
     protected function onCompile(NodeInterface $ast): bool
     {

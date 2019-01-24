@@ -51,7 +51,6 @@ class Validator
 
     /**
      * Validator constructor.
-     *
      * @param CallStack $stack
      * @throws CompilerException
      */

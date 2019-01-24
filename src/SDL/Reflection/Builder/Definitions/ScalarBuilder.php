@@ -26,10 +26,9 @@ class ScalarBuilder extends BaseScalar implements Compilable
 
     /**
      * ScalarBuilder constructor.
-     *
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
-     * @throws \OutOfBoundsException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document)
     {

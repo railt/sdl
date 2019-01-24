@@ -28,11 +28,10 @@ class ObjectBuilder extends BaseObject implements Compilable
     use DirectivesBuilder;
 
     /**
-     * ObjectBuilder constructor.
-     *
+     * SchemaBuilder constructor.
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
-     * @throws \OutOfBoundsException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document)
     {
@@ -43,7 +42,7 @@ class ObjectBuilder extends BaseObject implements Compilable
     /**
      * @param NodeInterface|RuleInterface $ast
      * @return bool
-     * @throws \OutOfBoundsException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     protected function onCompile(NodeInterface $ast): bool
     {

@@ -24,15 +24,14 @@ class DefinitionTraceRenderer extends BaseTraceRenderer
 
     /**
      * RecordRenderer constructor.
-     *
      * @param Definition $definition
      */
     public function __construct(Definition $definition)
     {
         $this->definition = $definition;
 
-        $this->file   = $definition->getFileName();
-        $this->line   = $definition->getDeclarationLine();
+        $this->file = $definition->getFileName();
+        $this->line = $definition->getDeclarationLine();
         $this->column = $definition->getDeclarationColumn();
     }
 

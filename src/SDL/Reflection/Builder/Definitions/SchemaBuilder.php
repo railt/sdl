@@ -34,12 +34,11 @@ class SchemaBuilder extends BaseSchema implements Compilable
      *
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
-     * @throws \OutOfBoundsException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document)
     {
         $this->boot($ast, $document);
-        $this->name   = ($this->name ?? static::DEFAULT_SCHEMA_NAME);
+        $this->name = ($this->name ?? static::DEFAULT_SCHEMA_NAME);
         $this->offset = $this->resolveSchemaOffset($ast);
     }
 
@@ -62,7 +61,6 @@ class SchemaBuilder extends BaseSchema implements Compilable
      * @param NodeInterface $ast
      * @return bool
      * @throws CompilerException
-     * @throws \OutOfBoundsException
      */
     protected function onCompile(NodeInterface $ast): bool
     {

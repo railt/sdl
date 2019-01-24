@@ -36,7 +36,6 @@ class Repository implements Dictionary, \Countable, \IteratorAggregate
 
     /**
      * Repository constructor.
-     *
      * @param CallStackInterface $stack
      */
     public function __construct(CallStackInterface $stack)
@@ -45,10 +44,10 @@ class Repository implements Dictionary, \Countable, \IteratorAggregate
     }
 
     /**
-     * @param \Railt\SDL\Contracts\Definitions\TypeDefinition $type
+     * @param TypeDefinition $type
      * @param bool $force
-     * @return \Railt\SDL\Reflection\Dictionary
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @return Dictionary
+     * @throws TypeConflictException
      */
     public function register(TypeDefinition $type, bool $force = false): Dictionary
     {
@@ -69,9 +68,8 @@ class Repository implements Dictionary, \Countable, \IteratorAggregate
 
     /**
      * @param string $name
-     * @param \Railt\SDL\Contracts\Definitions\Definition|null $from
-     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition
-     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
+     * @param Definition|null $from
+     * @return TypeDefinition
      */
     public function get(string $name, Definition $from = null): TypeDefinition
     {

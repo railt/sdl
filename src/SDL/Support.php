@@ -100,7 +100,7 @@ trait Support
     }
 
     /**
-     * @param mixed $value
+     * @param $value
      * @return string
      */
     protected function valueWithType($value): string

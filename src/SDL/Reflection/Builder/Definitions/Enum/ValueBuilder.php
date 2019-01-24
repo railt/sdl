@@ -27,11 +27,10 @@ class ValueBuilder extends BaseValue implements Compilable
 
     /**
      * ValueBuilder constructor.
-     *
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
      * @param EnumDefinition $parent
-     * @throws \OutOfBoundsException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document, EnumDefinition $parent)
     {

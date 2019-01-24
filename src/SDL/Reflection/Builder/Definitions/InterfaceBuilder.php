@@ -27,11 +27,10 @@ class InterfaceBuilder extends BaseInterface implements Compilable
     use DirectivesBuilder;
 
     /**
-     * InterfaceBuilder constructor.
-     *
+     * SchemaBuilder constructor.
      * @param NodeInterface $ast
      * @param DocumentBuilder $document
-     * @throws \OutOfBoundsException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function __construct(NodeInterface $ast, DocumentBuilder $document)
     {

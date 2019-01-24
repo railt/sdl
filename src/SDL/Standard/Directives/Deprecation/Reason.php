@@ -31,18 +31,17 @@ class Reason extends BaseArgument
 
     /**
      * Reason constructor.
-     *
      * @param Document|GraphQLDocument $document
      * @param DirectiveDefinition $type
      */
     public function __construct(Document $document, DirectiveDefinition $type)
     {
-        $this->parent      = $type;
-        $this->document    = $document;
-        $this->name        = Deprecation::REASON_ARGUMENT;
+        $this->parent = $type;
+        $this->document = $document;
+        $this->name = Deprecation::REASON_ARGUMENT;
         $this->description = self::ARGUMENT_DESCRIPTION;
 
-        $this->defaultValue    = self::ARGUMENT_DEFAULT_VALUE;
+        $this->defaultValue = self::ARGUMENT_DEFAULT_VALUE;
         $this->hasDefaultValue = true;
     }
 

@@ -26,7 +26,6 @@ class InterfaceTestCase extends AbstractLanguageTestCase
      * @return void
      * @throws \PHPUnit\Framework\AssertionFailedError
      * @throws \PHPUnit\Framework\Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testObjectHasInterface(Document $document): void
     {

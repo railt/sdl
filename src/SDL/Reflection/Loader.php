@@ -23,7 +23,7 @@ use Railt\SDL\Schema\CompilerInterface;
 class Loader extends Repository
 {
     /**
-     * @var \Railt\SDL\Schema\CompilerInterface
+     * @var CompilerInterface
      */
     private $compiler;
 
@@ -34,9 +34,8 @@ class Loader extends Repository
 
     /**
      * Loader constructor.
-     *
-     * @param \Railt\SDL\Schema\CompilerInterface $compiler
-     * @param \Railt\SDL\Runtime\CallStackInterface $stack
+     * @param CompilerInterface $compiler
+     * @param CallStackInterface $stack
      */
     public function __construct(CompilerInterface $compiler, CallStackInterface $stack)
     {
@@ -58,10 +57,8 @@ class Loader extends Repository
 
     /**
      * @param string $name
-     * @param \Railt\SDL\Contracts\Definitions\Definition|null $from
-     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition
-     * @throws \Railt\Io\Exception\NotReadableException
-     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
+     * @param Definition|null $from
+     * @return TypeDefinition
      */
     public function get(string $name, Definition $from = null): TypeDefinition
     {
@@ -74,10 +71,8 @@ class Loader extends Repository
 
     /**
      * @param string $name
-     * @param \Railt\SDL\Contracts\Definitions\Definition|null $from
-     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition
-     * @throws \Railt\Io\Exception\NotReadableException
-     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
+     * @param Definition $from
+     * @return TypeDefinition
      */
     private function load(string $name, Definition $from = null): TypeDefinition
     {
@@ -106,9 +101,8 @@ class Loader extends Repository
     }
 
     /**
-     * @param mixed $result
-     * @return \Railt\Io\Readable|null
-     * @throws \Railt\Io\Exception\NotReadableException
+     * @param string|Readable|mixed $result
+     * @return null|Readable
      */
     private function parseResult($result): ?Readable
     {
@@ -125,8 +119,8 @@ class Loader extends Repository
 
     /**
      * @param string $name
-     * @param \Railt\Io\Readable $readable
-     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition|null
+     * @param Readable $readable
+     * @return null|TypeDefinition
      */
     private function findType(string $name, Readable $readable): ?TypeDefinition
     {
