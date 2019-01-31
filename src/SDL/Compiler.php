@@ -81,11 +81,11 @@ class Compiler implements CompilerInterface, Configuration
      */
     public function __construct(Storage $storage = null)
     {
-        $this->parser        = new Parser();
-        $this->stack         = new CallStack();
-        $this->loader        = new Loader($this, $this->stack);
+        $this->parser = new Parser();
+        $this->stack = new CallStack();
+        $this->loader = new Loader($this, $this->stack);
         $this->typeValidator = new Validator($this->stack);
-        $this->typeCoercion  = new Factory();
+        $this->typeCoercion = new Factory();
 
         $this->storage = $this->bootStorage($storage);
 
@@ -207,6 +207,7 @@ class Compiler implements CompilerInterface, Configuration
     /**
      * @param Readable $readable
      * @return Document
+     * @throws Exceptions\TypeConflictException
      */
     public function compile(Readable $readable): Document
     {

@@ -31,8 +31,8 @@ class DefinitionTraceRenderer extends BaseTraceRenderer
     {
         $this->definition = $definition;
 
-        $this->file   = $definition->getFileName();
-        $this->line   = $definition->getDeclarationLine();
+        $this->file = $definition->getFileName();
+        $this->line = $definition->getDeclarationLine();
         $this->column = $definition->getDeclarationColumn();
     }
 
