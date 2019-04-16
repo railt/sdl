@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Definitions;
+namespace Railt\Component\SDL\Reflection\Validation\Definitions;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\DirectiveDefinition;
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\SDL\Contracts\Invocations\DirectiveInvocation;
-use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\DirectiveDefinition;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Contracts\Invocations\DirectiveInvocation;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class DirectiveInvocationValidator
@@ -77,7 +77,7 @@ class DirectiveInvocationValidator extends BaseDefinitionValidator
     /**
      * @param DirectiveInvocation $invoke
      * @param DirectiveDefinition $def
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     private function validateDirectiveLocatedDirective(DirectiveInvocation $invoke, DirectiveDefinition $def): void
     {

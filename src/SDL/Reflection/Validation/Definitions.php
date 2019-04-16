@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation;
+namespace Railt\Component\SDL\Reflection\Validation;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Reflection\Validation\Base\ValidatorsFactory;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Reflection\Validation\Base\ValidatorsFactory;
 
 /**
  * Class Definitions

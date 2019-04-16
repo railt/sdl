@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Standard\Scalars;
+namespace Railt\Component\SDL\Standard\Scalars;
 
-use Railt\SDL\Contracts\Document;
-use Railt\SDL\Standard\StandardType;
+use Railt\Component\SDL\Contracts\Document;
+use Railt\Component\SDL\Standard\StandardType;
 
 /**
  * RFC315 Implementation.

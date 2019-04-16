@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Standard\Scalars;
+namespace Railt\Component\SDL\Standard\Scalars;
 
-use Railt\SDL\Standard\StandardType;
+use Railt\Component\SDL\Standard\StandardType;
 
 /**
  * The ID standard scalar implementation.

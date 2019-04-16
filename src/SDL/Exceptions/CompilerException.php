@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Exceptions;
+namespace Railt\Component\SDL\Exceptions;
 
 /**
  * An error occurred during the initialization of the compiler.

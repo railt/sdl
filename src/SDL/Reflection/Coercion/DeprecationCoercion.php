@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Coercion;
+namespace Railt\Component\SDL\Reflection\Coercion;
 
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Invocations\DirectiveInvocation;
-use Railt\SDL\Standard\Directives\Deprecation;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Invocations\DirectiveInvocation;
+use Railt\Component\SDL\Standard\Directives\Deprecation;
 
 /**
  * Class DeprecationCoercion

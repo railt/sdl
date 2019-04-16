@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts;
+namespace Railt\Component\SDL\Contracts;
 
-use Railt\Io\Readable;
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\SchemaDefinition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Invocations\Directive\HasDirectives;
+use Railt\Component\Io\Readable;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\SchemaDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Invocations\Directive\HasDirectives;
 
 /**
  * The Document is an object that contains information

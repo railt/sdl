@@ -7,28 +7,28 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Processable;
+namespace Railt\Component\SDL\Reflection\Builder\Processable;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\SDL\Base\Dependent\Argument\BaseArgumentsContainer;
-use Railt\SDL\Base\Dependent\BaseArgument;
-use Railt\SDL\Base\Dependent\BaseField;
-use Railt\SDL\Base\Dependent\Field\BaseFieldsContainer;
-use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\SDL\Base\Processable\BaseExtend;
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Dependent\Argument\HasArguments;
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\SDL\Contracts\Dependent\Field\HasFields;
-use Railt\SDL\Contracts\Dependent\FieldDefinition;
-use Railt\SDL\Contracts\Invocations\Directive\HasDirectives;
-use Railt\SDL\Contracts\Invocations\DirectiveInvocation;
-use Railt\SDL\Contracts\Processable\ExtendDefinition;
-use Railt\SDL\Exceptions\TypeConflictException;
-use Railt\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Reflection\Builder\Process\Compiler;
-use Railt\SDL\Reflection\Validation\Inheritance;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\SDL\Base\Dependent\Argument\BaseArgumentsContainer;
+use Railt\Component\SDL\Base\Dependent\BaseArgument;
+use Railt\Component\SDL\Base\Dependent\BaseField;
+use Railt\Component\SDL\Base\Dependent\Field\BaseFieldsContainer;
+use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\Component\SDL\Base\Processable\BaseExtend;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Dependent\Argument\HasArguments;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Contracts\Dependent\Field\HasFields;
+use Railt\Component\SDL\Contracts\Dependent\FieldDefinition;
+use Railt\Component\SDL\Contracts\Invocations\Directive\HasDirectives;
+use Railt\Component\SDL\Contracts\Invocations\DirectiveInvocation;
+use Railt\Component\SDL\Contracts\Processable\ExtendDefinition;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
+use Railt\Component\SDL\Reflection\Validation\Inheritance;
 
 /**
  * Class ExtendBuilder
@@ -172,7 +172,7 @@ class ExtendBuilder extends BaseExtend implements Compilable
      * @param HasArguments|DirectiveInvocation $extend
      * @return void
      * @throws \OutOfBoundsException
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     private function extendArguments($original, $extend): void
     {

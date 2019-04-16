@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Invocations\Directive;
+namespace Railt\Component\SDL\Contracts\Invocations\Directive;
 
-use Railt\SDL\Contracts\Invocations\DirectiveInvocation;
+use Railt\Component\SDL\Contracts\Invocations\DirectiveInvocation;
 
 /**
  * The interface indicates that the type is a container that

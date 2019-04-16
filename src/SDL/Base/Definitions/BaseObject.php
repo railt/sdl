@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Definitions;
+namespace Railt\Component\SDL\Base\Definitions;
 
-use Railt\SDL\Base\Dependent\Field\BaseFieldsContainer;
-use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\SDL\Contracts\Definitions\InterfaceDefinition;
-use Railt\SDL\Contracts\Definitions\ObjectDefinition;
-use Railt\SDL\Contracts\Type;
+use Railt\Component\SDL\Base\Dependent\Field\BaseFieldsContainer;
+use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\Component\SDL\Contracts\Definitions\InterfaceDefinition;
+use Railt\Component\SDL\Contracts\Definitions\ObjectDefinition;
+use Railt\Component\SDL\Contracts\Type;
 
 /**
  * Class BaseObject

@@ -7,19 +7,19 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Invocations;
+namespace Railt\Component\SDL\Reflection\Builder\Invocations;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Base\Invocations\BaseDirectiveInvocation;
-use Railt\SDL\Contracts\Definitions\DirectiveDefinition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\SDL\Contracts\Document;
-use Railt\SDL\Exceptions\TypeConflictException;
-use Railt\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Reflection\Builder\Process\Compiler;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\Parser\Ast\RuleInterface;
+use Railt\Component\SDL\Base\Invocations\BaseDirectiveInvocation;
+use Railt\Component\SDL\Contracts\Definitions\DirectiveDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Contracts\Document;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Class DirectiveInvocationBuilder
@@ -45,7 +45,7 @@ class DirectiveInvocationBuilder extends BaseDirectiveInvocation implements Comp
     /**
      * @param NodeInterface $ast
      * @return bool
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     protected function onCompile(NodeInterface $ast): bool
     {

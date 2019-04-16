@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Inheritance;
+namespace Railt\Component\SDL\Reflection\Validation\Inheritance;
 
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Reflection\Validation\Base\ValidatorInterface;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Reflection\Validation\Base\ValidatorInterface;
 
 /**
  * Interface InheritanceValidator

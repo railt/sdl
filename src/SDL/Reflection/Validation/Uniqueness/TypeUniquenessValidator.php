@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Uniqueness;
+namespace Railt\Component\SDL\Reflection\Validation\Uniqueness;
 
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Interface TypeUniquenessValidator

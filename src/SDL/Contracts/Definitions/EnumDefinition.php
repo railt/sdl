@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Definitions;
+namespace Railt\Component\SDL\Contracts\Definitions;
 
-use Railt\SDL\Contracts\Behavior\Inputable;
-use Railt\SDL\Contracts\Definitions\Enum\ValueDefinition;
-use Railt\SDL\Contracts\Invocations\Directive\HasDirectives;
+use Railt\Component\SDL\Contracts\Behavior\Inputable;
+use Railt\Component\SDL\Contracts\Definitions\Enum\ValueDefinition;
+use Railt\Component\SDL\Contracts\Invocations\Directive\HasDirectives;
 
 /**
  * Interface EnumDefinition

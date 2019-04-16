@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Invocations;
+namespace Railt\Component\SDL\Contracts\Invocations;
 
-use Railt\SDL\Contracts\Dependent\DependentDefinition;
-use Railt\SDL\Contracts\Invocations\Argument\HasPassedArguments;
+use Railt\Component\SDL\Contracts\Dependent\DependentDefinition;
+use Railt\Component\SDL\Contracts\Invocations\Argument\HasPassedArguments;
 
 /**
  * Interface InputInvocation

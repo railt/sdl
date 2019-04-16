@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection;
+namespace Railt\Component\SDL\Reflection;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Interface Dictionary

@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Standard\Directives;
+namespace Railt\Component\SDL\Standard\Directives;
 
-use Railt\SDL\Base\Definitions\BaseDirective;
-use Railt\SDL\Contracts\Definitions\Directive\Location;
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\SDL\Contracts\Document;
-use Railt\SDL\Standard\Directives\Deprecation\Reason;
-use Railt\SDL\Standard\StandardType;
+use Railt\Component\SDL\Base\Definitions\BaseDirective;
+use Railt\Component\SDL\Contracts\Definitions\Directive\Location;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Contracts\Document;
+use Railt\Component\SDL\Standard\Directives\Deprecation\Reason;
+use Railt\Component\SDL\Standard\StandardType;
 
 /**
  * Class Deprecation

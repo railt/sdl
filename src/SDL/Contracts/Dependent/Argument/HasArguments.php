@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Dependent\Argument;
+namespace Railt\Component\SDL\Contracts\Dependent\Argument;
 
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
 
 /**
  * The interface indicates that the type is a container that

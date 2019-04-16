@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Exceptions;
+namespace Railt\Component\SDL\Exceptions;
 
 use Illuminate\Support\Str;
-use Railt\SDL\Runtime\CallStackInterface;
-use Railt\SDL\Runtime\CallStackRenderer;
+use Railt\Component\SDL\Runtime\CallStackInterface;
+use Railt\Component\SDL\Runtime\CallStackRenderer;
 
 /**
  * Class BaseSchemaException

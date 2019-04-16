@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Invocations;
+namespace Railt\Component\SDL\Contracts\Invocations;
 
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Interface Invocable

@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation;
+namespace Railt\Component\SDL\Reflection\Validation;
 
-use Railt\SDL\Reflection\Validation\Base\ValidatorsFactory;
+use Railt\Component\SDL\Reflection\Validation\Base\ValidatorsFactory;
 
 /**
  * Class Uniqueness

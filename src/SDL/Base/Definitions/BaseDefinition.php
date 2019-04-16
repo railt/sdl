@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Definitions;
+namespace Railt\Component\SDL\Base\Definitions;
 
-use Railt\SDL\Base\Behavior\BaseDeprecations;
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Document;
-use Railt\SDL\Support;
+use Railt\Component\SDL\Base\Behavior\BaseDeprecations;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Document;
+use Railt\Component\SDL\Support;
 
 /**
  * Class BaseTypeDefinition

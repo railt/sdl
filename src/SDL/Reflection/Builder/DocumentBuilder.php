@@ -7,24 +7,24 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder;
+namespace Railt\Component\SDL\Reflection\Builder;
 
-use Railt\Io\Readable;
-use Railt\Parser\Ast\NodeInterface;
-use Railt\SDL\Base\BaseDocument;
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Invocations\Invocable;
-use Railt\SDL\Exceptions\BuildingException;
-use Railt\SDL\Exceptions\CompilerException;
-use Railt\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
-use Railt\SDL\Reflection\Builder\Invocations\ValueBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Reflection\Builder\Process\Compiler;
-use Railt\SDL\Reflection\Builder\Processable\ExtendBuilder;
-use Railt\SDL\Schema\CompilerInterface;
-use Railt\SDL\Schema\Configuration;
-use Railt\SDL\Support;
+use Railt\Component\Io\Readable;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\SDL\Base\BaseDocument;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Invocations\Invocable;
+use Railt\Component\SDL\Exceptions\BuildingException;
+use Railt\Component\SDL\Exceptions\CompilerException;
+use Railt\Component\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
+use Railt\Component\SDL\Reflection\Builder\Invocations\ValueBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
+use Railt\Component\SDL\Reflection\Builder\Processable\ExtendBuilder;
+use Railt\Component\SDL\Schema\CompilerInterface;
+use Railt\Component\SDL\Schema\Configuration;
+use Railt\Component\SDL\Support;
 
 /**
  * Class DocumentBuilder

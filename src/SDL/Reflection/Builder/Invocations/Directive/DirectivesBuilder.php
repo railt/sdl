@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Invocations\Directive;
+namespace Railt\Component\SDL\Reflection\Builder\Invocations\Directive;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Reflection\Builder\Invocations\DirectiveInvocationBuilder;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Reflection\Builder\Invocations\DirectiveInvocationBuilder;
 
 /**
  * Trait DirectivesBuilder
@@ -22,7 +22,7 @@ trait DirectivesBuilder
     /**
      * @param NodeInterface $ast
      * @return bool
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     protected function compileDirectivesBuilder(NodeInterface $ast): bool
     {

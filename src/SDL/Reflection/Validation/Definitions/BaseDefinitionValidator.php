@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Definitions;
+namespace Railt\Component\SDL\Reflection\Validation\Definitions;
 
-use Railt\SDL\Reflection\Validation\Base\BaseValidator;
+use Railt\Component\SDL\Reflection\Validation\Base\BaseValidator;
 
 /**
  * Class DefinitionsValidator

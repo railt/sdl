@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Exceptions;
+namespace Railt\Component\SDL\Exceptions;
 
-use Railt\SDL\Runtime\CallStackInterface;
+use Railt\Component\SDL\Runtime\CallStackInterface;
 
 /**
  * Interface SchemaException

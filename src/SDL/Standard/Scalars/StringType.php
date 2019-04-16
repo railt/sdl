@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Standard\Scalars;
+namespace Railt\Component\SDL\Standard\Scalars;
 
 /**
  * The String standard scalar implementation.

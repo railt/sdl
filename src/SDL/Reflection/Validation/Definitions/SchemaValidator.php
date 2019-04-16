@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Definitions;
+namespace Railt\Component\SDL\Reflection\Validation\Definitions;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\ObjectDefinition;
-use Railt\SDL\Contracts\Definitions\SchemaDefinition;
-use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\ObjectDefinition;
+use Railt\Component\SDL\Contracts\Definitions\SchemaDefinition;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class SchemaValidator
@@ -31,7 +31,7 @@ class SchemaValidator extends BaseDefinitionValidator
     /**
      * @param Definition|SchemaDefinition $definition
      * @return void
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     public function validate(Definition $definition): void
     {
@@ -42,7 +42,7 @@ class SchemaValidator extends BaseDefinitionValidator
     /**
      * @param SchemaDefinition $schema
      * @return void
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     private function checkQueryExistence(SchemaDefinition $schema): void
     {
@@ -57,7 +57,7 @@ class SchemaValidator extends BaseDefinitionValidator
     /**
      * @param SchemaDefinition $schema
      * @return void
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     private function checkSchemaActionCompatibilities(SchemaDefinition $schema): void
     {
@@ -71,7 +71,7 @@ class SchemaValidator extends BaseDefinitionValidator
      * @param string $field
      * @param string $action
      * @return void
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     private function checkSchemaField(SchemaDefinition $schema, string $field, string $action): void
     {

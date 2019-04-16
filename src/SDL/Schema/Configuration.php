@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Schema;
+namespace Railt\Component\SDL\Schema;
 
-use Railt\Parser\ParserInterface;
-use Railt\SDL\Reflection\Coercion\TypeCoercion;
-use Railt\SDL\Reflection\Dictionary;
-use Railt\SDL\Reflection\Validation\Base\ValidatorInterface;
-use Railt\SDL\Runtime\CallStackInterface;
+use Railt\Component\Parser\ParserInterface;
+use Railt\Component\SDL\Reflection\Coercion\TypeCoercion;
+use Railt\Component\SDL\Reflection\Dictionary;
+use Railt\Component\SDL\Reflection\Validation\Base\ValidatorInterface;
+use Railt\Component\SDL\Runtime\CallStackInterface;
 
 /**
  * Interface Configuration

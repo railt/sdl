@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Processable;
+namespace Railt\Component\SDL\Base\Processable;
 
-use Railt\SDL\Base\Definitions\BaseDefinition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Processable\ExtendDefinition;
-use Railt\SDL\Contracts\Type;
+use Railt\Component\SDL\Base\Definitions\BaseDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Processable\ExtendDefinition;
+use Railt\Component\SDL\Contracts\Type;
 
 /**
  * Class BaseExtend

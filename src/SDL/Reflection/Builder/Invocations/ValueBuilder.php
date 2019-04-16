@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Invocations;
+namespace Railt\Component\SDL\Reflection\Builder\Invocations;
 
-use Railt\Parser\Ast\LeafInterface;
-use Railt\Parser\Ast\NodeInterface;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Contracts\Document;
-use Railt\SDL\Contracts\Invocations\InputInvocation;
-use Railt\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\Component\Parser\Ast\LeafInterface;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\Parser\Ast\RuleInterface;
+use Railt\Component\SDL\Contracts\Document;
+use Railt\Component\SDL\Contracts\Invocations\InputInvocation;
+use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
 
 /**
  * Class ValueBuilder

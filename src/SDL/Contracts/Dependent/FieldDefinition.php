@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Dependent;
+namespace Railt\Component\SDL\Contracts\Dependent;
 
-use Railt\SDL\Contracts\Behavior\AllowsTypeIndication;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Dependent\Argument\HasArguments;
-use Railt\SDL\Contracts\Dependent\Field\HasFields;
-use Railt\SDL\Contracts\Invocations\Directive\HasDirectives;
+use Railt\Component\SDL\Contracts\Behavior\AllowsTypeIndication;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Dependent\Argument\HasArguments;
+use Railt\Component\SDL\Contracts\Dependent\Field\HasFields;
+use Railt\Component\SDL\Contracts\Invocations\Directive\HasDirectives;
 
 /**
  * Interface FieldDefinition

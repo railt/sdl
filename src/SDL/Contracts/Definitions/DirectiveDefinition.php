@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Definitions;
+namespace Railt\Component\SDL\Contracts\Definitions;
 
-use Railt\SDL\Contracts\Dependent\Argument\HasArguments;
+use Railt\Component\SDL\Contracts\Dependent\Argument\HasArguments;
 
 /**
  * Interface DirectiveDefinition

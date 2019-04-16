@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Invocations\Argument;
+namespace Railt\Component\SDL\Contracts\Invocations\Argument;
 
 /**
  * Interface HasPassedArguments

@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Invocations\Argument;
+namespace Railt\Component\SDL\Base\Invocations\Argument;
 
 /**
  * Trait HasPassedArguments

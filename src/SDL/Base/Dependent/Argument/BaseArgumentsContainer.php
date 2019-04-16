@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Dependent\Argument;
+namespace Railt\Component\SDL\Base\Dependent\Argument;
 
-use Railt\SDL\Contracts\Dependent\Argument\HasArguments;
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Contracts\Dependent\Argument\HasArguments;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
 
 /**
  * Trait BaseArgumentsContainer

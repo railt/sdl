@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Base;
+namespace Railt\Component\SDL\Reflection\Validation\Base;
 
-use Railt\SDL\Exceptions\SchemaException;
-use Railt\SDL\Reflection\Validation\Validator;
-use Railt\SDL\Runtime\CallStack;
-use Railt\SDL\Runtime\CallStackInterface;
-use Railt\SDL\Support;
+use Railt\Component\SDL\Exceptions\SchemaException;
+use Railt\Component\SDL\Reflection\Validation\Validator;
+use Railt\Component\SDL\Runtime\CallStack;
+use Railt\Component\SDL\Runtime\CallStackInterface;
+use Railt\Component\SDL\Support;
 
 /**
  * Class BaseValidator

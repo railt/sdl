@@ -7,16 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base;
+namespace Railt\Component\SDL\Base;
 
-use Railt\Io\Readable;
-use Railt\SDL\Base\Definitions\BaseDefinition;
-use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\SchemaDefinition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Document;
-use Railt\SDL\Contracts\Type;
+use Railt\Component\Io\Readable;
+use Railt\Component\SDL\Base\Definitions\BaseDefinition;
+use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\SchemaDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Document;
+use Railt\Component\SDL\Contracts\Type;
 
 /**
  * Class BaseDocument

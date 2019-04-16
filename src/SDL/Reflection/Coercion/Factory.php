@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Coercion;
+namespace Railt\Component\SDL\Reflection\Coercion;
 
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Class Factory

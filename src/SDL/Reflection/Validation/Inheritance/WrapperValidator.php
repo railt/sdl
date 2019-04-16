@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Inheritance;
+namespace Railt\Component\SDL\Reflection\Validation\Inheritance;
 
-use Railt\SDL\Contracts\Behavior\AllowsTypeIndication;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Dependent\DependentDefinition;
-use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Contracts\Behavior\AllowsTypeIndication;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Dependent\DependentDefinition;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
 
 /**
  * Validation of arguments and fields inheritance.
@@ -34,7 +34,7 @@ class WrapperValidator extends BaseInheritanceValidator
      * @param AllowsTypeIndication|TypeDefinition $child
      * @param AllowsTypeIndication|TypeDefinition $parent
      * @return void
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      * @throws \OutOfBoundsException
      */
     public function validate(TypeDefinition $child, TypeDefinition $parent): void
@@ -148,7 +148,7 @@ class WrapperValidator extends BaseInheritanceValidator
      * @param AllowsTypeIndication|DependentDefinition $child
      * @param AllowsTypeIndication|DependentDefinition $parent
      * @return void
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     private function validatePreconditionalInheritance(AllowsTypeIndication $child, AllowsTypeIndication $parent): void
     {

@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Dependent;
+namespace Railt\Component\SDL\Base\Dependent;
 
-use Railt\SDL\Base\Behavior\BaseTypeIndicator;
-use Railt\SDL\Base\Dependent\Argument\BaseArgumentsContainer;
-use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\SDL\Contracts\Dependent\FieldDefinition;
-use Railt\SDL\Contracts\Type;
+use Railt\Component\SDL\Base\Behavior\BaseTypeIndicator;
+use Railt\Component\SDL\Base\Dependent\Argument\BaseArgumentsContainer;
+use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\Component\SDL\Contracts\Dependent\FieldDefinition;
+use Railt\Component\SDL\Contracts\Type;
 
 /**
  * Class BaseField

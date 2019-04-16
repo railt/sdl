@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Runtime\CallStackRenderer;
+namespace Railt\Component\SDL\Runtime\CallStackRenderer;
 
 /**
  * Class PhpTraceRenderer

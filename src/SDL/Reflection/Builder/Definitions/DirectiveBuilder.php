@@ -7,16 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Definitions;
+namespace Railt\Component\SDL\Reflection\Builder\Definitions;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Base\Definitions\BaseDirective;
-use Railt\SDL\Reflection\Builder\Dependent\Argument\ArgumentsBuilder;
-use Railt\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Reflection\Builder\Process\Compiler;
-use Railt\SDL\Reflection\Validation\Uniqueness;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\Parser\Ast\RuleInterface;
+use Railt\Component\SDL\Base\Definitions\BaseDirective;
+use Railt\Component\SDL\Reflection\Builder\Dependent\Argument\ArgumentsBuilder;
+use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
+use Railt\Component\SDL\Reflection\Validation\Uniqueness;
 
 /**
  * Class DirectiveBuilder

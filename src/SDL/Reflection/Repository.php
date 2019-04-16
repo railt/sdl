@@ -7,15 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection;
+namespace Railt\Component\SDL\Reflection;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Exceptions\TypeConflictException;
-use Railt\SDL\Exceptions\TypeNotFoundException;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Runtime\CallStackInterface;
-use Railt\SDL\Support;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Exceptions\TypeNotFoundException;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Runtime\CallStackInterface;
+use Railt\Component\SDL\Support;
 
 /**
  * Class Repository
@@ -45,10 +45,10 @@ class Repository implements Dictionary, \Countable, \IteratorAggregate
     }
 
     /**
-     * @param \Railt\SDL\Contracts\Definitions\TypeDefinition $type
+     * @param \Railt\Component\SDL\Contracts\Definitions\TypeDefinition $type
      * @param bool $force
-     * @return \Railt\SDL\Reflection\Dictionary
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @return \Railt\Component\SDL\Reflection\Dictionary
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     public function register(TypeDefinition $type, bool $force = false): Dictionary
     {
@@ -69,9 +69,9 @@ class Repository implements Dictionary, \Countable, \IteratorAggregate
 
     /**
      * @param string $name
-     * @param \Railt\SDL\Contracts\Definitions\Definition|null $from
-     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition
-     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
+     * @param \Railt\Component\SDL\Contracts\Definitions\Definition|null $from
+     * @return \Railt\Component\SDL\Contracts\Definitions\TypeDefinition
+     * @throws \Railt\Component\SDL\Exceptions\TypeNotFoundException
      */
     public function get(string $name, Definition $from = null): TypeDefinition
     {

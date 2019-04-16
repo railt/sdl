@@ -7,17 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Invocations;
+namespace Railt\Component\SDL\Reflection\Builder\Invocations;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Base\Invocations\BaseInputInvocation;
-use Railt\SDL\Contracts\Definitions\InputDefinition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Reflection\Builder\Process\Compiler;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\Parser\Ast\RuleInterface;
+use Railt\Component\SDL\Base\Invocations\BaseInputInvocation;
+use Railt\Component\SDL\Contracts\Definitions\InputDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Class InputInvocationBuilder

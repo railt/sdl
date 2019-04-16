@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Definitions;
+namespace Railt\Component\SDL\Reflection\Validation\Definitions;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Reflection\Validation\Base\ValidatorInterface;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Reflection\Validation\Base\ValidatorInterface;
 
 /**
  * Interface DefinitionValidator

@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Definitions;
+namespace Railt\Component\SDL\Contracts\Definitions;
 
-use Railt\SDL\Contracts\Dependent\Field\HasFields;
-use Railt\SDL\Contracts\Invocations\Directive\HasDirectives;
+use Railt\Component\SDL\Contracts\Dependent\Field\HasFields;
+use Railt\Component\SDL\Contracts\Invocations\Directive\HasDirectives;
 
 /**
  * Interface ObjectDefinition

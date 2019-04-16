@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Behavior;
+namespace Railt\Component\SDL\Reflection\Builder\Behavior;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\Parser\Ast\RuleInterface;
-use Railt\SDL\Exceptions\TypeNotFoundException;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\Parser\Ast\RuleInterface;
+use Railt\Component\SDL\Exceptions\TypeNotFoundException;
 
 /**
  * Trait TypeIndicationBuilder
@@ -39,7 +39,7 @@ trait TypeIndicationBuilder
     /**
      * @param NodeInterface|RuleInterface $ast
      * @return bool
-     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
+     * @throws \Railt\Component\SDL\Exceptions\TypeNotFoundException
      */
     private function buildType(NodeInterface $ast): bool
     {

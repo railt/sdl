@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Definitions\Directive;
+namespace Railt\Component\SDL\Contracts\Definitions\Directive;
 
 /**
  * Interface Location

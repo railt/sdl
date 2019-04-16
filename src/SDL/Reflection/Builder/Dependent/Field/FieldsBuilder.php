@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Dependent\Field;
+namespace Railt\Component\SDL\Reflection\Builder\Dependent\Field;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Dependent\Field\HasFields;
-use Railt\SDL\Exceptions\TypeConflictException;
-use Railt\SDL\Reflection\Builder\Dependent\FieldBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compiler;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Dependent\Field\HasFields;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Reflection\Builder\Dependent\FieldBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Trait FieldsBuilder

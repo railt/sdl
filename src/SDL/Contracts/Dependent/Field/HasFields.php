@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Dependent\Field;
+namespace Railt\Component\SDL\Contracts\Dependent\Field;
 
-use Railt\SDL\Contracts\Dependent\FieldDefinition;
+use Railt\Component\SDL\Contracts\Dependent\FieldDefinition;
 
 /**
  * The interface indicates that the type is a container that

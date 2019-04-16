@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Definitions;
+namespace Railt\Component\SDL\Reflection\Validation\Definitions;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\Directive\Location;
-use Railt\SDL\Contracts\Definitions\DirectiveDefinition;
-use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\Directive\Location;
+use Railt\Component\SDL\Contracts\Definitions\DirectiveDefinition;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class DirectiveDefinitionValidator

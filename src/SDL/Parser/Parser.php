@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Parser;
+namespace Railt\Component\SDL\Parser;
 
 /**
  * Class Parser
@@ -17,7 +17,7 @@ final class Parser extends BaseParser
     /**
      * @var string
      */
-    public const GRAMMAR_PATHNAME = __DIR__ . '/../../../resources/graphql/sdl.pp';
+    public const GRAMMAR_PATHNAME = __DIR__ . '/../Resources/graphql/grammar.pp2';
 
     /**
      * Make tokens public

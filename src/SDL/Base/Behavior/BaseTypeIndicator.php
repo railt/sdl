@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Behavior;
+namespace Railt\Component\SDL\Base\Behavior;
 
-use Railt\SDL\Contracts\Behavior\AllowsTypeIndication;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Behavior\AllowsTypeIndication;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Trait BaseTypeIndicator

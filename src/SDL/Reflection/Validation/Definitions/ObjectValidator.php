@@ -7,16 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Definitions;
+namespace Railt\Component\SDL\Reflection\Validation\Definitions;
 
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\InterfaceDefinition;
-use Railt\SDL\Contracts\Definitions\ObjectDefinition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\SDL\Contracts\Dependent\FieldDefinition;
-use Railt\SDL\Exceptions\TypeConflictException;
-use Railt\SDL\Reflection\Validation\Inheritance;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\InterfaceDefinition;
+use Railt\Component\SDL\Contracts\Definitions\ObjectDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\Component\SDL\Contracts\Dependent\FieldDefinition;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Reflection\Validation\Inheritance;
 
 /**
  * Class ObjectValidator
@@ -73,7 +73,7 @@ class ObjectValidator extends BaseDefinitionValidator
      * @param ObjectDefinition $object
      * @return void
      * @throws \OutOfBoundsException
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      */
     private function validateFieldsExistence(ObjectDefinition $object, InterfaceDefinition $interface): void
     {
@@ -112,7 +112,7 @@ class ObjectValidator extends BaseDefinitionValidator
      * @param FieldDefinition $interface
      * @param FieldDefinition $object
      * @return void
-     * @throws \Railt\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
      * @throws \OutOfBoundsException
      */
     private function validateFieldCompatibility(FieldDefinition $interface, FieldDefinition $object): void

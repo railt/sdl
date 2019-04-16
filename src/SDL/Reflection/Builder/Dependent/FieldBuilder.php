@@ -7,17 +7,17 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Builder\Dependent;
+namespace Railt\Component\SDL\Reflection\Builder\Dependent;
 
-use Railt\Parser\Ast\NodeInterface;
-use Railt\SDL\Base\Dependent\BaseField;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Reflection\Builder\Behavior\TypeIndicationBuilder;
-use Railt\SDL\Reflection\Builder\Dependent\Argument\ArgumentsBuilder;
-use Railt\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Reflection\Builder\Process\Compiler;
+use Railt\Component\Parser\Ast\NodeInterface;
+use Railt\Component\SDL\Base\Dependent\BaseField;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Reflection\Builder\Behavior\TypeIndicationBuilder;
+use Railt\Component\SDL\Reflection\Builder\Dependent\Argument\ArgumentsBuilder;
+use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\Component\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Class FieldBuilder

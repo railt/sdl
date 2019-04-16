@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Contracts\Definitions;
+namespace Railt\Component\SDL\Contracts\Definitions;
 
 /**
  * Interface SchemaDefinition

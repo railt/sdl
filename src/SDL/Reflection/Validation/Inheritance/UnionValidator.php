@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Reflection\Validation\Inheritance;
+namespace Railt\Component\SDL\Reflection\Validation\Inheritance;
 
-use Railt\SDL\Contracts\Behavior\AllowsTypeIndication;
-use Railt\SDL\Contracts\Definitions\ObjectDefinition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Definitions\UnionDefinition;
-use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\Component\SDL\Contracts\Behavior\AllowsTypeIndication;
+use Railt\Component\SDL\Contracts\Definitions\ObjectDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Definitions\UnionDefinition;
+use Railt\Component\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class UnionValidator

@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL\Base\Definitions;
+namespace Railt\Component\SDL\Base\Definitions;
 
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Class BaseTypeDefinition

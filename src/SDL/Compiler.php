@@ -7,32 +7,32 @@
  */
 declare(strict_types=1);
 
-namespace Railt\SDL;
+namespace Railt\Component\SDL;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Psr\SimpleCache\CacheInterface;
-use Railt\Io\Readable;
-use Railt\Parser\ParserInterface;
-use Railt\SDL\Contracts\Definitions\Definition;
-use Railt\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\SDL\Contracts\Document;
-use Railt\SDL\Exceptions\CompilerException;
-use Railt\SDL\Parser\Parser;
-use Railt\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\SDL\Reflection\Builder\Process\Compilable;
-use Railt\SDL\Reflection\Coercion\Factory;
-use Railt\SDL\Reflection\Coercion\TypeCoercion;
-use Railt\SDL\Reflection\Dictionary;
-use Railt\SDL\Reflection\Loader;
-use Railt\SDL\Reflection\Validation\Base\ValidatorInterface;
-use Railt\SDL\Reflection\Validation\Definitions;
-use Railt\SDL\Reflection\Validation\Validator;
-use Railt\SDL\Runtime\CallStack;
-use Railt\SDL\Runtime\CallStackInterface;
-use Railt\SDL\Schema\CompilerInterface;
-use Railt\SDL\Schema\Configuration;
-use Railt\SDL\Standard\GraphQLDocument;
-use Railt\SDL\Standard\StandardType;
+use Railt\Component\Io\Readable;
+use Railt\Component\Parser\ParserInterface;
+use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\Component\SDL\Contracts\Document;
+use Railt\Component\SDL\Exceptions\CompilerException;
+use Railt\Component\SDL\Parser\Parser;
+use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
+use Railt\Component\SDL\Reflection\Coercion\Factory;
+use Railt\Component\SDL\Reflection\Coercion\TypeCoercion;
+use Railt\Component\SDL\Reflection\Dictionary;
+use Railt\Component\SDL\Reflection\Loader;
+use Railt\Component\SDL\Reflection\Validation\Base\ValidatorInterface;
+use Railt\Component\SDL\Reflection\Validation\Definitions;
+use Railt\Component\SDL\Reflection\Validation\Validator;
+use Railt\Component\SDL\Runtime\CallStack;
+use Railt\Component\SDL\Runtime\CallStackInterface;
+use Railt\Component\SDL\Schema\CompilerInterface;
+use Railt\Component\SDL\Schema\Configuration;
+use Railt\Component\SDL\Standard\GraphQLDocument;
+use Railt\Component\SDL\Standard\StandardType;
 
 /**
  * Class Compiler
@@ -94,7 +94,7 @@ class Compiler implements CompilerInterface, Configuration
     /**
      * @param Document $document
      * @return CompilerInterface
-     * @throws \Railt\SDL\Exceptions\CompilerException
+     * @throws \Railt\Component\SDL\Exceptions\CompilerException
      * @throws Exceptions\TypeConflictException
      */
     public function add(Document $document): CompilerInterface
