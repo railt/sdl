@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Runtime;
+namespace Railt\SDL\Runtime;
 
 /**
  * Interface Observable

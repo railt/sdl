@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Parser;
+namespace Railt\SDL\Parser;
 
 /**
  * Class Parser

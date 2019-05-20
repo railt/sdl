@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Invocations;
+namespace Railt\SDL\Reflection\Builder\Invocations;
 
-use Railt\Component\Parser\Ast\LeafInterface;
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\Parser\Ast\RuleInterface;
-use Railt\Component\SDL\Contracts\Document;
-use Railt\Component\SDL\Contracts\Invocations\InputInvocation;
-use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
+use Phplrt\Ast\LeafInterface;
+use Phplrt\Ast\NodeInterface;
+use Phplrt\Ast\RuleInterface;
+use Railt\SDL\Contracts\Document;
+use Railt\SDL\Contracts\Invocations\InputInvocation;
+use Railt\SDL\Reflection\Builder\DocumentBuilder;
 
 /**
  * Class ValueBuilder
@@ -163,9 +163,9 @@ class ValueBuilder
     private function unpackStringData(LeafInterface $ast): string
     {
         switch (true) {
-            case $ast->is('T_STRING'):
+            case $ast->getName() === 'T_STRING':
                 return \substr($ast->getValue(), 1, -1);
-            case $ast->is('T_MULTILINE_STRING'):
+            case $ast->getName() === 'T_MULTILINE_STRING':
                 return \substr($ast->getValue(), 3, -3);
         }
 

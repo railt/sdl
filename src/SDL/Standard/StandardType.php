@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Standard;
+namespace Railt\SDL\Standard;
 
 /**
  * An interface that standardizes the constructor

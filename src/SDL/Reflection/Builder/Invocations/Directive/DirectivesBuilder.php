@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Invocations\Directive;
+namespace Railt\SDL\Reflection\Builder\Invocations\Directive;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Reflection\Builder\Invocations\DirectiveInvocationBuilder;
+use Phplrt\Ast\NodeInterface;
+use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Reflection\Builder\Invocations\DirectiveInvocationBuilder;
 
 /**
  * Trait DirectivesBuilder
@@ -22,11 +22,11 @@ trait DirectivesBuilder
     /**
      * @param NodeInterface $ast
      * @return bool
-     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     protected function compileDirectivesBuilder(NodeInterface $ast): bool
     {
-        if ($ast->is('Directive')) {
+        if ($ast->getName() === 'Directive') {
             /** @var BaseDirectivesContainer|TypeDefinition $this */
             $directive = new DirectiveInvocationBuilder($ast, $this->getDocument(), $this);
 

@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Inheritance;
+namespace Railt\SDL\Reflection\Validation\Inheritance;
 
-use Railt\Component\SDL\Contracts\Behavior\AllowsTypeIndication;
-use Railt\Component\SDL\Contracts\Definitions\EnumDefinition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Contracts\Behavior\AllowsTypeIndication;
+use Railt\SDL\Contracts\Definitions\EnumDefinition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class EnumValidator

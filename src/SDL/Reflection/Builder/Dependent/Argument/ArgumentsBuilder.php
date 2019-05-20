@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Dependent\Argument;
+namespace Railt\SDL\Reflection\Builder\Dependent\Argument;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Reflection\Builder\Dependent\ArgumentBuilder;
+use Phplrt\Ast\NodeInterface;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Reflection\Builder\Dependent\ArgumentBuilder;
 
 /**
  * Trait ArgumentsBuilder
@@ -21,7 +21,7 @@ trait ArgumentsBuilder
     /**
      * @param NodeInterface $ast
      * @return bool
-     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function compileArgumentsBuilder(NodeInterface $ast): bool
     {

@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Dependent\Field;
+namespace Railt\SDL\Base\Dependent\Field;
 
-use Railt\Component\SDL\Contracts\Dependent\Field\HasFields;
-use Railt\Component\SDL\Contracts\Dependent\FieldDefinition;
+use Railt\SDL\Contracts\Dependent\Field\HasFields;
+use Railt\SDL\Contracts\Dependent\FieldDefinition;
 
 /**
  * Trait BaseFieldsContainer

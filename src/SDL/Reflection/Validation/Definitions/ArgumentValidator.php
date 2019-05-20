@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Definitions;
+namespace Railt\SDL\Reflection\Validation\Definitions;
 
-use Railt\Component\SDL\Contracts\Behavior\Inputable;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Contracts\Behavior\Inputable;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class ArgumentValidator
@@ -31,7 +31,7 @@ class ArgumentValidator extends BaseDefinitionValidator
     /**
      * @param Definition|ArgumentDefinition $type
      * @return void
-     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function validate(Definition $type): void
     {

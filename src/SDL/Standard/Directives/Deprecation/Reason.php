@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Standard\Directives\Deprecation;
+namespace Railt\SDL\Standard\Directives\Deprecation;
 
-use Railt\Component\SDL\Base\Dependent\BaseArgument;
-use Railt\Component\SDL\Contracts\Definitions\DirectiveDefinition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Document;
-use Railt\Component\SDL\Standard\Directives\Deprecation;
-use Railt\Component\SDL\Standard\GraphQLDocument;
+use Railt\SDL\Base\Dependent\BaseArgument;
+use Railt\SDL\Contracts\Definitions\DirectiveDefinition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Document;
+use Railt\SDL\Standard\Directives\Deprecation;
+use Railt\SDL\Standard\GraphQLDocument;
 
 /**
  * Class Reason

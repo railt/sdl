@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Invocations;
+namespace Railt\SDL\Base\Invocations;
 
-use Railt\Component\SDL\Base\Dependent\BaseDependent;
-use Railt\Component\SDL\Base\Invocations\Argument\HasPassedArguments;
-use Railt\Component\SDL\Contracts\Invocations\InputInvocation;
-use Railt\Component\SDL\Contracts\Type;
+use Railt\SDL\Base\Dependent\BaseDependent;
+use Railt\SDL\Base\Invocations\Argument\HasPassedArguments;
+use Railt\SDL\Contracts\Invocations\InputInvocation;
+use Railt\SDL\Contracts\Type;
 
 /**
  * Class BaseInputInvocation

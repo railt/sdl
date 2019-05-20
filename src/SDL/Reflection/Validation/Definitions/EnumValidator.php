@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Definitions;
+namespace Railt\SDL\Reflection\Validation\Definitions;
 
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\EnumDefinition;
-use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\EnumDefinition;
+use Railt\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class EnumValidator
@@ -44,7 +44,7 @@ class EnumValidator extends BaseDefinitionValidator
     /**
      * @param Definition|EnumDefinition $definition
      * @return void
-     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     private function verifyThatEnumNotEmpty(Definition $definition): void
     {

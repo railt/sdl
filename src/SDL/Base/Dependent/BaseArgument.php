@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Dependent;
+namespace Railt\SDL\Base\Dependent;
 
-use Railt\Component\SDL\Base\Behavior\BaseTypeIndicator;
-use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\Component\SDL\Contracts\Type;
+use Railt\SDL\Base\Behavior\BaseTypeIndicator;
+use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\SDL\Contracts\Type;
 
 /**
  * Class BaseArgument

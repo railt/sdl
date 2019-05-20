@@ -7,16 +7,16 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Definitions;
+namespace Railt\SDL\Base\Definitions;
 
-use Railt\Component\SDL\Base\Dependent\Argument\BaseArgumentsContainer;
-use Railt\Component\SDL\Contracts\Definitions;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\Directive\Location;
-use Railt\Component\SDL\Contracts\Definitions\DirectiveDefinition;
-use Railt\Component\SDL\Contracts\Dependent;
-use Railt\Component\SDL\Contracts\Document;
-use Railt\Component\SDL\Contracts\Type;
+use Railt\SDL\Base\Dependent\Argument\BaseArgumentsContainer;
+use Railt\SDL\Contracts\Definitions;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\Directive\Location;
+use Railt\SDL\Contracts\Definitions\DirectiveDefinition;
+use Railt\SDL\Contracts\Dependent;
+use Railt\SDL\Contracts\Document;
+use Railt\SDL\Contracts\Type;
 
 /**
  * Class BaseDirectiveDefinition

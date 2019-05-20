@@ -7,21 +7,21 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Standard;
+namespace Railt\SDL\Standard;
 
-use Railt\Component\Io\File;
-use Railt\Component\SDL\Base\BaseDocument;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Reflection\Dictionary;
-use Railt\Component\SDL\Standard\Directives\Deprecation;
-use Railt\Component\SDL\Standard\Scalars\AnyType;
-use Railt\Component\SDL\Standard\Scalars\BooleanType;
-use Railt\Component\SDL\Standard\Scalars\DateTimeType;
-use Railt\Component\SDL\Standard\Scalars\FloatType;
-use Railt\Component\SDL\Standard\Scalars\IDType;
-use Railt\Component\SDL\Standard\Scalars\IntType;
-use Railt\Component\SDL\Standard\Scalars\StringType;
+use Phplrt\Io\File;
+use Railt\SDL\Base\BaseDocument;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Reflection\Dictionary;
+use Railt\SDL\Standard\Directives\Deprecation;
+use Railt\SDL\Standard\Scalars\AnyType;
+use Railt\SDL\Standard\Scalars\BooleanType;
+use Railt\SDL\Standard\Scalars\DateTimeType;
+use Railt\SDL\Standard\Scalars\FloatType;
+use Railt\SDL\Standard\Scalars\IDType;
+use Railt\SDL\Standard\Scalars\IntType;
+use Railt\SDL\Standard\Scalars\StringType;
 
 /**
  * This class contains a Document implementation for

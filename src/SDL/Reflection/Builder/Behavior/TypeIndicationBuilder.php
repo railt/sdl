@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Behavior;
+namespace Railt\SDL\Reflection\Builder\Behavior;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\Parser\Ast\RuleInterface;
-use Railt\Component\SDL\Exceptions\TypeNotFoundException;
+use Phplrt\Ast\NodeInterface;
+use Phplrt\Ast\RuleInterface;
+use Railt\SDL\Exceptions\TypeNotFoundException;
 
 /**
  * Trait TypeIndicationBuilder
@@ -39,12 +39,12 @@ trait TypeIndicationBuilder
     /**
      * @param NodeInterface|RuleInterface $ast
      * @return bool
-     * @throws \Railt\Component\SDL\Exceptions\TypeNotFoundException
+     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
      */
     private function buildType(NodeInterface $ast): bool
     {
         foreach ($ast->getChildren() as $child) {
-            if ($child->is('T_NON_NULL')) {
+            if ($child->getName() === 'T_NON_NULL') {
                 if ($this->isList) {
                     $this->isListOfNonNulls = true;
                 } else {
@@ -68,12 +68,12 @@ trait TypeIndicationBuilder
         $this->isList = true;
 
         foreach ($ast->getChildren() as $child) {
-            if ($child->is('Type')) {
+            if ($child->getName() === 'Type') {
                 $this->buildType($child);
                 continue;
             }
 
-            if ($child->is('T_NON_NULL')) {
+            if ($child->getName() === 'T_NON_NULL') {
                 $this->isNonNull = true;
             }
         }

@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Dependent;
+namespace Railt\SDL\Base\Dependent;
 
-use Railt\Component\SDL\Base\Definitions\BaseTypeDefinition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Dependent\DependentDefinition;
+use Railt\SDL\Base\Definitions\BaseTypeDefinition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\DependentDefinition;
 
 /**
  * Class BaseDependentType

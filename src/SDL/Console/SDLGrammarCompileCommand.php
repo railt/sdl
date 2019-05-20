@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Console;
+namespace Railt\SDL\Console;
 
-use Railt\Component\Compiler\Compiler;
-use Railt\Component\Exception\ExternalException;
-use Railt\Component\Io\Exception\NotReadableException;
-use Railt\Component\Io\File;
-use Railt\Component\SDL\Parser\Parser;
+use Phplrt\Compiler\Compiler;
+use Phplrt\Exception\ExternalException;
+use Phplrt\Io\Exception\NotReadableException;
+use Phplrt\Io\File;
+use Railt\SDL\Parser\Parser;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,7 +42,7 @@ class SDLGrammarCompileCommand extends Command
 
         Compiler::load(File::fromPathname(self::SCHEMA_SDL_GRAMMAR))
             ->setClassName('BaseParser')
-            ->setNamespace('Railt\\Component\\SDL\\Parser')
+            ->setNamespace('Railt\\SDL\\Parser')
             ->saveTo(__DIR__ . '/../Parser');
 
         $out->writeln('<info>OK</info>');

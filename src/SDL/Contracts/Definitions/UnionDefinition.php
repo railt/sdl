@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Contracts\Definitions;
+namespace Railt\SDL\Contracts\Definitions;
 
-use Railt\Component\SDL\Contracts\Invocations\Directive\HasDirectives;
+use Railt\SDL\Contracts\Invocations\Directive\HasDirectives;
 
 /**
  * Interface UnionDefinition

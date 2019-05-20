@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Contracts\Behavior;
+namespace Railt\SDL\Contracts\Behavior;
 
 /**
  * The interface indicates that the type can contain

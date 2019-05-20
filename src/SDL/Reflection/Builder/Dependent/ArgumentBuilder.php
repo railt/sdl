@@ -7,18 +7,18 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Dependent;
+namespace Railt\SDL\Reflection\Builder\Dependent;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\Parser\Ast\RuleInterface;
-use Railt\Component\SDL\Base\Dependent\BaseArgument;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Reflection\Builder\Behavior\TypeIndicationBuilder;
-use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\Component\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
-use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
-use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
-use Railt\Component\SDL\Support;
+use Phplrt\Ast\NodeInterface;
+use Phplrt\Ast\RuleInterface;
+use Railt\SDL\Base\Dependent\BaseArgument;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Reflection\Builder\Behavior\TypeIndicationBuilder;
+use Railt\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
+use Railt\SDL\Reflection\Builder\Process\Compilable;
+use Railt\SDL\Reflection\Builder\Process\Compiler;
+use Railt\SDL\Support;
 
 /**
  * Class ArgumentBuilder
@@ -50,7 +50,7 @@ class ArgumentBuilder extends BaseArgument implements Compilable
      */
     protected function onCompile(NodeInterface $ast): bool
     {
-        if ($ast->is('Value')) {
+        if ($ast->getName() === 'Value') {
             $this->hasDefaultValue = true;
             $this->defaultValue = $this->parseValue(
                 $ast->getChild(0),

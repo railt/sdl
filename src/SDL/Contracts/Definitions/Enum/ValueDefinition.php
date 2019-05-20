@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Contracts\Definitions\Enum;
+namespace Railt\SDL\Contracts\Definitions\Enum;
 
-use Railt\Component\SDL\Contracts\Dependent\DependentDefinition;
+use Railt\SDL\Contracts\Dependent\DependentDefinition;
 
 /**
  * Interface ValueDefinition

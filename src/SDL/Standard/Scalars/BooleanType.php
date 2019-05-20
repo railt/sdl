@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Standard\Scalars;
+namespace Railt\SDL\Standard\Scalars;
 
 /**
  * The Boolean standard scalar implementation.

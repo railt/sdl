@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Invocations\Directive;
+namespace Railt\SDL\Base\Invocations\Directive;
 
-use Railt\Component\SDL\Contracts\Invocations\Directive\HasDirectives;
-use Railt\Component\SDL\Contracts\Invocations\DirectiveInvocation;
+use Railt\SDL\Contracts\Invocations\Directive\HasDirectives;
+use Railt\SDL\Contracts\Invocations\DirectiveInvocation;
 
 /**
  * Trait BaseDirectivesContainer

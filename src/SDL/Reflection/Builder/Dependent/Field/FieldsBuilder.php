@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Dependent\Field;
+namespace Railt\SDL\Reflection\Builder\Dependent\Field;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Dependent\Field\HasFields;
-use Railt\Component\SDL\Exceptions\TypeConflictException;
-use Railt\Component\SDL\Reflection\Builder\Dependent\FieldBuilder;
-use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
+use Phplrt\Ast\NodeInterface;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\Field\HasFields;
+use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Reflection\Builder\Dependent\FieldBuilder;
+use Railt\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Trait FieldsBuilder
@@ -31,7 +31,7 @@ trait FieldsBuilder
     protected function compileFieldsBuilder(NodeInterface $ast): bool
     {
         /** @var TypeDefinition|HasFields $this */
-        if ($this instanceof HasFields && $ast->is('Field')) {
+        if ($this instanceof HasFields && $ast->getName() === 'Field') {
             $field = new FieldBuilder($ast, $this->getDocument(), $this);
 
             $this->fields = $this->unique($this->fields, $field);

@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Exceptions;
+namespace Railt\SDL\Exceptions;
 
 /**
  * An exception that occurs when the source code contains

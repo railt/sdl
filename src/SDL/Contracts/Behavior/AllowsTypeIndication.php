@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Contracts\Behavior;
+namespace Railt\SDL\Contracts\Behavior;
 
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * An interface that says that the parent type is the type

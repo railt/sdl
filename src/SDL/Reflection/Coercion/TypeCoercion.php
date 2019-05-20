@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Coercion;
+namespace Railt\SDL\Reflection\Coercion;
 
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Interface TypeCoercion

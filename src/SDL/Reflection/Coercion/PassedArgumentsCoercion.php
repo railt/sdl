@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Coercion;
+namespace Railt\SDL\Reflection\Coercion;
 
-use Railt\Component\SDL\Base\Invocations\BaseInputInvocation;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Dependent\Argument\HasArguments;
-use Railt\Component\SDL\Contracts\Invocations\Argument\HasPassedArguments;
-use Railt\Component\SDL\Contracts\Invocations\Invocable;
+use Railt\SDL\Base\Invocations\BaseInputInvocation;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\Argument\HasArguments;
+use Railt\SDL\Contracts\Invocations\Argument\HasPassedArguments;
+use Railt\SDL\Contracts\Invocations\Invocable;
 
 /**
  * Class PassedArgumentsCoercion

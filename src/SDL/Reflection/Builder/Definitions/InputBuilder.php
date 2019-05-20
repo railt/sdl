@@ -7,15 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Definitions;
+namespace Railt\SDL\Reflection\Builder\Definitions;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\SDL\Base\Definitions\BaseInput;
-use Railt\Component\SDL\Reflection\Builder\Dependent\Argument\ArgumentsBuilder;
-use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\Component\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
-use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
-use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
+use Phplrt\Ast\NodeInterface;
+use Railt\SDL\Base\Definitions\BaseInput;
+use Railt\SDL\Reflection\Builder\Dependent\Argument\ArgumentsBuilder;
+use Railt\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
+use Railt\SDL\Reflection\Builder\Process\Compilable;
+use Railt\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Class InputBuilder

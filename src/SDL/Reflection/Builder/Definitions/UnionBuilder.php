@@ -7,15 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Definitions;
+namespace Railt\SDL\Reflection\Builder\Definitions;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\Parser\Ast\RuleInterface;
-use Railt\Component\SDL\Base\Definitions\BaseUnion;
-use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\Component\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
-use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
-use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
+use Phplrt\Ast\NodeInterface;
+use Phplrt\Ast\RuleInterface;
+use Railt\SDL\Base\Definitions\BaseUnion;
+use Railt\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
+use Railt\SDL\Reflection\Builder\Process\Compilable;
+use Railt\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Class UnionBuilder
@@ -45,7 +45,7 @@ class UnionBuilder extends BaseUnion implements Compilable
      */
     protected function onCompile(NodeInterface $ast): bool
     {
-        if ($ast->is('Relations')) {
+        if ($ast->getName() === 'Relations') {
             foreach ($ast->getChildren() as $relation) {
                 $name = $relation->getChild(0)->getValue();
 

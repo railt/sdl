@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Base;
+namespace Railt\SDL\Reflection\Validation\Base;
 
 /**
  * Class Factory

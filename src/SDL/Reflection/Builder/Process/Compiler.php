@@ -7,21 +7,21 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Process;
+namespace Railt\SDL\Reflection\Builder\Process;
 
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\Parser\Ast\RuleInterface;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Dependent\DependentDefinition;
-use Railt\Component\SDL\Contracts\Document;
-use Railt\Component\SDL\Contracts\Invocations\Invocable;
-use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\Component\SDL\Reflection\Validation\Base\ValidatorInterface;
-use Railt\Component\SDL\Reflection\Validation\Definitions;
-use Railt\Component\SDL\Reflection\Validation\Uniqueness;
-use Railt\Component\SDL\Schema\CompilerInterface;
-use Railt\Component\SDL\Schema\Configuration;
+use Phplrt\Ast\NodeInterface;
+use Phplrt\Ast\RuleInterface;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\DependentDefinition;
+use Railt\SDL\Contracts\Document;
+use Railt\SDL\Contracts\Invocations\Invocable;
+use Railt\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\SDL\Reflection\Validation\Base\ValidatorInterface;
+use Railt\SDL\Reflection\Validation\Definitions;
+use Railt\SDL\Reflection\Validation\Uniqueness;
+use Railt\SDL\Schema\CompilerInterface;
+use Railt\SDL\Schema\Configuration;
 
 /**
  * Trait Compiler

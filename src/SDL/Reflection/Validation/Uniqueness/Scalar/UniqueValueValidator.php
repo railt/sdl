@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Uniqueness\Scalar;
+namespace Railt\SDL\Reflection\Validation\Uniqueness\Scalar;
 
-use Railt\Component\SDL\Exceptions\TypeConflictException;
-use Railt\Component\SDL\Reflection\Validation\Base\BaseValidator;
-use Railt\Component\SDL\Reflection\Validation\Uniqueness\ScalarUniquenessValidator;
+use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Reflection\Validation\Base\BaseValidator;
+use Railt\SDL\Reflection\Validation\Uniqueness\ScalarUniquenessValidator;
 
 /**
  * Class UniqueValueValidator

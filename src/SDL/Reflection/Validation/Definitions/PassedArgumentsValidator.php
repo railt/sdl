@@ -7,15 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Definitions;
+namespace Railt\SDL\Reflection\Validation\Definitions;
 
-use Railt\Component\SDL\Contracts\Behavior\Inputable;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Dependent\Argument\HasArguments;
-use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\Component\SDL\Contracts\Invocations\Argument\HasPassedArguments;
-use Railt\Component\SDL\Contracts\Invocations\InputInvocation;
-use Railt\Component\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Contracts\Behavior\Inputable;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Dependent\Argument\HasArguments;
+use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\SDL\Contracts\Invocations\Argument\HasPassedArguments;
+use Railt\SDL\Contracts\Invocations\InputInvocation;
+use Railt\SDL\Exceptions\TypeConflictException;
 
 /**
  * Class InputInvocationValidator
@@ -34,7 +34,7 @@ class PassedArgumentsValidator extends BaseDefinitionValidator
     /**
      * @param Definition|InputInvocation $invocation
      * @return void
-     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     public function validate(Definition $invocation): void
     {
@@ -131,7 +131,7 @@ class PassedArgumentsValidator extends BaseDefinitionValidator
      * @param HasPassedArguments $invocation
      * @param ArgumentDefinition $argument
      * @return void
-     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     private function validateMissingArgument(HasPassedArguments $invocation, ArgumentDefinition $argument): void
     {
@@ -146,7 +146,7 @@ class PassedArgumentsValidator extends BaseDefinitionValidator
      * @param HasArguments $container
      * @param string $argument
      * @return void
-     * @throws \Railt\Component\SDL\Exceptions\TypeConflictException
+     * @throws \Railt\SDL\Exceptions\TypeConflictException
      */
     private function validateArgumentExisting(HasArguments $container, string $argument): void
     {

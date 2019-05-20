@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Coercion;
+namespace Railt\SDL\Reflection\Coercion;
 
-use Railt\Component\SDL\Base\Dependent\BaseArgument;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\SDL\Base\Dependent\BaseArgument;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
 
 /**
  * Class ArgumentCoercion

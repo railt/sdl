@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Runtime;
+namespace Railt\SDL\Runtime;
 
-use Railt\Component\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\Definition;
 
 /**
  * Class CallStack

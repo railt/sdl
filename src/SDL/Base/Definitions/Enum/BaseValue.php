@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Definitions\Enum;
+namespace Railt\SDL\Base\Definitions\Enum;
 
-use Railt\Component\SDL\Base\Dependent\BaseDependent;
-use Railt\Component\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
-use Railt\Component\SDL\Contracts\Definitions\Enum\ValueDefinition;
-use Railt\Component\SDL\Contracts\Type;
+use Railt\SDL\Base\Dependent\BaseDependent;
+use Railt\SDL\Base\Invocations\Directive\BaseDirectivesContainer;
+use Railt\SDL\Contracts\Definitions\Enum\ValueDefinition;
+use Railt\SDL\Contracts\Type;
 
 /**
  * Class BaseValue

@@ -7,13 +7,13 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Inheritance;
+namespace Railt\SDL\Reflection\Validation\Inheritance;
 
-use Railt\Component\SDL\Contracts\Behavior\AllowsTypeIndication;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Dependent\FieldDefinition;
-use Railt\Component\SDL\Exceptions\TypeConflictException;
-use Railt\Component\SDL\Reflection\Validation\Base\BaseValidator;
+use Railt\SDL\Contracts\Behavior\AllowsTypeIndication;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\FieldDefinition;
+use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Reflection\Validation\Base\BaseValidator;
 
 /**
  * Class BaseInheritanceValidator

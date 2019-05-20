@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Contracts;
+namespace Railt\SDL\Contracts;
 
 /**
  * Interface Type

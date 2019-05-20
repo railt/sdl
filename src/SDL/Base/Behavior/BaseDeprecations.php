@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Base\Behavior;
+namespace Railt\SDL\Base\Behavior;
 
-use Railt\Component\SDL\Contracts\Behavior\Deprecatable;
+use Railt\SDL\Contracts\Behavior\Deprecatable;
 
 /**
  * Trait BaseDeprecations

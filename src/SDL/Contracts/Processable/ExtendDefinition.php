@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Contracts\Processable;
+namespace Railt\SDL\Contracts\Processable;
 
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Interface ExtendDefinition

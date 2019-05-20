@@ -7,7 +7,7 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Uniqueness;
+namespace Railt\SDL\Reflection\Validation\Uniqueness;
 
 /**
  * Interface ScalarUniquenessValidator

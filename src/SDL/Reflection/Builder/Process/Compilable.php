@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Process;
+namespace Railt\SDL\Reflection\Builder\Process;
 
-use Railt\Component\SDL\Schema\CompilerInterface;
+use Railt\SDL\Schema\CompilerInterface;
 
 /**
  * Interface Compilable

@@ -7,19 +7,19 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Builder\Definitions;
+namespace Railt\SDL\Reflection\Builder\Definitions;
 
-use Railt\Component\Parser\Ast\LeafInterface;
-use Railt\Component\Parser\Ast\NodeInterface;
-use Railt\Component\Parser\Ast\RuleInterface;
-use Railt\Component\SDL\Base\Definitions\BaseSchema;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\ObjectDefinition;
-use Railt\Component\SDL\Exceptions\CompilerException;
-use Railt\Component\SDL\Reflection\Builder\DocumentBuilder;
-use Railt\Component\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
-use Railt\Component\SDL\Reflection\Builder\Process\Compilable;
-use Railt\Component\SDL\Reflection\Builder\Process\Compiler;
+use Phplrt\Ast\LeafInterface;
+use Phplrt\Ast\NodeInterface;
+use Phplrt\Ast\RuleInterface;
+use Railt\SDL\Base\Definitions\BaseSchema;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\ObjectDefinition;
+use Railt\SDL\Exceptions\CompilerException;
+use Railt\SDL\Reflection\Builder\DocumentBuilder;
+use Railt\SDL\Reflection\Builder\Invocations\Directive\DirectivesBuilder;
+use Railt\SDL\Reflection\Builder\Process\Compilable;
+use Railt\SDL\Reflection\Builder\Process\Compiler;
 
 /**
  * Class SchemaBuilder
@@ -50,7 +50,7 @@ class SchemaBuilder extends BaseSchema implements Compilable
     private function resolveSchemaOffset(NodeInterface $rules): int
     {
         foreach ($rules->getChildren() as $node) {
-            if ($node instanceof LeafInterface && $node->is('T_SCHEMA')) {
+            if ($node instanceof LeafInterface && $node->getName() === 'T_SCHEMA') {
                 return $node->getOffset();
             }
         }
@@ -103,7 +103,7 @@ class SchemaBuilder extends BaseSchema implements Compilable
          * </code>
          */
         foreach ($ast->getChildren() as $child) {
-            if ($child->is('Type')) {
+            if ($child->getName() === 'Type') {
                 return $this->load($child->getChild(0)->getValue());
             }
         }

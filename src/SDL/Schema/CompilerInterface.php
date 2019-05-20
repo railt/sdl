@@ -7,10 +7,10 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Schema;
+namespace Railt\SDL\Schema;
 
-use Railt\Component\Io\Readable;
-use Railt\Component\SDL\Contracts\Document;
+use Phplrt\Io\Readable;
+use Railt\SDL\Contracts\Document;
 
 /**
  * Class CompilerInterface

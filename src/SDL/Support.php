@@ -7,14 +7,14 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL;
+namespace Railt\SDL;
 
-use Railt\Component\Json\Json;
-use Railt\Component\SDL\Contracts\Behavior\AllowsTypeIndication;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Contracts\Dependent\ArgumentDefinition;
-use Railt\Component\SDL\Contracts\Dependent\FieldDefinition;
+use Railt\Json\Json;
+use Railt\SDL\Contracts\Behavior\AllowsTypeIndication;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Dependent\ArgumentDefinition;
+use Railt\SDL\Contracts\Dependent\FieldDefinition;
 
 /**
  * Trait Support
@@ -103,7 +103,7 @@ trait Support
     /**
      * @param mixed $value
      * @return string
-     * @throws \Railt\Component\Json\Exception\JsonException
+     * @throws \Railt\Json\Exception\JsonException
      */
     protected function valueWithType($value): string
     {
@@ -113,7 +113,7 @@ trait Support
     /**
      * @param mixed $value
      * @return mixed
-     * @throws \Railt\Component\Json\Exception\JsonException
+     * @throws \Railt\Json\Exception\JsonException
      */
     protected function valueToScalar($value)
     {
@@ -156,7 +156,7 @@ trait Support
     /**
      * @param mixed|iterable|null $value
      * @return string
-     * @throws \Railt\Component\Json\Exception\JsonException
+     * @throws \Railt\Json\Exception\JsonException
      */
     protected function valueToString($value): string
     {

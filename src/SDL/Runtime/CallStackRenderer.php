@@ -7,11 +7,11 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Runtime;
+namespace Railt\SDL\Runtime;
 
-use Railt\Component\SDL\Runtime\CallStackRenderer\DefinitionTraceRenderer;
-use Railt\Component\SDL\Runtime\CallStackRenderer\PhpTraceRenderer;
-use Railt\Component\SDL\Runtime\CallStackRenderer\TraceRenderer;
+use Railt\SDL\Runtime\CallStackRenderer\DefinitionTraceRenderer;
+use Railt\SDL\Runtime\CallStackRenderer\PhpTraceRenderer;
+use Railt\SDL\Runtime\CallStackRenderer\TraceRenderer;
 
 /**
  * Class CallStackRenderer

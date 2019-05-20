@@ -7,12 +7,12 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection\Validation\Uniqueness\Type;
+namespace Railt\SDL\Reflection\Validation\Uniqueness\Type;
 
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Exceptions\TypeConflictException;
-use Railt\Component\SDL\Reflection\Validation\Base\BaseValidator;
-use Railt\Component\SDL\Reflection\Validation\Uniqueness\TypeUniquenessValidator;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Exceptions\TypeConflictException;
+use Railt\SDL\Reflection\Validation\Base\BaseValidator;
+use Railt\SDL\Reflection\Validation\Uniqueness\TypeUniquenessValidator;
 
 /**
  * Class UniqueCollectionValidator

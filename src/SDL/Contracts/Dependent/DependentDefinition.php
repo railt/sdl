@@ -7,9 +7,9 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Contracts\Dependent;
+namespace Railt\SDL\Contracts\Dependent;
 
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
 
 /**
  * Interface DependentTypeDefinition

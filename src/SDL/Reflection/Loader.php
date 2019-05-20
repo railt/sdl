@@ -7,15 +7,15 @@
  */
 declare(strict_types=1);
 
-namespace Railt\Component\SDL\Reflection;
+namespace Railt\SDL\Reflection;
 
-use Railt\Component\Io\File;
-use Railt\Component\Io\Readable;
-use Railt\Component\SDL\Contracts\Definitions\Definition;
-use Railt\Component\SDL\Contracts\Definitions\TypeDefinition;
-use Railt\Component\SDL\Exceptions\TypeNotFoundException;
-use Railt\Component\SDL\Runtime\CallStackInterface;
-use Railt\Component\SDL\Schema\CompilerInterface;
+use Phplrt\Io\File;
+use Phplrt\Io\Readable;
+use Railt\SDL\Contracts\Definitions\Definition;
+use Railt\SDL\Contracts\Definitions\TypeDefinition;
+use Railt\SDL\Exceptions\TypeNotFoundException;
+use Railt\SDL\Runtime\CallStackInterface;
+use Railt\SDL\Schema\CompilerInterface;
 
 /**
  * Class Loader
@@ -23,7 +23,7 @@ use Railt\Component\SDL\Schema\CompilerInterface;
 class Loader extends Repository
 {
     /**
-     * @var \Railt\Component\SDL\Schema\CompilerInterface
+     * @var \Railt\SDL\Schema\CompilerInterface
      */
     private $compiler;
 
@@ -35,8 +35,8 @@ class Loader extends Repository
     /**
      * Loader constructor.
      *
-     * @param \Railt\Component\SDL\Schema\CompilerInterface $compiler
-     * @param \Railt\Component\SDL\Runtime\CallStackInterface $stack
+     * @param \Railt\SDL\Schema\CompilerInterface $compiler
+     * @param \Railt\SDL\Runtime\CallStackInterface $stack
      */
     public function __construct(CompilerInterface $compiler, CallStackInterface $stack)
     {
@@ -58,10 +58,10 @@ class Loader extends Repository
 
     /**
      * @param string $name
-     * @param \Railt\Component\SDL\Contracts\Definitions\Definition|null $from
-     * @return \Railt\Component\SDL\Contracts\Definitions\TypeDefinition
-     * @throws \Railt\Component\Io\Exception\NotReadableException
-     * @throws \Railt\Component\SDL\Exceptions\TypeNotFoundException
+     * @param \Railt\SDL\Contracts\Definitions\Definition|null $from
+     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition
+     * @throws \Railt\Io\Exception\NotReadableException
+     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
      */
     public function get(string $name, Definition $from = null): TypeDefinition
     {
@@ -74,10 +74,10 @@ class Loader extends Repository
 
     /**
      * @param string $name
-     * @param \Railt\Component\SDL\Contracts\Definitions\Definition|null $from
-     * @return \Railt\Component\SDL\Contracts\Definitions\TypeDefinition
-     * @throws \Railt\Component\Io\Exception\NotReadableException
-     * @throws \Railt\Component\SDL\Exceptions\TypeNotFoundException
+     * @param \Railt\SDL\Contracts\Definitions\Definition|null $from
+     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition
+     * @throws \Railt\Io\Exception\NotReadableException
+     * @throws \Railt\SDL\Exceptions\TypeNotFoundException
      */
     private function load(string $name, Definition $from = null): TypeDefinition
     {
@@ -107,8 +107,8 @@ class Loader extends Repository
 
     /**
      * @param mixed $result
-     * @return \Railt\Component\Io\Readable|null
-     * @throws \Railt\Component\Io\Exception\NotReadableException
+     * @return \Railt\Io\Readable|null
+     * @throws \Railt\Io\Exception\NotReadableException
      */
     private function parseResult($result): ?Readable
     {
@@ -125,8 +125,8 @@ class Loader extends Repository
 
     /**
      * @param string $name
-     * @param \Railt\Component\Io\Readable $readable
-     * @return \Railt\Component\SDL\Contracts\Definitions\TypeDefinition|null
+     * @param \Railt\Io\Readable $readable
+     * @return \Railt\SDL\Contracts\Definitions\TypeDefinition|null
      */
     private function findType(string $name, Readable $readable): ?TypeDefinition
     {
