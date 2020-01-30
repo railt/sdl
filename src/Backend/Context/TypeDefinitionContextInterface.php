@@ -11,18 +11,13 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use Railt\SDL\Frontend\Ast\Type\NamedTypeNode;
-
 /**
- * @property-read NamedTypeNode $ast
+ * Interface TypeDefinitionContextInterface
  */
-abstract class NamedTypeContext extends DefinitionContext implements TypeDefinitionContextInterface
+interface TypeDefinitionContextInterface extends DefinitionContextInterface
 {
     /**
      * @return string
      */
-    public function getName(): string
-    {
-        return $this->ast->name->value;
-    }
+    public function getName(): string;
 }

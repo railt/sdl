@@ -16,7 +16,7 @@ use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Source\Exception\NotAccessibleException;
 use Phplrt\Visitor\Visitor;
 use Railt\SDL\Backend\Context;
-use Railt\SDL\Backend\Context\CompiledTypeContext;
+use Railt\SDL\Backend\Context\TypeSystemContext;
 use Railt\SDL\Exception\TypeNotFoundException;
 use Railt\SDL\Frontend\Ast\Executable\DirectiveNode;
 use Railt\SDL\Frontend\Ast\Type\NamedDirectiveNode;
@@ -101,7 +101,7 @@ class LinkerVisitor extends Visitor
 
             switch (true) {
                 case $result instanceof NamedTypeInterface:
-                    $this->context->addType(new CompiledTypeContext($result));
+                    $this->context->addType(new TypeSystemContext($result));
 
                     return;
             }

@@ -11,16 +11,21 @@ declare(strict_types=1);
 
 namespace Railt\SDL;
 
+use GraphQL\Contracts\TypeSystem\DirectiveInterface;
 use GraphQL\Contracts\TypeSystem\SchemaInterface;
+use GraphQL\Contracts\TypeSystem\Type\NamedTypeInterface;
 use Phplrt\Visitor\Traverser;
 use Railt\SDL\Backend\Context;
+use Railt\SDL\Backend\HashTable;
+use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Backend\Linker\LinkerInterface;
 use Railt\SDL\Backend\Linker\LinkerVisitor;
+use Railt\SDL\Backend\NameResolver\HumanReadableResolver;
+use Railt\SDL\Backend\NameResolver\NameResolverInterface;
 use Railt\SDL\Backend\TypeBuilderVisitor;
 use Railt\SDL\Frontend\Ast\Node;
 use Railt\SDL\Spec\Executor;
 use Railt\SDL\Spec\SpecificationInterface;
-use Railt\TypeSystem\Exception\TypeUniquenessException;
 use Railt\TypeSystem\Schema;
 
 /**
@@ -44,6 +49,11 @@ class Backend
     private LinkerInterface $linker;
 
     /**
+     * @var NameResolverInterface
+     */
+    private NameResolverInterface $resolver;
+
+    /**
      * Backend constructor.
      *
      * @param SpecificationInterface $spec
@@ -52,6 +62,9 @@ class Backend
      */
     public function __construct(SpecificationInterface $spec, Context $context, LinkerInterface $linker)
     {
+        // TODO
+        $this->resolver = new HumanReadableResolver();
+
         $this->spec = new Executor($spec);
         $this->context = $context;
         $this->linker = $linker;
@@ -59,11 +72,11 @@ class Backend
 
     /**
      * @param iterable|Node[] $ast
-     * @param array $variables
+     * @param HashTableInterface $vars
      * @return SchemaInterface
      * @throws \Throwable
      */
-    public function run(iterable $ast, array $variables = []): SchemaInterface
+    public function run(iterable $ast, HashTableInterface $vars): SchemaInterface
     {
         $schema = new Schema();
 
@@ -72,7 +85,7 @@ class Backend
 
         $this->linkTypes($ast);
 
-        return $this->moveData($this->context, $schema, $variables);
+        return $this->moveData($this->context, $schema, $vars);
     }
 
     /**
@@ -92,7 +105,7 @@ class Backend
     private function buildTypes(iterable $ast, Schema $schema): iterable
     {
         $traverser = new Traverser([
-            new TypeBuilderVisitor($this->context, $schema),
+            new TypeBuilderVisitor($this->resolver, $this->context, $schema),
         ]);
 
         return $traverser->traverse($ast);
@@ -114,20 +127,25 @@ class Backend
     /**
      * @param Context $context
      * @param Schema $schema
-     * @param array $variables
+     * @param HashTableInterface $vars
      * @return Schema
-     * @throws TypeUniquenessException
-     * @throws \InvalidArgumentException
-     * @throws \Throwable
      */
-    private function moveData(Context $context, Schema $schema, array $variables): Schema
+    private function moveData(Context $context, Schema $schema, HashTableInterface $vars): Schema
     {
         foreach ($this->context->getTypes() as $type) {
-            $schema->addType($type->resolve($variables));
+            $def = $type->resolve($vars);
+
+            \assert($def instanceof NamedTypeInterface);
+
+            $schema->addType($def);
         }
 
         foreach ($this->context->getDirectives() as $type) {
-            $schema->addDirective($type->resolve($variables));
+            $def = $type->resolve($vars);
+
+            \assert($def instanceof DirectiveInterface);
+
+            $schema->addDirective($def);
         }
 
         $schema->setQueryType($context->getQuery());

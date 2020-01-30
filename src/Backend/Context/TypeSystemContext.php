@@ -13,11 +13,13 @@ namespace Railt\SDL\Backend\Context;
 
 use GraphQL\Contracts\TypeSystem\DefinitionInterface;
 use GraphQL\Contracts\TypeSystem\Type\NamedTypeInterface;
+use Railt\SDL\Backend\HashTable;
+use Railt\SDL\Backend\HashTableInterface;
 
 /**
- * Class CompiledTypeContext
+ * Class TypeSystemContext
  */
-class CompiledTypeContext implements DefinitionContextInterface
+class TypeSystemContext implements DefinitionContextInterface
 {
     /**
      * @var NamedTypeInterface
@@ -45,7 +47,7 @@ class CompiledTypeContext implements DefinitionContextInterface
     /**
      * {@inheritDoc}
      */
-    public function resolve(array $variables = []): DefinitionInterface
+    public function resolve(HashTableInterface $vars): DefinitionInterface
     {
         return $this->type;
     }

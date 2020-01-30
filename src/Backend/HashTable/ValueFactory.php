@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Railt\SDL\Backend;
+namespace Railt\SDL\Backend\HashTable;
 
 use Phplrt\Source\Exception\NotAccessibleException;
 use Railt\Dumper\Facade;
@@ -29,6 +29,21 @@ use Railt\TypeSystem\Value\ValueInterface;
  */
 class ValueFactory
 {
+    /**
+     * @param iterable|mixed[] $values
+     * @param Node|null $ctx
+     * @return iterable|ValueInterface[]
+     * @throws NotAccessibleException
+     * @throws TypeErrorException
+     * @throws \RuntimeException
+     */
+    public function each(iterable $values, Node $ctx = null): iterable
+    {
+        foreach ($values as $name => $value) {
+            yield $name => $this->make($value, $ctx);
+        }
+    }
+
     /**
      * @param mixed $value
      * @param Node|null $context

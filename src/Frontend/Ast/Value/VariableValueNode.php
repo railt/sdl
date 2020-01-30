@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Frontend\Ast\Value;
 
 use Railt\SDL\Frontend\Ast\Node;
-use Railt\TypeSystem\Value\NullValue;
 use Railt\TypeSystem\Value\ValueInterface;
 
 /**

@@ -9,12 +9,12 @@
 
 declare(strict_types=1);
 
-namespace Railt\SDL\Backend;
+namespace Railt\SDL\Backend\HashTable;
 
 use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Source\Exception\NotAccessibleException;
 use Phplrt\Visitor\Visitor;
-use Railt\SDL\Exception\RuntimeErrorException;
+use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Exception\TypeErrorException;
 use Railt\SDL\Frontend\Ast\Definition\ArgumentDefinitionNode;
 use Railt\SDL\Frontend\Ast\Definition\InputFieldDefinitionNode;
@@ -28,24 +28,18 @@ use Railt\TypeSystem\Value\ValueInterface;
 class VariablesVisitor extends Visitor
 {
     /**
-     * @var array
+     * @var HashTableInterface
      */
-    private array $variables;
+    private HashTableInterface $hash;
 
     /**
-     * @var ValueFactory
-     */
-    private ValueFactory $factory;
-
-    /**
-     * VariablesResolver constructor.
+     * VariablesVisitor constructor.
      *
-     * @param array $variables
+     * @param HashTableInterface $hash
      */
-    public function __construct(array $variables)
+    public function __construct(HashTableInterface $hash)
     {
-        $this->factory = new ValueFactory();
-        $this->variables = $variables;
+        $this->hash = $hash;
     }
 
     /**
@@ -96,30 +90,12 @@ class VariablesVisitor extends Visitor
      */
     private function fetch(VariableValueNode $var): ValueInterface
     {
-        $this->assertExists($var);
-
-        $value = $this->variables[$var->getName()];
+        $value = $this->hash->get($var->getName(), $var);
 
         if ($value instanceof VariableValueNode) {
             return $this->fetch($value);
         }
 
-        return $this->factory->make($value, $var);
-    }
-
-    /**
-     * @param VariableValueNode $var
-     * @return void
-     * @throws NotAccessibleException
-     * @throws RuntimeErrorException
-     * @throws \RuntimeException
-     */
-    private function assertExists(VariableValueNode $var): void
-    {
-        if (! isset($this->variables[$var->getName()])) {
-            $error = \sprintf('Variable $%s not defined', $var->getName());
-
-            throw new RuntimeErrorException($error, $var);
-        }
+        return $value;
     }
 }

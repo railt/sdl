@@ -20,13 +20,15 @@ use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 use Railt\SDL\Backend\Context;
+use Railt\SDL\Backend\HashTable;
+use Railt\SDL\Backend\HashTable\ValueFactory;
+use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Backend\Linker\LinkerFacadeTrait;
 use Railt\SDL\Backend\Linker\LinkerInterface;
 use Railt\SDL\Backend\Linker\Registry;
 use Railt\SDL\Frontend\Generator;
 use Railt\SDL\Spec\Railt;
 use Railt\SDL\Spec\SpecificationInterface;
-use Railt\TypeSystem\Schema;
 
 /**
  * Class Compiler
@@ -136,7 +138,16 @@ final class Compiler implements CompilerInterface
     {
         $executor = new Backend($this->spec, $ctx, $this->linker);
 
-        return $executor->run($ast, $variables);
+        return $executor->run($ast, $this->getHashTable($variables));
+    }
+
+    /**
+     * @param array $vars
+     * @return HashTableInterface
+     */
+    private function getHashTable(array $vars = []): HashTableInterface
+    {
+        return new HashTable(new ValueFactory(), $vars);
     }
 
     /**
