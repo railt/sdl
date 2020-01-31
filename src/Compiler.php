@@ -64,6 +64,16 @@ final class Compiler implements CompilerInterface
     private LinkerInterface $linker;
 
     /**
+     * @var HashTable
+     */
+    private HashTable $vars;
+
+    /**
+     * @var ValueFactory
+     */
+    private ValueFactory $values;
+
+    /**
      * Compiler constructor.
      *
      * @param SpecificationInterface $spec
@@ -76,11 +86,14 @@ final class Compiler implements CompilerInterface
         CacheInterface $cache = null,
         LoggerInterface $logger = null
     ) {
+        $this->logger = $logger;
+
         $this->context = new Context();
         $this->spec = $spec ?? new Railt();
-        $this->logger = $logger;
         $this->frontend = new Frontend($cache);
         $this->linker = new Registry();
+        $this->values = new ValueFactory();
+        $this->vars = new HashTable($this->values);
     }
 
     /**
@@ -147,7 +160,7 @@ final class Compiler implements CompilerInterface
      */
     private function getHashTable(array $vars = []): HashTableInterface
     {
-        return new HashTable(new ValueFactory(), $vars);
+        return new HashTable($this->values, $vars, $this->vars);
     }
 
     /**
