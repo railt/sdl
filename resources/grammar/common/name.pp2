@@ -1,0 +1,56 @@
+
+// Default type name
+
+TypeName -> {
+    return Ast\TypeName::create($children);
+}
+  : Identifier()
+  ;
+
+// Generic type name
+GenericTypeName -> {
+    return Ast\TypeName::create($children);
+}
+  : Identifier() GenericArguments()?
+  ;
+
+/**
+ * Represents a non-namespaced name.
+ * Namespaced names are represented using Name nodes.
+ */
+
+Identifier -> {
+    return Ast\Identifier::create($children);
+}
+  // Values
+  : <T_TRUE>
+  | <T_FALSE>
+  | <T_NULL>
+
+  // Keywords
+  | <T_TYPE>
+  | <T_ENUM>
+  | <T_UNION>
+  | <T_INTERFACE>
+  | <T_SCHEMA>
+  | <T_SCALAR>
+  | <T_DIRECTIVE>
+  | <T_INPUT>
+  | <T_EXTEND>
+  | <T_EXTENDS>
+  | <T_IMPLEMENTS>
+  | <T_ON>
+  | <T_REPEATABLE>
+  | <T_QUERY>
+  | <T_MUTATION>
+  | <T_SUBSCRIPTION>
+
+  // Other
+  | <T_NAME>
+  ;
+
+GenericArguments
+  : ::T_ANGLE_OPEN::
+      Identifier() (::T_COMMA::? Identifier())*
+    ::T_ANGLE_CLOSE::
+  ;

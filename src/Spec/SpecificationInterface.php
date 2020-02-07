@@ -13,6 +13,7 @@ namespace Railt\SDL\Spec;
 
 use Railt\SDL\CompilerInterface;
 use Phplrt\Visitor\VisitorInterface;
+use Railt\SDL\Frontend\Ast\Node;
 
 /**
  * Interface SpecificationInterface
@@ -24,4 +25,10 @@ interface SpecificationInterface extends VisitorInterface
      * @return void
      */
     public function load(CompilerInterface $compiler): void;
+
+    /**
+     * @param iterable|Node|Node[] $ast
+     * @return iterable|Node|Node[]
+     */
+    public function execute(iterable $ast): iterable;
 }

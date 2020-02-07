@@ -33,13 +33,20 @@ class NamedTypeNode extends TypeNode
     public Identifier $name;
 
     /**
+     * @var NamedTypeNode[]
+     */
+    public array $arguments = [];
+
+    /**
      * NamedType constructor.
      *
      * @param Identifier $name
+     * @param array|NamedTypeNode[] $arguments
      */
-    public function __construct(Identifier $name)
+    public function __construct(Identifier $name, array $arguments = [])
     {
         $this->name = $name;
+        $this->arguments = $arguments;
     }
 
     /**
@@ -48,6 +55,6 @@ class NamedTypeNode extends TypeNode
      */
     public static function create(array $children): self
     {
-        return new static($children[0]);
+        return new static(\array_shift($children), $children);
     }
 }

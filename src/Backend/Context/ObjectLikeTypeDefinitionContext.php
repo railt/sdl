@@ -16,27 +16,31 @@ use GraphQL\Contracts\TypeSystem\FieldInterface;
 use Railt\SDL\Frontend\Ast\Definition\ArgumentDefinitionNode;
 use Railt\SDL\Frontend\Ast\Definition\FieldDefinitionNode;
 use Railt\TypeSystem\Argument;
+use Railt\TypeSystem\Exception\TypeUniquenessException;
 use Railt\TypeSystem\Field;
 
 /**
  * Class ObjectLikeTypeDefinitionContext
  */
-abstract class ObjectLikeTypeDefinitionContext extends NamedTypeContext
+abstract class ObjectLikeTypeDefinitionContext extends TypeDefinitionContext
 {
     /**
      * @param FieldDefinitionNode $node
+     * @param array $args
      * @return FieldInterface
      * @throws \InvalidArgumentException
+     * @throws \LogicException
+     * @throws TypeUniquenessException
      * @throws \Throwable
      */
-    protected function buildFieldDefinition(FieldDefinitionNode $node): FieldInterface
+    protected function buildFieldDefinition(FieldDefinitionNode $node, array $args = []): FieldInterface
     {
-        $field = new Field($node->name->value, $this->typeOf($node->type), [
+        $field = new Field($node->name->value, $this->typeOf($node->type, $args), [
             'description' => $this->descriptionOf($node),
         ]);
 
         foreach ($node->arguments as $argument) {
-            $field->addArgument($this->buildArgumentDefinition($argument));
+            $field->addArgument($this->buildArgumentDefinition($argument, $args));
         }
 
         foreach ($node->directives as $directive) {
@@ -48,13 +52,15 @@ abstract class ObjectLikeTypeDefinitionContext extends NamedTypeContext
 
     /**
      * @param ArgumentDefinitionNode $node
+     * @param array $args
      * @return ArgumentInterface
      * @throws \InvalidArgumentException
+     * @throws \LogicException
      * @throws \Throwable
      */
-    protected function buildArgumentDefinition(ArgumentDefinitionNode $node): ArgumentInterface
+    protected function buildArgumentDefinition(ArgumentDefinitionNode $node, array $args = []): ArgumentInterface
     {
-        $argument = new Argument($node->name->value, $this->typeOf($node->type), [
+        $argument = new Argument($node->name->value, $this->typeOf($node->type, $args), [
             'description' => $this->descriptionOf($node),
         ]);
 

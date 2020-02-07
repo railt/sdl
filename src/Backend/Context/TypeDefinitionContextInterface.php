@@ -11,8 +11,11 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
+use Railt\TypeSystem\Directive;
+use Railt\TypeSystem\Type\NamedType;
+
 /**
- * Interface TypeDefinitionContextInterface
+ * @method Directive|NamedType resolve(array $args = [])
  */
 interface TypeDefinitionContextInterface extends DefinitionContextInterface
 {

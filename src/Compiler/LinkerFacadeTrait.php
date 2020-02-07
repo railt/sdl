@@ -9,7 +9,10 @@
 
 declare(strict_types=1);
 
-namespace Railt\SDL\Backend\Linker;
+namespace Railt\SDL\Compiler;
+
+use Railt\SDL\Backend\Linker\LinkerInterface;
+use Railt\SDL\Backend\Linker\Registry;
 
 /**
  * Trait LinkerFacadeTrait
@@ -17,26 +20,40 @@ namespace Railt\SDL\Backend\Linker;
 trait LinkerFacadeTrait
 {
     /**
+     * @var LinkerInterface
+     */
+    protected LinkerInterface $linker;
+
+    /**
+     * @return void
+     */
+    private function bootLinkerFacadeTrait(): void
+    {
+        $this->linker = new Registry();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function autoload(callable $loader): LinkerInterface
     {
-        return $this->getLinker()
-            ->autoload($loader);
+        return $this->linker->autoload($loader);
     }
 
     /**
      * @return LinkerInterface
      */
-    abstract public function getLinker(): LinkerInterface;
+    public function getLinker(): LinkerInterface
+    {
+        return $this->linker;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function cancelAutoload(callable $loader): LinkerInterface
     {
-        return $this->getLinker()
-            ->cancelAutoload($loader);
+        return $this->linker->cancelAutoload($loader);
     }
 
     /**
@@ -44,7 +61,6 @@ trait LinkerFacadeTrait
      */
     public function getAutoloaders(): iterable
     {
-        return $this->getLinker()
-            ->getAutoloaders();
+        return $this->linker->getAutoloaders();
     }
 }

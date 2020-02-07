@@ -28,7 +28,7 @@ UnionTypeDefinitionExceptDescription
   ;
 
 UnionTypeDefinitionHead
-  : ::T_UNION:: Identifier() Directive()*
+  : ::T_UNION:: TypeName() Directive()*
   ;
 
 UnionTypeDefinitionBody

@@ -26,7 +26,7 @@ ObjectTypeDefinitionExceptDescription
   ;
 
 ObjectTypeDefinitionHead
-  : ::T_TYPE:: Identifier()
+  : ::T_TYPE:: GenericTypeName()
     ImplementsInterfaces()?
     Directive()*
   ;

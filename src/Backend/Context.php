@@ -11,9 +11,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend;
 
-use Railt\SDL\Backend\Context\DefinitionContextInterface;
-use Railt\SDL\Backend\Runtime\ExecutionInterface;
-use Railt\TypeSystem\Reference\TypeReferenceInterface;
+use Railt\SDL\Backend\Context\TypeDefinitionContextInterface;
+use Railt\TypeSystem\Schema;
 
 /**
  * Class Context
@@ -21,114 +20,75 @@ use Railt\TypeSystem\Reference\TypeReferenceInterface;
 class Context
 {
     /**
-     * @var TypeReferenceInterface|null
+     * @var Schema
      */
-    private ?TypeReferenceInterface $query = null;
+    private Schema $schema;
 
     /**
-     * @var TypeReferenceInterface|null
-     */
-    private ?TypeReferenceInterface $mutation = null;
-
-    /**
-     * @var TypeReferenceInterface|null
-     */
-    private ?TypeReferenceInterface $subscription = null;
-
-    /**
-     * @var array|DefinitionContextInterface[]
+     * @var array|TypeDefinitionContextInterface[]
      */
     private array $types = [];
 
     /**
-     * @var array|DefinitionContextInterface[]
+     * @var array|TypeDefinitionContextInterface[]
      */
     private array $directives = [];
 
     /**
-     * @var array|ExecutionInterface[]
+     * Context constructor.
+     *
+     * @param Schema $schema
      */
-    private array $executions = [];
-
-    /**
-     * @param ExecutionInterface $execution
-     * @return $this
-     */
-    public function addExecution(ExecutionInterface $execution): self
+    public function __construct(Schema $schema)
     {
-        $this->executions[] = $execution;
-
-        return $this;
+        $this->schema = $schema;
     }
 
     /**
-     * @param TypeReferenceInterface|null $query
+     * @param Schema $schema
      * @return void
      */
-    public function setQuery(?TypeReferenceInterface $query): void
+    public function setSchema(Schema $schema): void
     {
-        $this->query = $query;
+        $this->schema = $schema;
     }
 
     /**
-     * @param TypeReferenceInterface|null $mutation
+     * @return Schema
+     */
+    public function getSchema(): Schema
+    {
+        return $this->schema;
+    }
+
+    /**
+     * @param TypeDefinitionContextInterface $context
      * @return void
      */
-    public function setMutation(?TypeReferenceInterface $mutation): void
+    public function addTypeContext(TypeDefinitionContextInterface $context): void
     {
-        $this->mutation = $mutation;
+        if ($context->getGenericArguments() === []) {
+            $this->schema->addType($context->resolve());
+
+            return;
+        }
+
+        $this->types[$context->getName()] = $context;
     }
 
     /**
-     * @param TypeReferenceInterface|null $subscription
+     * @param TypeDefinitionContextInterface $context
      * @return void
      */
-    public function setSubscription(?TypeReferenceInterface $subscription): void
+    public function addDirectiveContext(TypeDefinitionContextInterface $context): void
     {
-        $this->subscription = $subscription;
-    }
+        if ($context->getGenericArguments() === []) {
+            $this->schema->addDirective($context->resolve());
 
-    /**
-     * @return TypeReferenceInterface|null
-     */
-    public function getQuery(): ?TypeReferenceInterface
-    {
-        return $this->query;
-    }
+            return;
+        }
 
-    /**
-     * @return TypeReferenceInterface|null
-     */
-    public function getMutation(): ?TypeReferenceInterface
-    {
-        return $this->mutation;
-    }
-
-    /**
-     * @return TypeReferenceInterface|null
-     */
-    public function getSubscription(): ?TypeReferenceInterface
-    {
-        return $this->subscription;
-    }
-
-    /**
-     * @return array|ExecutionInterface[]
-     */
-    public function getExecutions(): array
-    {
-        return $this->executions;
-    }
-
-    /**
-     * @param DefinitionContextInterface $type
-     * @return $this
-     */
-    public function addType(DefinitionContextInterface $type): self
-    {
-        $this->types[$type->getName()] = $type;
-
-        return $this;
+        $this->directives[$context->getName()] = $context;
     }
 
     /**
@@ -137,60 +97,16 @@ class Context
      */
     public function hasType(string $name): bool
     {
-        return isset($this->types[$name]);
+        return $this->schema->hasType($name)
+            || isset($this->types[$name]);
     }
 
     /**
-     * @return array|DefinitionContextInterface[]
+     * @param string $type
+     * @return TypeDefinitionContextInterface|null
      */
-    public function getTypes(): array
+    public function fetch(string $type): ?TypeDefinitionContextInterface
     {
-        return $this->types;
-    }
-
-    /**
-     * @param string $name
-     * @return DefinitionContextInterface|null
-     */
-    public function getType(string $name): ?DefinitionContextInterface
-    {
-        return $this->types[$name] ?? null;
-    }
-
-    /**
-     * @param DefinitionContextInterface $type
-     * @return $this
-     */
-    public function addDirective(DefinitionContextInterface $type): self
-    {
-        $this->directives[$type->getName()] = $type;
-
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function hasDirective(string $name): bool
-    {
-        return isset($this->directives[$name]);
-    }
-
-    /**
-     * @return array|DefinitionContextInterface[]
-     */
-    public function getDirectives(): array
-    {
-        return $this->directives;
-    }
-
-    /**
-     * @param string $name
-     * @return DefinitionContextInterface|null
-     */
-    public function getDirective(string $name): ?DefinitionContextInterface
-    {
-        return $this->directives[$name] ?? null;
+        return $this->types[$type] ?? null;
     }
 }

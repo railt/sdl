@@ -21,6 +21,8 @@
 %token T_BRACKET_CLOSE          \]
 %token T_BRACE_OPEN             {
 %token T_BRACE_CLOSE            }
+%token T_ANGLE_OPEN             <
+%token T_ANGLE_CLOSE            >
 %token T_NON_NULL               !
 %token T_EQUAL                  =
 %token T_DIRECTIVE_AT           @

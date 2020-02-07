@@ -11,29 +11,23 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use GraphQL\Contracts\TypeSystem\DefinitionInterface;
 use Phplrt\Visitor\Traverser;
-use Railt\SDL\Backend\HashTable;
+use Railt\SDL\Backend\Context\Support\DescriptionReaderTrait;
+use Railt\SDL\Backend\Context\Support\TypeReferenceTrait;
+use Railt\SDL\Backend\Context\Support\ValueTrait;
 use Railt\SDL\Backend\HashTable\VariablesVisitor;
 use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Frontend\Ast\DefinitionNode;
-use Railt\SDL\Frontend\Ast\Node;
-use Railt\SDL\Frontend\Ast\Type\ListTypeNode;
-use Railt\SDL\Frontend\Ast\Type\NamedTypeNode;
-use Railt\SDL\Frontend\Ast\Type\NonNullTypeNode;
-use Railt\SDL\Frontend\Ast\Type\TypeNode;
-use Railt\TypeSystem\Reference\TypeReferenceInterface;
-use Railt\TypeSystem\Type\ListType;
-use Railt\TypeSystem\Type\NonNullType;
-use Railt\TypeSystem\Type\WrappingType;
-use Railt\TypeSystem\Value\StringValue;
-use Railt\TypeSystem\Value\ValueInterface;
 
 /**
  * Class DefinitionContext
  */
 abstract class DefinitionContext implements DefinitionContextInterface
 {
+    use ValueTrait;
+    use TypeReferenceTrait;
+    use DescriptionReaderTrait;
+
     /**
      * @var DefinitionNode
      */
@@ -47,97 +41,35 @@ abstract class DefinitionContext implements DefinitionContextInterface
     /**
      * DefinitionContext constructor.
      *
+     * @param HashTableInterface $vars
      * @param Factory $factory
      * @param DefinitionNode $ast
      */
-    public function __construct(Factory $factory, DefinitionNode $ast)
+    public function __construct(HashTableInterface $vars, Factory $factory, DefinitionNode $ast)
     {
         $this->factory = $factory;
-        $this->ast = $ast;
+        $this->ast = $this->prebuild($vars, $ast);
     }
 
     /**
      * @param HashTableInterface $vars
-     * @return DefinitionInterface
+     * @param DefinitionNode $ast
+     * @return DefinitionNode|iterable
      */
-    final public function resolve(HashTableInterface $vars): DefinitionInterface
+    private function prebuild(HashTableInterface $vars, DefinitionNode $ast): DefinitionNode
     {
         $traverser = new Traverser([
             new VariablesVisitor($vars),
         ]);
 
-        /** @var DefinitionNode $ast */
-        $ast = $traverser->traverse($this->ast);
-
-        return $this->build($ast);
+        return $traverser->traverse($ast);
     }
 
     /**
-     * @param DefinitionNode $ast
-     * @return DefinitionInterface
+     * @return Factory
      */
-    abstract protected function build(DefinitionNode $ast): DefinitionInterface;
-
-    /**
-     * @param DefinitionNode $ast
-     * @param HashTable $table
-     * @return DefinitionInterface
-     * @throws \LogicException
-     */
-    protected function make(DefinitionNode $ast, HashTable $table): DefinitionInterface
+    protected function getFactory(): Factory
     {
-        return $this->factory->make($ast)->resolve($table);
-    }
-
-    /**
-     * @param Node $node
-     * @return string|null
-     */
-    protected function descriptionOf(Node $node): ?string
-    {
-        return $node->description instanceof StringValue
-            ? $node->description->toPHPValue()
-            : null;
-    }
-
-    /**
-     * @param ValueInterface $value
-     * @return ValueInterface
-     */
-    protected function value(ValueInterface $value): ValueInterface
-    {
-        return $value;
-    }
-
-    /**
-     * @param TypeNode $type
-     * @return TypeReferenceInterface|WrappingType
-     * @throws \InvalidArgumentException
-     * @throws \Throwable
-     */
-    protected function typeOf(TypeNode $type)
-    {
-        switch (true) {
-            case $type instanceof NonNullTypeNode:
-                return new NonNullType($this->typeOf($type->type));
-
-            case $type instanceof ListTypeNode:
-                return new ListType($this->typeOf($type->type));
-
-            case $type instanceof NamedTypeNode:
-                return $this->ref($type);
-
-            default:
-                throw new \InvalidArgumentException('Invalid type ref');
-        }
-    }
-
-    /**
-     * @param NamedTypeNode $node
-     * @return TypeReferenceInterface
-     */
-    protected function ref(NamedTypeNode $node): TypeReferenceInterface
-    {
-        return $this->factory->ref($node->name->value);
+        return $this->factory;
     }
 }

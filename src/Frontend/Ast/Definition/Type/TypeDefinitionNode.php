@@ -14,6 +14,7 @@ namespace Railt\SDL\Frontend\Ast\Definition\Type;
 use Railt\SDL\Frontend\Ast\Definition\TypeSystemDefinitionNode;
 use Railt\SDL\Frontend\Ast\Executable\DirectiveNode;
 use Railt\SDL\Frontend\Ast\Identifier;
+use Railt\SDL\Frontend\Ast\TypeName;
 use Railt\TypeSystem\Value\StringValue;
 
 /**
@@ -33,9 +34,9 @@ use Railt\TypeSystem\Value\StringValue;
 abstract class TypeDefinitionNode extends TypeSystemDefinitionNode
 {
     /**
-     * @var Identifier
+     * @var TypeName
      */
-    public Identifier $name;
+    public TypeName $name;
 
     /**
      * @var StringValue|null
@@ -50,9 +51,9 @@ abstract class TypeDefinitionNode extends TypeSystemDefinitionNode
     /**
      * TypeDefinitionNode constructor.
      *
-     * @param Identifier $name
+     * @param TypeName $name
      */
-    public function __construct(Identifier $name)
+    public function __construct(TypeName $name)
     {
         $this->name = $name;
     }

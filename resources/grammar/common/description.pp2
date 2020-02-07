@@ -1,0 +1,10 @@
+
+/**
+ * Types description/documentation
+ */
+
+Description -> {
+    return Ast\Description::create($children ?: null);
+}
+  : StringValue()?
+  ;

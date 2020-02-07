@@ -11,12 +11,9 @@ declare(strict_types=1);
 
 namespace Railt\SDL;
 
-use GraphQL\Contracts\TypeSystem\DirectiveInterface;
 use GraphQL\Contracts\TypeSystem\SchemaInterface;
-use GraphQL\Contracts\TypeSystem\Type\NamedTypeInterface;
 use Phplrt\Visitor\Traverser;
 use Railt\SDL\Backend\Context;
-use Railt\SDL\Backend\HashTable;
 use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Backend\Linker\LinkerInterface;
 use Railt\SDL\Backend\Linker\LinkerVisitor;
@@ -24,20 +21,13 @@ use Railt\SDL\Backend\NameResolver\HumanReadableResolver;
 use Railt\SDL\Backend\NameResolver\NameResolverInterface;
 use Railt\SDL\Backend\TypeBuilderVisitor;
 use Railt\SDL\Frontend\Ast\Node;
-use Railt\SDL\Spec\Executor;
 use Railt\SDL\Spec\SpecificationInterface;
-use Railt\TypeSystem\Schema;
 
 /**
  * Class Backend
  */
 class Backend
 {
-    /**
-     * @var Executor
-     */
-    private Executor $spec;
-
     /**
      * @var Context
      */
@@ -54,20 +44,22 @@ class Backend
     private NameResolverInterface $resolver;
 
     /**
+     * @var SpecificationInterface
+     */
+    private SpecificationInterface $spec;
+
+    /**
      * Backend constructor.
      *
-     * @param SpecificationInterface $spec
-     * @param Context $context
-     * @param LinkerInterface $linker
+     * @param Compiler $compiler
+     * @param Context $session
      */
-    public function __construct(SpecificationInterface $spec, Context $context, LinkerInterface $linker)
+    public function __construct(Compiler $compiler, Context $session)
     {
-        // TODO
-        $this->resolver = new HumanReadableResolver();
-
-        $this->spec = new Executor($spec);
-        $this->context = $context;
-        $this->linker = $linker;
+        $this->resolver = $compiler->getNameResolver();
+        $this->context = $session;
+        $this->linker = $compiler->getLinker();
+        $this->spec = $compiler->getSpecification();
     }
 
     /**
@@ -78,14 +70,16 @@ class Backend
      */
     public function run(iterable $ast, HashTableInterface $vars): SchemaInterface
     {
-        $schema = new Schema();
-
+        // Apply specification logic
         $ast = $this->adoptSpecification($ast);
-        $ast = $this->buildTypes($ast, $schema);
 
+        // Build types and move them into Context
+        $ast = $this->buildTypes($ast, $vars);
+
+        // Apply linker to all loaded types in Context
         $this->linkTypes($ast);
 
-        return $this->moveData($this->context, $schema, $vars);
+        return $this->context->getSchema();
     }
 
     /**
@@ -99,16 +93,14 @@ class Backend
 
     /**
      * @param iterable $ast
-     * @param Schema $schema
+     * @param HashTableInterface $vars
      * @return iterable
      */
-    private function buildTypes(iterable $ast, Schema $schema): iterable
+    private function buildTypes(iterable $ast, HashTableInterface $vars): iterable
     {
-        $traverser = new Traverser([
-            new TypeBuilderVisitor($this->resolver, $this->context, $schema),
-        ]);
+        $buildTypes = new TypeBuilderVisitor($vars, $this->resolver, $this->context);
 
-        return $traverser->traverse($ast);
+        return (new Traverser([$buildTypes]))->traverse($ast);
     }
 
     /**
@@ -122,36 +114,5 @@ class Backend
         ]);
 
         return $traverser->traverse($ast);
-    }
-
-    /**
-     * @param Context $context
-     * @param Schema $schema
-     * @param HashTableInterface $vars
-     * @return Schema
-     */
-    private function moveData(Context $context, Schema $schema, HashTableInterface $vars): Schema
-    {
-        foreach ($this->context->getTypes() as $type) {
-            $def = $type->resolve($vars);
-
-            \assert($def instanceof NamedTypeInterface);
-
-            $schema->addType($def);
-        }
-
-        foreach ($this->context->getDirectives() as $type) {
-            $def = $type->resolve($vars);
-
-            \assert($def instanceof DirectiveInterface);
-
-            $schema->addDirective($def);
-        }
-
-        $schema->setQueryType($context->getQuery());
-        $schema->setMutationType($context->getMutation());
-        $schema->setSubscriptionType($context->getSubscription());
-
-        return $schema;
     }
 }

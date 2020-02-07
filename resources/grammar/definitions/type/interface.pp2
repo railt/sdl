@@ -26,7 +26,7 @@ InterfaceTypeDefinitionExceptDescription
   ;
 
 InterfaceTypeDefinitionHead
-  : ::T_INTERFACE:: Identifier()
+  : ::T_INTERFACE:: GenericTypeName()
     ImplementsInterfaces()?
     Directive()*
   ;

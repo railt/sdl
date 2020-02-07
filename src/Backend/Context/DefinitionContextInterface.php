@@ -12,8 +12,6 @@ declare(strict_types=1);
 namespace Railt\SDL\Backend\Context;
 
 use GraphQL\Contracts\TypeSystem\DefinitionInterface;
-use Railt\SDL\Backend\HashTable;
-use Railt\SDL\Backend\HashTableInterface;
 
 /**
  * Interface DefinitionContextInterface
@@ -21,8 +19,13 @@ use Railt\SDL\Backend\HashTableInterface;
 interface DefinitionContextInterface
 {
     /**
-     * @param HashTableInterface $vars
+     * @return array|string[]
+     */
+    public function getGenericArguments(): array;
+
+    /**
+     * @param array $args
      * @return DefinitionInterface
      */
-    public function resolve(HashTableInterface $vars): DefinitionInterface;
+    public function resolve(array $args = []): DefinitionInterface;
 }

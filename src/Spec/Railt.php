@@ -12,8 +12,10 @@ declare(strict_types=1);
 namespace Railt\SDL\Spec;
 
 use Railt\SDL\Spec\Constraint\Constraint;
+use Railt\SDL\Spec\Constraint\GenericTypes;
 use Railt\SDL\Spec\Constraint\RepeatableDirectives;
 use Railt\SDL\Spec\Constraint\TypeSystemExtensions;
+use Railt\SDL\Spec\Constraint\Variables;
 
 /**
  * Railt GraphQL Specification
@@ -44,5 +46,7 @@ class Railt extends Specification
     protected array $abilities = [
         RepeatableDirectives::class,
         TypeSystemExtensions::class,
+        GenericTypes::class,
+        Variables::class,
     ];
 }

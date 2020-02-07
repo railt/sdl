@@ -16,11 +16,13 @@ use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Source\Exception\NotAccessibleException;
 use Phplrt\Visitor\Visitor;
 use Railt\SDL\Backend\Context;
-use Railt\SDL\Backend\Context\TypeSystemContext;
 use Railt\SDL\Exception\TypeNotFoundException;
+use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
 use Railt\SDL\Frontend\Ast\Executable\DirectiveNode;
+use Railt\SDL\Frontend\Ast\Identifier;
 use Railt\SDL\Frontend\Ast\Type\NamedDirectiveNode;
 use Railt\SDL\Frontend\Ast\Type\NamedTypeNode;
+use Railt\SDL\Frontend\Ast\TypeName;
 
 /**
  * Class LinkerVisitor
@@ -48,6 +50,11 @@ class LinkerVisitor extends Visitor
     private LinkerInterface $linker;
 
     /**
+     * @var array|string[]
+     */
+    private array $genericArguments = [];
+
+    /**
      * LinkerVisitor constructor.
      *
      * @param Context $context
@@ -61,16 +68,60 @@ class LinkerVisitor extends Visitor
 
     /**
      * @param NodeInterface $node
+     * @return void
+     */
+    public function enter(NodeInterface $node): void
+    {
+        if ($node instanceof TypeDefinitionNode && $node->name instanceof TypeName) {
+            $this->loadGenericArguments($node->name);
+        }
+    }
+
+    /**
+     * @param TypeName $type
+     * @return void
+     */
+    private function loadGenericArguments(TypeName $type): void
+    {
+        $map = fn(Identifier $name): string => $name->value;
+
+        $this->genericArguments = \array_map($map, $type->arguments);
+    }
+
+    /**
+     * @param NodeInterface $node
      * @return mixed|void|null
      */
     public function leave(NodeInterface $node)
     {
-        if ($node instanceof NamedTypeNode) {
-            $this->assertTypeExists($node);
-        }
+        switch (true) {
+            //
+            // If current context was closed then we should remove
+            // current state of generic arguments.
+            //
+            case $node instanceof TypeDefinitionNode:
+                $this->genericArguments = [];
 
-        if ($node instanceof DirectiveNode) {
-            $this->assertDirectiveExists($node->name);
+                break;
+
+            //
+            // Load all type dependencies.
+            //
+            // Note: Skip type loading if type is part of type template parameter.
+            //
+            case $node instanceof NamedTypeNode:
+                if (! \in_array($node->name->value, $this->genericArguments, true)) {
+                    $this->assertTypeExists($node);
+                }
+
+                break;
+
+            //
+            // Load all directive dependencies
+            //
+            case $node instanceof DirectiveNode:
+                $this->assertDirectiveExists($node->name);
+                break;
         }
     }
 
@@ -80,9 +131,7 @@ class LinkerVisitor extends Visitor
      */
     private function assertTypeExists(NamedTypeNode $name): void
     {
-        $context = $this->context->getType($name->name->value);
-
-        if ($context === null) {
+        if (! $this->context->hasType($name->name->value)) {
             $this->loadOr($name->name->value, function () use ($name): void {
                 throw $this->typeNotFound($name);
             });
@@ -96,12 +145,14 @@ class LinkerVisitor extends Visitor
      */
     private function loadOr(string $type, \Closure $otherwise): void
     {
+        $schema = $this->context->getSchema();
+
         foreach ($this->linker->getAutoloaders() as $autoloader) {
             $result = $autoloader($type);
 
             switch (true) {
                 case $result instanceof NamedTypeInterface:
-                    $this->context->addType(new TypeSystemContext($result));
+                    $schema->addType($result);
 
                     return;
             }

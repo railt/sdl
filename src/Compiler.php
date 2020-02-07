@@ -15,19 +15,18 @@ use GraphQL\Contracts\TypeSystem\SchemaInterface;
 use Phplrt\Contracts\Parser\ParserInterface;
 use Phplrt\Source\Exception\NotFoundException;
 use Phplrt\Source\Exception\NotReadableException;
-use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
 use Railt\SDL\Backend\Context;
 use Railt\SDL\Backend\HashTable;
-use Railt\SDL\Backend\HashTable\ValueFactory;
 use Railt\SDL\Backend\HashTableInterface;
-use Railt\SDL\Backend\Linker\LinkerFacadeTrait;
-use Railt\SDL\Backend\Linker\LinkerInterface;
-use Railt\SDL\Backend\Linker\Registry;
-use Railt\SDL\Frontend\Generator;
-use Railt\SDL\Spec\Railt;
+use Railt\SDL\Compiler\ContextFacadeTrait;
+use Railt\SDL\Compiler\DevelopmentModeFacadeTrait;
+use Railt\SDL\Compiler\HashTableFacadeTrait;
+use Railt\SDL\Compiler\LinkerFacadeTrait;
+use Railt\SDL\Compiler\NameResolverFacadeTrait;
+use Railt\SDL\Compiler\SpecificationFacadeTrait;
 use Railt\SDL\Spec\SpecificationInterface;
 
 /**
@@ -36,7 +35,11 @@ use Railt\SDL\Spec\SpecificationInterface;
 final class Compiler implements CompilerInterface
 {
     use LinkerFacadeTrait;
-    use LoggerAwareTrait;
+    use ContextFacadeTrait;
+    use HashTableFacadeTrait;
+    use NameResolverFacadeTrait;
+    use SpecificationFacadeTrait;
+    use DevelopmentModeFacadeTrait;
 
     /**
      * @var bool
@@ -47,31 +50,6 @@ final class Compiler implements CompilerInterface
      * @var ParserInterface
      */
     private ParserInterface $frontend;
-
-    /**
-     * @var Context
-     */
-    private Context $context;
-
-    /**
-     * @var SpecificationInterface
-     */
-    private SpecificationInterface $spec;
-
-    /**
-     * @var LinkerInterface
-     */
-    private LinkerInterface $linker;
-
-    /**
-     * @var HashTable
-     */
-    private HashTable $vars;
-
-    /**
-     * @var ValueFactory
-     */
-    private ValueFactory $values;
 
     /**
      * Compiler constructor.
@@ -87,29 +65,14 @@ final class Compiler implements CompilerInterface
         LoggerInterface $logger = null
     ) {
         $this->logger = $logger;
-
-        $this->context = new Context();
-        $this->spec = $spec ?? new Railt();
         $this->frontend = new Frontend($cache);
-        $this->linker = new Registry();
-        $this->values = new ValueFactory();
-        $this->vars = new HashTable($this->values);
-    }
 
-    /**
-     * @return LinkerInterface
-     */
-    public function getLinker(): LinkerInterface
-    {
-        return $this->linker;
-    }
+        $this->bootLinkerFacadeTrait();
+        $this->bootContextFacadeTrait();
+        $this->bootHashTableFacadeTrait();
+        $this->bootNameResolverFacadeTrait();
 
-    /**
-     * @return Context
-     */
-    public function getContext(): Context
-    {
-        return $this->context;
+        $this->setSpecification($spec);
     }
 
     /**
@@ -130,13 +93,14 @@ final class Compiler implements CompilerInterface
      * @return void
      * @throws NotFoundException
      * @throws NotReadableException
+     * @throws \Throwable
      */
     private function bootIfNotBooted(): void
     {
         if ($this->booted === false) {
             $this->booted = true;
 
-            $this->spec->load($this);
+            $this->bootSpecificationFacadeTrait();
         }
     }
 
@@ -149,18 +113,20 @@ final class Compiler implements CompilerInterface
      */
     private function backend(iterable $ast, Context $ctx, array $variables = []): SchemaInterface
     {
-        $executor = new Backend($this->spec, $ctx, $this->linker);
+        $hash = $this->createVariablesContext($variables);
 
-        return $executor->run($ast, $this->getHashTable($variables));
+        $executor = new Backend($this, $ctx);
+
+        return $executor->run($ast, $hash);
     }
 
     /**
-     * @param array $vars
+     * @param array $variables
      * @return HashTableInterface
      */
-    private function getHashTable(array $vars = []): HashTableInterface
+    private function createVariablesContext(array $variables = []): HashTableInterface
     {
-        return new HashTable($this->values, $vars, $this->vars);
+        return new HashTable($this->getValueFactory(), $variables, $this->getVariables());
     }
 
     /**
@@ -177,23 +143,15 @@ final class Compiler implements CompilerInterface
     /**
      * {@inheritDoc}
      * @throws \Throwable
-     * @throws InvalidArgumentException
      */
     public function compile($source, array $variables = []): SchemaInterface
     {
         $this->bootIfNotBooted();
 
-        return $this->backend($this->frontend($source), clone $this->context, $variables);
-    }
-
-    /**
-     * @return void
-     * @throws NotFoundException
-     * @throws NotReadableException
-     * @throws \Throwable
-     */
-    public function rebuild(): void
-    {
-        (new Generator())->generateAndSave();
+        try {
+            return $this->backend($this->frontend($source), clone $this->context, $variables);
+        } catch (InvalidArgumentException $e) {
+            throw new \InvalidArgumentException($e->getMessage());
+        }
     }
 }

@@ -25,5 +25,5 @@ ScalarTypeDefinitionExceptDescription
   ;
 
 ScalarTypeDefinitionBody
-  : ::T_SCALAR:: Identifier() Directive()*
+  : ::T_SCALAR:: TypeName() Directive()*
   ;

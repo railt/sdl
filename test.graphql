@@ -1,5 +1,19 @@
 
+type User
+type Message
 
-type Example {
-    field(arg: [Int!] = $array): X
+interface PaginatorInterface<T> implements PaginatorInterface<T> {
+    first: T
+}
+
+type Paginator<T> {
+    first: T
+    count: Int!
+}
+
+type ExampleUnusedGenericType<X>
+
+type Query {
+    users: Paginator<User>!
+    messages: Paginator<Message>!
 }

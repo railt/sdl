@@ -1,0 +1,44 @@
+
+/**
+ * --------------------------------------------------------------------------
+ *  GraphQL Values (Input Values)
+ * --------------------------------------------------------------------------
+ *
+ * Field and directive arguments accept input values of various literal
+ * primitives; input values can be scalars, enumeration values, lists, or
+ * input objects.
+ *
+ * If not defined as constant (for example, in DefaultValue), input
+ * values can be specified as a variable. List and inputs objects may
+ * also contain variables (unless defined to be constant).
+ *
+ * @see https://facebook.github.io/graphql/June2018/#sec-Input-Values
+ */
+
+%include value/boolean
+%include value/enum
+%include value/float
+%include value/int
+%include value/list
+%include value/null
+%include value/object
+%include value/string
+%include value/variable
+
+
+ConstValue
+  : IntValue()
+  | FloatValue()
+  | StringValue()
+  | BooleanValue()
+  | NullValue()
+  | EnumValue()
+  ;
+
+
+Value
+  : Variable()
+  | ConstValue()
+  | ListValue()
+  | ObjectValue()
+  ;

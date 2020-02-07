@@ -30,6 +30,25 @@ use Railt\TypeSystem\Value\ValueInterface;
 class ValueFactory
 {
     /**
+     * @var array|\Closure[]
+     */
+    protected array $casters = [];
+
+    /**
+     * @param \Closure $caster
+     * @param bool $append
+     * @return $this
+     */
+    public function addCaster(\Closure $caster, bool $append = true): self
+    {
+        $this->casters = $append
+            ? [...$this->casters, $caster]
+            : [$caster, ...$this->casters];
+
+        return $this;
+    }
+
+    /**
      * @param iterable|mixed[] $values
      * @param Node|null $ctx
      * @return iterable|ValueInterface[]
@@ -92,6 +111,12 @@ class ValueFactory
                 return $this->fromIterator($value);
 
             default:
+                foreach ($this->casters as $caster) {
+                    if ($result = $caster($value)) {
+                        return $result;
+                    }
+                }
+
                 $error = 'Value of type %s can not be converted to GraphQL type';
 
                 throw new \InvalidArgumentException(\sprintf($error, Facade::dump($value)));

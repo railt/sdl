@@ -13,29 +13,9 @@ namespace Railt\SDL\Backend;
 
 use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Visitor\Visitor;
-use Railt\SDL\Backend\Context\DirectiveContext;
-use Railt\SDL\Backend\Context\EnumTypeDefinitionContext;
 use Railt\SDL\Backend\Context\Factory;
-use Railt\SDL\Backend\Context\InputObjectTypeDefinitionContext;
-use Railt\SDL\Backend\Context\InterfaceTypeDefinitionContext;
-use Railt\SDL\Backend\Context\ObjectTypeDefinitionContext;
-use Railt\SDL\Backend\Context\ScalarTypeDefinitionContext;
-use Railt\SDL\Backend\Context\UnionTypeDefinitionContext;
 use Railt\SDL\Backend\NameResolver\NameResolverInterface;
-use Railt\SDL\Frontend\Ast\Definition\DirectiveDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\SchemaDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\Type\EnumTypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\Type\InputObjectTypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\Type\InterfaceTypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\Type\ObjectTypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\Type\ScalarTypeDefinitionNode;
 use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\Type\UnionTypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\DefinitionNode;
-use Railt\SDL\Frontend\Ast\Type\NamedTypeNode;
-use Railt\TypeSystem\Reference\TypeReference;
-use Railt\TypeSystem\Reference\TypeReferenceInterface;
-use Railt\TypeSystem\Schema;
 
 /**
  * Class TypeBuilderVisitor
@@ -55,15 +35,15 @@ class TypeBuilderVisitor extends Visitor
     /**
      * TypeBuilderVisitor constructor.
      *
+     * @param HashTableInterface $vars
      * @param NameResolverInterface $resolver
      * @param Context $context
-     * @param Schema $schema
      */
-    public function __construct(NameResolverInterface $resolver, Context $context, Schema $schema)
+    public function __construct(HashTableInterface $vars, NameResolverInterface $resolver, Context $context)
     {
         $this->context = $context;
 
-        $this->factory = new Factory($resolver, $context, $schema);
+        $this->factory = new Factory($vars, $resolver, $context);
     }
 
     /**
@@ -75,7 +55,7 @@ class TypeBuilderVisitor extends Visitor
     {
         switch (true) {
             case $node instanceof TypeDefinitionNode:
-                $this->context->addType($this->factory->make($node));
+                $this->context->addTypeContext($this->factory->make($node));
                 break;
         }
     }

@@ -12,7 +12,9 @@ declare(strict_types=1);
 namespace Railt\SDL\Exception;
 
 use Phplrt\Contracts\Source\FileInterface;
+use Phplrt\Contracts\Source\ReadableInterface;
 use Phplrt\Position\Position;
+use Phplrt\Position\PositionInterface;
 use Phplrt\Source\Exception\NotAccessibleException;
 use Railt\SDL\Frontend\Ast\Node;
 
@@ -32,13 +34,28 @@ class GraphQLException extends \RuntimeException
      */
     public function __construct(string $message, Node $node = null, \Throwable $prev = null)
     {
-        parent::__construct($message, 0, $prev);
-
-        if ($node && $node->loc && $node->loc->source instanceof FileInterface) {
+        if ($node) {
             $source = $node->loc->source;
+            $position = Position::fromOffset($source, $node->getOffset());
 
-            $this->file = $source->getPathname();
-            $this->line = Position::fromOffset($source, $node->getOffset())->getLine();
+            $message .= $this->extendMessage($source, $position);
+
+            if ($node->loc && $node->loc->source instanceof FileInterface) {
+                $this->file = $source->getPathname();
+                $this->line = $position->getLine();
+            }
         }
+
+        parent::__construct($message, 0, $prev);
+    }
+
+    /**
+     * @param ReadableInterface $file
+     * @param PositionInterface $position
+     * @return string
+     */
+    private function extendMessage(ReadableInterface $file, PositionInterface $position): string
+    {
+        return (new Highlight())->read($file, $position);
     }
 }

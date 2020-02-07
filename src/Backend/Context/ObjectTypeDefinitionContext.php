@@ -12,34 +12,34 @@ declare(strict_types=1);
 namespace Railt\SDL\Backend\Context;
 
 use GraphQL\Contracts\TypeSystem\Type\ObjectTypeInterface;
+use Phplrt\Source\Exception\NotAccessibleException;
+use Railt\SDL\Exception\TypeErrorException;
 use Railt\SDL\Frontend\Ast\Definition\Type\ObjectTypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\DefinitionNode;
 use Railt\TypeSystem\Exception\TypeUniquenessException;
 use Railt\TypeSystem\Type\ObjectType;
 
 /**
- * Class ObjectTypeDefinitionContext
+ * @property-read ObjectTypeDefinitionNode $ast
  */
 class ObjectTypeDefinitionContext extends ObjectLikeTypeDefinitionContext
 {
     /**
-     * @param DefinitionNode|ObjectTypeDefinitionNode $ast
+     * @param array $args
      * @return ObjectTypeInterface
-     * @throws TypeUniquenessException
      * @throws \Throwable
      */
-    public function build(DefinitionNode $ast): ObjectTypeInterface
+    public function resolve(array $args = []): ObjectTypeInterface
     {
-        $object = new ObjectType($ast->name->value, [
-            'description' => $this->descriptionOf($ast),
+        $object = new ObjectType($this->ast->name->value, [
+            'description' => $this->descriptionOf($this->ast),
         ]);
 
-        foreach ($ast->interfaces as $impl) {
-            $object->addInterface($this->ref($impl->interface));
+        foreach ($this->ast->interfaces as $impl) {
+            $object->addInterface($this->ref($impl->interface, $args));
         }
 
-        foreach ($ast->fields as $field) {
-            $object->addField($this->buildFieldDefinition($field));
+        foreach ($this->ast->fields as $field) {
+            $object->addField($this->buildFieldDefinition($field, $args));
         }
 
         return $object;

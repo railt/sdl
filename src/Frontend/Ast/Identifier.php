@@ -34,11 +34,11 @@ class Identifier extends Node
     }
 
     /**
-     * @param TokenInterface $token
+     * @param TokenInterface|mixed $token
      * @return static
      */
-    public static function create(TokenInterface $token): self
+    public static function create($token): self
     {
-        return new static($token->getValue());
+        return new self($token->getValue());
     }
 }

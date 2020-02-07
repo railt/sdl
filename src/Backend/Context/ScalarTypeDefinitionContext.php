@@ -13,23 +13,22 @@ namespace Railt\SDL\Backend\Context;
 
 use GraphQL\Contracts\TypeSystem\Type\ScalarTypeInterface;
 use Railt\SDL\Frontend\Ast\Definition\Type\ScalarTypeDefinitionNode;
-use Railt\SDL\Frontend\Ast\DefinitionNode;
 use Railt\TypeSystem\Type\ScalarType;
 
 /**
- * Class ScalarTypeDefinitionContext
+ * @property-read ScalarTypeDefinitionNode $ast
  */
-class ScalarTypeDefinitionContext extends NamedTypeContext
+class ScalarTypeDefinitionContext extends TypeDefinitionContext
 {
     /**
-     * @param DefinitionNode|ScalarTypeDefinitionNode $ast
+     * @param array $args
      * @return ScalarTypeInterface
      * @throws \Throwable
      */
-    public function build(DefinitionNode $ast): ScalarTypeInterface
+    public function resolve(array $args = []): ScalarTypeInterface
     {
-        $scalar = new ScalarType($ast->name->value, [
-            'description' => $this->descriptionOf($ast),
+        $scalar = new ScalarType($this->ast->name->value, [
+            'description' => $this->descriptionOf($this->ast),
         ]);
 
         return $scalar;

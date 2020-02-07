@@ -11,16 +11,20 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Spec;
 
-use Phplrt\Source\File;
-use Phplrt\Visitor\Visitor;
-use Railt\SDL\CompilerInterface;
 use Phplrt\Contracts\Ast\NodeInterface;
-use Railt\SDL\Spec\Constraint\Constraint;
 use Phplrt\Contracts\Source\FileInterface;
 use Phplrt\Source\Exception\NotFoundException;
 use Phplrt\Source\Exception\NotReadableException;
+use Phplrt\Source\File;
+use Phplrt\Visitor\Traverser;
+use Phplrt\Visitor\TraverserInterface;
+use Phplrt\Visitor\Visitor;
+use Railt\SDL\CompilerInterface;
+use Railt\SDL\Spec\Constraint\Constraint;
+use Railt\SDL\Spec\Constraint\GenericTypes;
 use Railt\SDL\Spec\Constraint\RepeatableDirectives;
 use Railt\SDL\Spec\Constraint\TypeSystemExtensions;
+use Railt\SDL\Spec\Constraint\Variables;
 
 /**
  * Class Specification
@@ -28,17 +32,19 @@ use Railt\SDL\Spec\Constraint\TypeSystemExtensions;
 abstract class Specification extends Visitor implements SpecificationInterface
 {
     /**
-     * @var string
-     */
-    private const RESOURCES_PATHNAME = __DIR__ . '/../../resources/stdlib/%s.graphql';
-
-    /**
      * @var string[]|Constraint[]
      */
     protected const STANDARD_CONSTRAINTS = [
         RepeatableDirectives::class,
         TypeSystemExtensions::class,
+        GenericTypes::class,
+        Variables::class,
     ];
+
+    /**
+     * @var string
+     */
+    private const RESOURCES_PATHNAME = __DIR__ . '/../../resources/stdlib/%s.graphql';
 
     /**
      * List of language version constraints.
@@ -66,11 +72,18 @@ abstract class Specification extends Visitor implements SpecificationInterface
     protected array $types = [];
 
     /**
+     * @var Traverser|TraverserInterface
+     */
+    private TraverserInterface $traverser;
+
+    /**
      * Specification constructor.
      */
     public function __construct()
     {
         $this->bootConstraints();
+
+        $this->traverser = new Traverser([$this]);
     }
 
     /**
@@ -85,6 +98,15 @@ abstract class Specification extends Visitor implements SpecificationInterface
         }
 
         $this->constraints = \array_unique($this->constraints);
+    }
+
+    /**
+     * @param iterable $ast
+     * @return iterable
+     */
+    public function execute(iterable $ast): iterable
+    {
+        return $this->traverser->traverse($ast);
     }
 
     /**
