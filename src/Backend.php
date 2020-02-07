@@ -34,19 +34,9 @@ class Backend
     private Context $context;
 
     /**
-     * @var LinkerInterface
+     * @var Compiler
      */
-    private LinkerInterface $linker;
-
-    /**
-     * @var NameResolverInterface
-     */
-    private NameResolverInterface $resolver;
-
-    /**
-     * @var SpecificationInterface
-     */
-    private SpecificationInterface $spec;
+    private Compiler $compiler;
 
     /**
      * Backend constructor.
@@ -56,10 +46,8 @@ class Backend
      */
     public function __construct(Compiler $compiler, Context $session)
     {
-        $this->resolver = $compiler->getNameResolver();
+        $this->compiler = $compiler;
         $this->context = $session;
-        $this->linker = $compiler->getLinker();
-        $this->spec = $compiler->getSpecification();
     }
 
     /**
@@ -79,6 +67,8 @@ class Backend
         // Apply linker to all loaded types in Context
         $this->linkTypes($ast);
 
+        $this->compiler->assertValid($this->context->getSchema());
+
         return $this->context->getSchema();
     }
 
@@ -88,7 +78,8 @@ class Backend
      */
     private function adoptSpecification(iterable $ast): iterable
     {
-        return $this->spec->execute($ast);
+        return $this->compiler->getSpecification()
+            ->execute($ast);
     }
 
     /**
@@ -98,7 +89,9 @@ class Backend
      */
     private function buildTypes(iterable $ast, HashTableInterface $vars): iterable
     {
-        $buildTypes = new TypeBuilderVisitor($vars, $this->resolver, $this->context);
+        $resolver = $this->compiler->getNameResolver();
+
+        $buildTypes = new TypeBuilderVisitor($vars, $resolver, $this->context);
 
         return (new Traverser([$buildTypes]))->traverse($ast);
     }
@@ -110,7 +103,7 @@ class Backend
     private function linkTypes(iterable $ast): iterable
     {
         $traverser = new Traverser([
-            new LinkerVisitor($this->context, $this->linker),
+            new LinkerVisitor($this->context, $this->compiler->getLinker()),
         ]);
 
         return $traverser->traverse($ast);

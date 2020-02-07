@@ -27,6 +27,7 @@ use Railt\SDL\Compiler\HashTableFacadeTrait;
 use Railt\SDL\Compiler\LinkerFacadeTrait;
 use Railt\SDL\Compiler\NameResolverFacadeTrait;
 use Railt\SDL\Compiler\SpecificationFacadeTrait;
+use Railt\SDL\Compiler\ValidatorFacadeTrait;
 use Railt\SDL\Spec\SpecificationInterface;
 
 /**
@@ -37,6 +38,7 @@ final class Compiler implements CompilerInterface
     use LinkerFacadeTrait;
     use ContextFacadeTrait;
     use HashTableFacadeTrait;
+    use ValidatorFacadeTrait;
     use NameResolverFacadeTrait;
     use SpecificationFacadeTrait;
     use DevelopmentModeFacadeTrait;
@@ -70,6 +72,7 @@ final class Compiler implements CompilerInterface
         $this->bootLinkerFacadeTrait();
         $this->bootContextFacadeTrait();
         $this->bootHashTableFacadeTrait();
+        $this->bootValidatorFacadeTrait();
         $this->bootNameResolverFacadeTrait();
 
         $this->setSpecification($spec);
@@ -91,9 +94,6 @@ final class Compiler implements CompilerInterface
 
     /**
      * @return void
-     * @throws NotFoundException
-     * @throws NotReadableException
-     * @throws \Throwable
      */
     private function bootIfNotBooted(): void
     {

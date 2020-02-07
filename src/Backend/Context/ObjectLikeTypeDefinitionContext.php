@@ -22,7 +22,7 @@ use Railt\TypeSystem\Field;
 /**
  * Class ObjectLikeTypeDefinitionContext
  */
-abstract class ObjectLikeTypeDefinitionContext extends TypeDefinitionContext
+abstract class ObjectLikeTypeDefinitionContext extends NamedDefinitionContext
 {
     /**
      * @param FieldDefinitionNode $node

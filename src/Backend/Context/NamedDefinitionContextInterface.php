@@ -17,7 +17,7 @@ use Railt\TypeSystem\Type\NamedType;
 /**
  * @method Directive|NamedType resolve(array $args = [])
  */
-interface TypeDefinitionContextInterface extends DefinitionContextInterface
+interface NamedDefinitionContextInterface extends DefinitionContextInterface
 {
     /**
      * @return string

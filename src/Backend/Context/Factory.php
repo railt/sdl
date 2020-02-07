@@ -98,6 +98,9 @@ class Factory
      * @param string $name
      * @param array $args
      * @return void
+     * @throws NotAccessibleException
+     * @throws TypeErrorException
+     * @throws \RuntimeException
      */
     private function assertMissingTypeArguments(Node $from, string $name, array $args = []): void
     {
@@ -151,12 +154,12 @@ class Factory
      * @param Node $from
      * @param string $name
      * @param array|string[] $args
-     * @return TypeDefinitionContextInterface
+     * @return NamedDefinitionContextInterface
      * @throws NotAccessibleException
      * @throws TypeErrorException
      * @throws \RuntimeException
      */
-    private function getContext(Node $from, string $name, array $args): TypeDefinitionContextInterface
+    private function getContext(Node $from, string $name, array $args): NamedDefinitionContextInterface
     {
         $context = $this->ctx->fetch($name);
 
@@ -176,6 +179,9 @@ class Factory
      * @param array $definition
      * @param array $passed
      * @return void
+     * @throws NotAccessibleException
+     * @throws TypeErrorException
+     * @throws \RuntimeException
      */
     private function assertGenericArguments(Node $from, string $name, array $definition, array $passed): void
     {
@@ -195,7 +201,7 @@ class Factory
 
     /**
      * @param DefinitionNode $node
-     * @return DefinitionContextInterface|TypeDefinitionContextInterface
+     * @return DefinitionContextInterface|NamedDefinitionContextInterface
      * @throws \LogicException
      */
     public function make(DefinitionNode $node): DefinitionContextInterface
@@ -207,20 +213,20 @@ class Factory
 
             case $node instanceof InterfaceTypeDefinitionNode:
                 return new InterfaceTypeDefinitionContext($this->vars, $this, $node);
-                break;
 
             case $node instanceof ScalarTypeDefinitionNode:
                 return new ScalarTypeDefinitionContext($this->vars, $this, $node);
-                break;
 
             case $node instanceof EnumTypeDefinitionNode:
             case $node instanceof InputObjectTypeDefinitionNode:
             case $node instanceof UnionTypeDefinitionNode:
-            case $node instanceof DirectiveDefinitionNode:
             case $node instanceof SchemaDefinitionNode:
                 throw new \LogicException($node->name->value . ' context not implemented yet');
 
                 break;
+
+            case $node instanceof DirectiveDefinitionNode:
+                return new DirectiveDefinitionContext($this->vars, $this, $node);
         }
 
         throw new \LogicException(\get_class($node) . ' is an unresolvable');

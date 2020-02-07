@@ -30,12 +30,37 @@ class Factory implements ValidatorInterface
      */
     private array $validators = [];
 
+    /**
+     * Factory constructor.
+     */
     public function __construct()
     {
+        foreach (self::DEFAULT_VALIDATORS as $class) {
+            $this->validators[] = new $class($this);
+        }
     }
 
+    /**
+     * @param DefinitionInterface $type
+     * @return bool
+     */
+    public function match(DefinitionInterface $type): bool
+    {
+        return true;
+    }
+
+    /**
+     * @param DefinitionInterface $type
+     * @return void
+     */
     public function assert(DefinitionInterface $type): void
     {
-        throw new \LogicException(\sprintf('%s not implemented yet', __METHOD__));
+        foreach ($this->validators as $validator) {
+            if ($validator->match($type)) {
+                $validator->assert($type);
+
+                return;
+            }
+        }
     }
 }

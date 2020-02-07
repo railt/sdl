@@ -11,7 +11,8 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend;
 
-use Railt\SDL\Backend\Context\TypeDefinitionContextInterface;
+use Railt\SDL\Backend\Context\NamedDefinitionContextInterface;
+use Railt\TypeSystem\Reference\TypeReferenceInterface;
 use Railt\TypeSystem\Schema;
 
 /**
@@ -25,12 +26,12 @@ class Context
     private Schema $schema;
 
     /**
-     * @var array|TypeDefinitionContextInterface[]
+     * @var array|NamedDefinitionContextInterface[]
      */
     private array $types = [];
 
     /**
-     * @var array|TypeDefinitionContextInterface[]
+     * @var array|NamedDefinitionContextInterface[]
      */
     private array $directives = [];
 
@@ -62,10 +63,10 @@ class Context
     }
 
     /**
-     * @param TypeDefinitionContextInterface $context
+     * @param NamedDefinitionContextInterface $context
      * @return void
      */
-    public function addTypeContext(TypeDefinitionContextInterface $context): void
+    public function addTypeContext(NamedDefinitionContextInterface $context): void
     {
         if ($context->getGenericArguments() === []) {
             $this->schema->addType($context->resolve());
@@ -77,10 +78,10 @@ class Context
     }
 
     /**
-     * @param TypeDefinitionContextInterface $context
+     * @param NamedDefinitionContextInterface $context
      * @return void
      */
-    public function addDirectiveContext(TypeDefinitionContextInterface $context): void
+    public function addDirectiveContext(NamedDefinitionContextInterface $context): void
     {
         if ($context->getGenericArguments() === []) {
             $this->schema->addDirective($context->resolve());
@@ -103,9 +104,9 @@ class Context
 
     /**
      * @param string $type
-     * @return TypeDefinitionContextInterface|null
+     * @return NamedDefinitionContextInterface|null
      */
-    public function fetch(string $type): ?TypeDefinitionContextInterface
+    public function fetch(string $type): ?NamedDefinitionContextInterface
     {
         return $this->types[$type] ?? null;
     }

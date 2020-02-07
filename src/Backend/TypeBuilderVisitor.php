@@ -15,6 +15,7 @@ use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Visitor\Visitor;
 use Railt\SDL\Backend\Context\Factory;
 use Railt\SDL\Backend\NameResolver\NameResolverInterface;
+use Railt\SDL\Frontend\Ast\Definition\DirectiveDefinitionNode;
 use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
 
 /**
@@ -57,6 +58,9 @@ class TypeBuilderVisitor extends Visitor
             case $node instanceof TypeDefinitionNode:
                 $this->context->addTypeContext($this->factory->make($node));
                 break;
+
+            case $node instanceof DirectiveDefinitionNode:
+                $this->context->addDirectiveContext($this->factory->make($node));
         }
     }
 }

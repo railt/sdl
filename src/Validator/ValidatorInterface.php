@@ -20,6 +20,12 @@ interface ValidatorInterface
 {
     /**
      * @param DefinitionInterface $type
+     * @return bool
+     */
+    public function match(DefinitionInterface $type): bool;
+
+    /**
+     * @param DefinitionInterface $type
      * @return void
      */
     public function assert(DefinitionInterface $type): void;

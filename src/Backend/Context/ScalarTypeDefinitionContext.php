@@ -18,7 +18,7 @@ use Railt\TypeSystem\Type\ScalarType;
 /**
  * @property-read ScalarTypeDefinitionNode $ast
  */
-class ScalarTypeDefinitionContext extends TypeDefinitionContext
+class ScalarTypeDefinitionContext extends NamedDefinitionContext
 {
     /**
      * @param array $args

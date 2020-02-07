@@ -54,6 +54,11 @@ trait TypeReferenceTrait
     }
 
     /**
+     * @return array|string[]
+     */
+    abstract public function getGenericArguments(): array;
+
+    /**
      * @param NamedTypeNode $node
      * @param array|string[] $args
      * @return TypeReferenceInterface

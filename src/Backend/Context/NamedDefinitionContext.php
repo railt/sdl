@@ -11,14 +11,14 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
 use Railt\SDL\Frontend\Ast\Identifier;
+use Railt\SDL\Frontend\Ast\Type\NamedTypeNode;
 use Railt\SDL\Frontend\Ast\TypeName;
 
 /**
- * @property-read TypeDefinitionNode $ast
+ * @property-read NamedTypeNode $ast
  */
-abstract class TypeDefinitionContext extends DefinitionContext implements TypeDefinitionContextInterface
+abstract class NamedDefinitionContext extends DefinitionContext implements NamedDefinitionContextInterface
 {
     /**
      * @var array|string[]

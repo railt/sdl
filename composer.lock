@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bddb2adf6b8a06864ccdbb601ee8c40",
+    "content-hash": "10563a6e24e1b51aa8dbe2a270c63b12",
     "packages": [
         {
             "name": "cache/adapter-common",
@@ -1314,12 +1314,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/railt/type-system.git",
-                "reference": "23730d1a592715e21d6b13bbdb14c901948a9091"
+                "reference": "b101b794d53dfb572a2972350c302d6e7e967519"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/railt/type-system/zipball/23730d1a592715e21d6b13bbdb14c901948a9091",
-                "reference": "23730d1a592715e21d6b13bbdb14c901948a9091",
+                "url": "https://api.github.com/repos/railt/type-system/zipball/b101b794d53dfb572a2972350c302d6e7e967519",
+                "reference": "b101b794d53dfb572a2972350c302d6e7e967519",
                 "shasum": ""
             },
             "require": {
@@ -1368,7 +1368,7 @@
                 "sdl",
                 "type system"
             ],
-            "time": "2020-01-31T19:04:14+00:00"
+            "time": "2020-02-07T09:43:45+00:00"
         },
         {
             "name": "serafim/immutable",
@@ -3602,7 +3602,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "railt/type-system": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
