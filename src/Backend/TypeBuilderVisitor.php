@@ -13,10 +13,21 @@ namespace Railt\SDL\Backend;
 
 use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Visitor\Visitor;
-use Railt\SDL\Backend\Context\Factory;
-use Railt\SDL\Backend\NameResolver\NameResolverInterface;
+use Railt\SDL\Backend\Context\ContextInterface;
+use Railt\SDL\Backend\Context\DirectiveDefinitionContext;
+use Railt\SDL\Backend\Context\EnumTypeDefinitionContext;
+use Railt\SDL\Backend\Context\InputObjectTypeDefinitionContext;
+use Railt\SDL\Backend\Context\InterfaceTypeDefinitionContext;
+use Railt\SDL\Backend\Context\ObjectTypeDefinitionContext;
+use Railt\SDL\Backend\Context\ScalarTypeDefinitionContext;
+use Railt\SDL\Backend\Context\UnionTypeDefinitionContext;
 use Railt\SDL\Frontend\Ast\Definition\DirectiveDefinitionNode;
-use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
+use Railt\SDL\Frontend\Ast\Definition\Type\EnumTypeDefinitionNode;
+use Railt\SDL\Frontend\Ast\Definition\Type\InputObjectTypeDefinitionNode;
+use Railt\SDL\Frontend\Ast\Definition\Type\InterfaceTypeDefinitionNode;
+use Railt\SDL\Frontend\Ast\Definition\Type\ObjectTypeDefinitionNode;
+use Railt\SDL\Frontend\Ast\Definition\Type\ScalarTypeDefinitionNode;
+use Railt\SDL\Frontend\Ast\Definition\Type\UnionTypeDefinitionNode;
 
 /**
  * Class TypeBuilderVisitor
@@ -24,27 +35,18 @@ use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
 class TypeBuilderVisitor extends Visitor
 {
     /**
-     * @var Factory
+     * @var ContextInterface
      */
-    private Factory $factory;
-
-    /**
-     * @var Context
-     */
-    private Context $context;
+    private ContextInterface $context;
 
     /**
      * TypeBuilderVisitor constructor.
      *
-     * @param HashTableInterface $vars
-     * @param NameResolverInterface $resolver
-     * @param Context $context
+     * @param ContextInterface $context
      */
-    public function __construct(HashTableInterface $vars, NameResolverInterface $resolver, Context $context)
+    public function __construct(ContextInterface $context)
     {
         $this->context = $context;
-
-        $this->factory = new Factory($vars, $resolver, $context);
     }
 
     /**
@@ -52,15 +54,43 @@ class TypeBuilderVisitor extends Visitor
      * @return void
      * @throws \Throwable
      */
-    public function leave(NodeInterface $node): void
+    public function enter(NodeInterface $node): void
     {
         switch (true) {
-            case $node instanceof TypeDefinitionNode:
-                $this->context->addTypeContext($this->factory->make($node));
+            case $node instanceof DirectiveDefinitionNode:
+                $this->context->addDirective(new DirectiveDefinitionContext($node));
+
                 break;
 
-            case $node instanceof DirectiveDefinitionNode:
-                $this->context->addDirectiveContext($this->factory->make($node));
+            case $node instanceof EnumTypeDefinitionNode:
+                $this->context->addType(new EnumTypeDefinitionContext($node));
+
+                break;
+
+            case $node instanceof InterfaceTypeDefinitionNode:
+                $this->context->addType(new InterfaceTypeDefinitionContext($node));
+
+                break;
+
+            case $node instanceof InputObjectTypeDefinitionNode:
+                $this->context->addType(new InputObjectTypeDefinitionContext($node));
+
+                break;
+
+            case $node instanceof ObjectTypeDefinitionNode:
+                $this->context->addType(new ObjectTypeDefinitionContext($node));
+
+                break;
+
+            case $node instanceof ScalarTypeDefinitionNode:
+                $this->context->addType(new ScalarTypeDefinitionContext($node));
+
+                break;
+
+            case $node instanceof UnionTypeDefinitionNode:
+                $this->context->addType(new UnionTypeDefinitionContext($node));
+
+                break;
         }
     }
 }

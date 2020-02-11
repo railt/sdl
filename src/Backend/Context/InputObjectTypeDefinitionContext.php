@@ -11,22 +11,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use GraphQL\Contracts\TypeSystem\Type\InterfaceTypeInterface;
-use Railt\TypeSystem\Type\InterfaceType;
+use GraphQL\Contracts\TypeSystem\Type\InputTypeInterface;
+use Railt\TypeSystem\Type\InputObjectType;
 
 /**
- * Class InterfaceTypeDefinitionContext
+ * Class InputObjectTypeDefinitionContext
  */
-final class InterfaceTypeDefinitionContext extends TypeDefinitionContext
+final class InputObjectTypeDefinitionContext extends TypeDefinitionContext
 {
     /**
      * @param array $args
-     * @return InterfaceTypeInterface
+     * @return InputTypeInterface
      * @throws \Throwable
      */
-    public function build(array $args): InterfaceTypeInterface
+    public function build(array $args): InputTypeInterface
     {
-        return new InterfaceType($this->getName(), [
+        return new InputObjectType($this->getName(), [
             'description' => $this->description($this->ast),
         ]);
     }

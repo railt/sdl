@@ -13,15 +13,13 @@ namespace Railt\SDL;
 
 use GraphQL\Contracts\TypeSystem\SchemaInterface;
 use Phplrt\Visitor\Traverser;
-use Railt\SDL\Backend\Context;
+use Phplrt\Visitor\TraverserInterface;
+use Railt\SDL\Backend\Context\ContextInterface;
+use Railt\SDL\Backend\HashTable\VariablesVisitor;
 use Railt\SDL\Backend\HashTableInterface;
-use Railt\SDL\Backend\Linker\LinkerInterface;
 use Railt\SDL\Backend\Linker\LinkerVisitor;
-use Railt\SDL\Backend\NameResolver\HumanReadableResolver;
-use Railt\SDL\Backend\NameResolver\NameResolverInterface;
 use Railt\SDL\Backend\TypeBuilderVisitor;
 use Railt\SDL\Frontend\Ast\Node;
-use Railt\SDL\Spec\SpecificationInterface;
 
 /**
  * Class Backend
@@ -29,25 +27,35 @@ use Railt\SDL\Spec\SpecificationInterface;
 class Backend
 {
     /**
-     * @var Context
-     */
-    private Context $context;
-
-    /**
      * @var Compiler
      */
     private Compiler $compiler;
 
     /**
+     * @var TraverserInterface
+     */
+    private TraverserInterface $traverser;
+
+    /**
+     * @var ContextInterface
+     */
+    private ContextInterface $ctx;
+
+    /**
      * Backend constructor.
      *
      * @param Compiler $compiler
-     * @param Context $session
+     * @param ContextInterface $ctx
      */
-    public function __construct(Compiler $compiler, Context $session)
+    public function __construct(Compiler $compiler, ContextInterface $ctx)
     {
+        $this->ctx = $ctx;
         $this->compiler = $compiler;
-        $this->context = $session;
+
+        $this->traverser = new Traverser([
+            $compiler->getSpecification(),
+            new TypeBuilderVisitor($ctx),
+        ]);
     }
 
     /**
@@ -58,28 +66,13 @@ class Backend
      */
     public function run(iterable $ast, HashTableInterface $vars): SchemaInterface
     {
-        // Apply specification logic
-        $ast = $this->adoptSpecification($ast);
+        // Precompile
+        $ast = $this->precompile($ast, $vars);
 
-        // Build types and move them into Context
-        $ast = $this->buildTypes($ast, $vars);
+        // Link types
+        $ast = $this->linker($ast);
 
-        // Apply linker to all loaded types in Context
-        $this->linkTypes($ast);
-
-        $this->compiler->assertValid($this->context->getSchema());
-
-        return $this->context->getSchema();
-    }
-
-    /**
-     * @param iterable|Node[] $ast
-     * @return iterable|Node[]
-     */
-    private function adoptSpecification(iterable $ast): iterable
-    {
-        return $this->compiler->getSpecification()
-            ->execute($ast);
+        return $this->ctx->getSchema();
     }
 
     /**
@@ -87,23 +80,21 @@ class Backend
      * @param HashTableInterface $vars
      * @return iterable
      */
-    private function buildTypes(iterable $ast, HashTableInterface $vars): iterable
+    private function precompile(iterable $ast, HashTableInterface $vars): iterable
     {
-        $resolver = $this->compiler->getNameResolver();
-
-        $buildTypes = new TypeBuilderVisitor($vars, $resolver, $this->context);
-
-        return (new Traverser([$buildTypes]))->traverse($ast);
+        return (clone $this->traverser)
+            ->with(new VariablesVisitor($vars))
+            ->traverse($ast);
     }
 
     /**
      * @param iterable $ast
      * @return iterable
      */
-    private function linkTypes(iterable $ast): iterable
+    private function linker(iterable $ast): iterable
     {
         $traverser = new Traverser([
-            new LinkerVisitor($this->context, $this->compiler->getLinker()),
+            new LinkerVisitor($this->ctx, $this->compiler->getLinker()),
         ]);
 
         return $traverser->traverse($ast);

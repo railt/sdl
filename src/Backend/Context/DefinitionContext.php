@@ -11,65 +11,39 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use Phplrt\Visitor\Traverser;
-use Railt\SDL\Backend\Context\Support\DescriptionReaderTrait;
-use Railt\SDL\Backend\Context\Support\TypeReferenceTrait;
-use Railt\SDL\Backend\Context\Support\ValueTrait;
-use Railt\SDL\Backend\HashTable\VariablesVisitor;
-use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Frontend\Ast\DefinitionNode;
+use Railt\SDL\Frontend\Ast\Node;
 
 /**
  * Class DefinitionContext
  */
-abstract class DefinitionContext implements DefinitionContextInterface
+abstract class DefinitionContext implements LocalContextInterface
 {
-    use ValueTrait;
-    use TypeReferenceTrait;
-    use DescriptionReaderTrait;
-
     /**
      * @var DefinitionNode
      */
     protected DefinitionNode $ast;
 
     /**
-     * @var Factory
-     */
-    private Factory $factory;
-
-    /**
      * DefinitionContext constructor.
      *
-     * @param HashTableInterface $vars
-     * @param Factory $factory
      * @param DefinitionNode $ast
      */
-    public function __construct(HashTableInterface $vars, Factory $factory, DefinitionNode $ast)
+    public function __construct(DefinitionNode $ast)
     {
-        $this->factory = $factory;
-        $this->ast = $this->prebuild($vars, $ast);
+        $this->ast = $ast;
     }
 
     /**
-     * @param HashTableInterface $vars
-     * @param DefinitionNode $ast
-     * @return DefinitionNode|iterable
+     * @param Node $node
+     * @return string|null
      */
-    private function prebuild(HashTableInterface $vars, DefinitionNode $ast): DefinitionNode
+    protected function description(Node $node): ?string
     {
-        $traverser = new Traverser([
-            new VariablesVisitor($vars),
-        ]);
+        if (\property_exists($node, 'description') && $node->description) {
+            return $node->description->value;
+        }
 
-        return $traverser->traverse($ast);
-    }
-
-    /**
-     * @return Factory
-     */
-    protected function getFactory(): Factory
-    {
-        return $this->factory;
+        return null;
     }
 }

@@ -11,35 +11,45 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use GraphQL\Contracts\TypeSystem\DefinitionInterface;
+use GraphQL\Contracts\TypeSystem\DirectiveInterface;
+use Railt\SDL\Frontend\Ast\Definition\DirectiveDefinitionLocationNode as LocationNode;
 use Railt\SDL\Frontend\Ast\Definition\DirectiveDefinitionNode;
 use Railt\TypeSystem\Directive;
 
 /**
  * @property-read DirectiveDefinitionNode $ast
  */
-class DirectiveDefinitionContext extends ObjectLikeTypeDefinitionContext
+final class DirectiveDefinitionContext extends DefinitionContext
 {
     /**
      * @param array $args
-     * @return DefinitionInterface
+     * @return DirectiveInterface
      * @throws \Throwable
      */
-    public function resolve(array $args = []): DefinitionInterface
+    public function build(array $args): DirectiveInterface
     {
-        $directive = new Directive($this->ast->name->value, [
-            'description' => $this->descriptionOf($this->ast),
+        $locations = \array_map(fn(LocationNode $loc): string => $loc->name->value, $this->ast->locations);
+
+        return new Directive($this->getName(), [
+            'description' => $this->description($this->ast),
             'repeatable'  => $this->ast->repeatable !== null,
+            'locations'   => $locations,
         ]);
+    }
 
-        foreach ($this->ast->locations as $location) {
-            $directive->addLocation($location->name->value);
-        }
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->ast->name->value;
+    }
 
-        foreach ($this->ast->arguments as $arg) {
-            $directive->addArgument($this->buildArgumentDefinition($arg, $args));
-        }
-
-        return $directive;
+    /**
+     * @return array
+     */
+    public function getGenericArguments(): array
+    {
+        return [];
     }
 }

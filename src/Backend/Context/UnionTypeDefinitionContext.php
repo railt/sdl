@@ -11,22 +11,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use GraphQL\Contracts\TypeSystem\Type\InterfaceTypeInterface;
-use Railt\TypeSystem\Type\InterfaceType;
+use GraphQL\Contracts\TypeSystem\Type\UnionTypeInterface;
+use Railt\TypeSystem\Type\UnionType;
 
 /**
- * Class InterfaceTypeDefinitionContext
+ * Class UnionTypeDefinitionContext
  */
-final class InterfaceTypeDefinitionContext extends TypeDefinitionContext
+final class UnionTypeDefinitionContext extends TypeDefinitionContext
 {
     /**
      * @param array $args
-     * @return InterfaceTypeInterface
+     * @return UnionTypeInterface
      * @throws \Throwable
      */
-    public function build(array $args): InterfaceTypeInterface
+    public function build(array $args): UnionTypeInterface
     {
-        return new InterfaceType($this->getName(), [
+        return new UnionType($this->getName(), [
             'description' => $this->description($this->ast),
         ]);
     }

@@ -11,11 +11,13 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Linker;
 
+use GraphQL\Contracts\TypeSystem\DirectiveInterface;
 use GraphQL\Contracts\TypeSystem\Type\NamedTypeInterface;
 use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Source\Exception\NotAccessibleException;
 use Phplrt\Visitor\Visitor;
-use Railt\SDL\Backend\Context;
+use Railt\SDL\Backend\Context\Context;
+use Railt\SDL\Backend\Context\ContextInterface;
 use Railt\SDL\Exception\TypeNotFoundException;
 use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
 use Railt\SDL\Frontend\Ast\Executable\DirectiveNode;
@@ -23,6 +25,7 @@ use Railt\SDL\Frontend\Ast\Identifier;
 use Railt\SDL\Frontend\Ast\Type\NamedDirectiveNode;
 use Railt\SDL\Frontend\Ast\Type\NamedTypeNode;
 use Railt\SDL\Frontend\Ast\TypeName;
+use Railt\TypeSystem\Schema;
 
 /**
  * Class LinkerVisitor
@@ -40,9 +43,9 @@ class LinkerVisitor extends Visitor
     private const ERROR_DIRECTIVE_NOT_FOUND = 'Directive "@%s" not found or could not be loaded';
 
     /**
-     * @var Context
+     * @var ContextInterface
      */
-    private Context $context;
+    private ContextInterface $context;
 
     /**
      * @var LinkerInterface
@@ -57,10 +60,10 @@ class LinkerVisitor extends Visitor
     /**
      * LinkerVisitor constructor.
      *
-     * @param Context $context
+     * @param ContextInterface $context
      * @param LinkerInterface $linker
      */
-    public function __construct(Context $context, LinkerInterface $linker)
+    public function __construct(ContextInterface $context, LinkerInterface $linker)
     {
         $this->context = $context;
         $this->linker = $linker;
@@ -73,19 +76,10 @@ class LinkerVisitor extends Visitor
     public function enter(NodeInterface $node): void
     {
         if ($node instanceof TypeDefinitionNode && $node->name instanceof TypeName) {
-            $this->loadGenericArguments($node->name);
+            $map = fn(Identifier $name): string => $name->value;
+
+            $this->genericArguments = \array_map($map, $node->name->arguments);
         }
-    }
-
-    /**
-     * @param TypeName $type
-     * @return void
-     */
-    private function loadGenericArguments(TypeName $type): void
-    {
-        $map = fn(Identifier $name): string => $name->value;
-
-        $this->genericArguments = \array_map($map, $type->arguments);
     }
 
     /**
@@ -145,16 +139,24 @@ class LinkerVisitor extends Visitor
      */
     private function loadOr(string $type, \Closure $otherwise): void
     {
+        /** @var Schema $schema */
         $schema = $this->context->getSchema();
 
         foreach ($this->linker->getAutoloaders() as $autoloader) {
             $result = $autoloader($type);
 
             switch (true) {
+                // When autoload returns NamedTypeInterface
                 case $result instanceof NamedTypeInterface:
                     $schema->addType($result);
 
                     return;
+
+                // When autoload returns DirectiveInterface
+                case $result instanceof DirectiveInterface:
+                    $schema->addDirective($result);
+
+                    break;
             }
         }
 
@@ -180,9 +182,7 @@ class LinkerVisitor extends Visitor
      */
     private function assertDirectiveExists(NamedDirectiveNode $name): void
     {
-        $context = $this->context->getDirective($name->name->value);
-
-        if ($context === null) {
+        if (! $this->context->hasDirective($name->name->value)) {
             $this->loadOr('@' . $name->name->value, function () use ($name): void {
                 throw $this->directiveNotFound($name);
             });

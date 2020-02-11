@@ -13,12 +13,12 @@ namespace Railt\SDL;
 
 use GraphQL\Contracts\TypeSystem\SchemaInterface;
 use Phplrt\Contracts\Parser\ParserInterface;
-use Phplrt\Source\Exception\NotFoundException;
-use Phplrt\Source\Exception\NotReadableException;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
-use Railt\SDL\Backend\Context;
+use Railt\SDL\Backend\Context\Context;
+use Railt\SDL\Backend\Context\ContextInterface;
+use Railt\SDL\Backend\Context\GlobalContext;
 use Railt\SDL\Backend\HashTable;
 use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Compiler\ContextFacadeTrait;
@@ -39,7 +39,6 @@ final class Compiler implements CompilerInterface
     use ContextFacadeTrait;
     use HashTableFacadeTrait;
     use ValidatorFacadeTrait;
-    use NameResolverFacadeTrait;
     use SpecificationFacadeTrait;
     use DevelopmentModeFacadeTrait;
 
@@ -73,7 +72,6 @@ final class Compiler implements CompilerInterface
         $this->bootContextFacadeTrait();
         $this->bootHashTableFacadeTrait();
         $this->bootValidatorFacadeTrait();
-        $this->bootNameResolverFacadeTrait();
 
         $this->setSpecification($spec);
     }
@@ -106,12 +104,12 @@ final class Compiler implements CompilerInterface
 
     /**
      * @param iterable $ast
-     * @param Context $ctx
+     * @param GlobalContext $ctx
      * @param array $variables
      * @return SchemaInterface
      * @throws \Throwable
      */
-    private function backend(iterable $ast, Context $ctx, array $variables = []): SchemaInterface
+    private function backend(iterable $ast, GlobalContext $ctx, array $variables = []): SchemaInterface
     {
         $hash = $this->createVariablesContext($variables);
 

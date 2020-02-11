@@ -14,10 +14,15 @@ namespace Railt\SDL\Backend\Context;
 use GraphQL\Contracts\TypeSystem\DefinitionInterface;
 
 /**
- * Interface DefinitionContextInterface
+ * Interface LocalContextInterface
  */
-interface DefinitionContextInterface
+interface LocalContextInterface
 {
+    /**
+     * @return string
+     */
+    public function getName(): string;
+
     /**
      * @return array|string[]
      */
@@ -27,5 +32,5 @@ interface DefinitionContextInterface
      * @param array $args
      * @return DefinitionInterface
      */
-    public function resolve(array $args = []): DefinitionInterface;
+    public function build(array $args): DefinitionInterface;
 }

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler;
 
-use Railt\SDL\Backend\Context;
+use Railt\SDL\Backend\Context\GlobalContext;
 use Railt\TypeSystem\Schema;
 
 /**
@@ -19,21 +19,27 @@ use Railt\TypeSystem\Schema;
  */
 trait ContextFacadeTrait
 {
+    use NameResolverFacadeTrait;
     use SchemaFacadeTrait {
         setSchema as private _setSchema;
     }
 
     /**
-     * @var Context
+     * @var GlobalContext
      */
-    protected Context $context;
+    protected GlobalContext $context;
 
     /**
-     * @return Context
+     * @param Schema $schema
+     * @return $this
      */
-    public function getContext(): Context
+    public function setSchema(Schema $schema): self
     {
-        return $this->context;
+        $this->_setSchema($schema);
+
+        $this->context->setSchema($schema);
+
+        return $this;
     }
 
     /**
@@ -43,19 +49,8 @@ trait ContextFacadeTrait
     private function bootContextFacadeTrait(): void
     {
         $this->bootSchemaFacadeTrait();
+        $this->bootNameResolverFacadeTrait();
 
-        $this->context = new Context($this->getSchema());
-    }
-
-    /**
-     * @param Schema $schema
-     * @return $this
-     */
-    public function setSchema(Schema $schema): self
-    {
-        $this->_setSchema($schema);
-        $this->context->setSchema($schema);
-
-        return $this;
+        $this->context = new GlobalContext($this->getNameResolver(), $this->getSchema());
     }
 }

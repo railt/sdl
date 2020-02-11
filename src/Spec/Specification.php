@@ -72,18 +72,11 @@ abstract class Specification extends Visitor implements SpecificationInterface
     protected array $types = [];
 
     /**
-     * @var Traverser|TraverserInterface
-     */
-    private TraverserInterface $traverser;
-
-    /**
      * Specification constructor.
      */
     public function __construct()
     {
         $this->bootConstraints();
-
-        $this->traverser = new Traverser([$this]);
     }
 
     /**
@@ -98,15 +91,6 @@ abstract class Specification extends Visitor implements SpecificationInterface
         }
 
         $this->constraints = \array_unique($this->constraints);
-    }
-
-    /**
-     * @param iterable $ast
-     * @return iterable
-     */
-    public function execute(iterable $ast): iterable
-    {
-        return $this->traverser->traverse($ast);
     }
 
     /**
