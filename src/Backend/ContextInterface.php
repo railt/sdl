@@ -9,11 +9,12 @@
 
 declare(strict_types=1);
 
-namespace Railt\SDL\Backend\Context;
+namespace Railt\SDL\Backend;
 
 use GraphQL\Contracts\TypeSystem\DirectiveInterface;
 use GraphQL\Contracts\TypeSystem\SchemaInterface;
 use GraphQL\Contracts\TypeSystem\Type\TypeInterface;
+use Railt\SDL\Backend\Context\TypeLocatorInterface;
 
 /**
  * Interface ContextInterface
@@ -21,10 +22,10 @@ use GraphQL\Contracts\TypeSystem\Type\TypeInterface;
 interface ContextInterface
 {
     /**
-     * @param LocalContextInterface $context
+     * @param TypeLocatorInterface $context
      * @return void
      */
-    public function addType(LocalContextInterface $context): void;
+    public function addType(TypeLocatorInterface $context): void;
 
     /**
      * @param string $type
@@ -40,10 +41,10 @@ interface ContextInterface
     public function fetchType(string $type, array $args = []): TypeInterface;
 
     /**
-     * @param LocalContextInterface $context
+     * @param TypeLocatorInterface $context
      * @return void
      */
-    public function addDirective(LocalContextInterface $context): void;
+    public function addDirective(TypeLocatorInterface $context): void;
 
     /**
      * @param string $type

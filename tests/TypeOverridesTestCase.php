@@ -72,7 +72,6 @@ class TypeOverridesTestCase extends TestCase
     /**
      * @return void
      * @throws \Throwable
-     * @throws InvalidArgumentException
      */
     public function testDirectiveRedefineByDirective(): void
     {

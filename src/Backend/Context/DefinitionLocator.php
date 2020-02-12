@@ -17,7 +17,7 @@ use Railt\SDL\Frontend\Ast\Node;
 /**
  * Class DefinitionContext
  */
-abstract class DefinitionContext implements LocalContextInterface
+abstract class DefinitionLocator implements TypeLocatorInterface
 {
     /**
      * @var DefinitionNode

@@ -14,7 +14,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "TestQuery"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -31,7 +32,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "TestMutation"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -39,7 +41,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Example"
         },
         "description": null,

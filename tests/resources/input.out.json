@@ -15,7 +15,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "String"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": {
@@ -35,7 +36,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Int"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": {
                     "value": "\n    Description of \"answer\" field\n    "
@@ -54,7 +56,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "String"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -73,7 +76,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "String"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -83,7 +87,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "InputType"
         },
         "description": {
@@ -105,7 +110,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": {
                     "value": "\n    Description of \"annotatedField\" field\n    "
@@ -127,7 +133,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedInput"
         },
         "description": {

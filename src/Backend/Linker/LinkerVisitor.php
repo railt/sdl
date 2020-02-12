@@ -17,12 +17,12 @@ use Phplrt\Contracts\Ast\NodeInterface;
 use Phplrt\Source\Exception\NotAccessibleException;
 use Phplrt\Visitor\Visitor;
 use Railt\SDL\Backend\Context\Context;
-use Railt\SDL\Backend\Context\ContextInterface;
+use Railt\SDL\Backend\ContextInterface;
 use Railt\SDL\Exception\TypeNotFoundException;
 use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
 use Railt\SDL\Frontend\Ast\Executable\DirectiveNode;
+use Railt\SDL\Frontend\Ast\Extension\Type\TypeExtensionNode;
 use Railt\SDL\Frontend\Ast\Identifier;
-use Railt\SDL\Frontend\Ast\Type\NamedDirectiveNode;
 use Railt\SDL\Frontend\Ast\Type\NamedTypeNode;
 use Railt\SDL\Frontend\Ast\TypeName;
 use Railt\TypeSystem\Schema;
@@ -104,8 +104,9 @@ class LinkerVisitor extends Visitor
             // Note: Skip type loading if type is part of type template parameter.
             //
             case $node instanceof NamedTypeNode:
+            case $node instanceof TypeExtensionNode:
                 if (! \in_array($node->name->value, $this->genericArguments, true)) {
-                    $this->assertTypeExists($node);
+                    $this->assertTypeExists($node->name);
                 }
 
                 break;
@@ -114,19 +115,19 @@ class LinkerVisitor extends Visitor
             // Load all directive dependencies
             //
             case $node instanceof DirectiveNode:
-                $this->assertDirectiveExists($node->name);
+                $this->assertDirectiveExists($node);
                 break;
         }
     }
 
     /**
-     * @param NamedTypeNode $name
+     * @param Identifier $name
      * @return void
      */
-    private function assertTypeExists(NamedTypeNode $name): void
+    private function assertTypeExists(Identifier $name): void
     {
-        if (! $this->context->hasType($name->name->value)) {
-            $this->loadOr($name->name->value, function () use ($name): void {
+        if (! $this->context->hasType($name->value)) {
+            $this->loadOr($name->value, function () use ($name): void {
                 throw $this->typeNotFound($name);
             });
         }
@@ -164,41 +165,43 @@ class LinkerVisitor extends Visitor
     }
 
     /**
-     * @param NamedTypeNode $name
+     * @param Identifier $name
      * @return TypeNotFoundException
      * @throws NotAccessibleException
      * @throws \RuntimeException
      */
-    private function typeNotFound(NamedTypeNode $name): TypeNotFoundException
+    private function typeNotFound(Identifier $name): TypeNotFoundException
     {
-        $error = \sprintf(self::ERROR_TYPE_NOT_FOUND, $name->name->value);
+        $error = \sprintf(self::ERROR_TYPE_NOT_FOUND, $name->value);
 
-        return new TypeNotFoundException($error, $name);
+        return TypeNotFoundException::fromAst($error, $name);
     }
 
     /**
-     * @param NamedDirectiveNode $name
+     * @param DirectiveNode $directive
      * @return void
      */
-    private function assertDirectiveExists(NamedDirectiveNode $name): void
+    private function assertDirectiveExists(DirectiveNode $directive): void
     {
-        if (! $this->context->hasDirective($name->name->value)) {
-            $this->loadOr('@' . $name->name->value, function () use ($name): void {
-                throw $this->directiveNotFound($name);
+        $name = $directive->name->name->value;
+
+        if (! $this->context->hasDirective($name)) {
+            $this->loadOr('@' . $name, function () use ($directive): void {
+                throw $this->directiveNotFound($directive);
             });
         }
     }
 
     /**
-     * @param NamedDirectiveNode $name
+     * @param DirectiveNode $directive
      * @return TypeNotFoundException
      * @throws NotAccessibleException
      * @throws \RuntimeException
      */
-    private function directiveNotFound(NamedDirectiveNode $name): TypeNotFoundException
+    private function directiveNotFound(DirectiveNode $directive): TypeNotFoundException
     {
-        $error = \sprintf(self::ERROR_DIRECTIVE_NOT_FOUND, $name->name->value);
+        $error = \sprintf(self::ERROR_DIRECTIVE_NOT_FOUND, $directive->name->name->value);
 
-        return new TypeNotFoundException($error, $name);
+        return TypeNotFoundException::fromAst($error, $directive);
     }
 }

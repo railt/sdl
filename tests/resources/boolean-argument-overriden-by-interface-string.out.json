@@ -9,7 +9,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "IString"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
@@ -26,7 +27,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Boolean"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -42,7 +44,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "String"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -52,7 +55,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "TBoolean"
         },
         "description": null,
@@ -73,7 +77,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Boolean"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -89,7 +94,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "Boolean"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -99,7 +105,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "IString"
         },
         "description": null,

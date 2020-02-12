@@ -11,22 +11,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use GraphQL\Contracts\TypeSystem\Type\EnumTypeInterface;
-use Railt\TypeSystem\Type\EnumType;
+use GraphQL\Contracts\TypeSystem\Type\UnionTypeInterface;
+use Railt\TypeSystem\Type\UnionType;
 
 /**
- * Class EnumTypeDefinitionContext
+ * Class UnionTypeDefinitionContext
  */
-final class EnumTypeDefinitionContext extends TypeDefinitionContext
+final class UnionTypeDefinitionLocator extends TypeDefinitionLocator
 {
     /**
      * @param array $args
-     * @return EnumTypeInterface
+     * @return UnionTypeInterface
      * @throws \Throwable
      */
-    public function build(array $args): EnumTypeInterface
+    public function build(array $args): UnionTypeInterface
     {
-        return new EnumType($this->getName(), [
+        return new UnionType($this->getName(), [
             'description' => $this->description($this->ast),
         ]);
     }

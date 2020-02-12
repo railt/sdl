@@ -13,12 +13,11 @@ namespace Railt\SDL\Backend\Context;
 
 use Railt\SDL\Frontend\Ast\Definition\Type\TypeDefinitionNode;
 use Railt\SDL\Frontend\Ast\Identifier;
-use Railt\SDL\Frontend\Ast\Node;
 
 /**
  * @property-read TypeDefinitionNode $ast
  */
-abstract class TypeDefinitionContext extends DefinitionContext
+abstract class TypeDefinitionLocator extends DefinitionLocator
 {
     /**
      * @var string
@@ -40,7 +39,7 @@ abstract class TypeDefinitionContext extends DefinitionContext
         parent::__construct($ast);
 
         $this->name = $ast->name->value;
-        $this->args = \array_map(fn (Identifier $id) => $id->value, $ast->name->arguments);
+        $this->args = \array_map(fn(Identifier $id) => $id->value, $ast->name->arguments);
     }
 
     /**

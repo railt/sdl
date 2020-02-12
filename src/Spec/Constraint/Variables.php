@@ -32,6 +32,6 @@ class Variables extends Constraint
             return;
         }
 
-        throw new TypeErrorException(static::notSupported($spec), $node);
+        throw TypeErrorException::fromAst(static::notSupported($spec), $node);
     }
 }

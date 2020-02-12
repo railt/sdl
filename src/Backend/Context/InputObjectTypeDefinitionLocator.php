@@ -17,7 +17,7 @@ use Railt\TypeSystem\Type\InputObjectType;
 /**
  * Class InputObjectTypeDefinitionContext
  */
-final class InputObjectTypeDefinitionContext extends TypeDefinitionContext
+final class InputObjectTypeDefinitionLocator extends TypeDefinitionLocator
 {
     /**
      * @param array $args

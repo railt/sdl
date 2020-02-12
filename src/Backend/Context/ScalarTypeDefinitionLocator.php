@@ -11,22 +11,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use GraphQL\Contracts\TypeSystem\Type\InterfaceTypeInterface;
-use Railt\TypeSystem\Type\InterfaceType;
+use GraphQL\Contracts\TypeSystem\Type\ScalarTypeInterface;
+use Railt\TypeSystem\Type\ScalarType;
 
 /**
- * Class InterfaceTypeDefinitionContext
+ * Class ScalarTypeDefinitionContext
  */
-final class InterfaceTypeDefinitionContext extends TypeDefinitionContext
+final class ScalarTypeDefinitionLocator extends TypeDefinitionLocator
 {
     /**
      * @param array $args
-     * @return InterfaceTypeInterface
+     * @return ScalarTypeInterface
      * @throws \Throwable
      */
-    public function build(array $args): InterfaceTypeInterface
+    public function build(array $args): ScalarTypeInterface
     {
-        return new InterfaceType($this->getName(), [
+        return new ScalarType($this->getName(), [
             'description' => $this->description($this->ast),
         ]);
     }

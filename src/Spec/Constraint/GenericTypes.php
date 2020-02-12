@@ -33,7 +33,7 @@ class GenericTypes extends Constraint
         }
 
         if ($node->arguments !== []) {
-            throw new TypeErrorException(static::notSupported($spec), $node);
+            throw TypeErrorException::fromAst(static::notSupported($spec), $node);
         }
     }
 }

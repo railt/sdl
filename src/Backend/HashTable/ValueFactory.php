@@ -76,7 +76,7 @@ class ValueFactory
         try {
             return $this->create($value);
         } catch (\Throwable $e) {
-            throw new TypeErrorException($e->getMessage(), $context, $e);
+            throw TypeErrorException::fromAst($e->getMessage(), $context, $e);
         }
     }
 

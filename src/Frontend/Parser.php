@@ -13,6 +13,7 @@ namespace Railt\SDL\Frontend;
 
 use Phplrt\Contracts\Grammar\RuleInterface;
 use Phplrt\Contracts\Lexer\BufferInterface;
+use Phplrt\Contracts\Lexer\Exception\LexerRuntimeExceptionInterface;
 use Phplrt\Contracts\Lexer\LexerInterface;
 use Phplrt\Contracts\Lexer\TokenInterface;
 use Phplrt\Contracts\Source\ReadableInterface;
@@ -80,7 +81,7 @@ final class Parser extends BaseParser implements BuilderInterface
         } catch (SyntaxErrorException $e) {
             throw $e;
         } catch (\Exception $e) {
-            throw new SyntaxErrorException($e->getMessage(), $file, $token->getOffset());
+            throw SyntaxErrorException::fromToken($e->getMessage(), $file, $token);
         }
     }
 
@@ -93,8 +94,10 @@ final class Parser extends BaseParser implements BuilderInterface
 
         try {
             return parent::parse($source);
-        } catch (ParserRuntimeException $e) {
-            throw new SyntaxErrorException($e->getMessage(), $source, $e->getToken()->getOffset());
+        } catch (ParserRuntimeException|LexerRuntimeExceptionInterface $e) {
+            $token = $e->getToken();
+
+            throw SyntaxErrorException::fromToken($e->getMessage(), $source, $token);
         }
     }
 

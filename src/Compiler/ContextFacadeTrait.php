@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Compiler;
 
-use Railt\SDL\Backend\Context\GlobalContext;
+use Railt\SDL\Backend\ExecutionContext;
 use Railt\TypeSystem\Schema;
 
 /**
@@ -25,9 +25,9 @@ trait ContextFacadeTrait
     }
 
     /**
-     * @var GlobalContext
+     * @var ExecutionContext
      */
-    protected GlobalContext $context;
+    protected ExecutionContext $context;
 
     /**
      * @param Schema $schema
@@ -51,6 +51,6 @@ trait ContextFacadeTrait
         $this->bootSchemaFacadeTrait();
         $this->bootNameResolverFacadeTrait();
 
-        $this->context = new GlobalContext($this->getNameResolver(), $this->getSchema());
+        $this->context = new ExecutionContext($this->getNameResolver(), $this->getSchema());
     }
 }

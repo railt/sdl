@@ -43,7 +43,7 @@
 %token T_STRING                 "([^"\\]*(?:\\.[^"\\]*)*)"
 
 /**
- * Common
+ * Keywords
  */
 
 %token T_TYPE                   (?<=\b)type\b
@@ -60,6 +60,10 @@
 %token T_SUBSCRIPTION           (?<=\b)subscription\b
 %token T_EXTEND                 (?<=\b)extend\b
 %token T_EXTENDS                (?<=\b)extends\b
+%token T_IN                     (?<=\b)in\b
+%token T_OUT                    (?<=\b)out\b
+%token T_PUBLIC                 (?<=\b)public\b
+%token T_PRIVATE                (?<=\b)private\b
 %token T_IMPLEMENTS             (?<=\b)implements\b
 %token T_REPEATABLE             (?<=\b)repeatable\b
 

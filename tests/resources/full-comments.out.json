@@ -12,7 +12,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "QueryType"
-                    }
+                    },
+                    "arguments": []
                 }
             },
             {
@@ -23,7 +24,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "MutationType"
-                    }
+                    },
+                    "arguments": []
                 }
             }
         ]
@@ -41,7 +43,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "MutationType"
-                    }
+                    },
+                    "arguments": []
                 }
             },
             {
@@ -52,7 +55,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "QueryType"
-                    }
+                    },
+                    "arguments": []
                 }
             }
         ]
@@ -67,7 +71,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Bar"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
@@ -84,7 +89,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -101,7 +107,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -119,7 +126,8 @@
                                 "name": {
                                     "kind": "Identifier",
                                     "value": "InputType"
-                                }
+                                },
+                                "arguments": []
                             }
                         },
                         "description": null,
@@ -139,7 +147,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Int"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -155,7 +164,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "InputType"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -172,7 +182,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "String"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -191,7 +202,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "String"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -207,7 +219,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "String"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -228,7 +241,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "String"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -246,7 +260,8 @@
                                 "name": {
                                     "kind": "Identifier",
                                     "value": "String"
-                                }
+                                },
+                                "arguments": []
                             }
                         },
                         "description": null,
@@ -266,7 +281,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -282,7 +298,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "InputType"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -301,7 +318,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -317,7 +335,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "Int"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -327,7 +346,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Foo"
         },
         "description": null,
@@ -348,7 +368,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [
@@ -376,7 +397,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "Type"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [
@@ -400,7 +422,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedObject"
         },
         "description": null,
@@ -452,7 +475,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -469,7 +493,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "String"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -485,7 +510,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "String"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -497,7 +523,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Bar"
         },
         "description": null,
@@ -518,7 +545,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [
@@ -546,7 +574,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "Type"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [
@@ -568,7 +597,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedInterface"
         },
         "description": null,
@@ -596,7 +626,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Story"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -607,7 +638,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Article"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -618,13 +650,15 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Advert"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Feed"
         },
         "description": null,
@@ -640,7 +674,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "A"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -651,13 +686,15 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "B"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedUnion"
         },
         "description": null,
@@ -685,7 +722,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "A"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -696,13 +734,15 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "B"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedUnionTwo"
         },
         "description": null,
@@ -723,7 +763,8 @@
     {
         "kind": "ScalarTypeDefinition",
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "CustomScalar"
         },
         "description": null,
@@ -732,7 +773,8 @@
     {
         "kind": "ScalarTypeDefinition",
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedScalar"
         },
         "description": null,
@@ -773,7 +815,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Site"
         },
         "description": null,
@@ -814,7 +857,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedEnum"
         },
         "description": null,
@@ -848,7 +892,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "String"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": null,
@@ -866,7 +911,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Int"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -874,7 +920,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "InputType"
         },
         "description": null,
@@ -894,7 +941,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [
@@ -914,7 +962,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedInput"
         },
         "description": null,
@@ -947,7 +996,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Type"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -965,7 +1015,8 @@
                                 "name": {
                                     "kind": "Identifier",
                                     "value": "String"
-                                }
+                                },
+                                "arguments": []
                             }
                         },
                         "description": null,
@@ -976,7 +1027,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Foo"
         },
         "directives": []
@@ -986,7 +1038,8 @@
         "interfaces": [],
         "fields": [],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Foo"
         },
         "directives": [
@@ -1008,7 +1061,8 @@
         "interfaces": [],
         "fields": [],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "NoFields"
         },
         "description": null,
@@ -1062,7 +1116,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "Boolean"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": null,
@@ -1119,7 +1174,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "Boolean"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": null,
@@ -1176,7 +1232,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "Boolean"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": null,

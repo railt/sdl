@@ -47,7 +47,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "Boolean"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": null,
@@ -104,7 +105,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "Boolean"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": null,
@@ -161,7 +163,8 @@
                         "name": {
                             "kind": "Identifier",
                             "value": "Boolean"
-                        }
+                        },
+                        "arguments": []
                     }
                 },
                 "description": null,

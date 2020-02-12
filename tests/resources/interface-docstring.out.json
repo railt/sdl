@@ -14,7 +14,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "TestQuery"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": {
                     "value": "\n    Description of \"a\" field\n    "
@@ -33,7 +34,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "TestMutation"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": {
                     "value": "Description of \"b\" field"
@@ -43,7 +45,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Example"
         },
         "description": {

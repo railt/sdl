@@ -9,7 +9,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "IInt"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
@@ -26,7 +27,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Int"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -34,7 +36,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "TInt"
         },
         "description": null,
@@ -55,7 +58,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Int"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -63,7 +67,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "IInt"
         },
         "description": null,

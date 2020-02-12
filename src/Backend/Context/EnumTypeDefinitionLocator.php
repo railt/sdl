@@ -11,22 +11,22 @@ declare(strict_types=1);
 
 namespace Railt\SDL\Backend\Context;
 
-use GraphQL\Contracts\TypeSystem\Type\ObjectTypeInterface;
-use Railt\TypeSystem\Type\ObjectType;
+use GraphQL\Contracts\TypeSystem\Type\EnumTypeInterface;
+use Railt\TypeSystem\Type\EnumType;
 
 /**
- * Class ObjectTypeDefinitionContext
+ * Class EnumTypeDefinitionContext
  */
-final class ObjectTypeDefinitionContext extends TypeDefinitionContext
+final class EnumTypeDefinitionLocator extends TypeDefinitionLocator
 {
     /**
      * @param array $args
-     * @return ObjectTypeInterface
+     * @return EnumTypeInterface
      * @throws \Throwable
      */
-    public function build(array $args): ObjectTypeInterface
+    public function build(array $args): EnumTypeInterface
     {
-        return new ObjectType($this->getName(), [
+        return new EnumType($this->getName(), [
             'description' => $this->description($this->ast),
         ]);
     }

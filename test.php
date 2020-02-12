@@ -1,22 +1,28 @@
 <?php
 
 use Railt\SDL\Compiler;
-use Railt\SDL\Spec\RawSpecification;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$compiler = (new Compiler(new RawSpecification()));
+$compiler = (new Compiler());
 $compiler->rebuild();
 
-$schema = $compiler->compile('
-    "descr" directive @a repeatable on FIELD_DEFINITION
-    "descr" enum A 
-    "descr" interface B<T> implements C<T> {}
-    "descr" type C implements B<C> {
-        field(arg: C = $var): C
+$schema = $compiler->compile(/** @lang Gherkin */'
+    type Paginator<out T> {
+        items: [T!]!
     }
-    "descr" scalar D
-    "descr" union E
+
+    type Storage<in T> {
+        put(value: T): Any
+    }
+
+    type Users {
+        storage: Storage<UserInput>
+        all: Paginator<User>
+    }
+
+    type User {}
+    input UserInput {}
 ');
 
 

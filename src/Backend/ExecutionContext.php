@@ -9,27 +9,28 @@
 
 declare(strict_types=1);
 
-namespace Railt\SDL\Backend\Context;
+namespace Railt\SDL\Backend;
 
 use GraphQL\Contracts\TypeSystem\DirectiveInterface;
 use GraphQL\Contracts\TypeSystem\SchemaInterface;
 use GraphQL\Contracts\TypeSystem\Type\NamedTypeInterface;
 use GraphQL\Contracts\TypeSystem\Type\TypeInterface;
+use Railt\SDL\Backend\Context\TypeLocatorInterface;
 use Railt\SDL\Backend\NameResolver\NameResolverInterface;
 use Railt\TypeSystem\Schema;
 
 /**
- * Class GlobalContext
+ * Class ExecutionContext
  */
-class GlobalContext implements ContextInterface
+class ExecutionContext implements ContextInterface
 {
     /**
-     * @var array|LocalContextInterface[]
+     * @var array|TypeLocatorInterface[]
      */
     public array $types;
 
     /**
-     * @var array|LocalContextInterface[]
+     * @var array|TypeLocatorInterface[]
      */
     public array $directives;
 
@@ -73,13 +74,13 @@ class GlobalContext implements ContextInterface
     }
 
     /**
-     * @param LocalContextInterface $context
+     * @param TypeLocatorInterface $context
      * @return void
      */
-    public function addType(LocalContextInterface $context): void
+    public function addType(TypeLocatorInterface $context): void
     {
         if ($context->getGenericArguments() === []) {
-            /** @var TypeInterface $type */
+            /** @var NamedTypeInterface $type */
             $type = $context->build([]);
 
             $this->schema->addType($type);
@@ -115,10 +116,10 @@ class GlobalContext implements ContextInterface
     }
 
     /**
-     * @param LocalContextInterface $context
+     * @param TypeLocatorInterface $context
      * @return void
      */
-    public function addDirective(LocalContextInterface $context): void
+    public function addDirective(TypeLocatorInterface $context): void
     {
         if ($context->getGenericArguments() === []) {
             /** @var DirectiveInterface $directive */

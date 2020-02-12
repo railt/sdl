@@ -9,7 +9,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Story"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -20,7 +21,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Article"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -31,13 +33,15 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "Advert"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Feed"
         },
         "description": {
@@ -55,7 +59,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "A"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -66,13 +71,15 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "B"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedUnion"
         },
         "description": {
@@ -102,7 +109,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "A"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             },
@@ -113,13 +121,15 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "B"
-                    }
+                    },
+                    "arguments": []
                 },
                 "loc": null
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "AnnotatedUnionTwo"
         },
         "description": {

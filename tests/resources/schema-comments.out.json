@@ -12,7 +12,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "TestQuery"
-                    }
+                    },
+                    "arguments": []
                 }
             },
             {
@@ -23,7 +24,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "TestMutation"
-                    }
+                    },
+                    "arguments": []
                 }
             }
         ]

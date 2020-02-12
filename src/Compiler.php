@@ -16,18 +16,14 @@ use Phplrt\Contracts\Parser\ParserInterface;
 use Psr\Log\LoggerInterface;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
-use Railt\SDL\Backend\Context\Context;
-use Railt\SDL\Backend\Context\ContextInterface;
-use Railt\SDL\Backend\Context\GlobalContext;
+use Railt\SDL\Backend\ExecutionContext;
 use Railt\SDL\Backend\HashTable;
 use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Compiler\ContextFacadeTrait;
 use Railt\SDL\Compiler\DevelopmentModeFacadeTrait;
 use Railt\SDL\Compiler\HashTableFacadeTrait;
 use Railt\SDL\Compiler\LinkerFacadeTrait;
-use Railt\SDL\Compiler\NameResolverFacadeTrait;
 use Railt\SDL\Compiler\SpecificationFacadeTrait;
-use Railt\SDL\Compiler\ValidatorFacadeTrait;
 use Railt\SDL\Spec\SpecificationInterface;
 
 /**
@@ -38,7 +34,6 @@ final class Compiler implements CompilerInterface
     use LinkerFacadeTrait;
     use ContextFacadeTrait;
     use HashTableFacadeTrait;
-    use ValidatorFacadeTrait;
     use SpecificationFacadeTrait;
     use DevelopmentModeFacadeTrait;
 
@@ -71,7 +66,6 @@ final class Compiler implements CompilerInterface
         $this->bootLinkerFacadeTrait();
         $this->bootContextFacadeTrait();
         $this->bootHashTableFacadeTrait();
-        $this->bootValidatorFacadeTrait();
 
         $this->setSpecification($spec);
     }
@@ -104,12 +98,12 @@ final class Compiler implements CompilerInterface
 
     /**
      * @param iterable $ast
-     * @param GlobalContext $ctx
+     * @param ExecutionContext $ctx
      * @param array $variables
      * @return SchemaInterface
      * @throws \Throwable
      */
-    private function backend(iterable $ast, GlobalContext $ctx, array $variables = []): SchemaInterface
+    private function backend(iterable $ast, ExecutionContext $ctx, array $variables = []): SchemaInterface
     {
         $hash = $this->createVariablesContext($variables);
 

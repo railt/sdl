@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 use Psr\SimpleCache\InvalidArgumentException;
 use Railt\SDL\Compiler;
 use Railt\SDL\Spec\SpecificationInterface;
+use Railt\TypeSystem\Schema;
 
 /**
  * Class TestCase
@@ -25,8 +26,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * @param string $source
      * @param SpecificationInterface|null $spec
-     * @return SchemaInterface
-     * @throws InvalidArgumentException
+     * @return SchemaInterface|Schema
      * @throws \Throwable
      */
     protected function compile(string $source, SpecificationInterface $spec = null): SchemaInterface

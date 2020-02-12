@@ -19,7 +19,7 @@ use Railt\TypeSystem\Directive;
 /**
  * @property-read DirectiveDefinitionNode $ast
  */
-final class DirectiveDefinitionContext extends DefinitionContext
+final class DirectiveDefinitionLocator extends DefinitionLocator
 {
     /**
      * @param array $args

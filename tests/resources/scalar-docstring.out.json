@@ -2,7 +2,8 @@
     {
         "kind": "ScalarTypeDefinition",
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Test"
         },
         "description": {
@@ -13,7 +14,8 @@
     {
         "kind": "ScalarTypeDefinition",
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Test2"
         },
         "description": {

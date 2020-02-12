@@ -124,6 +124,6 @@ final class HashTable implements HashTableInterface
 
         $error = \sprintf('Undefined variable $%s', $name);
 
-        throw new RuntimeErrorException($error, $ctx);
+        throw RuntimeErrorException::fromAst($error, $ctx);
     }
 }

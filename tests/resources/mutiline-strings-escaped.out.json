@@ -14,7 +14,8 @@
                     "name": {
                         "kind": "Identifier",
                         "value": "String"
-                    }
+                    },
+                    "arguments": []
                 },
                 "description": null,
                 "directives": [],
@@ -30,7 +31,8 @@
                             "name": {
                                 "kind": "Identifier",
                                 "value": "String"
-                            }
+                            },
+                            "arguments": []
                         },
                         "description": null,
                         "directives": [],
@@ -42,7 +44,8 @@
             }
         ],
         "name": {
-            "kind": "Identifier",
+            "kind": "TypeName",
+            "arguments": [],
             "value": "Some"
         },
         "description": null,

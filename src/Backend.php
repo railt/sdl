@@ -14,11 +14,11 @@ namespace Railt\SDL;
 use GraphQL\Contracts\TypeSystem\SchemaInterface;
 use Phplrt\Visitor\Traverser;
 use Phplrt\Visitor\TraverserInterface;
-use Railt\SDL\Backend\Context\ContextInterface;
+use Railt\SDL\Backend\ContextInterface;
 use Railt\SDL\Backend\HashTable\VariablesVisitor;
 use Railt\SDL\Backend\HashTableInterface;
 use Railt\SDL\Backend\Linker\LinkerVisitor;
-use Railt\SDL\Backend\TypeBuilderVisitor;
+use Railt\SDL\Backend\SymbolTableBuilderVisitor;
 use Railt\SDL\Frontend\Ast\Node;
 
 /**
@@ -54,7 +54,7 @@ class Backend
 
         $this->traverser = new Traverser([
             $compiler->getSpecification(),
-            new TypeBuilderVisitor($ctx),
+            new SymbolTableBuilderVisitor($ctx),
         ]);
     }
 

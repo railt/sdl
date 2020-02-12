@@ -37,7 +37,7 @@ class RepeatableDirectives extends Constraint
         }
 
         if ($node->repeatable) {
-            throw new TypeErrorException(static::notSupported($spec), $node);
+            throw TypeErrorException::fromAst(static::notSupported($spec), $node);
         }
     }
 }

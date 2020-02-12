@@ -16,7 +16,7 @@ use GraphQL\Contracts\TypeSystem\DefinitionInterface;
 /**
  * Interface LocalContextInterface
  */
-interface LocalContextInterface
+interface TypeLocatorInterface
 {
     /**
      * @return string
