@@ -1,40 +1,33 @@
 <?php
 
-/**
- * This file is part of Railt package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace Railt\SDL;
 
-use GraphQL\Contracts\TypeSystem\SchemaInterface;
-use Phplrt\Contracts\Source\ReadableInterface;
+use Railt\TypeSystem\DictionaryInterface;
 
-/**
- * Interface CompilerInterface
- */
-interface CompilerInterface
+interface CompilerInterface extends TypeLoaderInterface
 {
     /**
-     * Loads GraphQL source into the compiler.
-     *
-     * @param ReadableInterface|string|resource|mixed $source
-     * @param array $variables
-     * @return CompilerInterface|$this
+     * Returns the current list of registered types.
      */
-    public function preload($source, array $variables = []): self;
+    public function getTypes(): DictionaryInterface;
 
     /**
-     * Compiles the sources and all previously loaded types
-     * into the final document.
+     * Parses the GraphQL SDL source code and loads the recognized types
+     * into the dictionary.
      *
-     * @param ReadableInterface|string|resource|mixed $source
-     * @param array $variables
-     * @return SchemaInterface
+     * @param string|resource|\SplFileInfo $source
+     * @param array<non-empty-string, mixed> $variables
      */
-    public function compile($source, array $variables = []): SchemaInterface;
+    public function load(mixed $source, array $variables = []): DictionaryInterface;
+
+    /**
+     * Parses the GraphQL SDL source code and returns a list of loaded
+     * types for the specified source.
+     *
+     * @param string|resource|\SplFileInfo $source
+     * @param array<non-empty-string, mixed> $variables
+     */
+    public function compile(mixed $source, array $variables = []): DictionaryInterface;
 }

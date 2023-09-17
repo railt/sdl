@@ -1,5 +1,0 @@
-
-%include "common/name"
-%include "common/description"
-%include "common/type-hint"
-%include "common/values"

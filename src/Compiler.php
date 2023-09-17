@@ -1,149 +1,182 @@
 <?php
 
-/**
- * This file is part of Railt package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace Railt\SDL;
 
-use GraphQL\Contracts\TypeSystem\SchemaInterface;
-use Phplrt\Contracts\Parser\ParserInterface;
-use Psr\Log\LoggerInterface;
+use Phplrt\Contracts\Source\ReadableInterface;
+use Phplrt\Source\File;
 use Psr\SimpleCache\CacheInterface;
 use Psr\SimpleCache\InvalidArgumentException;
-use Railt\SDL\Backend\ExecutionContext;
-use Railt\SDL\Backend\HashTable;
-use Railt\SDL\Backend\HashTableInterface;
-use Railt\SDL\Compiler\ContextFacadeTrait;
-use Railt\SDL\Compiler\DevelopmentModeFacadeTrait;
-use Railt\SDL\Compiler\HashTableFacadeTrait;
-use Railt\SDL\Compiler\LinkerFacadeTrait;
-use Railt\SDL\Compiler\SpecificationFacadeTrait;
-use Railt\SDL\Spec\SpecificationInterface;
+use Railt\SDL\Compiler\Command\CompileCommand;
+use Railt\SDL\Compiler\Command\Evaluate\GenerateSchemaCommand;
+use Railt\SDL\Compiler\Context;
+use Railt\SDL\Compiler\Exception\FormatterInterface;
+use Railt\SDL\Compiler\Exception\PrettyFormatter;
+use Railt\SDL\Compiler\Queue;
+use Railt\SDL\Compiler\TypeLoader;
+use Railt\SDL\Exception\ParsingException;
+use Railt\SDL\Exception\RuntimeExceptionInterface;
+use Railt\SDL\Node\Node;
+use Railt\SDL\Parser\CachedParser;
+use Railt\SDL\Parser\Parser;
+use Railt\SDL\Parser\ParserInterface;
+use Railt\TypeSystem\DictionaryInterface;
 
-/**
- * Class Compiler
- */
 final class Compiler implements CompilerInterface
 {
-    use LinkerFacadeTrait;
-    use ContextFacadeTrait;
-    use HashTableFacadeTrait;
-    use SpecificationFacadeTrait;
-    use DevelopmentModeFacadeTrait;
+    private Dictionary $types;
 
-    /**
-     * @var bool
-     */
-    private bool $booted = false;
+    private readonly ParserInterface $parser;
+    private readonly TypeLoader $loader;
+    private readonly FormatterInterface $exceptions;
 
-    /**
-     * @var ParserInterface
-     */
-    private ParserInterface $frontend;
-
-    /**
-     * Compiler constructor.
-     *
-     * @param SpecificationInterface $spec
-     * @param CacheInterface|null $cache
-     * @param LoggerInterface|null $logger
-     * @throws \Throwable
-     */
     public function __construct(
-        SpecificationInterface $spec = null,
-        CacheInterface $cache = null,
-        LoggerInterface $logger = null
+        public readonly Config $config = new Config(),
+        ?CacheInterface $cache = null,
+        DictionaryInterface $types = new Dictionary(),
     ) {
-        $this->logger = $logger;
-        $this->frontend = new Frontend($cache);
+        $this->types = Dictionary::fromDictionary($types);
 
-        $this->bootLinkerFacadeTrait();
-        $this->bootContextFacadeTrait();
-        $this->bootHashTableFacadeTrait();
+        $this->parser = $this->bootParser($cache);
+        $this->exceptions = $this->bootExceptionFormatter();
+        $this->loader = $this->bootTypeLoader();
+    }
 
-        $this->setSpecification($spec);
+    private function bootExceptionFormatter(): FormatterInterface
+    {
+        return new PrettyFormatter();
+    }
+
+    private function bootTypeLoader(): TypeLoader
+    {
+        return new TypeLoader([
+            new StandardLibraryLoader(
+                config: $this->config,
+            ),
+        ]);
+    }
+
+    private function bootParser(?CacheInterface $cache = null): ParserInterface
+    {
+        $parser = new Parser();
+
+        if ($cache === null) {
+            return $parser;
+        }
+
+        return new CachedParser($cache, $parser);
+    }
+
+    public function getTypes(): Dictionary
+    {
+        return $this->types;
+    }
+
+    public function addLoader(callable $loader): void
+    {
+        $this->loader->addLoader($loader);
+    }
+
+    public function removeLoader(callable $loader): void
+    {
+        $this->loader->removeLoader($loader);
+    }
+
+    public function getLoaders(): iterable
+    {
+        return $this->loader->getLoaders();
     }
 
     /**
-     * {@inheritDoc}
-     * @throws \Throwable
-     * @throws InvalidArgumentException
+     * @param array<non-empty-string, mixed> $variables
      */
-    public function preload($source, array $variables = []): self
+    private function createContext(Dictionary $types, array $variables): Context
     {
-        $this->bootIfNotBooted();
-
-        $this->backend($this->frontend($source), $this->context, $variables);
-
-        return $this;
+        return new Context(
+            variables: $variables,
+            queue: new Queue(),
+            types: $types,
+            config: $this->config,
+            loader: $this->loader,
+            process: $this->subprocess(...),
+        );
     }
 
     /**
-     * @return void
+     * @throws RuntimeExceptionInterface
      */
-    private function bootIfNotBooted(): void
+    private function subprocess(ReadableInterface $source, Context $context): void
     {
-        if ($this->booted === false) {
-            $this->booted = true;
+        $this->process($source, clone $context);
+    }
 
-            $this->bootSpecificationFacadeTrait();
+    /**
+     * @throws RuntimeExceptionInterface
+     * @throws ParsingException
+     */
+    private function process(ReadableInterface $source, Context $context): void
+    {
+        /** @var iterable<Node> $nodes */
+        $nodes = $this->parser->parse($source);
+
+        $context->exec(new CompileCommand($context, $nodes));
+
+        foreach ($context as $command) {
+            $context->exec($command);
         }
     }
 
     /**
-     * @param iterable $ast
-     * @param ExecutionContext $ctx
-     * @param array $variables
-     * @return SchemaInterface
-     * @throws \Throwable
+     * @throws RuntimeExceptionInterface
      */
-    private function backend(iterable $ast, ExecutionContext $ctx, array $variables = []): SchemaInterface
+    private function eval(ReadableInterface $source, Context $context): Dictionary
     {
-        $hash = $this->createVariablesContext($variables);
+        try {
+            $this->process(File::new($source), $context);
 
-        $executor = new Backend($this, $ctx);
-
-        return $executor->run($ast, $hash);
+            return $context->types;
+        } catch (RuntimeExceptionInterface $e) {
+            throw $this->exceptions->format($e);
+        }
     }
 
     /**
-     * @param array $variables
-     * @return HashTableInterface
-     */
-    private function createVariablesContext(array $variables = []): HashTableInterface
-    {
-        return new HashTable($this->getValueFactory(), $variables, $this->getVariables());
-    }
-
-    /**
-     * @param mixed $source
-     * @return iterable
      * @throws InvalidArgumentException
-     * @throws \Throwable
+     * @throws RuntimeExceptionInterface
      */
-    private function frontend($source): iterable
+    public function load(mixed $source, array $variables = []): DictionaryInterface
     {
-        return $this->frontend->parse($source);
+        $source = File::new($source);
+
+        $context = $this->createContext(clone $this->types, $variables);
+
+        return $this->eval($source, $context);
     }
 
     /**
-     * {@inheritDoc}
-     * @throws \Throwable
+     * @throws InvalidArgumentException
+     * @throws RuntimeExceptionInterface
      */
-    public function compile($source, array $variables = []): SchemaInterface
+    public function compile(mixed $source, array $variables = []): DictionaryInterface
     {
-        $this->bootIfNotBooted();
+        $source = File::new($source);
+
+        $context = $this->createContext(clone $this->types, $variables);
+
+        $result = $this->eval($source, $context);
 
         try {
-            return $this->backend($this->frontend($source), clone $this->context, $variables);
-        } catch (InvalidArgumentException $e) {
-            throw new \InvalidArgumentException($e->getMessage());
+            $context->exec(new GenerateSchemaCommand($context));
+        } catch (RuntimeExceptionInterface $e) {
+            throw $this->exceptions->format($e);
         }
+
+        return $result;
+    }
+
+    public function __clone()
+    {
+        $this->types = clone $this->types;
     }
 }

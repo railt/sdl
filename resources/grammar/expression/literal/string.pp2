@@ -1,0 +1,35 @@
+
+/**
+ * --------------------------------------------------------------------------
+ *  GraphQL Strings and Block Strings
+ * --------------------------------------------------------------------------
+ *
+ * Strings are sequences of characters wrapped in double‐quotes (").
+ * (ex. "Hello World"). White space and other otherwise‐ignored characters
+ * are significant within a string value.
+ *
+ * Block strings are sequences of characters wrapped in triple‐quotes
+ * ("""). White space, line terminators, quote, and backslash characters
+ * may all be used unescaped to enable verbatim text.
+ *
+ * @see https://facebook.github.io/graphql/June2018/#sec-String-Value
+ */
+
+StringLiteral
+  : BlockStringLiteral()
+  | InlineStringLiteral()
+  ;
+
+BlockStringLiteral -> {
+    return $this->stringPool[$children]
+        ??= Expr\Literal\StringLiteralNode::parseMultilineString($children->getValue());
+}
+  : <T_BLOCK_STRING>
+  ;
+
+InlineStringLiteral -> {
+    return $this->stringPool[$children]
+        ??= Expr\Literal\StringLiteralNode::parseInlineString($children->getValue());
+}
+  : <T_STRING>
+  ;
